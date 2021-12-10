@@ -19,6 +19,8 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { useMemo } from 'react';
 
+const network = proces.env.NEXT_APP_RPC_URL;
+
 // ive decided not to add signing to any transaction because
 // wallets automatically sign. therefore if a wallet does not have
 // proper authority, they can not be invoking a certain function
