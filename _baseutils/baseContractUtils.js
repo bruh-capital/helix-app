@@ -2,12 +2,16 @@ import * as anchor from "@project-serum/anchor";
 import {PublicKey} from "@solana/web3.js";
 import * as splToken from '@project-serum/anchor';
 
-export const PROGRAM_ID = new PublicKey(idl.metadata.address);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// CONSTS
+export const HELIX_PROGRAM = new anchor.web3.PublicKey(
+	"Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+);
 
-const program = new Program(idl, PROGRAM_ID, provider);
-const programMultisigWallet = new PublicKey("2to8Y37AJAsCT7XFpSrvidTpSoF13L8pLM1pWoTgSprd");
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS
 export const InitializeMint = async (wallet) => {
+	program
 	const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
 		[Buffer.from("initmint"), PROGRAM_ID.toBuffer()],
 		PROGRAM_ID

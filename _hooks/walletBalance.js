@@ -5,7 +5,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const BalanceContext = createContext(null);
 
-const rpcUrl = process.env.NEXT_APP_RPC_URL;
+//const rpcUrl = process.env.NEXT_APP_RPC_URL;
+const rpcUrl = "http://localhost:8899";
 const connection = new anchor.web3.Connection(rpcUrl);
 
 export default function useWalletBalance() {

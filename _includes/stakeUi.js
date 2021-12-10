@@ -1,35 +1,50 @@
 import { useState } from "react";
+import { Stake, Unstake } from "@baseutils/baseContractUtils";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export default function StakeInterface(props) {
-	const [operation, setOperation] = useState("Stake");
+	// State Stuff
+	const [ operation, setOperation ] = useState("Stake");
+	const [ amount, setAmount ] = useState(0);
+
+	const wallet = useWallet();
 
 	return(
 		<div className="card flex justify-center bg-white p-10">
 			<div className="card-body">
 				<h2 className="card-title text-black">{operation}</h2>
+					<div className="grid grid-rows-1 grid-flow-col gap-4">
 				{
 					operation ===  "Stake" ? 
 					(
-						<div className="grid grid-rows-1 grid-flow-col gap-4">
+						<>
 							<input
 								type="number"
 								placeholder="stake amount"
 								className="input input-bordered"
+								value={amount}
+								onChange={(e) => setAmount(e.target.value)}
 							/>
 							<button className="btn btn-primary">Enter</button>
-						</div>
+						</>
 					)
 					: (
-						<div className="grid grid-rows-1 grid-flow-col gap-4">
+						<>
 							<input 
 								type="number"
 								placeholder="unstake amount"
 								className="input input-bordered"
+								value={amount}
+								onChange={(e) => setAmount(e.target.value)}
 							/>
-							<button className="btn btn-primary">Enter</button>
-						</div>
+							<button 
+								className="btn btn-primary"
+								//onClick={() => Unstake(wallet, )}
+							>Enter</button>
+						</>
 					)
 				}
+				</div>
 			</div>
 			<div className="tabs tabs-boxed">
 				<button
