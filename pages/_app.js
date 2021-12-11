@@ -14,7 +14,6 @@ if (typeof window !== "undefined") {
   WALLETS = require("@solana/wallet-adapter-wallets");
 }
 
-import { WalletBalanceProvider } from '@hooks/walletBalance';
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
@@ -44,9 +43,7 @@ function MyApp({ Component, pageProps }) {
     <ConnectionProvider endpoint={network} >
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <WalletBalanceProvider>
-            <Component {...pageProps} />
-          </WalletBalanceProvider>
+          <Component {...pageProps} />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

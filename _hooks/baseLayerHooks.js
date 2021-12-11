@@ -1,9 +1,9 @@
 import * as anchor from "@project-serum/anchor";
-
 import { 
 	Stake,
 	Unstake,
 } from "@baseutils/baseContractUtils";
+import { useEffect } from "react";
 
 /// Connection + Usage Vars
 const programAddr = new anchor.web3.PublicKey(
@@ -19,8 +19,20 @@ const txTimeout = 30000;
 /**
  * 
  * @param {number} amount how much does the user want to stake 
- * @returns {{}}
+ * @returns {{bigass tuple of functions}}
  */
-export function UseApp(amount) {
-	// what the fuck bro...
+export default function HelixWrapper(amount) {
+	const wallet = useWallet();
+
+	useEffect(() => {
+		(async () => {
+			if (!wallet) {
+				return;
+			}
+		})
+	},[]); 
+
+	const stakeToken = async () => {
+
+	}
 }
