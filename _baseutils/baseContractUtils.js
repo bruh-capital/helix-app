@@ -5,7 +5,7 @@ import * as idl from '@idl/twst.json';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
-anchor.setProvider(anchor.Provider.local());
+anchor.setProvider(anchor.Provider);
 
 export const PROGRAM_ID = new anchor.web3.PublicKey(
 	"Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"

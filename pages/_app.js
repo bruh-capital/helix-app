@@ -26,7 +26,7 @@ const network = "http://localhost:8899"
 // wallets automatically sign. therefore if a wallet does not have
 // proper authority, they can not be invoking a certain function
 function MyApp({ Component, pageProps }) {
-  // const endpoint = useMemo(() => clusterApiUrl(network), []);
+  const endpoint = useMemo(() => network, []);
 
   const wallets = useMemo(
     () => [
@@ -40,10 +40,10 @@ function MyApp({ Component, pageProps }) {
   );
 
   return(
-    <ConnectionProvider endpoint={network} >
+    <ConnectionProvider endpoint={endpoint} >
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <Component {...pageProps} />
+            <Component {...pageProps} />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
