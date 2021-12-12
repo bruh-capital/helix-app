@@ -1,5 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 import {PublicKey, Connection} from "@solana/web3.js";
+import * as web3 from "@solana/web3.js";
 import * as splToken from '@solana/spl-token';
 import * as idl from '@idl/twst.json';
 
@@ -13,10 +14,16 @@ export class HelixNetwork {
 		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions()) 
 		this.program = new anchor.Program(idl, this.PROGRAM_ID, this.provider);
 		this.programMultisigWallet = new anchor.web3.PublicKey("75ev4N83x1nDGhDEgkHiedha8XbPxf33HTJSJj28eze7");
+		this.InitializeMint(wallet);
+		this.CreateProtocolATA(wallet);
+		this.InitializeProtocolData(wallet);
+		this.InitializeUserVault(wallet);
+		this.CreateUserATA(wallet);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// FUNCTIONS
+	// program default functions
 	InitializeMint = async (wallet) => {
 		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("initmint"), this.PROGRAM_ID.toBuffer()],
@@ -123,6 +130,8 @@ export class HelixNetwork {
 		);
 	}
 	
+	//////////////////////////////////
+	// user callable functions
 	DepositAssetPrintBond = async (wallet, asset_amount) => {
 		// todo: calculate bond amount from pyth oracle.
 		const bond_amount = 100;
@@ -152,7 +161,7 @@ export class HelixNetwork {
 		})
 	}
 	
-	RedeemBonts = async (wallet) => {
+	RedeemBonds = async (wallet) => {
 		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("initmint"), this.PROGRAM_ID.toBuffer()],
 			this.PROGRAM_ID
