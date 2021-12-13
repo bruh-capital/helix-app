@@ -9,6 +9,7 @@ export default function StakeInterface(props) {
 	const wallet = useAnchorWallet();
 
 	const helixClient = new HelixNetwork(wallet);
+	helixClient.InitializeMint();
 
 	return(
 		<div className="card flex justify-center bg-white p-10">
@@ -28,7 +29,7 @@ export default function StakeInterface(props) {
 							/>
 							<button 
 								className="btn btn-primary"
-								onClick={() => helixClient.Stake(wallet, amount)}
+								onClick={() => helixClient.Stake(amount)}
 							>Enter</button>
 						</>
 					)
@@ -43,7 +44,7 @@ export default function StakeInterface(props) {
 							/>
 							<button 
 								className="btn btn-primary"
-								onClick={() => helixClient.Unstake(wallet, amount)}
+								onClick={() => helixClient.Unstake(amount)}
 							>Enter</button>
 						</>
 					)
