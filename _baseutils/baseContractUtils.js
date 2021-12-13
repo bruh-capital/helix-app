@@ -5,6 +5,11 @@ import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import * as idl from '@idl/twst.json';
 import { SystemProgram } from "@solana/web3.js";
 
+// make an async function called from constructor() that sets the variables like this.UserATA and this.MintAccount
+// look into the react update lifetime. so that initializations and refreshes do not become an endless cycle.
+// seems the construct and everything is re-instantialized on every input. click. update.
+// ^^^ MAKE IT (HelixClient) STATEFUL!
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
 
@@ -24,6 +29,7 @@ export class HelixNetwork {
 	// FUNCTIONS
 	// program default functions
 	InitializeMint = async () => {
+		console.log("initializing mint");
 		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("initmint"), this.SYSTEM_PROGRAM_ID.toBuffer()],
 			this.PROGRAM_ID
@@ -87,11 +93,12 @@ export class HelixNetwork {
 	}
 	
 	InitializeUserVault = async () => {
+		console.log("initializing user vault");
 		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("uservault"), this.wallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
-		this.program.rpc.initUserVault(userVaultBump,
+		await this.program.rpc.initUserVault(userVaultBump,
 			{
 				accounts:{
 				userAccount: userVault,
@@ -103,6 +110,7 @@ export class HelixNetwork {
 	}
 	
 	CreateUserATA = async () => {
+		console.log("creating user ata");
 		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("initmint"), this.SYSTEM_PROGRAM_ID.toBuffer()],
 			this.PROGRAM_ID
@@ -125,6 +133,7 @@ export class HelixNetwork {
 					tokenProgram: TOKEN_PROGRAM_ID,
 					systemProgram: this.SYSTEM_PROGRAM_ID,
 				},
+				// signers:[this.wallet],
 			}
 		);
 	}
@@ -134,7 +143,6 @@ export class HelixNetwork {
 	DepositAssetPrintBond = async (asset_amount) => {
 		// todo: calculate bond amount from pyth oracle.
 		const bond_amount = 100;
-	
 	
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
 			[Buffer.from("usertokenaccount"), this.programMultisigWallet.toBuffer()],
@@ -149,7 +157,7 @@ export class HelixNetwork {
 			this.PROGRAM_ID
 		);
 	
-		await this.program.rpc.depositAsset(userBump, new anchor.BN(asset_amount), new anchor.BN(bond_amount), {
+		await this.program.rpc.depositAsset(userVaultBump, new anchor.BN(asset_amount), new anchor.BN(bond_amount), {
 			accounts:{
 			userAta: userATA,
 			protocAta: protocolATA,

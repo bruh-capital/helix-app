@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { HelixNetwork } from "@baseutils/baseContractUtils";
 
 export default function StakeInterface(props) {
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
-	const [ amount, setAmount ] = useState(0);
+	const [ stakeAmount, stakeStakeAmount ] = useState(0);
+	const [ assetAmount, stakeAssetAmount ] = useState(0);
 	const wallet = useAnchorWallet();
 
-	const helixClient = new HelixNetwork(wallet);
-	helixClient.InitializeMint();
+	const helixClient = useMemo(() => new HelixNetwork(wallet), [wallet]);
 
 	return(
 		<div className="card flex justify-center bg-white p-10">
@@ -24,12 +24,12 @@ export default function StakeInterface(props) {
 								type="number"
 								placeholder="stake amount"
 								className="input input-bordered"
-								value={amount}
-								onChange={(e) => setAmount(e.target.value)}
+								value={stakeAmount}
+								onChange={(e) => stakeStakeAmount(e.target.value)}
 							/>
 							<button 
 								className="btn btn-primary"
-								onClick={() => helixClient.Stake(amount)}
+								onClick={() => helixClient.Stake(stakeAmount)}
 							>Enter</button>
 						</>
 					)
@@ -39,12 +39,12 @@ export default function StakeInterface(props) {
 								type="number"
 								placeholder="unstake amount"
 								className="input input-bordered"
-								value={amount}
-								onChange={(e) => setAmount(e.target.value)}
+								value={stakeAmount}
+								onChange={(e) => stakeStakeAmount(e.target.value)}
 							/>
 							<button 
 								className="btn btn-primary"
-								onClick={() => helixClient.Unstake(amount)}
+								onClick={() => helixClient.Unstake(stakeAmount)}
 							>Enter</button>
 						</>
 					)
@@ -66,6 +66,45 @@ export default function StakeInterface(props) {
 						"tab tab-active" : "tab"
 					}
 				>Unstake</button>
+			</div>
+
+			<div className="tabs tabs-boxed">
+				<button
+					onClick={() => helixClient.CreateUserATA()}
+					className={
+						"tab tab-active"
+					}
+				>Create Account</button>
+				<button
+					onClick={() => helixClient.InitializeUserVault()}
+					className={
+						"tab tab-active"
+					}
+				>Create Vault</button>
+			</div>
+			<>
+							<input 
+								type="number"
+								placeholder="asset amount"
+								className="input input-bordered"
+								value={assetAmount}
+								onChange={(e) => stakeAssetAmount(e.target.value)}
+							/>
+						</>
+			<div className="tabs tabs-boxed">
+				
+			<button
+					onClick={() => helixClient.DepositAssetPrintBond(assetAmount)}
+					className={
+						"tab tab-active"
+					}
+				>Asset for bond</button>
+				<button
+					onClick={() => helixClient.RedeemBonds()}
+					className={
+						"tab tab-active"
+					}
+				>Redeem Bonds</button>
 			</div>
 		</div>
 	);
