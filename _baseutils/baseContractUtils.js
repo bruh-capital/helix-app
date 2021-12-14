@@ -5,10 +5,8 @@ import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import * as idl from '@idl/twst.json';
 import { SystemProgram } from "@solana/web3.js";
 
-// make an async function called from constructor() that sets the variables like this.UserATA and this.MintAccount
-// look into the react update lifetime. so that initializations and refreshes do not become an endless cycle.
-// seems the construct and everything is re-instantialized on every input. click. update.
-// ^^^ MAKE IT (HelixClient) STATEFUL!
+// todo PYTH CLIENT MAGIC!
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
@@ -23,6 +21,7 @@ export class HelixNetwork {
 		this.program = new anchor.Program(idl, this.PROGRAM_ID, this.provider);
 		this.programMultisigWallet = new PublicKey("75ev4N83x1nDGhDEgkHiedha8XbPxf33HTJSJj28eze7");
 		this.wallet = wallet;
+		this.CreateUserATA();
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
