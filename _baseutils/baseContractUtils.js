@@ -16,10 +16,11 @@ export class HelixNetwork {
 		// system program programid
 		this.SYSTEM_PROGRAM_ID = SystemProgram.programId;
 		this.PROGRAM_ID = new PublicKey(idl.metadata.address);
-		this.connection = new Connection('http://localhost:8899');
-		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions())   
-		this.program = new anchor.Program(idl, this.PROGRAM_ID, this.provider);
-		this.programMultisigWallet = new PublicKey("75ev4N83x1nDGhDEgkHiedha8XbPxf33HTJSJj28eze7");
+		// this.connection = new Connection('http://localhost:8899');
+		// this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions())   
+		this.program = new anchor.Program(idl, this.PROGRAM_ID);
+		//const multisigWallet = new Wallet(anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68])));
+		this.programMultisigWallet = new anchor.Wallet(anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68])));
 		this.wallet = wallet;
 		this.CreateUserATA();
 	}
@@ -37,11 +38,12 @@ export class HelixNetwork {
 		await this.program.rpc.initMint(mintBump, {
 			accounts:{
 			mint: mintAccount,
-			payer: this.wallet.publicKey,
+			payer: this.programMultisigWallet.publicKey,
 			systemProgram: this.SYSTEM_PROGRAM_ID,
 			tokenProgram: TOKEN_PROGRAM_ID,
 			rent: web3.SYSVAR_RENT_PUBKEY,
 			},
+			signers:[this.wallet.Keypair],
 		});
 	}
 	
@@ -69,6 +71,7 @@ export class HelixNetwork {
 					tokenProgram: TOKEN_PROGRAM_ID,
 					systemProgram: this.SYSTEM_PROGRAM_ID,
 				},
+				signers:[this.wallet.Keypair],
 			}
 		);
 	}
@@ -87,6 +90,7 @@ export class HelixNetwork {
 					systemProgram: this.SYSTEM_PROGRAM_ID,
 					rent: web3.SYSVAR_RENT_PUBKEY
 				},
+				signers:[this.wallet.Keypair],
 			}
 		);
 	}
@@ -105,6 +109,7 @@ export class HelixNetwork {
 				user: this.wallet.publicKey,
 				systemProgram: this.SYSTEM_PROGRAM_ID,
 			},
+			signers:[this.wallet.Keypair],
 		});
 	}
 	
@@ -132,7 +137,7 @@ export class HelixNetwork {
 					tokenProgram: TOKEN_PROGRAM_ID,
 					systemProgram: this.SYSTEM_PROGRAM_ID,
 				},
-				// signers:[this.wallet],
+				signers:[this.wallet.Keypair],
 			}
 		);
 	}
@@ -140,6 +145,7 @@ export class HelixNetwork {
 	//////////////////////////////////
 	// user callable functions
 	DepositAssetPrintBond = async (asset_amount) => {
+		console.log("deposit asset, print bond");
 		// todo: calculate bond amount from pyth oracle.
 		const bond_amount = 100;
 	
@@ -156,18 +162,25 @@ export class HelixNetwork {
 			this.PROGRAM_ID
 		);
 	
-		await this.program.rpc.depositAsset(userVaultBump, new anchor.BN(asset_amount), new anchor.BN(bond_amount), {
-			accounts:{
-			userAta: userATA,
-			protocAta: protocolATA,
-			userVault: userVault,
-			user: this.wallet.publicKey,
-			tokenProgram: TOKEN_PROGRAM_ID,
-			},
-		})
+		try{
+			await this.program.rpc.depositAsset(userVaultBump, new anchor.BN(asset_amount), new anchor.BN(bond_amount), {
+				accounts:{
+				userAta: userATA,
+				protocAta: protocolATA,
+				userVault: userVault,
+				user: this.wallet.publicKey,
+				tokenProgram: TOKEN_PROGRAM_ID,
+				},
+				signers:[this.wallet.Keypair],
+			})
+		}catch(e){
+			console.log(e);
+			console.log("likely insufficient funds");
+		}
 	}
 	
 	RedeemBonds = async () => {
+		console.log("redeeming bonds");
 		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("initmint"), this.SYSTEM_PROGRAM_ID.toBuffer()],
 			this.PROGRAM_ID
@@ -189,16 +202,18 @@ export class HelixNetwork {
 			user: this.wallet.publicKey,
 			userData: userVault,
 			mint: mintAccount,
-			mintAuth: this.wallet.publicKey,
+			mintAuth: this.programMultisigWallet.publicKey,
 			userAta: userATA,
 			tokenProgram: TOKEN_PROGRAM_ID,
 			systemProgram: this.SYSTEM_PROGRAM_ID,
 			},
+			signers:[this.programMultisigWallet.Keypair],
 		});
 	}
 	
 	// stake amount is in twst
 	Stake = async(amount) => {
+		console.log("staking");
 		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("protocoldataaccount")],
 			this.PROGRAM_ID
@@ -231,12 +246,13 @@ export class HelixNetwork {
 			user: this.wallet.publicKey,
 			tokenProgram: TOKEN_PROGRAM_ID,
 			},
+			signers:[this.wallet.Keypair],
 		});
 	}
 	
 	// unstake amount is stwst
 	Unstake = async (amount) => {
-	
+		console.log("unstaking");
 		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("protocoldataaccount")],
 			this.PROGRAM_ID
@@ -265,8 +281,9 @@ export class HelixNetwork {
 			protocolData: protocolDataAccount,
 			protocAta: protocolATA,
 			tokenProgram: TOKEN_PROGRAM_ID,
-			tokenAuthority: this.wallet.publicKey,
+			tokenAuthority: this.programMultisigWallet.publicKey,
 			},
+			signers:[this.programMultisigWallet.Keypair],
 		});
 	}
 	
@@ -294,7 +311,8 @@ export class HelixNetwork {
 			owner: this.wallet.publicKey,
 			tokenProgram: TOKEN_PROGRAM_ID,
 			systemProgram: this.SYSTEM_PROGRAM_ID,
-			}
+			},
+			signers:[this.wallet.Keypair],
 		});
 	}
 	
@@ -311,6 +329,7 @@ export class HelixNetwork {
 			protocolData: protocolDataAccount,
 			owner: this.wallet.publicKey,
 			},
+			signers:[this.wallet.Keypair],
 		});
 	}
 

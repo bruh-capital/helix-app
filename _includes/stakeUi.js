@@ -5,8 +5,8 @@ import { HelixNetwork } from "@baseutils/baseContractUtils";
 export default function StakeInterface(props) {
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
-	const [ stakeAmount, stakeStakeAmount ] = useState(0);
-	const [ assetAmount, stakeAssetAmount ] = useState(0);
+	const [ stakeAmount, setStakeAmount ] = useState(0);
+	const [ assetAmount, setAssetAmount ] = useState(0);
 	const wallet = useAnchorWallet();
 
 	const helixClient = useMemo(() => new HelixNetwork(wallet), [wallet]);
@@ -25,7 +25,7 @@ export default function StakeInterface(props) {
 								placeholder="stake amount"
 								className="input input-bordered"
 								value={stakeAmount}
-								onChange={(e) => stakeStakeAmount(e.target.value)}
+								onChange={(e) => setStakeAmount(e.target.value)}
 							/>
 							<button 
 								className="btn btn-primary"
@@ -40,7 +40,7 @@ export default function StakeInterface(props) {
 								placeholder="unstake amount"
 								className="input input-bordered"
 								value={stakeAmount}
-								onChange={(e) => stakeStakeAmount(e.target.value)}
+								onChange={(e) => setStakeAmount(e.target.value)}
 							/>
 							<button 
 								className="btn btn-primary"
@@ -83,14 +83,14 @@ export default function StakeInterface(props) {
 				>Create Vault</button>
 			</div>
 			<>
-							<input 
-								type="number"
-								placeholder="asset amount"
-								className="input input-bordered"
-								value={assetAmount}
-								onChange={(e) => stakeAssetAmount(e.target.value)}
-							/>
-						</>
+				<input 
+					type="number"
+					placeholder="asset amount"
+					className="input input-bordered"
+					value={assetAmount}
+					onChange={(e) => setAssetAmount(e.target.value)}
+				/>
+			</>
 			<div className="tabs tabs-boxed">
 				
 			<button

@@ -419,8 +419,8 @@
         },
         {
           "name": "mintAuth",
-          "isMut": false,
-          "isSigner": false
+          "isMut": true,
+          "isSigner": true
         },
         {
           "name": "userAta",
