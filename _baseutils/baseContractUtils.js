@@ -1,4 +1,5 @@
 import * as anchor from "@project-serum/anchor";
+import {Wallet} from "@project-serum/anchor";
 import {PublicKey, Connection} from "@solana/web3.js";
 import * as web3 from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
@@ -16,11 +17,11 @@ export class HelixNetwork {
 		// system program programid
 		this.SYSTEM_PROGRAM_ID = SystemProgram.programId;
 		this.PROGRAM_ID = new PublicKey(idl.metadata.address);
-		// this.connection = new Connection('http://localhost:8899');
-		// this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions())   
-		this.program = new anchor.Program(idl, this.PROGRAM_ID);
+		this.connection = new Connection('http://localhost:8899');
+		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions())   
+		this.program = new anchor.Program(idl, this.PROGRAM_ID, this.provider);
 		//const multisigWallet = new Wallet(anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68])));
-		this.programMultisigWallet = new anchor.Wallet(anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68])));
+		this.programMultisigWallet = anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68]));
 		this.wallet = wallet;
 		this.CreateUserATA();
 	}
@@ -53,7 +54,7 @@ export class HelixNetwork {
 			this.PROGRAM_ID
 		);
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.toBuffer()],
+			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
 		await this.program.rpc.initUserAta(
@@ -150,7 +151,7 @@ export class HelixNetwork {
 		const bond_amount = 100;
 	
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.toBuffer()],
+			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
 		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
@@ -207,7 +208,7 @@ export class HelixNetwork {
 			tokenProgram: TOKEN_PROGRAM_ID,
 			systemProgram: this.SYSTEM_PROGRAM_ID,
 			},
-			signers:[this.programMultisigWallet.Keypair],
+			signers:[this.programMultisigWallet],
 		});
 	}
 	
@@ -219,7 +220,7 @@ export class HelixNetwork {
 			this.PROGRAM_ID
 		);
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.toBuffer()],
+			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
 		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
@@ -258,7 +259,7 @@ export class HelixNetwork {
 			this.PROGRAM_ID
 		);
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.toBuffer()],
+			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
 		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
@@ -283,7 +284,7 @@ export class HelixNetwork {
 			tokenProgram: TOKEN_PROGRAM_ID,
 			tokenAuthority: this.programMultisigWallet.publicKey,
 			},
-			signers:[this.programMultisigWallet.Keypair],
+			signers:[this.programMultisigWallet],
 		});
 	}
 	
@@ -297,7 +298,7 @@ export class HelixNetwork {
 			this.PROGRAM_ID
 		);
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.toBuffer()],
+			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
 		await this.program.rpc.rebase({
