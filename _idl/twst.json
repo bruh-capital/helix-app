@@ -320,6 +320,11 @@
       "name": "mintToAccount",
       "accounts": [
         {
+          "name": "initiator",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
           "name": "userAta",
           "isMut": true,
           "isSigner": false
@@ -608,8 +613,5 @@
       "name": "IncorrectInitAccount",
       "msg": "failed to create account due to permissions error"
     }
-  ],
-  "metadata": {
-    "address": "AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv"
-  }
+  ]
 }
