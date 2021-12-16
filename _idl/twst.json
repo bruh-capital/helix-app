@@ -330,11 +330,6 @@
           "isSigner": false
         },
         {
-          "name": "mintAuthority",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
           "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
@@ -416,11 +411,6 @@
           "name": "mint",
           "isMut": true,
           "isSigner": false
-        },
-        {
-          "name": "mintAuth",
-          "isMut": true,
-          "isSigner": true
         },
         {
           "name": "userAta",

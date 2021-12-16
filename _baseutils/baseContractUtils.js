@@ -20,7 +20,6 @@ export class HelixNetwork {
 		this.connection = new Connection('http://localhost:8899');
 		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions())   
 		this.program = new anchor.Program(idl, this.PROGRAM_ID, this.provider);
-		//const multisigWallet = new Wallet(anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68])));
 		this.programMultisigWallet = anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68]));
 		this.wallet = wallet;
 		this.CreateUserATA();
@@ -29,72 +28,6 @@ export class HelixNetwork {
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// FUNCTIONS
 	// program default functions
-	InitializeMint = async () => {
-		console.log("initializing mint");
-		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
-			[Buffer.from("initmint"), this.SYSTEM_PROGRAM_ID.toBuffer()],
-			this.PROGRAM_ID
-		);
-			
-		await this.program.rpc.initMint(mintBump, {
-			accounts:{
-			mint: mintAccount,
-			payer: this.programMultisigWallet.publicKey,
-			systemProgram: this.SYSTEM_PROGRAM_ID,
-			tokenProgram: TOKEN_PROGRAM_ID,
-			rent: web3.SYSVAR_RENT_PUBKEY,
-			},
-			signers:[this.wallet.Keypair],
-		});
-	}
-	
-	CreateProtocolATA = async () => {
-		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
-			[Buffer.from("initmint"), this.SYSTEM_PROGRAM_ID.toBuffer()],
-			this.PROGRAM_ID
-		);
-		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
-			this.PROGRAM_ID
-		);
-		await this.program.rpc.initUserAta(
-			{
-				userBump: protocolATABump,
-				mintBump: mintBump,
-			},
-			{
-				accounts:{
-					userAta: protocolATA,
-					payer: this.wallet.publicKey,
-					user: this.wallet.publicKey,
-					rent: web3.SYSVAR_RENT_PUBKEY,
-					mint: mintAccount,
-					tokenProgram: TOKEN_PROGRAM_ID,
-					systemProgram: this.SYSTEM_PROGRAM_ID,
-				},
-				signers:[this.wallet.Keypair],
-			}
-		);
-	}
-	
-	InitializeProtocolData = async () => {
-		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
-			[Buffer.from("protocoldataaccount")],
-			this.PROGRAM_ID
-		);
-		await this.program.rpc.initProtocolData(
-			protocolDataBump,
-			{
-				accounts:{
-					protocolDataAccount: protocolDataAccount,
-					owner: this.wallet.publicKey,
-					systemProgram: this.SYSTEM_PROGRAM_ID,
-					rent: web3.SYSVAR_RENT_PUBKEY
-				},
-				signers:[this.wallet.Keypair],
-			}
-		);
-	}
 	
 	InitializeUserVault = async () => {
 		console.log("initializing user vault");
@@ -203,12 +136,10 @@ export class HelixNetwork {
 			user: this.wallet.publicKey,
 			userData: userVault,
 			mint: mintAccount,
-			mintAuth: this.programMultisigWallet.publicKey,
 			userAta: userATA,
 			tokenProgram: TOKEN_PROGRAM_ID,
 			systemProgram: this.SYSTEM_PROGRAM_ID,
 			},
-			signers:[this.programMultisigWallet],
 		});
 	}
 	
@@ -284,54 +215,6 @@ export class HelixNetwork {
 			tokenProgram: TOKEN_PROGRAM_ID,
 			tokenAuthority: this.programMultisigWallet.publicKey,
 			},
-			signers:[this.programMultisigWallet],
 		});
 	}
-	
-	Rebase = async () => {
-		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
-			[Buffer.from("initmint"), this.SYSTEM_PROGRAM_ID.toBuffer()],
-			this.PROGRAM_ID
-		);
-		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
-			[Buffer.from("protocoldataaccount")],
-			this.PROGRAM_ID
-		);
-		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
-			this.PROGRAM_ID
-		);
-		await this.program.rpc.rebase({
-			mintBump: mintBump,
-			protocolDataBump: protocolDataBump,
-		}, {
-			accounts:{
-			protocolData: protocolDataAccount,
-			protocAta: protocolATA,
-			mint: mintAccount,
-			owner: this.wallet.publicKey,
-			tokenProgram: TOKEN_PROGRAM_ID,
-			systemProgram: this.SYSTEM_PROGRAM_ID,
-			},
-			signers:[this.wallet.Keypair],
-		});
-	}
-	
-	ChangeRebaseRate = async (new_rate) => {
-		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
-			[Buffer.from("protocoldataaccount")],
-			this.PROGRAM_ID
-		);
-	
-		await this.program.rpc.changeRebaseRate(protocolDataBump, 
-			new anchor.BN(new_rate),
-			{
-			accounts:{
-			protocolData: protocolDataAccount,
-			owner: this.wallet.publicKey,
-			},
-			signers:[this.wallet.Keypair],
-		});
-	}
-
 }
