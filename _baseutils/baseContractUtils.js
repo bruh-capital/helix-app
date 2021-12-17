@@ -1,13 +1,10 @@
 import * as anchor from "@project-serum/anchor";
-import {Wallet} from "@project-serum/anchor";
-import {PublicKey, Connection} from "@solana/web3.js";
 import * as web3 from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import * as idl from '@idl/twst.json';
-import { SystemProgram } from "@solana/web3.js";
+import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 
-// todo PYTH CLIENT MAGIC!
-
+// TODO: PYTH CLIENT MAGIC!
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
@@ -150,7 +147,7 @@ export class HelixNetwork {
 			[Buffer.from("protocoldataaccount")],
 			this.PROGRAM_ID
 		);
-		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
+		const [protocolATA,] = await PublicKey.findProgramAddress(
 			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
@@ -189,7 +186,7 @@ export class HelixNetwork {
 			[Buffer.from("protocoldataaccount")],
 			this.PROGRAM_ID
 		);
-		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
+		const [protocolATA,] = await PublicKey.findProgramAddress(
 			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);

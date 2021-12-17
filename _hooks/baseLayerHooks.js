@@ -1,9 +1,8 @@
 import * as anchor from "@project-serum/anchor";
-import { 
-	Stake,
-	Unstake,
-} from "@baseutils/baseContractUtils";
+import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 /// Connection + Usage Vars
 const programAddr = new anchor.web3.PublicKey(
@@ -29,10 +28,25 @@ export default function HelixWrapper(amount) {
 			if (!wallet) {
 				return;
 			}
+
+			const helixClient = useMemo(() => new HelixNetwork(wallet), [wallet]);
 		})
 	},[]); 
 
-	const stakeToken = async () => {
-		Stake()
+	const stakeToken = async (amount) => {
+		try {
+			helixClient.Stake(amount)
+		} catch (e) {
+			toast.error("Staking Failed!", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+
+		}
 	}
 }
