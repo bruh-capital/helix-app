@@ -2,7 +2,9 @@ import * as anchor from "@project-serum/anchor";
 import * as web3 from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import * as idl from '@idl/twst.json';
-import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
+import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
+import { TREASURY_PUBKEY } from "./treasuryVariables";
+import * as pythUtils from "./pythUtils";
 
 // TODO: PYTH CLIENT MAGIC!
 
@@ -77,8 +79,18 @@ export class HelixNetwork {
 	// user callable functions
 	DepositAssetPrintBond = async (asset_amount) => {
 		console.log("deposit asset, print bond");
-		// todo: calculate bond amount from pyth oracle.
-		const bond_amount = 100;
+		const url = clusterApiUrl("devnet");
+		// full list at:
+		// https://pyth.network/developers/accounts/?cluster=devnet#
+		const SolProductKey = 'J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix';
+		const connection = new Connection(url);
+		const publicKey = new PublicKey(SolProductKey);
+		const SolData = await connection.getAccountInfo(publicKey);
+		const SolPriceInfo = pythUtils.parsePriceData(SolData.data);
+		//gives sol in terms of usd
+		const SolPrice = SolPriceInfo.aggregate.price;
+
+		const bond_amount = SolPrice;
 	
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
 			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
@@ -96,11 +108,10 @@ export class HelixNetwork {
 		try{
 			await this.program.rpc.depositAsset(userVaultBump, new anchor.BN(asset_amount), new anchor.BN(bond_amount), {
 				accounts:{
-				userAta: userATA,
-				protocAta: protocolATA,
+				userWallet: this.wallet.publicKey,
+				treasuryWallet: TREASURY_PUBKEY,
 				userVault: userVault,
-				user: this.wallet.publicKey,
-				tokenProgram: TOKEN_PROGRAM_ID,
+				systemProgram: this.SYSTEM_PROGRAM_ID,
 				},
 				signers:[this.wallet.Keypair],
 			})

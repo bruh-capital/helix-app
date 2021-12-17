@@ -130,12 +130,12 @@
       "name": "depositAsset",
       "accounts": [
         {
-          "name": "userAta",
+          "name": "userWallet",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
-          "name": "protocAta",
+          "name": "treasuryWallet",
           "isMut": true,
           "isSigner": false
         },
@@ -145,12 +145,7 @@
           "isSigner": false
         },
         {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "tokenProgram",
+          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
@@ -247,13 +242,13 @@
         },
         {
           "name": "payer",
-          "isMut": false,
-          "isSigner": false
+          "isMut": true,
+          "isSigner": true
         },
         {
           "name": "user",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "systemProgram",
@@ -613,5 +608,8 @@
       "name": "IncorrectInitAccount",
       "msg": "failed to create account due to permissions error"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv"
+  }
 }
