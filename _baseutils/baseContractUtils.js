@@ -6,8 +6,6 @@ import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3
 import { TREASURY_PUBKEY } from "./treasuryVariables";
 import * as pythUtils from "./pythUtils";
 
-// TODO: PYTH CLIENT MAGIC!
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
 
@@ -91,7 +89,7 @@ export class HelixNetwork {
 		const SolPrice = SolPriceInfo.aggregate.price;
 
 		const bond_amount = SolPrice;
-		
+
 		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("uservault"), this.wallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
