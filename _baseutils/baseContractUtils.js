@@ -91,17 +91,9 @@ export class HelixNetwork {
 		const SolPrice = SolPriceInfo.aggregate.price;
 
 		const bond_amount = SolPrice;
-	
-		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.programMultisigWallet.publicKey.toBuffer()],
-			this.PROGRAM_ID
-		);
+		
 		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("uservault"), this.wallet.publicKey.toBuffer()],
-			this.PROGRAM_ID
-		);
-		const [userATA, userATABump] = await PublicKey.findProgramAddress(
-			[Buffer.from("usertokenaccount"), this.wallet.publicKey.toBuffer()],
 			this.PROGRAM_ID
 		);
 	
