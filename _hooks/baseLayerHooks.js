@@ -79,9 +79,9 @@ export default function HelixWrapper() {
 		}
 	}
 
-	const makeBond = async () => {
+	const makeBond = async (assetAmount) => {
 		try {
-			await helixClient.DepositAssetPrintBond();
+			await helixClient.DepositAssetPrintBond(assetAmount);
 		} catch (e) {
 			toast.error("Failed to make bond!", toastSettings);
 		}

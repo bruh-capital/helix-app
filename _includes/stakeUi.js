@@ -8,9 +8,14 @@ export default function StakeInterface(props) {
 	const [ stakeAmount, setStakeAmount ] = useState(0);
 	const [ assetAmount, setAssetAmount ] = useState(0);
 
-	const wallet = useAnchorWallet();
-
-	const {stakeToken, unstakeToken} = HelixWrapper();
+	const {
+		stakeToken,
+		unstakeToken,
+		createUserAta,
+		createVault,
+		makeBond,
+		redeemBond 
+	} = HelixWrapper();
 
 	return(
 		<div className="card flex justify-center bg-white p-10">
@@ -71,13 +76,13 @@ export default function StakeInterface(props) {
 
 			<div className="tabs tabs-boxed">
 				<button
-					onClick={() => helixClient.CreateUserATA()}
+					onClick={() => createUserAta()}
 					className={
 						"tab tab-active"
 					}
 				>Create Account</button>
 				<button
-					onClick={() => helixClient.InitializeUserVault()}
+					onClick={() => createUserVault()}
 					className={
 						"tab tab-active"
 					}
@@ -95,13 +100,13 @@ export default function StakeInterface(props) {
 			<div className="tabs tabs-boxed">
 				
 			<button
-					onClick={() => helixClient.DepositAssetPrintBond(assetAmount)}
+					onClick={() => makeBond(assetAmount)}
 					className={
 						"tab tab-active"
 					}
 				>Asset for bond</button>
 				<button
-					onClick={() => helixClient.RedeemBonds()}
+					onClick={() => redeemBond()}
 					className={
 						"tab tab-active"
 					}
