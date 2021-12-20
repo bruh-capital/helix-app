@@ -13,7 +13,7 @@ const programAddr = new anchor.web3.PublicKey(
 );
 */
 
-const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL;
+const rpcUrl = new String(process.env.NEXT_PUBLIC_RPC_URL);
 //const rpcUrl = "http://localhost:8899";
 const connection = new anchor.web3.Connection(rpcUrl);
 
@@ -49,7 +49,7 @@ export default function HelixWrapper() {
 
 	const stakeToken = async (amount) => {
 		try {
-			helixClient.Stake(amount);
+			await helixClient.Stake(amount);
 		} catch (e) {
 			toast.error("Staking Failed!", toastSettings);
 		}
@@ -57,12 +57,44 @@ export default function HelixWrapper() {
 	
 	const unstakeToken = async (amount) => {
 		try {
-			helixClient.Unstake(amount);
+			await helixClient.Unstake(amount);
 		} catch (e) {
 			toast.error("Unstaking Failed!", toastSettings);
 		}
 	}
 
-	return { stakeToken, unstakeToken };
+	const createUserAta = async () => {
+		try {
+			await helixClient.CreateUserATA();
+		} catch(e) {
+			toast.error("Failed to create associated token account!", toastSettings);
+		}
+	}
+
+	const createVault = async () => {
+		try {
+			await helixClient.InitializeUserVault();
+		} catch (e) {
+			toast.error("Failed to create vault!", toastSettings);
+		}
+	}
+
+	const makeBond = async () => {
+		try {
+			await helixClient.DepositAssetPrintBond();
+		} catch (e) {
+			toast.error("Failed to make bond!", toastSettings);
+		}
+	}
+
+	const redeemBond = async () => {
+		try {
+			await helixClient.RedeemBonds();
+		} catch (e) {
+			toast.error("Failed to redeem bond!", toastSettings);
+		}
+	}
+
+	return { stakeToken, unstakeToken, createUserAta, createVault, makeBond, redeemBond };
 }
 

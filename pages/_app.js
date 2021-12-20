@@ -1,6 +1,5 @@
 import 'tailwindcss/tailwind.css';
 import "@solana/spl-token";
-import { Html } from 'next/document';
 
 let WALLETS = {
   getPhantomWallet: () => ({ name: 'Phantom' }),
