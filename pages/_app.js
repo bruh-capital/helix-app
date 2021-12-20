@@ -1,5 +1,6 @@
 import 'tailwindcss/tailwind.css';
 import "@solana/spl-token";
+import { Html } from 'next/document';
 
 let WALLETS = {
   getPhantomWallet: () => ({ name: 'Phantom' }),
@@ -41,8 +42,7 @@ function MyApp({ Component, pageProps }) {
   );
 
   return(
-    <Main>
-      <AppMetaTagComponent/>
+    <AppMetaTagComponent>
       <ConnectionProvider endpoint={endpoint} >
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }) {
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>
-    </Main>
+    </AppMetaTagComponent>
   );
 }
 
