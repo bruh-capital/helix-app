@@ -1,11 +1,11 @@
-export default function MetaTagComponent () {
+export default function AppMetaTagComponent () {
 	return (
-		<head>
-			<meta name='application-name' content='PWA App' />
+		<Head>
+			<meta name='application-name' content='Helix Finance' />
 			<meta name='apple-mobile-web-app-capable' content='yes' />
 			<meta name='apple-mobile-web-app-status-bar-style' content='default' />
-			<meta name='apple-mobile-web-app-title' content='PWA App' />
-			<meta name='description' content='Best PWA App in the world' />
+			<meta name='apple-mobile-web-app-title' content='Helix Finance' />
+			<meta name='description' content='Stacking Incentives' />
 			<meta name='format-detection' content='telephone=no' />
 			<meta name='mobile-web-app-capable' content='yes' />
 			<meta name='msapplication-config' content='/icons/browserconfig.xml' />
@@ -25,17 +25,17 @@ export default function MetaTagComponent () {
 			<link rel='shortcut icon' href='/favicon.ico' />
 			<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' />
 				
-			<meta name='twitter:card' content='summary' />
-			<meta name='twitter:url' content='https://yourdomain.com' />
-			<meta name='twitter:title' content='PWA App' />
-			<meta name='twitter:description' content='Best PWA App in the world' />
+			<meta name='twitter:card' content='Bruh moment' />
+			<meta name='twitter:url' content='https://helix-app.vercel.app' />
+			<meta name='twitter:title' content='Helix Finance' />
+			<meta name='twitter:description' content='Stacking Incentives' />
 			<meta name='twitter:image' content='https://yourdomain.com/icons/android-chrome-192x192.png' />
-			<meta name='twitter:creator' content='@DavidWShadow' />
+			<meta name='twitter:creator' content='@0xmillionz' />
 			<meta property='og:type' content='website' />
-			<meta property='og:title' content='PWA App' />
-			<meta property='og:description' content='Best PWA App in the world' />
-			<meta property='og:site_name' content='PWA App' />
-			<meta property='og:url' content='https://yourdomain.com' />
+			<meta property='og:title' content='Helix Finance' />
+			<meta property='og:description' content='Stacking Incentives' />
+			<meta property='og:site_name' content='Helix Finance' />
+			<meta property='og:url' content='https://helix-app.vercel.app' />
 			<meta property='og:image' content='https://yourdomain.com/icons/apple-touch-icon.png' />
 
 			{/*
@@ -48,6 +48,10 @@ export default function MetaTagComponent () {
 			<link rel='apple-touch-startup-image' href='/images/apple_splash_750.png' sizes='750x1334' />
 			<link rel='apple-touch-startup-image' href='/images/apple_splash_640.png' sizes='640x1136' />
 			*/}
-		</head>
+		</Head>
 	);
+}
+
+export function LandingMetaTagComponent() {
+
 }

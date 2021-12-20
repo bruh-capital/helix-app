@@ -18,6 +18,7 @@ import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { useMemo } from 'react';
+import AppMetaTagComponent from '@includes/metaTags';
 
 //const network = process.env.NEXT_APP_RPC_URL;
 const network = "http://localhost:8899"
@@ -40,13 +41,16 @@ function MyApp({ Component, pageProps }) {
   );
 
   return(
-    <ConnectionProvider endpoint={endpoint} >
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-            <Component {...pageProps} />
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <Main>
+      <AppMetaTagComponent/>
+      <ConnectionProvider endpoint={endpoint} >
+        <WalletProvider wallets={wallets} autoConnect>
+          <WalletModalProvider>
+              <Component {...pageProps} />
+          </WalletModalProvider>
+        </WalletProvider>
+      </ConnectionProvider>
+    </Main>
   );
 }
 
