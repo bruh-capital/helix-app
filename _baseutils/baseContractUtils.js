@@ -14,7 +14,7 @@ export class HelixNetwork {
 		// system program programid
 		this.SYSTEM_PROGRAM_ID = SystemProgram.programId;
 		this.PROGRAM_ID = new PublicKey(idl.metadata.address);
-		this.connection = new Connection('http://localhost:8899');
+		this.connection = new anchor.web3.Connection(process.env.NEXT_PUBLIC_RPC_URL);
 		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions())   
 		this.program = new anchor.Program(idl, this.PROGRAM_ID, this.provider);
 		this.programMultisigWallet = anchor.web3.Keypair.fromSecretKey(Uint8Array.from([129,120,182,228,196,158,63,17,41,199,69,153,125,205,238,247,124,231,160,96,137,101,247,246,66,241,145,144,180,195,125,19,90,87,80,176,36,52,249,53,169,199,213,208,207,182,87,248,108,210,169,1,214,195,71,34,118,172,224,198,217,60,2,68]));

@@ -1,15 +1,16 @@
 import { useState, useMemo } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { HelixNetwork } from "@baseutils/baseContractUtils";
+import HelixWrapper from "@hooks/baseLayerHooks";
 
 export default function StakeInterface(props) {
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
 	const [ stakeAmount, setStakeAmount ] = useState(0);
 	const [ assetAmount, setAssetAmount ] = useState(0);
+
 	const wallet = useAnchorWallet();
 
-	const helixClient = useMemo(() => new HelixNetwork(wallet), [wallet]);
+	const {stakeToken, unstakeToken} = HelixWrapper();
 
 	return(
 		<div className="card flex justify-center bg-white p-10">
@@ -29,7 +30,7 @@ export default function StakeInterface(props) {
 							/>
 							<button 
 								className="btn btn-primary"
-								onClick={() => helixClient.Stake(stakeAmount)}
+								onClick={() => stakeToken(stakeAmount)}
 							>Enter</button>
 						</>
 					)
@@ -44,7 +45,7 @@ export default function StakeInterface(props) {
 							/>
 							<button 
 								className="btn btn-primary"
-								onClick={() => helixClient.Unstake(stakeAmount)}
+								onClick={() => unstakeToken(stakeAmount)}
 							>Enter</button>
 						</>
 					)
