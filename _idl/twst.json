@@ -130,12 +130,12 @@
       "name": "depositAsset",
       "accounts": [
         {
-          "name": "userAta",
+          "name": "userWallet",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
-          "name": "protocAta",
+          "name": "treasuryWallet",
           "isMut": true,
           "isSigner": false
         },
@@ -145,12 +145,7 @@
           "isSigner": false
         },
         {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "tokenProgram",
+          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
@@ -247,13 +242,13 @@
         },
         {
           "name": "payer",
-          "isMut": false,
-          "isSigner": false
+          "isMut": true,
+          "isSigner": true
         },
         {
           "name": "user",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "systemProgram",
@@ -320,6 +315,11 @@
       "name": "mintToAccount",
       "accounts": [
         {
+          "name": "initiator",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
           "name": "userAta",
           "isMut": true,
           "isSigner": false
@@ -328,11 +328,6 @@
           "name": "mint",
           "isMut": true,
           "isSigner": false
-        },
-        {
-          "name": "mintAuthority",
-          "isMut": false,
-          "isSigner": true
         },
         {
           "name": "tokenProgram",
@@ -415,11 +410,6 @@
         {
           "name": "mint",
           "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "mintAuth",
-          "isMut": false,
           "isSigner": false
         },
         {
@@ -620,6 +610,6 @@
     }
   ],
   "metadata": {
-    "address": "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+    "address": "AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv"
   }
 }

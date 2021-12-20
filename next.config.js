@@ -3,17 +3,26 @@ const withTM = require('next-transpile-modules')([
   '@solana/wallet-adapter-base',
 ]);
 
-module.exports = withTM({
-  reactStrictMode: true,
-  webpack5: true,
-  webpack: (config) => {
-    config.resolve.fallback = { 
-      fs: false,
-      os: false,
-      path: false,
-      crypto: false,
-    };
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
 
-    return config;
-  }
-});
+module.exports =  withPWA(
+  withTM({
+    reactStrictMode: true,
+    webpack5: true,
+    webpack: (config) => {
+      config.resolve.fallback = { 
+        fs: false,
+        os: false,
+        path: false,
+        crypto: false,
+      };
+
+      return config;
+    },
+    pwa: {
+      dest: 'public',
+      runtimeCaching,
+    }
+  })
+);
