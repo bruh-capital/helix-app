@@ -4,7 +4,7 @@ import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
 /// Connection + Usage Vars
 /*
