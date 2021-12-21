@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }) {
   return(
     <AppMetaTagComponent>
       <ConnectionProvider endpoint={endpoint} >
-        <WalletProvider wallets={wallets} autoConnect>
+        <WalletProvider wallets={wallets} autoConnect={false}>
           <WalletModalProvider>
               <Component {...pageProps} />
           </WalletModalProvider>
