@@ -18,7 +18,12 @@ export default function ReserveLayout(props) {
 			</Head>
 			<body className='bg-black'>
 				<LandingHeader title={"Helix App"}/>
-				<PWAprompt />
+				<PWAprompt 
+					timesToShow={2}
+					permanentlyHideOnDismiss={false}
+					copyTitle="Add Helix Dapp to Home Screen"
+					copyClosePrompt="Close"
+				/>
 				<div className="relative text-center bg-black text-white max-w-2xl px-10 sm:px-3 mx-auto pb-14 lg:pb-20 xl:pb-28">
 					{props.children}
 				</div>
