@@ -6,7 +6,7 @@ export default function AppMetaTagComponent (props) {
 			<Head>
 				<meta name='application-name' content='Helix Finance' />
 				<meta name='apple-mobile-web-app-capable' content='yes' />
-				<meta name='apple-mobile-web-app-status-bar-style' content='default' />
+				<meta name='apple-mobile-web-app-status-bar-style' content='black' />
 				<meta name='apple-mobile-web-app-title' content='Helix Finance' />
 				<meta name='description' content='Stacking Incentives' />
 				<meta name='format-detection' content='telephone=no' />

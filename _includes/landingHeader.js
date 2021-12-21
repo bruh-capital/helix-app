@@ -11,7 +11,6 @@ export default function LandingHeader(props) {
 					>
 						{props.title}
 					</span>
-					<ConnectionButton/>
 				</div>
 			</div>
 		</div>
