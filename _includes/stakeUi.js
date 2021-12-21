@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import HelixWrapper from "@hooks/baseLayerHooks";
 
 export default function StakeInterface(props) {
@@ -82,7 +81,7 @@ export default function StakeInterface(props) {
 					}
 				>Create Account</button>
 				<button
-					onClick={() => createUserVault()}
+					onClick={() => createVault()}
 					className={
 						"tab tab-active"
 					}
