@@ -2,6 +2,7 @@ import ReserveLayout from "@layouts/reserve";
 import StakeInterface from "@includes/stakeUi";
 import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
+import BondInterface from "@includes/bondUi";
 
 const PWAprompt = dynamic(
 	() => {
@@ -10,6 +11,7 @@ const PWAprompt = dynamic(
 	{ ssr: false }
 );
 
+// TODO: add conditional rendering for Bond/stake interface
 export default function AppPage() {
 	return(
 		<ReserveLayout title={"app"}>
@@ -21,6 +23,7 @@ export default function AppPage() {
 			/>
 			<ToastContainer/>
 			<StakeInterface/>
+			<BondInterface/>
 		</ReserveLayout>
 	)
 }
