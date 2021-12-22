@@ -1,7 +1,7 @@
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
-export default function ConnectionButton(props) {
+export default function ConnectionButton() {
 	const wallet = useAnchorWallet();
 	return(
 		<WalletMultiButton
