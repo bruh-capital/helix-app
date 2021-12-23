@@ -3,6 +3,7 @@ import StakeInterface from "@includes/stakeUi";
 import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 import BondInterface from "@includes/bondUi";
+import { useState } from "react";
 
 const PWAprompt = dynamic(
 	() => {
@@ -13,17 +14,22 @@ const PWAprompt = dynamic(
 
 // TODO: add conditional rendering for Bond/stake interface
 export default function AppPage() {
+	const [menuPage, setMenuPage] = useState("stake");
+
 	return(
 		<ReserveLayout title={"app"}>
+			<ToastContainer/>
 			<PWAprompt 
 				timesToShow={2}
 				permanentlyHideOnDismiss={false}
 				copyTitle="Add Helix Dapp to Home Screen"
 				copyClosePrompt="Close"
 			/>
-			<ToastContainer/>
-			<StakeInterface/>
-			<BondInterface/>
+			{
+				menuPage === "stake" ? 
+				(<StakeInterface/>) :
+				(<BondInterface/>)
+			}
 		</ReserveLayout>
 	)
 }
