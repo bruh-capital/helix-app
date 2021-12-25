@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@idl/*": ["_idl/*"],
+			"@hooks/*": ["_hooks/*"],
+			"@includes/*": ["_includes/*"],
+			"@layouts/*": ["_layouts/*"],
+			"@app": ["pages/_app.js"],
+			"@baseutils/*": ["_baseutils/*"]
+		}
+	}
+}

@@ -1,0 +1,1 @@
+export const TREASURY_PUBKEY = "75ev4N83x1nDGhDEgkHiedha8XbPxf33HTJSJj28eze7";

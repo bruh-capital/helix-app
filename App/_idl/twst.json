@@ -1,0 +1,615 @@
+{
+  "version": "0.0.0",
+  "name": "twst",
+  "instructions": [
+    {
+      "name": "changeRebaseRate",
+      "accounts": [
+        {
+          "name": "protocolData",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        },
+        {
+          "name": "newRate",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "stake",
+      "accounts": [
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "protocAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "protocolData",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": {
+            "defined": "StakeBumps"
+          }
+        },
+        {
+          "name": "amt",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "unstake",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "protocolData",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "protocAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenAuthority",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": {
+            "defined": "UnStakeBumps"
+          }
+        },
+        {
+          "name": "amt",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "depositAsset",
+      "accounts": [
+        {
+          "name": "userWallet",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "treasuryWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        },
+        {
+          "name": "amtToTransfer",
+          "type": "u64"
+        },
+        {
+          "name": "bondAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initMint",
+      "accounts": [
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initProtocolData",
+      "accounts": [
+        {
+          "name": "protocolDataAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initUserVault",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "userBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initUserAta",
+      "accounts": [
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": {
+            "defined": "InitATABumps"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mintToAccount",
+      "accounts": [
+        {
+          "name": "initiator",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "mintBump",
+          "type": "u8"
+        },
+        {
+          "name": "amt",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "rebase",
+      "accounts": [
+        {
+          "name": "protocolData",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "protocAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": {
+            "defined": "RebaseBumps"
+          }
+        }
+      ]
+    },
+    {
+      "name": "redeemBonds",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userData",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bumps",
+          "type": {
+            "defined": "RedemptionBumps"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ProtocolDataAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "rewardRate",
+            "type": "u64"
+          },
+          {
+            "name": "totalStakedTwist",
+            "type": "u64"
+          },
+          {
+            "name": "shareRatio",
+            "type": "u64"
+          },
+          {
+            "name": "lastShareUpdateSlot",
+            "type": "u64"
+          },
+          {
+            "name": "twstVault",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserVault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "version",
+            "type": "i64"
+          },
+          {
+            "name": "stakeBalance",
+            "type": "u64"
+          },
+          {
+            "name": "bonds",
+            "type": {
+              "vec": {
+                "defined": "Bond"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "InitATABumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "userBump",
+            "type": "u8"
+          },
+          {
+            "name": "mintBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RebaseBumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "protocolDataBump",
+            "type": "u8"
+          },
+          {
+            "name": "mintBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RedemptionBumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "userVaultBump",
+            "type": "u8"
+          },
+          {
+            "name": "userAtaBump",
+            "type": "u8"
+          },
+          {
+            "name": "mintBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakeBumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "userVault",
+            "type": "u8"
+          },
+          {
+            "name": "protocolData",
+            "type": "u8"
+          },
+          {
+            "name": "userAta",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UnStakeBumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "userVault",
+            "type": "u8"
+          },
+          {
+            "name": "protocolData",
+            "type": "u8"
+          },
+          {
+            "name": "userAta",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bond",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "redemptionDate",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 300,
+      "name": "IncorrectInitAccount",
+      "msg": "failed to create account due to permissions error"
+    }
+  ],
+  "metadata": {
+    "address": "AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv"
+  }
+}
