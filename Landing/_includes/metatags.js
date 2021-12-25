@@ -30,14 +30,14 @@ export default function MetaTagComponent (props) {
 				<meta name='twitter:url' content='https://helixdao.org' />
 				<meta name='twitter:title' content='Helix Finance' />
 				<meta name='twitter:description' content='Stacking Incentives' />
-				<meta name='twitter:image' content='/public/helix2d.png' />
+				<meta name='twitter:image' content='https://helixdao.org/helix2d.png' />
 				<meta name='twitter:creator' content='@0xmillionz' />
 				<meta property='og:type' content='website' />
 				<meta property='og:title' content='Helix Finance' />
 				<meta property='og:description' content='Stacking Incentives' />
 				<meta property='og:site_name' content='Helix Finance' />
 				<meta property='og:url' content='https://helixdao.org' />
-				<meta property='og:image' content='https://helixdao.org/public/helix2d.png' />
+				<meta property='og:image' content='https://helixdao.org/helix2d.png' />
 
 				{/*
 				Apple app splash images
