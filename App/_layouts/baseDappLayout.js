@@ -3,7 +3,7 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import LandingHeader from '@includes/landingHeader';
 
-export default function ReserveLayout(props) {
+export default function BaseDappLayout(props) {
 	return(
 		<main>
 			<Head>

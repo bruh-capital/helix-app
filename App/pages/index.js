@@ -1,4 +1,4 @@
-import ReserveLayout from "@layouts/reserve";
+import BaseDappLayout from "@layouts/baseDappLayout";
 import StakeInterface from "@includes/stakeUi";
 import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
@@ -17,7 +17,7 @@ export default function AppPage() {
 	const [menuPage, setMenuPage] = useState("stake");
 
 	return(
-		<ReserveLayout title={"app"}>
+		<BaseDappLayout title={"app"}>
 			<ToastContainer/>
 			<PWAprompt 
 				timesToShow={2}
@@ -30,6 +30,6 @@ export default function AppPage() {
 				(<StakeInterface/>) :
 				(<BondInterface/>)
 			}
-		</ReserveLayout>
+		</BaseDappLayout>
 	)
 }
