@@ -25,11 +25,8 @@ export default function AppPage() {
 				copyTitle="Add Helix Dapp to Home Screen"
 				copyClosePrompt="Close"
 			/>
-			{
-				menuPage === "stake" ? 
-				(<StakeInterface/>) :
-				(<BondInterface/>)
-			}
+			<StakeInterface/>
+			<BondInterface/>
 		</BaseDappLayout>
 	)
 }
