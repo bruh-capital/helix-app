@@ -19,18 +19,19 @@ export default function BondInterface(props) {
 	const [bondAsset, setBondAsset] = useState("");
 	const [tokenMap, setTokenMap] = useState(new Map());
 
+	// FIXME(Millionz): make this part of API
 	const assets = [
 		{
 			Name: 'SOL',
 			Price: '170.00',
 			Roi: '100%',
-			Address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+			Address: 'So11111111111111111111111111111111111111112'
 		},
 		{
 			Name: 'USDC',
 			Price: '1.00',
 			Roi: '100%',
-			Address: '2wmVCSfPxGPjrnMMn7rchp4uaeoTqN39mXFC2zhPdri9',
+			Address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
 		},
 	];
 
