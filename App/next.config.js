@@ -23,6 +23,9 @@ module.exports =  withPWA(
     pwa: {
       dest: 'public',
       runtimeCaching,
+    },
+    images: {
+      domains: ['raw.githubusercontent.com'],
     }
   })
 );
