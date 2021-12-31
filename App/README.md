@@ -19,17 +19,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 This folder of the repo is a NextJS project that is the PWA/Website for interacting with the Helix Solana Programs
 
-Some environment variables are used in the app for QOL
-`.env.development` is used for running programs on localnet (test validator)
-`.env.production` is used for deploys to the [Dapp frontend URL](https://app.helixdao.org)
+Some environment variables are used in the app for QOL  
+`.env.development` is used for running programs on localnet (test validator)  
+`.env.production` is used for deploys to the [Dapp frontend URL](https://app.helixdao.org)  
 
 ## Organization
 
-`/_hooks` => Hooks/State-dependent things, abstracted interactions
-`/_includes` => UI components or sections
-`/_layouts` => Page Layouts
-`/_idl` => Program(s) IDL for anchor client
-`/_baseutils` => Program interaction code
+`/_hooks` => Hooks/State-dependent things, abstracted interactions  
+`/_includes` => UI components or sections  
+`/_layouts` => Page Layouts  
+`/_idl` => Program(s) IDL for anchor client  
+`/_baseutils` => Program interaction code  
 
 
 
