@@ -1,9 +1,11 @@
 import { getPythProgramKeyForCluster, PythConnection } from "@pythnetwork/client"
 
+/*
 const pythConnection = new PythConnection(
 	solanaWeb3Connection,
 	getPythProgramKeyForCluster(solanaClusterName)
 ); 
+*/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////	
 // API route that handles bond information fetching for frontend
