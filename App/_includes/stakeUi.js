@@ -28,9 +28,9 @@ export default function StakeInterface(props) {
 					onClick={() => createVault()}
 				>Create Vault</button>
 			</div>
-			<div className="card flex justify-center bg-white p-10 mt-10">
+			<div className="card flex justify-center bg-white p-3 mt-10">
 				<div className="card-body">
-					<h2 className="card-title text-4xl font-bold text-black pb-5">{operation}</h2>
+					<h2 className="card-title text-4xl font-bold text-black">{operation}</h2>
 					<div className="grid grid-rows-1 grid-flow-col gap-4">
 					{
 						operation ===  "Stake" ? 
@@ -39,7 +39,7 @@ export default function StakeInterface(props) {
 								<input
 									type="number"
 									placeholder="stake amount"
-									className="input input-bordered"
+									className="input input-bordered text-black"
 									value={stakeAmount}
 									onChange={(e) => setStakeAmount(e.target.value)}
 								/>
