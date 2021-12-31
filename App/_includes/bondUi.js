@@ -102,7 +102,14 @@ export default function BondInterface(props) {
 										<td>{asset.Name}</td>
 										<td>{asset.Price}</td>
 										<td>{asset.Roi}</td>
-										<td><button className="btn btn-primary">Mint</button></td>
+										<td>
+											<a href={"/#mint" + asset.Name} className="btn btn-primary">Mint</a>
+											<div id={"mint" + asset.Name} className="modal">
+												<div className="modal-box">
+													<p>put minting stuff here put minting stuff here put minting stuff here put minting stuff here</p>
+												</div>	
+											</div>
+										</td>
 									</tr>
 								)
 							})
