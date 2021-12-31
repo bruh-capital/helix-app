@@ -73,27 +73,11 @@ export default function BondInterface(props) {
 		});
 	}, [setTokenMap]);
 
-	const getTokenSrc = (asset) => {
-		let addr = '';
-		switch(process.env.NEXT_PUBLIC_PYTH_CLUSTER) {
-			case 'mainnet':
-				addr = asset.MainNetAddress;	
-				break;
-			case 'testnet':
-				addr = asset.TestNetAddress;
-				break;
-			case 'localnet':
-				addr = asset.LocalNetAddress;
-				break;
-		}
-		return (tokenMap.get(addr)?.logoURI || "/helix2d.png");
-	};
-
 	return (
-		<div className="card flex justify-center bg-white p-10 mt-10">
+		<div className="card flex justify-center bg-white p-3 mt-10">
 			<div className="card-body">
 				<h2 className="card-title text-black text-4xl font-bold">Mint Bonds</h2>
-				<table className="table w-full text-black table-zebra">
+				<table className="table table-zebra w-full text-black">
 					<thead>
 						<tr>
 							<th></th>
@@ -110,7 +94,7 @@ export default function BondInterface(props) {
 									<tr>
 										<td>
 											<Image 
-												src={getTokenSrc(asset)}
+												src={tokenMap.get(asset.MainNetAddress)?.logoURI || '/helix2d.png'}
 												height={50}
 												width={50}
 											/>
