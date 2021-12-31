@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 import BondInterface from "@includes/bondUi";
 import { useState } from "react";
+import AccountUI from "@includes/accountUi";
 
 const PWAprompt = dynamic(
 	() => {
@@ -25,11 +26,9 @@ export default function AppPage() {
 				copyTitle="Add Helix Dapp to Home Screen"
 				copyClosePrompt="Close"
 			/>
-			{
-				menuPage === "stake" ? 
-				(<StakeInterface/>) :
-				(<BondInterface/>)
-			}
+			<AccountUI/>
+			<StakeInterface/>
+			<BondInterface/>
 		</BaseDappLayout>
 	)
 }

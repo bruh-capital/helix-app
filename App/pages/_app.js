@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
     <AppMetaTagComponent>
       <ConnectionProvider endpoint={endpoint} >
         <WalletProvider wallets={wallets} autoConnect>
-          <WalletModalProvider>
+          <WalletModalProvider logo="/helix2dround.png">
               <Component {...pageProps} />
           </WalletModalProvider>
         </WalletProvider>
