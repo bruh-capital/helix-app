@@ -75,7 +75,10 @@ export default function BondInterface(props) {
 	}, [setTokenMap]);
 
 	return (
-		<div className="card flex justify-center bg-white p-3 mt-10">
+		<div 
+			className="card flex justify-center bg-white p-3 mt-10"
+			style={{boxShadow: "0px 0px 12px rgba(256, 256, 256, 1)"}}
+		>
 			<div className="card-body">
 				<h2 className="card-title text-black text-4xl font-bold">Mint Bonds</h2>
 				<table className="table table-zebra w-full text-black">
