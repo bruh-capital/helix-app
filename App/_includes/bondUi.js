@@ -23,16 +23,43 @@ export default function BondInterface(props) {
 	const assets = [
 		{
 			Name: 'SOL',
-			Price: '170.00',
-			Roi: '100%',
-			Address: 'So11111111111111111111111111111111111111112'
+			Price: 'N/A',
+			Roi: 'N/A%',
+			LocalNetAddress: '',
+			TestNetAddress: '',
+			MainNetAddress: 'So11111111111111111111111111111111111111112'
 		},
 		{
 			Name: 'USDC',
-			Price: '1.00',
-			Roi: '100%',
-			Address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+			Price: 'N/A',
+			Roi: 'N/A%',
+			LocalNetAddress: '',
+			TestNetAddress: '',
+			MainNetAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
 		},
+		{
+			Name: 'wUST',
+			Price: 'N/A',
+			Roi: 'N/A%',
+			LocalNetAddress: '',
+			TestNetAddress: '',
+			MainNetAddress: 'CXLBjMMcwkc17GfJtBos6rQCo1ypeH6eDbB82Kby4MRm',
+		},
+		/*FIXME(millionz): Implement!
+		{
+			Name: 'UXD',
+			Price: 'N/A',
+			Roi: 'N/A%',
+			Address: '????',
+		},
+		{
+			Name: 'SOL-HLX LP',
+			Price: 'N/A',
+			Roi: 'N/A%',
+			LocalNetAddress: '',
+			TestNetAddress: '',
+			MainNetAddress: '',
+		},*/
 	];
 
 	useEffect(() => {
@@ -45,6 +72,22 @@ export default function BondInterface(props) {
 			}, new Map()));
 		});
 	}, [setTokenMap]);
+
+	const getTokenSrc = (asset) => {
+		let addr = '';
+		switch(process.env.NEXT_PUBLIC_PYTH_CLUSTER) {
+			case 'mainnet':
+				addr = asset.MainNetAddress;	
+				break;
+			case 'testnet':
+				addr = asset.TestNetAddress;
+				break;
+			case 'localnet':
+				addr = asset.LocalNetAddress;
+				break;
+		}
+		return (tokenMap.get(addr)?.logoURI || "/helix2d.png");
+	};
 
 	return (
 		<div className="card flex justify-center bg-white p-10 mt-10">
@@ -59,13 +102,15 @@ export default function BondInterface(props) {
 							<th>ROI</th>
 							<th></th>
 						</tr>
+					</thead>
+					<tbody>
 						{
 							assets.map(function (asset, index) {
 								return(
 									<tr>
 										<td>
 											<Image 
-												src={tokenMap.get(asset.Address)?.logoURI || "/helix2d.png"}
+												src={getTokenSrc(asset)}
 												height={50}
 												width={50}
 											/>
@@ -78,7 +123,7 @@ export default function BondInterface(props) {
 								)
 							})
 						}
-					</thead>
+					</tbody>
 				</table>
 			</div>
 		</div>
