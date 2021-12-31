@@ -4,6 +4,7 @@ import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 import { token } from "@project-serum/anchor/dist/cjs/utils";
 import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 import Image from "next/image";
+import Modal, { MintModal } from "./modals";
 
 export default function BondInterface(props) {
 	const {
@@ -103,12 +104,7 @@ export default function BondInterface(props) {
 										<td>{asset.Price}</td>
 										<td>{asset.Roi}</td>
 										<td>
-											<a href={"/#mint" + asset.Name} className="btn btn-primary">Mint</a>
-											<div id={"mint" + asset.Name} className="modal">
-												<div className="modal-box">
-													<p>put minting stuff here put minting stuff here put minting stuff here put minting stuff here</p>
-												</div>	
-											</div>
+											<MintModal bondName={asset.Name}/>
 										</td>
 									</tr>
 								)
