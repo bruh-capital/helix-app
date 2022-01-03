@@ -1,4 +1,4 @@
-import 'tailwindcss/tailwind.css';
+import 'styles/globals.css';
 import "@solana/spl-token";
 
 let WALLETS = {

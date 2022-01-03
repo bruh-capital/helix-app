@@ -21,7 +21,7 @@ export default function StakeInterface(props) {
 			className="card flex justify-center bg-white p-3 mt-10"
 		>
 			<div className="card-body">
-				<h2 className="card-title text-4xl font-bold text-black">{operation}</h2>
+				<h2 className="card-title">{operation}</h2>
 				<div className="grid grid-rows-1 grid-flow-col gap-4">
 				{
 					operation ===  "Stake" ? 

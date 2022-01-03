@@ -37,7 +37,7 @@ export default function BondInterface(props) {
 			<div className="card-body">
 				<h2 className="card-title text-black text-4xl font-bold">Mint Bonds</h2>
 				<table className="table table-zebra w-full text-black">
-					<thead>
+					<thead className="bg-gray-300 rounded-4xl p-5 m-2">
 						<tr>
 							<th></th>
 							<th>Accepted Asset</th>
