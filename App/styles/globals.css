@@ -22,7 +22,7 @@
 
 	/* Input Styles */
 	.input {
-		@apply border-2 border-gray-300 rounded-md pr-12 pl-7 w-full;
+		@apply border-2 border-gray-300 rounded-md w-full;
 	}
 
 	.input:focus {
