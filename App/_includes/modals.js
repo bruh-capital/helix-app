@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
+import HelixWrapper from '@hooks/baseLayerHooks';
 
 export function MintModal(props) {
   const [open, setOpen] = useState(false);
@@ -11,8 +12,18 @@ export function MintModal(props) {
   const [maxBondAmount, setMaxBondAmount] = useState();
   const [bondDiscount, setBondDiscount] = useState();
   
-
   const cancelButtonRef = useRef(null);
+
+	const {
+		stakeToken,
+		unstakeToken,
+		createUserAta,
+		createVault,
+		makeBond,
+		redeemBond 
+	} = HelixWrapper();
+
+  const hasAccount = false;
 
   return (
 	<>
@@ -53,13 +64,16 @@ export function MintModal(props) {
                       {props.bondName + " Bonds"}
                     </Dialog.Title>
                     <div className="mt-2">
-                      <input
-                        type="number"
-                        placeholder="Amount"
-                        className="input ml-4 w-11/12 text-gray-500"
-                        value={bondAmount}
-                        onChange={(e) => setBondAmount(e.target.value)}
-                      />
+                    {/* hacking align with cols wtf man*/}
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <input
+                          type="number"
+                          placeholder="Amount"
+                          className="input col-span-2 ml-1 w-auto text-gray-500"
+                          value={bondAmount}
+                          onChange={(e) => setBondAmount(e.target.value)}
+                        />
+                      </div>
                       <table className="ml-6 w-full">
                         <tbody>
                           <tr>
@@ -67,8 +81,8 @@ export function MintModal(props) {
                             <td>{userAssetBalance || "0"}</td>
                           </tr>
                           <tr>
-                            <td>HLX Recieved</td>
-                            <td>{possibleHLX || "N/A"}</td>
+                            <td>You recieve</td>
+                            <td>{possibleHLX + " HLX" || "N/A"}</td>
                           </tr>
                           <tr>
                             <td>Max Bond Amount</td>
@@ -77,6 +91,10 @@ export function MintModal(props) {
                           <tr>
                             <td>Bond Discount</td>
                             <td>{bondDiscount || "N/A"}</td>
+                          </tr>
+                          <tr>
+                            <td>Vesting Period</td>
+                            <td>5 Days</td>
                           </tr>
                         </tbody>
                       </table>
@@ -88,17 +106,17 @@ export function MintModal(props) {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setOpen(false)}
+                  onClick={() => {hasAccount ? createVault() : makeBond()}}
                 >
-                  Purple Button
+                  {!hasAccount ? "Make Vault" : "Mint Bond"}
                 </button>
                 <button
                   type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => setOpen(false)}
                   ref={cancelButtonRef}
                 >
-                  Cancel
+                  Exit
                 </button>
               </div>
             </div>
