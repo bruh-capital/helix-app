@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import HelixWrapper from "@hooks/baseLayerHooks";
 import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 import Image from "next/image";
 import { MintModal } from "./modals";
