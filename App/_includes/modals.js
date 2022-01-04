@@ -3,9 +3,14 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 
 export function MintModal(props) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const cancelButtonRef = useRef(null)
+  const [bondAmount, setBondAmount] = useState();
+  const [userAssetBalance, setUserAssetBalance] = useState();
+  const [possibleHLX, setPossibleHLX] = useState();
+  const [bondDiscount, setBondDiscount] = useState();
+
+  const cancelButtonRef = useRef(null);
 
   return (
 	<>
@@ -41,17 +46,41 @@ export function MintModal(props) {
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <ExclamationIcon className="h-6 w-6 text-purple-600" aria-hidden="true" />
-                  </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                    <Dialog.Title as="h3" className="text-lg text-center leading-6 font-medium text-gray-900">
                       {props.bondName + " Bonds"}
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-					  	稳定币尤其是算法稳定币，可能是带给投资者伤痛最多的一个领域
+                      <p className="text-lg font-semibold text-gray-500">
+                        稳定币尤其是算法稳定币，可能是带给投资者伤痛最多的一个领域
                       </p>
+                      <input
+                        type="number"
+                        placeholder="Amount"
+                        className="input text-black"
+                        value={bondAmount}
+                        onChange={(e) => setBondAmount(e.target.value)}
+                      />
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Your Balance</td>
+                            <td>{userAssetBalance}</td>
+                          </tr>
+                          <tr>
+                            <td>HLX Recieved</td>
+                            <td>{possibleHLX}</td>
+                          </tr>
+                          <tr>
+                            <td>Max Bond Amount</td>
+                            <td>{maxBondAmount}</td>
+                          </tr>
+                          <tr>
+                            <td>Bond Discount</td>
+                            <td>{bondDiscount}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>

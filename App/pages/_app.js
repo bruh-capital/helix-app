@@ -41,11 +41,11 @@ function MyApp({ Component, pageProps }) {
   );
 
   return(
-    <AppMetaTagComponent>
+    <AppMetaTagComponent classname="bg-black">
       <ConnectionProvider endpoint={endpoint} >
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
-              <Component {...pageProps} />
+            <Component {...pageProps} />
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>
