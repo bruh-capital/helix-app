@@ -5,17 +5,6 @@ import Image from "next/image";
 import { MintModal } from "./modals";
 
 export default function BondInterface(props) {
-	const {
-		stakeToken,
-		unstakeToken,
-		createUserAta,
-		createVault,
-		makeBond,
-		redeemBond
-	} = HelixWrapper();
-
-	const [bondAmount, setBondAmount] = useState(0);
-	const [bondAsset, setBondAsset] = useState("");
 	const [tokenMap, setTokenMap] = useState(new Map());
 			
 	useEffect(() => {
@@ -37,7 +26,7 @@ export default function BondInterface(props) {
 			<div className="card-body">
 				<h2 className="card-title text-black text-4xl font-bold">Mint Bonds</h2>
 				<table className="table table-zebra w-full text-black">
-					<thead className="bg-gray-300 rounded-4xl p-5 m-2">
+					<thead className="rounded-4xl p-5 m-2">
 						<tr>
 							<th></th>
 							<th>Accepted Asset</th>
