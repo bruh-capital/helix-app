@@ -19,11 +19,38 @@
       "args": [
         {
           "name": "bump",
-          "type": "u8"
+          "type": {
+            "defined": "ChangeRebaseBumps"
+          }
         },
         {
           "name": "newRate",
           "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "changeLockup",
+      "accounts": [
+        {
+          "name": "userVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        },
+        {
+          "name": "lockupPeriod",
+          "type": "i64"
         }
       ]
     },
@@ -37,6 +64,11 @@
         },
         {
           "name": "protocAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
           "isMut": true,
           "isSigner": false
         },
@@ -103,14 +135,14 @@
           "isSigner": false
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
+          "name": "mint",
+          "isMut": true,
           "isSigner": false
         },
         {
-          "name": "tokenAuthority",
+          "name": "tokenProgram",
           "isMut": false,
-          "isSigner": true
+          "isSigner": false
         }
       ],
       "args": [
@@ -127,7 +159,7 @@
       ]
     },
     {
-      "name": "depositAsset",
+      "name": "depositAssetSol",
       "accounts": [
         {
           "name": "userWallet",
@@ -154,6 +186,57 @@
         {
           "name": "bump",
           "type": "u8"
+        },
+        {
+          "name": "amtToTransfer",
+          "type": "u64"
+        },
+        {
+          "name": "bondAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "depositAssetSpl",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "protocAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bumps",
+          "type": {
+            "defined": "DepositAssetSplBumps"
+          }
         },
         {
           "name": "amtToTransfer",
@@ -218,11 +301,6 @@
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "rent",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": [
@@ -264,20 +342,15 @@
       ]
     },
     {
-      "name": "initUserAta",
+      "name": "initProtocolAta",
       "accounts": [
         {
-          "name": "userAta",
+          "name": "protocAta",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "payer",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "user",
+          "name": "multisigSigner",
           "isMut": true,
           "isSigner": true
         },
@@ -304,9 +377,9 @@
       ],
       "args": [
         {
-          "name": "bump",
+          "name": "bumps",
           "type": {
-            "defined": "InitATABumps"
+            "defined": "InitProtocATABumps"
           }
         }
       ]
@@ -436,6 +509,49 @@
           }
         }
       ]
+    },
+    {
+      "name": "mintAndCloseIdo",
+      "accounts": [
+        {
+          "name": "idoAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userHelixAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "idoProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bumps",
+          "type": {
+            "defined": "MintCloseIdoBumps"
+          }
+        }
+      ]
     }
   ],
   "accounts": [
@@ -449,7 +565,7 @@
             "type": "u64"
           },
           {
-            "name": "totalStakedTwist",
+            "name": "totalStakedHelix",
             "type": "u64"
           },
           {
@@ -461,7 +577,7 @@
             "type": "u64"
           },
           {
-            "name": "twstVault",
+            "name": "owner",
             "type": "publicKey"
           }
         ]
@@ -487,6 +603,10 @@
                 "defined": "Bond"
               }
             }
+          },
+          {
+            "name": "lockupPeriod",
+            "type": "i64"
           }
         ]
       }
@@ -494,12 +614,56 @@
   ],
   "types": [
     {
-      "name": "InitATABumps",
+      "name": "ChangeRebaseBumps",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "userBump",
+            "name": "protocolBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DepositAssetSplBumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "protocBump",
+            "type": "u8"
+          },
+          {
+            "name": "userVaultBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitProtocATABumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "protocBump",
+            "type": "u8"
+          },
+          {
+            "name": "mintBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MintCloseIdoBumps",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "idoAccountBump",
             "type": "u8"
           },
           {
@@ -520,6 +684,10 @@
           },
           {
             "name": "mintBump",
+            "type": "u8"
+          },
+          {
+            "name": "protocolAtaBump",
             "type": "u8"
           }
         ]
@@ -561,6 +729,10 @@
           {
             "name": "userAta",
             "type": "u8"
+          },
+          {
+            "name": "mintBump",
+            "type": "u8"
           }
         ]
       }
@@ -571,15 +743,19 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "userVault",
+            "name": "vaultBump",
             "type": "u8"
           },
           {
-            "name": "protocolData",
+            "name": "protocolBump",
             "type": "u8"
           },
           {
-            "name": "userAta",
+            "name": "mintBump",
+            "type": "u8"
+          },
+          {
+            "name": "protocolAtaBump",
             "type": "u8"
           }
         ]
