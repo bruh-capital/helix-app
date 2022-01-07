@@ -34,15 +34,20 @@ const networks = [
 ];
 
 // FIXME(@millionz) - text size for this is so fucked bro why
+// TODO(@millionz) - add notifications for network changes
 export default function ConnectionButton(props) {
 	const { setRpcUrl } = useContext(RpcUrlContext);
 	const { setMultiSigAddr } = useContext(MultiSigContext);
 	const [ selected, setSelected ] = useState(networks[2]);
-  
+
 	return (
 		<Listbox 
 			value={selected} 
-			onChange={setSelected}
+			onChange={(value) => {
+				setSelected(value);
+				setRpcUrl(value.cluster);
+				setMultiSigAddr(value.mSigAddr);
+			}}
 		>
 			<div>
 				<Listbox.Button 
