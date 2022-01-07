@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"paths": {
+			"@context/*": ["_context/*"],
 			"@idl/*": ["_idl/*"],
 			"@hooks/*": ["_hooks/*"],
 			"@includes/*": ["_includes/*"],
