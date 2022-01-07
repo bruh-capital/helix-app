@@ -4,7 +4,8 @@ import React, { Fragment } from 'react';
 import 'tailwindcss/tailwind.css';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import WalletButtonFake, {WalletButton} from '@includes/wallet';
+import {WalletButton} from '@includes/wallet';
+import ConnectionButton from '@includes/connection';
 
 export default function Header(props) {
 	return(
@@ -29,6 +30,7 @@ export default function Header(props) {
 					</div>
 					<Popover.Group as="nav" className='hidden divide-gray-600 md:flex space-x-10'>
 						<WalletButton/>
+						<ConnectionButton/>
 					</Popover.Group>
 				</div>
 			</div>
