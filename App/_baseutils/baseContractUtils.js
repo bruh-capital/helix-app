@@ -3,7 +3,6 @@ import * as web3 from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import * as idl from '@idl/twst.json';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
-import { TREASURY_PUBKEY } from "./treasuryVariables";
 import * as pythUtils from "./pythUtils";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +98,7 @@ export class HelixNetwork {
 			await this.program.rpc.depositAsset(userVaultBump, new anchor.BN(asset_amount), new anchor.BN(bond_amount), {
 				accounts:{
 				userWallet: this.wallet.publicKey,
-				treasuryWallet: TREASURY_PUBKEY,
+				treasuryWallet: process.env.NEXT_PUBLIC_TREASURY_PUBKEY,
 				userVault: userVault,
 				systemProgram: this.SYSTEM_PROGRAM_ID,
 				},
