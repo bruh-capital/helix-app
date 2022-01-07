@@ -28,7 +28,7 @@ export default function Header(props) {
 							<MenuIcon className="h-6 w-6" aria-hidden="true" />
 						</Popover.Button>
 					</div>
-					<Popover.Group as="nav" className='grid grid-cols-2 hidden divide-gray-600 md:flex space-x-10'>
+					<Popover.Group as="nav" className='grid grid-cols-2 hidden divide-gray-600 md:flex space-x-6'>
 						<WalletButton/>
 						<ConnectionButton/>
 					</Popover.Group>
