@@ -3,12 +3,20 @@ import * as anchor from "@project-serum/anchor";
 import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
-import NotificationSystem, {atalhoTheme, dismissNotification} from 'reapop';
+const toastSettings = {
+	position: "top-center",
+	autoClose: 5000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: true,
+	draggable: true,
+	progress: undefined,
+};
 
 /**
- * creates the helix functions
- * @constructor
+ * 
  * @param {number} amount how much does the user want to stake 
  * @returns {{bigass tuple of functions}}
  */
