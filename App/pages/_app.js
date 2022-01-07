@@ -29,29 +29,31 @@ import AppMetaTagComponent from '@includes/metaTags';
 
 // TODO(@millionz) - impl the fkn helix context thing
 function MyApp({ Component, pageProps }) {
-  const network = CLUSTERS.testnet;
-  const endpoint = useMemo(() => network, []);
+  const rpcUrl = CLUSTERS[network];
+  const cachedRpcUrl = useMemo(() => rpcUrl, [network]);
 
   const wallets = useMemo(
     () => [
       WALLETS.getPhantomWallet(),
       WALLETS.getSolflareWallet(),
-      WALLETS.getSolletWallet({ network }),
+      WALLETS.getSolletWallet({ cachedRpcUrl }),
       WALLETS.getLedgerWallet(),
       WALLETS.getSlopeWallet(),
-      WALLETS.getSolletExtensionWallet({ network }),
+      WALLETS.getSolletExtensionWallet({ cachedRpcUrl }),
     ], []
   );
 
   return(
     <AppMetaTagComponent classname="bg-black">
-      <ConnectionProvider endpoint={endpoint} >
-        <WalletProvider wallets={wallets}>
-          <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
-            <Component {...pageProps} />
-          </WalletModalProvider>
-        </WalletProvider>
-      </ConnectionProvider>
+      <mainContext.Provider value={{ network, endpoint, multiSigAddr }}>
+        <ConnectionProvider endpoint={endpoint} >
+          <WalletProvider wallets={wallets}>
+            <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
+              <Component {...pageProps} />
+            </WalletModalProvider>
+          </WalletProvider>
+        </ConnectionProvider>
+      </mainContext.Provider>
     </AppMetaTagComponent>
   );
 }

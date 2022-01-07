@@ -14,16 +14,16 @@ const MULTISIG_ADDRS = {
 	'mainnet': ''
 }
 
-// make this default to testnet cluster for now
+// make this default to devnet cluster for now
 const HelixContext = createContext({
-	network: 'testnet',
-	endpoint: 'https://api.testnet.solana.com',
+	network: 'devnet',
+	endpoint: 'https://api.devnet.solana.com',
 	mutliSigAddr: '',
 	setNetwork: (network) => {
 		network = network.toLowerCase();
 		HelixContext.network = network;
 		HelixContext.endpoint = CLUSTERS[network];
-		HelixContext.mutliSigAddr = MULTISIG_ADDRS[network];
+		HelixContext.multiSigAddr = MULTISIG_ADDRS[network];
 	}
 });
 
