@@ -3,10 +3,8 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
 
 // Context
-/*
 import RpcUrlContext from "@context/rpcUrlContext";
 import MultiSigContext from "@context/multiSigContext";
-*/
 
 const networks = [
 	{
@@ -37,22 +35,14 @@ const networks = [
 
 // FIXME(@millionz) - text size for this is so fucked bro why
 export default function ConnectionButton(props) {
-	/*
 	const { setRpcUrl } = useContext(RpcUrlContext);
 	const { setMultiSigAddr } = useContext(MultiSigContext);
-	*/
 	const [ selected, setSelected ] = useState(networks[2]);
   
 	return (
 		<Listbox 
 			value={selected} 
-			onChange={
-				setSelected
-				/*
-				setRpcUrl(selected.cluster);
-				setMultiSigAddr(selected.mSigAddr);
-				*/
-			}
+			onChange={setSelected}
 		>
 			<div>
 				<Listbox.Button 
