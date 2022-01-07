@@ -27,8 +27,10 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { useMemo } from 'react';
 import AppMetaTagComponent from '@includes/metaTags';
 
+// TODO(@millionz) - impl the fkn helix context thing
 function MyApp({ Component, pageProps }) {
-  const endpoint = useMemo(() => CLUSTERS.testnet, []);
+  const network = CLUSTERS.testnet;
+  const endpoint = useMemo(() => network, []);
 
   const wallets = useMemo(
     () => [
@@ -44,7 +46,7 @@ function MyApp({ Component, pageProps }) {
   return(
     <AppMetaTagComponent classname="bg-black">
       <ConnectionProvider endpoint={endpoint} >
-        <WalletProvider wallets={wallets} autoConnect>
+        <WalletProvider wallets={wallets}>
           <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
             <Component {...pageProps} />
           </WalletModalProvider>
