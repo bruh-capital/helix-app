@@ -3,6 +3,7 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, AdjustmentsIcon} from "@heroicons/react/outline";
 import { ConnectionContext } from '@solana/wallet-adapter-react';
 import setNetwork from '@context/setNetworkContext';
+import NetContext from "@context/setNetworkContext";
 
 const networks = [
 	{
@@ -33,6 +34,7 @@ const networks = [
 
 // FIXME(@millionz) - text size for this is so fucked bro why
 export default function ConnectionButton(props) {
+	const { setNetwork } = useContext(NetContext);
 	const [selected, setSelected] = useState(networks[2]);
   
 	return (

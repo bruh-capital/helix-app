@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }) {
 
   return(
     <AppMetaTagComponent classname="bg-black">
-      <MultiSigContext.Provider value={{ multiSigAddr }}>
+      <MultiSigContext.Provider value={{ multiSigAddr, setMultiSigAddr }}>
         <NetContext.Provider value={{ rpcUrl, setRpcUrl }}>
           <ConnectionProvider endpoint={rpcUrl} >
             <WalletProvider wallets={wallets}>
