@@ -31,21 +31,22 @@ import MultiSigContext from '@context/multiSigContext';
 function MyApp({ Component, pageProps }) {
   const [rpcUrl, setRpcUrl] = useState(CLUSTERS.devnet);
   const endpoint = useMemo(() => rpcUrl, []);
+  const [ addr, setAddr ] = useState();
 
   const wallets = useMemo(
     () => [
       WALLETS.getPhantomWallet(),
       WALLETS.getSolflareWallet(),
-      WALLETS.getSolletWallet({ cachedRpcUrl }),
+      WALLETS.getSolletWallet({ endpoint }),
       WALLETS.getLedgerWallet(),
       WALLETS.getSlopeWallet(),
-      WALLETS.getSolletExtensionWallet({ cachedRpcUrl }),
+      WALLETS.getSolletExtensionWallet({ endpoint }),
     ], []
   );
 
   return(
     <AppMetaTagComponent classname="bg-black">
-      <MultiSigContext.Provider value={{ Addr }}>
+      <MultiSigContext.Provider value={{ addr }}>
         <ConnectionProvider endpoint={endpoint} >
           <WalletProvider wallets={wallets}>
             <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
