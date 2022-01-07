@@ -78,7 +78,7 @@ export async function getStaticProps() {
 
 	return {
 		props: {
-			bondsInfo
+			bondsInfo,
 		},
 	}
 }
