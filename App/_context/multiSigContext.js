@@ -1,11 +1,5 @@
 import { createContext } from "react";
 
-const CLUSTERS = {
-	'localnet': 'http://localhost:8899',
-	'devnet': 'https://api.devnet.solana.com',
-	'testnet': 'https://api.testnet.solana.com',
-	'mainnet': 'https://api.mainnet-beta.solana.com',
-};
 
 const MULTISIG_ADDRS = {
 	'localnet': '',
@@ -15,7 +9,7 @@ const MULTISIG_ADDRS = {
 }
 
 // make this default to devnet cluster for now
-const HelixContext = createContext({
+const MSigContext = createContext({
 	network: 'devnet',
 	endpoint: 'https://api.devnet.solana.com',
 	mutliSigAddr: '',
@@ -27,4 +21,4 @@ const HelixContext = createContext({
 	}
 });
 
-export default HelixContext;
+export default MSigContext;
