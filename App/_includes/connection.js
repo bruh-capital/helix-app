@@ -1,20 +1,37 @@
 import { Fragment, useState, useContext } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, AdjustmentsIcon} from "@heroicons/react/outline";
-import mainContext from "@context/mainContext"; 
+import mainContext from "@context/multiSigContext"; 
+import { ConnectionContext } from '@solana/wallet-adapter-react';
 import { set } from "@project-serum/anchor/dist/cjs/utils/features";
 
 const networks = [
-	{ value: 'mainnet', label: 'Mainnet' },
-	{ value: 'testnet', label: 'Testnet' },
-	{ value: 'devnet', label: 'Devnet' },
-	{ value: 'localnet', label: 'Localnet' },
+	{
+		value: 'mainnet',
+		label: 'Mainnet',
+		mSigAddr: '' 
+		
+	},
+	{ 
+		value: 'testnet',
+		label: 'Testnet',
+		mSigAddr: ''
+	},
+	{ 
+		value: 'devnet',
+		label: 'Devnet',
+		mSigAddr: ''
+	},
+	{ 
+		value: 'localnet',
+		label: 'Localnet',
+		mSigAddr: '2hhSux633AHhbg91viSibSnUSjdzi5dsbyypWjG5Sr2b'
+	},
 ];
 
 // FIXME(@millionz) - text size for this is so fucked bro why
 export default function ConnectionButton(props) {
 	const [selected, setSelected] = useState(networks[2]);
-	const { setNetwork } = useContext(mainContext);
   
 	return (
 		<Listbox 

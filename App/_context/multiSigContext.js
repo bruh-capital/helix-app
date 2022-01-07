@@ -1,24 +1,17 @@
 import { createContext } from "react";
 
-
+// Defaults for all networks
 const MULTISIG_ADDRS = {
-	'localnet': '',
-	'devnet': '',
-	'testnet': '',
-	'mainnet': ''
+	localnet: '',
+	devnet: '2hhSux633AHhbg91viSibSnUSjdzi5dsbyypWjG5Sr2b',
+	testnet: '',
+	mainnet: ''
 }
 
-// make this default to devnet cluster for now
+// Defaults to devnet settings
 const MSigContext = createContext({
-	network: 'devnet',
-	endpoint: 'https://api.devnet.solana.com',
-	mutliSigAddr: '',
-	setNetwork: (network) => {
-		network = network.toLowerCase();
-		HelixContext.network = network;
-		HelixContext.endpoint = CLUSTERS[network];
-		HelixContext.multiSigAddr = MULTISIG_ADDRS[network];
-	}
+	mutliSigAddr: MULTISIG_ADDRS.devnet,
+	setNetwork: (addr) => {}
 });
 
 export default MSigContext;
