@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/outline";
+import { CheckIcon, AdjustmentsIcon} from "@heroicons/react/outline";
 import mainContext from "@context/mainContext"; 
 
 const networks = [
@@ -11,14 +11,12 @@ const networks = [
 ];
 
 export default function ConnectionButton(props) {
-	const [selected, setSelected] = useState(networks[0].value);
+	const [selected, setSelected] = useState(networks[2]);
   
 	return (
-	  <div className="w-72">
 		<Listbox value={selected} onChange={setSelected}>
-		  <div className="relative mt-1">
-			<Listbox.Button className="relative w-full py-6 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-purple-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-			  <span className="block truncate">{selected.label}</span>
+			<Listbox.Button className="text-center py-3 p-6 text-black font-bold w-auto bg-white rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-purple-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+			  <span className="block truncate">Network ⚙️</span>
 			</Listbox.Button>
 			<Transition
 			  as={Fragment}
@@ -26,7 +24,7 @@ export default function ConnectionButton(props) {
 			  leaveFrom="opacity-100"
 			  leaveTo="opacity-0"
 			>
-			  <Listbox.Options className="absolute z-50 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+			  <Listbox.Options className="absolute z-50 w-36 py-1 ml-24 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 				{networks.map((network, index) => (
 				  <Listbox.Option
 					key={index}
@@ -34,7 +32,7 @@ export default function ConnectionButton(props) {
 					  `${active ? 'text-purple-900 bg-purple-100' : 'text-gray-900'}
 							cursor-default select-none relative py-2 pl-10 pr-4`
 					}
-					value={network.label}
+					value={network.value}
 				  >
 					{({ selected, active }) => (
 					  <>
@@ -61,8 +59,6 @@ export default function ConnectionButton(props) {
 				))}
 			  </Listbox.Options>
 			</Transition>
-		  </div>
 		</Listbox>
-	  </div>
 	)
   }
