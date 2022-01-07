@@ -24,13 +24,14 @@ const CLUSTERS = {
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import AppMetaTagComponent from '@includes/metaTags';
+import MultiSigContext from '@context/multiSigContext';
 
 // TODO(@millionz) - impl the fkn helix context thing
 function MyApp({ Component, pageProps }) {
-  const rpcUrl = CLUSTERS[network];
-  const cachedRpcUrl = useMemo(() => rpcUrl, [network]);
+  const rpcUrl = CLUSTERS.devnet;
+  const endpoint = useMemo(() => rpcUrl, []);
 
   const wallets = useMemo(
     () => [
@@ -45,7 +46,7 @@ function MyApp({ Component, pageProps }) {
 
   return(
     <AppMetaTagComponent classname="bg-black">
-      <mainContext.Provider value={{ network, endpoint, multiSigAddr }}>
+      <MultiSigContext.Provider value={{ Addr }}>
         <ConnectionProvider endpoint={endpoint} >
           <WalletProvider wallets={wallets}>
             <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
@@ -53,7 +54,7 @@ function MyApp({ Component, pageProps }) {
             </WalletModalProvider>
           </WalletProvider>
         </ConnectionProvider>
-      </mainContext.Provider>
+      </MultiSigContext.Provider>
     </AppMetaTagComponent>
   );
 }
