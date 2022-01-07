@@ -14,20 +14,24 @@ if (typeof window !== "undefined") {
   WALLETS = require("@solana/wallet-adapter-wallets");
 }
 
+const CLUSTERS = {
+  localnet:   "http://localhost:8899",
+  devnet:     "https://api.devnet.solana.com",
+  testnet:    "https://api.testnet.solana.com",
+  mainnet:    "https://api.mainnet-beta.solana.com",
+}
+
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { useMemo } from 'react';
 import AppMetaTagComponent from '@includes/metaTags';
 
-//const network = process.env.NEXT_APP_RPC_URL;
-const network = "http://localhost:8899"
-
 // ive decided not to add signing to any transaction because
 // wallets automatically sign. therefore if a wallet does not have
 // proper authority, they can not be invoking a certain function
 function MyApp({ Component, pageProps }) {
-  const endpoint = useMemo(() => network, []);
+  const endpoint = useMemo(() => CLUSTERS.testnet, []);
 
   const wallets = useMemo(
     () => [
