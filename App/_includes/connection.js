@@ -1,9 +1,12 @@
 import { Fragment, useState, useContext } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, AdjustmentsIcon} from "@heroicons/react/outline";
-import { ConnectionContext } from '@solana/wallet-adapter-react';
-import setNetwork from '@context/setNetworkContext';
-import NetContext from "@context/setNetworkContext";
+import { CheckIcon } from "@heroicons/react/outline";
+
+// Context
+/*
+import RpcUrlContext from "@context/rpcUrlContext";
+import MultiSigContext from "@context/multiSigContext";
+*/
 
 const networks = [
 	{
@@ -34,16 +37,22 @@ const networks = [
 
 // FIXME(@millionz) - text size for this is so fucked bro why
 export default function ConnectionButton(props) {
-	const { setNetwork } = useContext(NetContext);
-	const [selected, setSelected] = useState(networks[2]);
+	/*
+	const { setRpcUrl } = useContext(RpcUrlContext);
+	const { setMultiSigAddr } = useContext(MultiSigContext);
+	*/
+	const [ selected, setSelected ] = useState(networks[2]);
   
 	return (
 		<Listbox 
 			value={selected} 
-			onChange={() => {
-				setSelected(selected);
-				setNetwork(selected.cluster);
-			}}
+			onChange={
+				setSelected
+				/*
+				setRpcUrl(selected.cluster);
+				setMultiSigAddr(selected.mSigAddr);
+				*/
+			}
 		>
 			<div>
 				<Listbox.Button 

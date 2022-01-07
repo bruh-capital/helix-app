@@ -11,7 +11,7 @@ const MULTISIG_ADDRS = {
 // Defaults to devnet settings
 const MSigContext = createContext({
 	mutliSigAddr: MULTISIG_ADDRS.devnet,
-	setNetwork: (addr) => {}
+	setMultiSigAddr: (addr) => {}
 });
 
 export default MSigContext;

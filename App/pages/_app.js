@@ -29,12 +29,12 @@ import AppMetaTagComponent from '@includes/metaTags';
 
 // Custom Context Providers
 import MultiSigContext from '@context/multiSigContext';
-import NetContext from '@context/setNetworkContext';
+import RpcUrlContext from '@context/rpcUrlContext';
 
 function MyApp({ Component, pageProps }) {
   const [ multiSigAddr, setMultiSigAddr ] = useState();
   const [ rpcUrl, setRpcUrl ] = useState(CLUSTERS.devnet);
-  const endpoint = useMemo(() => rpcUrl, [rpcUrl]);
+  const endpoint = useMemo(() => rpcUrl, []);
 
   const wallets = useMemo(
     () => [
@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }) {
   return(
     <AppMetaTagComponent classname="bg-black">
       <MultiSigContext.Provider value={{ multiSigAddr, setMultiSigAddr }}>
-        <NetContext.Provider value={{ rpcUrl, setRpcUrl }}>
+        <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
           <ConnectionProvider endpoint={rpcUrl} >
             <WalletProvider wallets={wallets}>
               <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }) {
               </WalletModalProvider>
             </WalletProvider>
           </ConnectionProvider>
-        </NetContext.Provider>
+        </RpcUrlContext.Provider>
       </MultiSigContext.Provider>
     </AppMetaTagComponent>
   );
