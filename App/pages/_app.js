@@ -27,9 +27,6 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { useMemo } from 'react';
 import AppMetaTagComponent from '@includes/metaTags';
 
-// ive decided not to add signing to any transaction because
-// wallets automatically sign. therefore if a wallet does not have
-// proper authority, they can not be invoking a certain function
 function MyApp({ Component, pageProps }) {
   const endpoint = useMemo(() => CLUSTERS.testnet, []);
 
