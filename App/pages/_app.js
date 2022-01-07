@@ -28,9 +28,8 @@ import { useState, useMemo } from 'react';
 import AppMetaTagComponent from '@includes/metaTags';
 import MultiSigContext from '@context/multiSigContext';
 
-// TODO(@millionz) - impl the fkn helix context thing
 function MyApp({ Component, pageProps }) {
-  const rpcUrl = CLUSTERS.devnet;
+  const [rpcUrl, setRpcUrl] = useState(CLUSTERS.devnet);
   const endpoint = useMemo(() => rpcUrl, []);
 
   const wallets = useMemo(
