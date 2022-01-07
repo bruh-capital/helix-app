@@ -1,7 +1,8 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, AdjustmentsIcon} from "@heroicons/react/outline";
 import mainContext from "@context/mainContext"; 
+import { set } from "@project-serum/anchor/dist/cjs/utils/features";
 
 const networks = [
 	{ value: 'mainnet', label: 'Mainnet' },
@@ -13,9 +14,16 @@ const networks = [
 // FIXME(@millionz) - text size for this is so fucked bro why
 export default function ConnectionButton(props) {
 	const [selected, setSelected] = useState(networks[2]);
+	const { setNetwork } = useContext(mainContext);
   
 	return (
-		<Listbox value={selected} onChange={setSelected}>
+		<Listbox 
+			value={selected} 
+			onChange={() => {
+				setSelected(selected);
+				setNetwork(selected.value);
+			}}
+		>
 			<div>
 				<Listbox.Button 
 					className="text-center py-3.5 p-6 h-full text-black font-bold w-auto bg-white rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-purple-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
