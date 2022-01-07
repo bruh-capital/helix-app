@@ -10,12 +10,13 @@ const networks = [
 	{ value: 'localnet', label: 'Localnet' },
 ];
 
+// FIXME(@millionz) - text size for this is so fucked bro why
 export default function ConnectionButton(props) {
 	const [selected, setSelected] = useState(networks[2]);
   
 	return (
 		<Listbox value={selected} onChange={setSelected}>
-			<div className="ove">
+			<div>
 				<Listbox.Button 
 					className="text-center py-3.5 p-6 h-full text-black font-bold w-auto bg-white rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-purple-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
 					style={{boxShadow: "0px 0px 10px rgba(256, 256, 256, 1)"}}
@@ -36,7 +37,7 @@ export default function ConnectionButton(props) {
 							`${active ? 'text-purple-900 bg-purple-100' : 'text-gray-900'}
 									cursor-default select-none relative py-2 pl-10 pr-4`
 							}
-							value={network.value}
+							value={network}
 						>
 							{({ selected, active }) => (
 							<>
