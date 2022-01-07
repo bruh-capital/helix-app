@@ -1,31 +1,33 @@
 import { Fragment, useState, useContext } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, AdjustmentsIcon} from "@heroicons/react/outline";
-import mainContext from "@context/multiSigContext"; 
 import { ConnectionContext } from '@solana/wallet-adapter-react';
-import { set } from "@project-serum/anchor/dist/cjs/utils/features";
+import setNetwork from '@context/setNetworkContext';
 
 const networks = [
 	{
 		value: 'mainnet',
 		label: 'Mainnet',
-		mSigAddr: '' 
-		
+		mSigAddr: '',
+		cluster: 'https://api.mainnet-beta.solana.com'
 	},
 	{ 
 		value: 'testnet',
 		label: 'Testnet',
-		mSigAddr: ''
+		mSigAddr: '',
+		cluster: 'https://api.testnet.solana.com'
 	},
 	{ 
 		value: 'devnet',
 		label: 'Devnet',
-		mSigAddr: ''
+		mSigAddr: '2hhSux633AHhbg91viSibSnUSjdzi5dsbyypWjG5Sr2b',
+		cluster: 'https://api.devnet.solana.com'
 	},
 	{ 
 		value: 'localnet',
 		label: 'Localnet',
-		mSigAddr: '2hhSux633AHhbg91viSibSnUSjdzi5dsbyypWjG5Sr2b'
+		mSigAddr: '',
+		cluster: 'http://localhost:8899'
 	},
 ];
 
@@ -38,7 +40,7 @@ export default function ConnectionButton(props) {
 			value={selected} 
 			onChange={() => {
 				setSelected(selected);
-				setNetwork(selected.value);
+				setNetwork(selected.cluster);
 			}}
 		>
 			<div>

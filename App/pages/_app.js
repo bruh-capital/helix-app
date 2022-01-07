@@ -26,12 +26,15 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { useState, useMemo } from 'react';
 import AppMetaTagComponent from '@includes/metaTags';
+
+// Custom Context Providers
 import MultiSigContext from '@context/multiSigContext';
+import NetContext from '@context/setNetworkContext';
 
 function MyApp({ Component, pageProps }) {
-  const [rpcUrl, setRpcUrl] = useState(CLUSTERS.devnet);
-  const endpoint = useMemo(() => rpcUrl, []);
-  const [ addr, setAddr ] = useState();
+  const [ multiSigAddr, setMultiSigAddr ] = useState();
+  const [ rpcUrl, setRpcUrl ] = useState(CLUSTERS.devnet);
+  const endpoint = useMemo(() => rpcUrl, [rpcUrl]);
 
   const wallets = useMemo(
     () => [
@@ -46,14 +49,16 @@ function MyApp({ Component, pageProps }) {
 
   return(
     <AppMetaTagComponent classname="bg-black">
-      <MultiSigContext.Provider value={{ addr }}>
-        <ConnectionProvider endpoint={endpoint} >
-          <WalletProvider wallets={wallets}>
-            <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
-              <Component {...pageProps} />
-            </WalletModalProvider>
-          </WalletProvider>
-        </ConnectionProvider>
+      <MultiSigContext.Provider value={{ multiSigAddr }}>
+        <NetContext.Provider value={{ rpcUrl, setRpcUrl }}>
+          <ConnectionProvider endpoint={rpcUrl} >
+            <WalletProvider wallets={wallets}>
+              <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
+                <Component {...pageProps} />
+              </WalletModalProvider>
+            </WalletProvider>
+          </ConnectionProvider>
+        </NetContext.Provider>
       </MultiSigContext.Provider>
     </AppMetaTagComponent>
   );
