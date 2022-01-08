@@ -8,12 +8,13 @@ import { publicKey } from '@project-serum/anchor/dist/cjs/utils';
 export default class HelixInteractions {
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// Variables/Constructor
-	constructor(wallet) {	
+	constructor(wallet, multisigAddress) {	
 		this.SYSTEM_PROGRAM = SystemProgram.programId;
 		this.PROGRAM_ID = new PublicKey(idl.metadata.address);
 		this.connection = new anchor.web3.Connection(process.env.NEXT_PUBLIC_RPC_URL);
 		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions());
 		this.program = new anchor.Program(idl, this.PROGRAM_ID, provider);
+		this.multisigAddr = new PublicKey(multisigAddress);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,7 +58,6 @@ export default class HelixInteractions {
 				useAta: userATABump,
 				protocolData: protocolDataBump,
 				protocolATABump: protocolATABump,
-
 			},
 			amount,
 			{
@@ -156,6 +156,7 @@ export default class HelixInteractions {
 			],
 			this.PROGRAM_ID
 		);
+		
 		await this.program.rpc.redeemBonds(
 			{
 				userVaultBump: userVaultBump,
@@ -178,8 +179,34 @@ export default class HelixInteractions {
 	/**
 	 * Spends SOL in exchange for creating a new HLX bond
 	 * 
+	 * FIXME(millionz):
+	 * 	this is a name your price function atm...
+	 * 	use pyth to get market price and then apply bond discount to it
+	 * 
+	 * @param {BN} solAmount SOL to spend  
+	 * @param {BN} hlxAmount HLX redeemable when bond expires
 	 */
-	BuySOLBond = async () => {
+	BuySOLBond = async (solAmount, hlxAmount) => {
+		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("uservault"),
+				this.wallet.publicKey.toBuffer()
+			],
+			this.PROGRAM_ID
+		);
+
+		await this.program.rpc.depositAssetSol(
+			userVaultBump,
+			solAmount,
+			hlxAmount,
+			{
+				accounts: {
+					userVault: userVault,
+					treasuryWallet: this.multisigAddr.publicKey,
+					systemProgram: this.SYSTEM_PROGRAM_ID,
+				}
+			}
+		);
 	}
 
 
