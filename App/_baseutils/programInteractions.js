@@ -2,6 +2,7 @@ import * as anchor from '@project-serum/anchor';
 import { SystemProgram } from '@solana/web3.js'
 import * as idl from '@idl/twist.json';
 import AppMetaTagComponent from '@includes/metaTags';
+import { publicKey } from '@project-serum/anchor/dist/cjs/utils';
 
 // TODO(@MILLIONZ): implement error codes within the program so we can show proper errors to the user
 export default class HelixInteractions {
@@ -132,6 +133,46 @@ export default class HelixInteractions {
 	 * Rewards from bonds that have passed their vesting time are claimed
 	 */
 	RedeemBonds = async () => {
+		const [mintAccount, mintBump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("initmint"),
+				this.SYSTEM_PROGRAM_ID.toBuffer()
+			],
+			this.PROGRAM_ID
+		);
+
+		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("uservault"),
+				this.wallet.publicKey.toBuffer()
+			],
+			this.PROGRAM_ID
+		);
+
+		const [userATA, userATABump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("usertokenaccount"),
+				this.wallet.publicKey.toBuffer()
+			],
+			this.PROGRAM_ID
+		);
+		await this.program.rpc.redeemBonds(
+			{
+				userVaultBump: userVaultBump,
+				userAtaBump: userATABump,
+				mintBump: mintBump,
+			},
+			{
+				accounts:{
+					user: this.wallet.publicKey,
+					userData: userVault,
+					mint: mintAccount,
+					userAta: userATA,
+					tokenProgram: TOKEN_PROGRAM_ID,
+					systemProgram: this.SYSTEM_PROGRAM_ID,
+				},
+			}
+		);
 	}
 
 	/**
