@@ -83,7 +83,7 @@ export default class HelixInteractions {
 			this.PROGRAM_ID
 		);
 
-		const [protocolATA,] = await PublicKey.findProgramAddress(
+		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
 			[
 				Buffer.from("usertokenaccount"),
 				process.env.NEXT_PUBLIC_MULTISIG_PUBKEY
@@ -108,16 +108,30 @@ export default class HelixInteractions {
 
 		await this.program.rpc.unstake(
 			{
-
+				userVaultBump: userVaultBump,
+				useAta: userATABump,
+				protocolData: protocolDataBump,
+				protocolATABump: protocolATABump,
+			},
+			amount,
+			{
+				accounts: {
+					userAta: userATA,
+					protocAta: protocolATA,
+					userVault: userVault,
+					protocolData: PrococolDataAccount,
+					user: this.wallet.publicKey,
+					tokenProgram: this.PROGRAM_ID,
+				},
+				signers: [this.wallet.Keypair]
 			}
-		)
+		);
 	};
 
 	/**
 	 * Rewards from bonds that have passed their vesting time are claimed
 	 */
 	RedeemBonds = async () => {
-		
 	}
 
 	/**
