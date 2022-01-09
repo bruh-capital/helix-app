@@ -1,8 +1,7 @@
 import * as anchor from '@project-serum/anchor';
 import { SystemProgram } from '@solana/web3.js'
 import * as idl from '@idl/twist.json';
-import AppMetaTagComponent from '@includes/metaTags';
-import { publicKey } from '@project-serum/anchor/dist/cjs/utils';
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 // TODO(@MILLIONZ): implement error codes within the program so we can show proper errors to the user
 export default class HelixInteractions {
@@ -212,8 +211,51 @@ export default class HelixInteractions {
 
 	/**
 	 * Spends SPL in exchange for creating a new HLX bond
+	 * @param {BN} splAmount amount of the SPL token you user wants to spend
+	 * @param {BN} hlxAmount HLX redeemable when bond expires
+	 * @param {String} SPLMintAddr address of the SPL mint program (of the token being deposited)
 	 */
-	BuySPLBond = async() => {
+	BuySPLBond = async(splAmount, hlxAmount, SPLMintAddr) => {
+		const [protocolSPLATA, protocolSPLATABump] = await PublicKey.findProgramAddress(
+			[
+				this.multisigAddr.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
+				SPLMintAddr.toBuffer()
+			],
+			this.PROGRAM_ID
+		);
+
+		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("uservault"),
+				this.wallet.publicKey.toBuffer()
+			],
+			this.PROGRAM_ID
+		);
+
+		const [userATA, userATABump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("usertokenaccount"),
+				this.wallet.publicKey.toBuffer()
+			]
+		);
+
+		await this.program.rpc.depositAssetSpl(
+			{
+				protocolATABump: protocolSPLATABump,
+				userVaultBump: userVaultBump,
+			},
+			splAmount,
+			hlxAmount,
+			{
+				user: this.wallet.publicKey,
+				userAta: userATA, 
+				protocAta: protocolSPLATA,
+				mint: SPLMintAddr,
+				userVault: userVault,
+				tokenProgram: TOKEN_PROGRAM_ID,
+			}
+		);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
