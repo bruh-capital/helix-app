@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
-
-// Tailwind Related junk
-import 'tailwindcss/tailwind.css';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import {WalletButton} from '@includes/wallet';
 import ConnectionButton from '@includes/connection';
+import ThemeContext from '@context/themeContext';
+import Image from 'next/image';
 
 export default function Header(props) {
+	const {theme, setTheme} = React.useContext(ThemeContext);
+
 	return(
 		<Popover className='bg-black'>
 		{({ open }) => (
@@ -18,7 +19,12 @@ export default function Header(props) {
 						<span 
 							className="block content-center xl:inline text-xl lg:text-4xl font-bold"
 						>
-							<Image src>
+							<Image 
+								src={theme === "light" ? "/icons/helixicon_post.png" : "/icons/helix_icon_black.png"} 
+								alt="Helix DAO header icon"
+								width="64"
+								height="64"
+							/>
 						</span>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
