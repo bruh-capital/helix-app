@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
   );
 
   return(
-    <ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <AppMetaTagComponent classname="bg-black">
         <MultiSigContext.Provider value={{ multiSigAddr, setMultiSigAddr }}>
           <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
