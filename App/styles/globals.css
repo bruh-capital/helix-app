@@ -1,6 +1,7 @@
 @import "./buttons.css";
 @import "./inputs.css";
 @import "./cards.css";
+@import "./headers.css";
 
 @tailwind base;
 @tailwind components;

@@ -4,7 +4,7 @@ import DappHeader from '@includes/appHeader';
 
 export default function BaseDappLayout(props) {
 	return(
-		<main>
+		<main className='w-full h-full'>
 			<Head>
 				<title>{props.title}</title>
 			</Head>
