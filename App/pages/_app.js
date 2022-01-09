@@ -30,9 +30,12 @@ import AppMetaTagComponent from '@includes/metaTags';
 // Custom Context Providers
 import MultiSigContext from '@context/multiSigContext';
 import RpcUrlContext from '@context/rpcUrlContext';
+import ThemeContext from '@context/themeContext';
 
 function MyApp({ Component, pageProps }) {
   const [ multiSigAddr, setMultiSigAddr ] = useState();
+  const [ theme, setTheme ] = useState("light");
+
   const [ rpcUrl, setRpcUrl ] = useState(CLUSTERS.devnet);
   const endpoint = useMemo(() => rpcUrl, []);
 
@@ -48,19 +51,21 @@ function MyApp({ Component, pageProps }) {
   );
 
   return(
-    <AppMetaTagComponent classname="bg-black">
-      <MultiSigContext.Provider value={{ multiSigAddr, setMultiSigAddr }}>
-        <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
-          <ConnectionProvider endpoint={rpcUrl} >
-            <WalletProvider wallets={wallets}>
-              <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
-                <Component {...pageProps} />
-              </WalletModalProvider>
-            </WalletProvider>
-          </ConnectionProvider>
-        </RpcUrlContext.Provider>
-      </MultiSigContext.Provider>
-    </AppMetaTagComponent>
+    <ThemeContext.Provider>
+      <AppMetaTagComponent classname="bg-black">
+        <MultiSigContext.Provider value={{ multiSigAddr, setMultiSigAddr }}>
+          <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
+            <ConnectionProvider endpoint={rpcUrl} >
+              <WalletProvider wallets={wallets}>
+                <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
+                  <Component {...pageProps} />
+                </WalletModalProvider>
+              </WalletProvider>
+            </ConnectionProvider>
+          </RpcUrlContext.Provider>
+        </MultiSigContext.Provider>
+      </AppMetaTagComponent>
+    </ThemeContext.Provider>
   );
 }
 

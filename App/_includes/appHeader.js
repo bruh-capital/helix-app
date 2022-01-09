@@ -16,10 +16,9 @@ export default function Header(props) {
 				<div className='flex justify-between items-center py-6 md:justify-start md:space-x-10'>
 					<div className='flex justify-start lg:flex-1 lg:w-0'>
 						<span 
-							className="block text-white xl:inline text-xl lg:text-4xl font-bold"
-							style={{textShadow: "0px 0px 10px rgba(256, 256, 256, 1)"}}
+							className="block content-center xl:inline text-xl lg:text-4xl font-bold"
 						>
-						Helix App
+							<Image src>
 						</span>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
