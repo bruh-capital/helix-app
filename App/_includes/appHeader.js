@@ -10,7 +10,7 @@ export default function Header(props) {
 	const {theme, setTheme} = React.useContext(ThemeContext);
 
 	return(
-		<Popover className='bg-black'>
+		<Popover className='dappHeader'>
 		{({ open }) => (
 			<>
 			<div className='mx-auto px-16'>
@@ -22,8 +22,8 @@ export default function Header(props) {
 							<Image 
 								src={theme === "light" ? "/icons/helixicon_post.png" : "/icons/helix_icon_black.png"} 
 								alt="Helix DAO header icon"
-								width="64"
-								height="64"
+								width="72"
+								height="72"
 							/>
 						</span>
 					</div>
