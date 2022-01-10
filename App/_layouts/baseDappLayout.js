@@ -4,11 +4,11 @@ import DappHeader from '@includes/appHeader';
 
 export default function BaseDappLayout(props) {
 	return(
-		<main className='w-full h-full'>
+		<main className='overflow-hidden'>
 			<Head>
 				<title>{props.title}</title>
 			</Head>
-			<body className='bg-black'>
+			<body className='bg-black overflow-hidden'>
 			<DappHeader/>
 				<div className="relative text-center bg-black text-white max-w-2xl px-10 sm:px-3 mx-auto pb-14 lg:pb-20 xl:pb-28">
 					{props.children}
