@@ -5,9 +5,6 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
-  },
-  variants: {
     extend: {
       colors: {
         gray1: "#FFFFFF",
@@ -22,9 +19,10 @@ module.exports = {
         gray10: "#2D2D2D",
         gray11: "#1F1F1F",
         gray12: "#141414"
-      }
+      },
     },
   },
+  variants: {},
   plugins: [
     require('daisyui'),
   ],
