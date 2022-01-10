@@ -2,6 +2,6 @@
 
 @layer components {
 	.dappHeader {
-		background-color: #FAFAFA;
+		@apply bg-gray2;
 	}
 }

@@ -8,9 +8,9 @@ export default function BaseDappLayout(props) {
 			<Head>
 				<title>{props.title}</title>
 			</Head>
-			<body className='bg-black overflow-hidden'>
+			<body className='overflow-hidden bg-hero-gradient'>
 				<DappHeader/>
-				<div className="relative text-center bg-black text-white max-w-2xl px-10 sm:px-3 mx-auto pb-14 lg:pb-20 xl:pb-28">
+				<div className="relative text-center text-white max-w-2xl px-10 sm:px-3 mx-auto pb-14 lg:pb-20 xl:pb-28">
 					{props.children}
 				</div>
 			</body>
