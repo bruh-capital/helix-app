@@ -14,10 +14,10 @@ export default function Header(props) {
 		{({ open }) => (
 			<>
 			<div className='mx-auto px-16 mb-10'>
-				<div className='flex justify-between items-center py-2 md:justify-start md:space-x-10'>
-					<div className='flex justify-start lg:flex-1 lg:w-0'>
-						<span 
-							className="block content-center xl:inline text-xl lg:text-4xl font-bold"
+				<div className='flex justify-between items-center py-2 md:justify-start md:space-x-5 sm:space-x-2'>
+					<div className='flex justify-start flex-none'>
+						<div 
+							className="block object-center content-center xl:inline text-xl lg:text-4xl font-bold"
 						>
 							<Image 
 								src={theme === "light" ? "/icons/helixicon_post.png" : "/icons/helix_icon_black.png"} 
@@ -25,7 +25,13 @@ export default function Header(props) {
 								width="72"
 								height="72"
 							/>
-						</span>
+						</div>
+					</div>
+					<div className="flex-1 flex space-x-5">
+						<div className={"font-semibold text-gray8 bg-gray4 p-0.5 rounded-md"}>Dashboard</div>
+						<div className={"text-gray6"}>Staking</div>
+						<div className={"text-gray6"}>Bonds</div>
+						<div className={"text-gray6"}>Governance</div>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
 						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray-900 focus:outline-none'>
