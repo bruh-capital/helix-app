@@ -31,26 +31,26 @@ export default function Header(props) {
 					</div>
 					<div className="flex-1 flex space-x-5">
 						<button 
-							className={page === "dash" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6"}
+							className={page === "dash" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
 							onClick={() => setPage("dash")}
 						>
 							Dashboard
 						</button>
 						<button
 							onClick={() => setPage("staking")}
-							className={page === "staking" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6"}
+							className={page === "staking" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
 						>
 							Staking
 						</button>
 						<button
 							onClick={() => setPage("bonds")}
-							className={page === "bonds" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6"}
+							className={page === "bonds" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
 						>
 							Bonds
 						</button>
 						<button
 							onClick={() => setPage("governance")}
-							className={page === "governance" ? "font-semibold text-gray8 bg-gray4 p-0.5 rounded-md" : "text-gray6"}
+							className={page === "governance" ? "font-semibold text-gray8 bg-gray4 p-0.5 rounded-md" : "text-gray6 p-0.5"}
 						>
 							Governance
 						</button>

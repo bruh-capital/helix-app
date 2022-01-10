@@ -15,15 +15,13 @@ const PWAprompt = dynamic(
 
 // TODO: add conditional rendering for Bond/stake interface
 export default function AppPage({ bondsInfo }) {
-	const [menuPage, setMenuPage] = useState("stake");
-
 	return(
-		<BaseDappLayout title={"app"}>
+		<BaseDappLayout>
 			<ToastContainer/>
 			<PWAprompt 
 				timesToShow={2}
 				permanentlyHideOnDismiss={false}
-				copyTitle="Add Helix Dapp to Home Screen"
+				copyTitle="Add Helix to Home Screen"
 				copyClosePrompt="Close"
 			/>
 			<AccountUI/>
