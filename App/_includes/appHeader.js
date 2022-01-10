@@ -13,8 +13,8 @@ export default function Header(props) {
 		<Popover className='dappHeader'>
 		{({ open }) => (
 			<>
-			<div className='mx-auto px-16'>
-				<div className='flex justify-between items-center py-6 md:justify-start md:space-x-10'>
+			<div className='mx-auto px-16 mb-10'>
+				<div className='flex justify-between items-center py-2 md:justify-start md:space-x-10'>
 					<div className='flex justify-start lg:flex-1 lg:w-0'>
 						<span 
 							className="block content-center xl:inline text-xl lg:text-4xl font-bold"

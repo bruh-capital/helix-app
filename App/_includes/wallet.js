@@ -12,7 +12,7 @@ export function WalletButton(props) {
 				color: (wallet ? "#FFF" : "#000")
 			}}
 		>
-			{!wallet ? "Connect Wallet 🔑" : "Connected"}
+			{!wallet ? "🔑 Connect Wallet" : "Connected"}
 		</WalletMultiButton>
 	);
 }
