@@ -1,13 +1,15 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import {WalletButton} from '@includes/wallet';
 import ConnectionButton from '@includes/connection';
+import PageContext from '@context/pageContext';
 import ThemeContext from '@context/themeContext';
 import Image from 'next/image';
 
 export default function Header(props) {
-	const {theme, setTheme} = React.useContext(ThemeContext);
+	const {theme, setTheme} = useContext(ThemeContext);
+	const {page, setPage} = useContext(PageContext);
 
 	return(
 		<Popover className='dappHeader'>
@@ -28,10 +30,30 @@ export default function Header(props) {
 						</div>
 					</div>
 					<div className="flex-1 flex space-x-5">
-						<div className={"font-semibold text-gray8 bg-gray4 p-0.5 rounded-md"}>Dashboard</div>
-						<div className={"text-gray6"}>Staking</div>
-						<div className={"text-gray6"}>Bonds</div>
-						<div className={"text-gray6"}>Governance</div>
+						<button 
+							className={page === "dash" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6"}
+							onClick={() => setPage("dash")}
+						>
+							Dashboard
+						</button>
+						<button
+							onClick={() => setPage("staking")}
+							className={page === "staking" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6"}
+						>
+							Staking
+						</button>
+						<button
+							onClick={() => setPage("bonds")}
+							className={page === "bonds" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6"}
+						>
+							Bonds
+						</button>
+						<button
+							onClick={() => setPage("governance")}
+							className={page === "governance" ? "font-semibold text-gray8 bg-gray4 p-0.5 rounded-md" : "text-gray6"}
+						>
+							Governance
+						</button>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
 						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray-900 focus:outline-none'>
