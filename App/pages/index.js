@@ -27,7 +27,7 @@ export default function AppPage({ bondsInfo }) {
 
 	// TODO(@millionz): make on chain client to fetch data about protocol-
 	//					if no data is avaiable show loading
-	tempDashData = [
+	const tempDashData = [
 		{ 
 			label: "Total Value Deposited", 
 			values: [undefined], // <- data that gets graphed goes in here
@@ -44,7 +44,7 @@ export default function AppPage({ bondsInfo }) {
 			label: "HLX Staked", 
 			values: [undefined], // <- data that gets graphed goes in here
 		},
-	]
+	];
 
 
 	return(
@@ -57,7 +57,7 @@ export default function AppPage({ bondsInfo }) {
 				copyClosePrompt="Close"
 			/>
 			<AccountUI/>
-			{ page === "dash" && <DashboardUI/> }
+			{ page === "dash" && <DashboardUI protocolData={tempDashData}/> }
 			{ page === "staking" && <StakeUI/> }
 			{ page === "bonds" && <BondUI bondsInfo={bondsInfo}/> }
 		</BaseDappLayout>
