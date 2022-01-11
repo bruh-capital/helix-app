@@ -9,7 +9,7 @@ export default function dashboardUi(props) {
 				return(
 					<div className="bg-white">
 						<span className="text-black font-bold text-3xl">
-							Fuck
+							{protocol.label}
 						</span>
 					</div>
 				);
