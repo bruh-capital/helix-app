@@ -6,7 +6,7 @@ export default function dashboardUi(props) {
 		{
 			props.protocolData?.map((protocol, index) => {
 				<div className="card">
-					fuck
+					{protocol.label}
 				</div>
 			})
 		}
