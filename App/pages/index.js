@@ -1,10 +1,18 @@
-import BaseDappLayout from "@layouts/baseDappLayout";
-import StakeInterface from "@includes/stakeUi";
+import { useState, useContext } from "react";
 import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
-import BondInterface from "@includes/bondUi";
-import { useState } from "react";
+
+//Layouts
+import BaseDappLayout from "@layouts/baseDappLayout";
+
+// UI Components
+import BondUI from "@includes/bondUi";
 import AccountUI from "@includes/accountUi";
+import StakeUI from "@includes/stakeUi";
+import DashboardUI from "@includes/dashboardUi";
+
+// Contexts
+import PageContext from "@context/pageContext";
 
 const PWAprompt = dynamic(
 	() => {
@@ -15,6 +23,8 @@ const PWAprompt = dynamic(
 
 // TODO: add conditional rendering for Bond/stake interface
 export default function AppPage({ bondsInfo }) {
+	const { page, setPage } = useContext(PageContext);
+
 	return(
 		<BaseDappLayout>
 			<ToastContainer/>
@@ -25,8 +35,9 @@ export default function AppPage({ bondsInfo }) {
 				copyClosePrompt="Close"
 			/>
 			<AccountUI/>
-			<StakeInterface/>
-			<BondInterface bondsInfo={bondsInfo}/>
+			{ page === "dash" && <DashboardUI/> }
+			{ page === "staking" && <StakeUI/> }
+			{ page === "bonds" && <BondUI bondsInfo={bondsInfo}/> }
 		</BaseDappLayout>
 	)
 }
