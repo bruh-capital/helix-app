@@ -35,9 +35,9 @@ export default function AppPage({ bondsInfo }) {
 				copyClosePrompt="Close"
 			/>
 			<AccountUI/>
-			{ page === "dash" && <DashboardUI/> }
-			{ page === "staking" && <StakeUI/> }
-			{ page === "bonds" && <BondUI bondsInfo={bondsInfo}/> }
+			<DashboardUI className={page === "dash" ? "" : "hidden"}/>
+			<StakeUI className={page === "staking" ? "" : "hidden"}/>
+			<BondUI bondsInfo={bondsInfo} className={page === "bonds" ? "" : "hidden"}/>
 		</BaseDappLayout>
 	)
 }
