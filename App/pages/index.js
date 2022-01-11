@@ -30,19 +30,19 @@ export default function AppPage({ bondsInfo }) {
 	const tempDashData = [
 		{ 
 			label: "Total Value Deposited", 
-			values: [undefined], // <- data that gets graphed goes in here
+			values: undefined, // <- data that gets graphed goes in here
 		},
 		{ 
 			label: "Treasury Value", 
-			values: [undefined], // <- data that gets graphed goes in here
+			values: undefined, // <- data that gets graphed goes in here
 		},
 		{ 
 			label: "APY", 
-			values: [undefined], // <- data that gets graphed goes in here
+			values: undefined, // <- data that gets graphed goes in here
 		},
 		{ 
 			label: "HLX Staked", 
-			values: [undefined], // <- data that gets graphed goes in here
+			values: undefined, // <- data that gets graphed goes in here
 		},
 	];
 
