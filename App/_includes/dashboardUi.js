@@ -30,7 +30,10 @@ export default function dashboardUi(props) {
 								(
 									<div className="bg-gray6 rounded-md w-full h-24 animate-pulse"></div>
 								) : (
-									<span>Graph Goes here lol</span>
+									<AreaChart data={}>
+
+									</AreaChart>	
+									//<span>Graph Goes here lol</span>
 								)
 							}
 						</div>
