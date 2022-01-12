@@ -3,7 +3,7 @@
 @layer components {
 	/* Card Styles */
 	.card {
-		@apply rounded-box shadow-md;
+		@apply rounded-box m-0 shadow-md;
 	}
 
 	.card-title {
