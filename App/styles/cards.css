@@ -1,0 +1,16 @@
+@tailwind components;
+
+@layer components {
+	/* Card Styles */
+	.card {
+		@apply rounded-box shadow-md;
+	}
+
+	.card-title {
+		@apply text-4xl font-bold text-black mb-5;
+	}
+
+	.card-body {
+		@apply px-10 py-5 content-center;
+	}
+}

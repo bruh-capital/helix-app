@@ -1,25 +1,59 @@
-import React, { Fragment } from 'react';
-
-// Tailwind Related junk
-import 'tailwindcss/tailwind.css';
+import React, { Fragment, useContext } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import WalletButtonFake, {WalletButton} from '@includes/wallet';
+import {WalletButton} from '@includes/wallet';
+import ConnectionButton from '@includes/connection';
+import PageContext from '@context/pageContext';
+import ThemeContext from '@context/themeContext';
+import Image from 'next/image';
 
 export default function Header(props) {
+	const {theme, setTheme} = useContext(ThemeContext);
+	const {page, setPage} = useContext(PageContext);
+
 	return(
-		<Popover className='bg-black'>
+		<Popover className='dappHeader'>
 		{({ open }) => (
 			<>
-			<div className='mx-auto px-16'>
-				<div className='flex justify-between items-center py-6 md:justify-start md:space-x-10'>
-					<div className='flex justify-start lg:flex-1 lg:w-0'>
-						<span 
-							className="block text-white xl:inline text-xl lg:text-4xl font-bold"
-							style={{textShadow: "0px 0px 10px rgba(256, 256, 256, 1)"}}
+			<div className='mx-auto px-16 mb-10'>
+				<div className='flex justify-between items-center py-2 md:justify-start md:space-x-5 sm:space-x-2'>
+					<div className='flex justify-start flex-none'>
+						<div 
+							className="block object-center content-center xl:inline text-xl lg:text-4xl font-bold"
 						>
-						Helix App
-						</span>
+							<Image 
+								src={theme === "light" ? "/icons/helixicon_post.png" : "/icons/helix_icon_black.png"} 
+								alt="Helix DAO header icon"
+								width="72"
+								height="72"
+							/>
+						</div>
+					</div>
+					<div className="flex-1 flex space-x-5">
+						<button 
+							className={page === "dash" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
+							onClick={() => setPage("dash")}
+						>
+							Dashboard
+						</button>
+						<button
+							onClick={() => setPage("staking")}
+							className={page === "staking" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
+						>
+							Staking
+						</button>
+						<button
+							onClick={() => setPage("bonds")}
+							className={page === "bonds" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
+						>
+							Bonds
+						</button>
+						<button
+							onClick={() => setPage("governance")}
+							className={page === "governance" ? "font-semibold text-gray8 bg-gray4 p-0.5 rounded-md" : "text-gray6 p-0.5"}
+						>
+							Governance
+						</button>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
 						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray-900 focus:outline-none'>
@@ -27,8 +61,9 @@ export default function Header(props) {
 							<MenuIcon className="h-6 w-6" aria-hidden="true" />
 						</Popover.Button>
 					</div>
-					<Popover.Group as="nav" className='hidden divide-gray-600 md:flex space-x-10'>
+					<Popover.Group as="nav" className='grid grid-cols-2 hidden divide-gray-600 md:flex space-x-6'>
 						<WalletButton/>
+						<ConnectionButton/>
 					</Popover.Group>
 				</div>
 			</div>
@@ -64,8 +99,9 @@ export default function Header(props) {
 							</div>
 						</div>
 						<div className="py-6 px-5 space-y-6">
-							<div className="grid grid-cols-1 gap-y-4 gap-x-8">
+							<div className="grid grid-cols-2 gap-y-4 gap-x-8">
 								<WalletButton/>
+								<ConnectionButton/>
 							</div>
 						</div>
 					</div>
