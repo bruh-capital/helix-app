@@ -11,6 +11,6 @@
 	}
 
 	.card-body {
-		@apply px-10 py-5;
+		@apply px-10 py-5 content-center;
 	}
 }
