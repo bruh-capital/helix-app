@@ -16,7 +16,7 @@ export default function AccountUI(props) {
 			style={{boxShadow: "0px 0px 12px rgba(256, 256, 256, 1)"}}
 			className="bg-white rounded-box py-5"
 		>
-			<h3 className="font-bold text-black pb-2">User Accounts</h3>
+			<h2 className="card-title">User Accounts</h2>
 			<button
 				className="btn btn-primary mx-2"
 				onClick={() => createUserAta()}

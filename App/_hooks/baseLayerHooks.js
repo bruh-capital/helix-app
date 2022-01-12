@@ -3,21 +3,8 @@ import * as anchor from "@project-serum/anchor";
 import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
-/// Connection + Usage Vars
-/*
-const programAddr = new anchor.web3.PublicKey(
-	process.env.NEXT_APP_PROGRAM_ADDRESS
-);
-*/
-
-const rpcUrl = new String(process.env.NEXT_PUBLIC_RPC_URL);
-//const rpcUrl = "http://localhost:8899";
-const connection = new anchor.web3.Connection(rpcUrl);
-
-const txTimeout = 30000;
 const toastSettings = {
 	position: "top-center",
 	autoClose: 5000,
