@@ -44,6 +44,7 @@ export default function BondInterface(props) {
 												src={tokenMap?.get(asset.MainNetAddress)?.logoURI || '/helix2d.png'}
 												height={50}
 												width={50}
+												loading="eager"
 											/>
 										</th>
 										<td>{asset.Name}</td>
