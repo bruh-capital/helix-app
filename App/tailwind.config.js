@@ -18,7 +18,9 @@ module.exports = {
         gray9: "#434343",
         gray10: "#2D2D2D",
         gray11: "#1F1F1F",
-        gray12: "#141414"
+        gray12: "#141414",
+        primBlue: "#58B9FF",
+        secPink: "#FF61DB"
       },
     },
   },
