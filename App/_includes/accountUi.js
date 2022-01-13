@@ -12,10 +12,7 @@ export default function AccountUI(props) {
 	} = HelixWrapper();
 
 	return(
-		<div
-			style={{boxShadow: "0px 0px 12px rgba(256, 256, 256, 1)"}}
-			className="bg-white rounded-box py-5"
-		>
+		<div className="bg-white rounded-box py-5">
 			<h2 className="card-title">User Accounts</h2>
 			<button
 				className="btn btn-primary mx-2"

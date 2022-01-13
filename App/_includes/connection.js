@@ -51,7 +51,7 @@ export default function ConnectionButton(props) {
 		>
 			<div>
 				<Listbox.Button 
-					className="text-center py-3.5 p-6 h-full text-black font-bold w-auto bg-white rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-purple-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
+					className="text-center py-3.5 p-6 h-full text-black font-bold w-auto bg-gray4 rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-purple-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm"
 					style={{boxShadow: "0px 0px 10px rgba(256, 256, 256, 1)"}}
 				>
 					<span className="block truncate">Network ⚙️</span>
