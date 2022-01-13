@@ -25,7 +25,7 @@ export default function StakeInterface(props) {
 				<h3 className="font-semibold text-2xl text-gray8">TVL</h3>
 				<span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#58B9FF] to-[#FF61DB]">instert APY here</span>
 			</div>
-			<div className="card flex justify-center col-span-2 bg-white p-3" style={{marginLeft: 0}}>
+			<div className="card flex w-3/4 justify-center col-span-2 mt-10 bg-white p-3" style={{marginLeft: 0}}>
 				<h3 className="font-semibold">{operation}</h3>
 			</div>
 		</div>
