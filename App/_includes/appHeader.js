@@ -16,10 +16,10 @@ export default function Header(props) {
 		{({ open }) => (
 			<>
 			<div className='mx-auto px-16 mb-10'>
-				<div className='flex justify-between items-center py-2 md:justify-start md:space-x-5 sm:space-x-2'>
+				<div className='flex justify-between content-center items-center py-2 md:justify-start md:space-x-5 sm:space-x-2'>
 					<div className='flex justify-start flex-none'>
 						<div 
-							className="block object-center content-center xl:inline text-xl lg:text-4xl font-bold"
+							className="flex object-center content-center xl:inline text-xl lg:text-4xl font-bold"
 						>
 							<Image 
 								src={theme === "light" ? "/icons/helixicon_post.png" : "/icons/helix_icon_black.png"} 
