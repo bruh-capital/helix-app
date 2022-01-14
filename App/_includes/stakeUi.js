@@ -4,7 +4,7 @@ import HelixWrapper from "@hooks/baseLayerHooks";
 export default function StakeInterface(props) {
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
-	const [ stakeAmount, setStakeAmount ] = useState(0);
+	const [ stakeAmount, setStakeAmount ] = useState();
 
 	const {
 		stakeToken,
@@ -26,7 +26,60 @@ export default function StakeInterface(props) {
 				<span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-secPink to-primBlue">insert TVL here</span>
 			</div>
 			<div className="card flex justify-center col-span-2 mt-10 bg-white p-3" style={{marginLeft: 0}}>
-				<h3 className="font-semibold">{operation}</h3>
+				<h3 className="font-semibold text-gray8">{operation}</h3>
+				<div className="card-body">
+					<div className="grid grid-rows-1 grid-flow-col gap-4">
+					{
+						operation ===  "Stake" ? 
+						(
+							<>
+								<input
+									type="number"
+									placeholder="Stake Amount"
+									className="input input-bordered text-black"
+									value={stakeAmount}
+									onChange={(e) => setStakeAmount(e.target.value)}
+								/>
+								<button 
+									className="btn btn-primary"
+									onClick={() => stakeToken(stakeAmount)}
+								>Enter</button>
+							</>
+						)
+						: (
+							<>
+								<input 
+									type="number"
+									placeholder="Unstake Amount"
+									className="input input-bordered text-black"
+									value={stakeAmount}
+									onChange={(e) => setStakeAmount(e.target.value)}
+								/>
+								<button 
+									className="btn btn-primary"
+									onClick={() => unstakeToken(stakeAmount)}
+								>Enter</button>
+							</>
+						)
+					}
+					</div>
+				</div>
+				<div className="tabs tabs-boxed">
+					<button
+						onClick={() => setOperation("Stake")}
+						className={
+							operation === "Stake" ? 
+							"tab tab-active" : "tab"
+						}
+					>Stake</button>
+					<button
+						onClick={() => setOperation("Unstake")}
+						className={
+							operation === "Unstake" ? 
+							"tab tab-active" : "tab"
+						}
+					>Unstake</button>
+				</div>
 			</div>
 		</div>
 	);
