@@ -28,6 +28,22 @@ export default function StakeInterface(props) {
 			<div className="card flex justify-center col-span-2 mt-10 bg-white p-3" style={{marginLeft: 0}}>
 				<h3 className="font-semibold text-gray8">{operation}</h3>
 				<div className="card-body">
+					<div className="bg-gray4 rounded-md space-x-2">
+						<button
+							onClick={() => setOperation("Stake")}
+							className={
+								operation === "Stake" ? 
+								"tab tab-active" : "tab"
+							}
+						>Stake</button>
+						<button
+							onClick={() => setOperation("Unstake")}
+							className={
+								operation === "Unstake" ? 
+								"tab tab-active" : "tab"
+							}
+						>Unstake</button>
+					</div>
 					<div className="grid grid-rows-1 grid-flow-col gap-4">
 					{
 						operation ===  "Stake" ? 
@@ -63,22 +79,6 @@ export default function StakeInterface(props) {
 						)
 					}
 					</div>
-				</div>
-				<div className="tabs tabs-boxed">
-					<button
-						onClick={() => setOperation("Stake")}
-						className={
-							operation === "Stake" ? 
-							"tab tab-active" : "tab"
-						}
-					>Stake</button>
-					<button
-						onClick={() => setOperation("Unstake")}
-						className={
-							operation === "Unstake" ? 
-							"tab tab-active" : "tab"
-						}
-					>Unstake</button>
 				</div>
 			</div>
 		</div>
