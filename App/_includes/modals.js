@@ -19,8 +19,8 @@ export function MintModal(props) {
 		unstakeToken,
 		createUserAta,
 		createVault,
-		makeBond,
-		redeemBond 
+		// makeBond,
+		// redeemBond 
 	} = HelixWrapper();
 
   const hasAccount = false;

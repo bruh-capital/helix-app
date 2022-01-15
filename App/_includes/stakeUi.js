@@ -15,8 +15,8 @@ export default function StakeInterface(props) {
 		unstakeToken,
 		createUserAta,
 		createVault,
-		makeBond,
-		redeemBond 
+		// makeBond,
+		// redeemBond 
 	} = HelixWrapper();
 
 	return(

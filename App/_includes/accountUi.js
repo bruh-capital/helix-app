@@ -7,8 +7,8 @@ export default function AccountUI(props) {
 		unstakeToken,
 		createUserAta,
 		createVault,
-		makeBond,
-		redeemBond 
+		// makeBond,
+		// redeemBond 
 	} = HelixWrapper();
 
 	return(

@@ -66,22 +66,6 @@ export default function HelixWrapper() {
 		}
 	}
 
-	const makeBond = async (assetAmount) => {
-		try {
-			await helixClient.DepositAssetPrintBond(assetAmount);
-		} catch (e) {
-			toast.error("Failed to make bond!", toastSettings);
-		}
-	}
-
-	const redeemBond = async () => {
-		try {
-			await helixClient.RedeemBonds();
-		} catch (e) {
-			toast.error("Failed to redeem bond!", toastSettings);
-		}
-	}
-
-	return { stakeToken, unstakeToken, createUserAta, createVault, makeBond, redeemBond };
+	return { stakeToken, unstakeToken, createUserAta, createVault};
 }
 
