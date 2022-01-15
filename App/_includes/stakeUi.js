@@ -1,7 +1,11 @@
 import { useState, useMemo } from "react";
 import HelixWrapper from "@hooks/baseLayerHooks";
+import NotificationsSystem, { atalhoTheme, NotificationsProvider, useNotifications } from "reapop";
 
 export default function StakeInterface(props) {
+	// Reapop things
+	const { notification, dissmissNotification } = useNotifications();
+
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
 	const [ stakeAmount, setStakeAmount ] = useState();
@@ -17,6 +21,11 @@ export default function StakeInterface(props) {
 
 	return(
 		<div className="grid justify-items-center justify-center w-full grid-cols-2">
+		<NotificationsSystem 
+			notifications={notifications}
+			dismissNotification={(id) => dissmissNotification(id)}
+			theme={atalhoTheme}
+		/>
 			<div className="card flex justify-center bg-white p-3 mt-10 divide-y divide-gray-300">
 				<h3 className="font-semibold text-2xl text-gray8">APY</h3>
 				<span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-secPink to-primBlue">insert APY here</span>

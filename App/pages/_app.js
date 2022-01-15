@@ -26,12 +26,20 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { useState, useMemo } from 'react';
 import AppMetaTagComponent from '@includes/metaTags';
+import { NotificationsProvider, setUpNotifications } from 'reapop';
 
 // Custom Context Providers
 import MultiSigContext from '@context/multiSigContext';
 import RpcUrlContext from '@context/rpcUrlContext';
 import ThemeContext from '@context/themeContext';
 import PageContext from '@context/pageContext';
+
+setUpNotifications({
+  defaultProps: {
+    position: 'top-right',
+    dismissible: true,
+  }
+});
 
 function MyApp({ Component, pageProps }) {
   const [ multiSigAddr, setMultiSigAddr ] = useState();
@@ -61,7 +69,9 @@ function MyApp({ Component, pageProps }) {
               <ConnectionProvider endpoint={rpcUrl} >
                 <WalletProvider wallets={wallets}>
                   <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
-                    <Component {...pageProps} />
+                    <NotificationsProvider>
+                      <Component {...pageProps} />
+                    </NotificationsProvider>
                   </WalletModalProvider>
                 </WalletProvider>
               </ConnectionProvider>
