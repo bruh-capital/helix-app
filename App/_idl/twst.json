@@ -18,7 +18,7 @@
       ],
       "args": [
         {
-          "name": "bump",
+          "name": "bumps",
           "type": {
             "defined": "ChangeRebaseBumps"
           }
@@ -45,12 +45,47 @@
       ],
       "args": [
         {
-          "name": "bump",
+          "name": "vaultBump",
           "type": "u8"
         },
         {
           "name": "lockupPeriod",
           "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "cpiMint",
+      "accounts": [
+        {
+          "name": "initiator",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "mintBump",
+          "type": "u8"
+        },
+        {
+          "name": "amt",
+          "type": "u64"
         }
       ]
     },
@@ -95,7 +130,7 @@
       ],
       "args": [
         {
-          "name": "bump",
+          "name": "bumps",
           "type": {
             "defined": "StakeBumps"
           }
@@ -147,103 +182,13 @@
       ],
       "args": [
         {
-          "name": "bump",
+          "name": "bumps",
           "type": {
             "defined": "UnStakeBumps"
           }
         },
         {
           "name": "amt",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "depositAssetSol",
-      "accounts": [
-        {
-          "name": "userWallet",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "treasuryWallet",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "userVault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "bump",
-          "type": "u8"
-        },
-        {
-          "name": "amtToTransfer",
-          "type": "u64"
-        },
-        {
-          "name": "bondAmount",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "depositAssetSpl",
-      "accounts": [
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "userAta",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "protocAta",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "mint",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "userVault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "bumps",
-          "type": {
-            "defined": "DepositAssetSplBumps"
-          }
-        },
-        {
-          "name": "amtToTransfer",
-          "type": "u64"
-        },
-        {
-          "name": "bondAmount",
           "type": "u64"
         }
       ]
@@ -279,7 +224,7 @@
       ],
       "args": [
         {
-          "name": "bump",
+          "name": "mintBump",
           "type": "u8"
         }
       ]
@@ -305,7 +250,7 @@
       ],
       "args": [
         {
-          "name": "bump",
+          "name": "protocolDataBump",
           "type": "u8"
         }
       ]
@@ -336,13 +281,13 @@
       ],
       "args": [
         {
-          "name": "userBump",
+          "name": "userVaultBump",
           "type": "u8"
         }
       ]
     },
     {
-      "name": "initProtocolAta",
+      "name": "initProtocolAutoAta",
       "accounts": [
         {
           "name": "protocAta",
@@ -351,6 +296,88 @@
         },
         {
           "name": "multisigSigner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "protocolAtaBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initProtocolSignerAta",
+      "accounts": [
+        {
+          "name": "protocAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "multisigSigner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "protocolAtaBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initUserAta",
+      "accounts": [
+        {
+          "name": "userAta",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
           "isMut": true,
           "isSigner": true
         },
@@ -379,7 +406,7 @@
         {
           "name": "bumps",
           "type": {
-            "defined": "InitProtocATABumps"
+            "defined": "InitATABumps"
           }
         }
       ]
@@ -460,52 +487,9 @@
       ],
       "args": [
         {
-          "name": "bump",
-          "type": {
-            "defined": "RebaseBumps"
-          }
-        }
-      ]
-    },
-    {
-      "name": "redeemBonds",
-      "accounts": [
-        {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "userData",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "mint",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "userAta",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
           "name": "bumps",
           "type": {
-            "defined": "RedemptionBumps"
+            "defined": "RebaseBumps"
           }
         }
       ]
@@ -520,7 +504,7 @@
         },
         {
           "name": "user",
-          "isMut": false,
+          "isMut": true,
           "isSigner": true
         },
         {
@@ -597,14 +581,6 @@
             "type": "u64"
           },
           {
-            "name": "bonds",
-            "type": {
-              "vec": {
-                "defined": "Bond"
-              }
-            }
-          },
-          {
             "name": "lockupPeriod",
             "type": "i64"
           }
@@ -626,28 +602,12 @@
       }
     },
     {
-      "name": "DepositAssetSplBumps",
+      "name": "InitATABumps",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "protocBump",
-            "type": "u8"
-          },
-          {
-            "name": "userVaultBump",
-            "type": "u8"
-          }
-        ]
-      }
-    },
-    {
-      "name": "InitProtocATABumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "protocBump",
+            "name": "userBump",
             "type": "u8"
           },
           {
@@ -694,26 +654,6 @@
       }
     },
     {
-      "name": "RedemptionBumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "userVaultBump",
-            "type": "u8"
-          },
-          {
-            "name": "userAtaBump",
-            "type": "u8"
-          },
-          {
-            "name": "mintBump",
-            "type": "u8"
-          }
-        ]
-      }
-    },
-    {
       "name": "StakeBumps",
       "type": {
         "kind": "struct",
@@ -733,6 +673,10 @@
           {
             "name": "mintBump",
             "type": "u8"
+          },
+          {
+            "name": "protocolAta",
+            "type": "u8"
           }
         ]
       }
@@ -747,7 +691,7 @@
             "type": "u8"
           },
           {
-            "name": "protocolBump",
+            "name": "protocolDataBump",
             "type": "u8"
           },
           {
@@ -757,22 +701,6 @@
           {
             "name": "protocolAtaBump",
             "type": "u8"
-          }
-        ]
-      }
-    },
-    {
-      "name": "Bond",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "amount",
-            "type": "u64"
-          },
-          {
-            "name": "redemptionDate",
-            "type": "u64"
           }
         ]
       }
