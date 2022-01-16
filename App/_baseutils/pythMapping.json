@@ -1,0 +1,10 @@
+{
+    "mainnet":{
+        "usdc":"Gnt27xtC473ZT2Mw5u8wZ68Z3gULkSTb5DuxJy7eJotD",
+        "sol":"H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG"
+    },
+    "devnet":{
+        "usdc":"5SSkXsEKQepHHAewytPVwdej4epN1nxgLVM84L4KXgy7",
+        "sol":"J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix"
+    }
+}
