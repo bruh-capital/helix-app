@@ -296,7 +296,7 @@ export class HelixNetwork {
 	}
 	
 	RedeemBonds = async () => {
-		await this.program.rpc.redeemBonds({
+		await this.bond_program.rpc.redeemBonds({
 			userVaultBump: this.userVaultBump,
 			userAtaBump: this.userHelixAtaBump,
 			helixMintBump: this.helixMintBump,
@@ -332,7 +332,7 @@ export class HelixNetwork {
 	/// twst
 
 	InitializeUserVault = async () => {
-		await this.program.rpc.initUserVault(
+		await this.helix_program.rpc.initUserVault(
 			this.userVaultBump,
 			{
 				accounts:{
@@ -346,7 +346,7 @@ export class HelixNetwork {
 	}
 	
 	CreateUserATA = async () => {
-		await this.program.rpc.initUserAta({
+		await this.helix_program.rpc.initUserAta({
 				userBump: this.userHelixAtaBump,
 				mintBump: this.helixMintBump,
 			},
