@@ -65,7 +65,7 @@ export class HelixNetwork {
 				TOKEN_PROGRAM_ID.toBuffer(),
 				helixMintAddress.toBuffer(),
 			],
-			this.helix_program.programId
+			this.spl_program_id.programId
 		);
 		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("protocoldataaccount")],
@@ -78,7 +78,7 @@ export class HelixNetwork {
 				TOKEN_PROGRAM_ID.toBuffer(),
 				helixMintAddress.toBuffer(),
 			],
-			this.helix_program.programId
+			this.spl_program_id.programId
 		);
 
 
@@ -263,7 +263,7 @@ export class HelixNetwork {
 				TOKEN_PROGRAM_ID.toBuffer(),
 				tokenMintAddress.toBuffer(),
 			],
-			this.helix_program.programId
+			this.spl_program_id.programId
 		))[0];
 
 		const [bondMarketSpl, bondMarketSplBump] = await anchor.web3.PublicKey.findProgramAddress(
@@ -346,10 +346,8 @@ export class HelixNetwork {
 	}
 	
 	CreateUserATA = async () => {
-		await this.helix_program.rpc.initUserAta({
-				userBump: this.userHelixAtaBump,
-				mintBump: this.helixMintBump,
-			},
+		await this.helix_program.rpc.initUserAta(
+			this.helixMintBump,
 			{
 				accounts:{
 					userAta: this.userHelixAta,

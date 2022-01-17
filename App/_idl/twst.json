@@ -292,7 +292,7 @@
         {
           "name": "protocAta",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "multisigSigner",
@@ -320,12 +320,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "protocolAtaBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "initProtocolSignerAta",
@@ -333,7 +328,7 @@
         {
           "name": "protocAta",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "multisigSigner",
@@ -361,12 +356,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "protocolAtaBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "initUserAta",
@@ -374,7 +364,7 @@
         {
           "name": "userAta",
           "isMut": true,
-          "isSigner": false
+          "isSigner": true
         },
         {
           "name": "user",
@@ -404,10 +394,8 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "InitATABumps"
-          }
+          "name": "mintBump",
+          "type": "u8"
         }
       ]
     },
@@ -596,22 +584,6 @@
         "fields": [
           {
             "name": "protocolBump",
-            "type": "u8"
-          }
-        ]
-      }
-    },
-    {
-      "name": "InitATABumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "userBump",
-            "type": "u8"
-          },
-          {
-            "name": "mintBump",
             "type": "u8"
           }
         ]
