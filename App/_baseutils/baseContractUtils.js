@@ -442,11 +442,59 @@ export class HelixNetwork {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	/// IDO
 
-	IDODeposit = async()  => {
+	// defaults to accepting usdc. can change in future
+	IDODeposit = async(amount)  => {
+		const userAta = (await PublicKey.findProgramAddress(
+			[
+				this.wallet.publicKey.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
+				this.usdc_mint.toBuffer(),
+			],
+			this.spl_program_id
+		))[0];
 
+		await program.rpc.idoDeposit({
+			vaultBump: this.idoAcocuntBump,
+			protocolBump: this.idoUSDCAtaBump,
+		  },new anchor.BN(amount),{
+			accounts:{
+			  user: this.wallet.publicKey,
+			  userAta: userAta,
+			  idoUSDCAta: this.idoUSDCAta,
+			  usdcMint: this.usdc_mint,
+			  idoAccount: this.idoAccount,
+			  systemProgram: SystemProgram.programId,
+			  tokenProgram: TOKEN_PROGRAM_ID,
+			  rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+			},
+			// signers: [userKP],
+		  });
 	}
 
 	IDOWithdraw = async()  => {
 
+		const userAta = (await PublicKey.findProgramAddress(
+			[
+				this.wallet.publicKey.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
+				this.usdc_mint.toBuffer(),
+			],
+			this.spl_program_id
+		))[0];
+
+		await this.ido_program.rpc.idoWithdraw({
+			vaultBump: this.idoAccountBump,
+			protocolBump: this.idoUSDCAtaBump,
+			},new anchor.BN(5),{
+			accounts:{
+				user: this.wallet.publicKey,
+				userAta: userAta,
+				idoUSDCAta: this.idoUSDCAta,
+				usdcMint: this.helixMintAddress,
+				idoAccount: this.idoAccount,
+				tokenProgram: TOKEN_PROGRAM_ID,
+			},
+			// signers: [userKP],
+		});
 	}
 }
