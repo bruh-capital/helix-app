@@ -471,7 +471,7 @@ export class HelixNetwork {
 		  });
 	}
 
-	IDOWithdraw = async()  => {
+	IDOWithdraw = async(amount)  => {
 
 		const userAta = (await PublicKey.findProgramAddress(
 			[
@@ -485,7 +485,7 @@ export class HelixNetwork {
 		await this.ido_program.rpc.idoWithdraw({
 			vaultBump: this.idoAccountBump,
 			protocolBump: this.idoUSDCAtaBump,
-			},new anchor.BN(5),{
+			},new anchor.BN(amount),{
 			accounts:{
 				user: this.wallet.publicKey,
 				userAta: userAta,
