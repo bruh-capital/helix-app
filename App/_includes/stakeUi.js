@@ -4,7 +4,7 @@ import NotificationsSystem, { atalhoTheme, NotificationsProvider, useNotificatio
 
 export default function StakeInterface(props) {
 	// Reapop things
-	const { notification, dissmissNotification } = useNotifications();
+	const { notifications, dissmissNotification } = useNotifications();
 
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
@@ -13,8 +13,6 @@ export default function StakeInterface(props) {
 	const {
 		stakeToken,
 		unstakeToken,
-		createUserAta,
-		createVault,
 		// makeBond,
 		// redeemBond 
 	} = HelixWrapper();
