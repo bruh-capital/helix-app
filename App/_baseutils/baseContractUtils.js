@@ -2,26 +2,23 @@ import * as anchor from "@project-serum/anchor";
 import * as web3 from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
-import * as ido_idl from '@idl/ido.json';
-import * as bond_idl from '@idl/bond_market.json';
-import * as helix_idl from '@idl/twst.json';
-import * as pyth_mapping from "@baseutils/pythMapping.json";
+let ido_idl = require('@idl/ido.json');
+let bond_idl = require('@idl/bond_market.json');
+let helix_idl = require('@idl/twst.json');
+let pyth_mapping = require("@baseutils/pythMapping.json");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
 
 export class HelixNetwork {
 	constructor(wallet){
-
 		this.pyth_map = (()=>{
 			let ret_map = {};
 			// for each network and address map object defined
 			[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
 				let name_price_map = {};
-				console.log(network, name_price);
 				// for each name, price address in address map object
 				[...Object.entries(name_price)].forEach(([asset_name, price_addr]) =>{
-					console.log(price_addr);
 					name_price_map[asset_name] = new PublicKey(price_addr);
 				});
 				ret_map[network] = name_price_map;
@@ -37,7 +34,7 @@ export class HelixNetwork {
 
 		this.multisigSigner = new PublicKey(process.env.NEXT_PUBLIC_MULTISIG_SIGNER_PUBKEY);
 		this.treasuryWallet = new PublicKey(process.env.NEXT_PUBLIC_TREASURY_PUBKEY);
-		this.spl_program_id = new PublicKey(process.env.NEXT_SPL_ATA_PROGRAM_ID);
+		this.spl_program_id = new PublicKey(process.env.NEXT_PUBLIC_SPL_ATA_PROGRAM_ID);
 
 		this.wallet = wallet;
 		this.InitConsts();
@@ -65,7 +62,7 @@ export class HelixNetwork {
 		const [userHelixAta, userHelixAtaBump] = await PublicKey.findProgramAddress(
 			[
 				this.wallet.publicKey.toBuffer(),
-				this.TOKEN_PROGRAM_ID.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
 				helixMintAddress.toBuffer(),
 			],
 			this.helix_program.programId
@@ -78,7 +75,7 @@ export class HelixNetwork {
 		const [protocolHelixAta,protocolHelixAtaBump] = await PublicKey.findProgramAddress(
 			[
 				this.multisigSigner.toBuffer(),
-				this.TOKEN_PROGRAM_ID.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
 				helixMintAddress.toBuffer(),
 			],
 			this.helix_program.programId
@@ -99,7 +96,7 @@ export class HelixNetwork {
 		const [bondMarketHelix, bondMarketHelixBump] = await anchor.web3.PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondmarket"),
-			  mintAccount.toBuffer(),
+			  helixMintAddress.toBuffer(),
 			],
 			this.bond_program.programId
 		);
