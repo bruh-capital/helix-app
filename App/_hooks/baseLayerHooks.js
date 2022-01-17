@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as anchor from "@project-serum/anchor";
 import { HelixNetwork } from "@baseutils/baseContractUtils";
-import { useEffect } from "react";
+import { useEffect, useMemo} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 
@@ -23,6 +23,7 @@ const toastSettings = {
 export default function HelixWrapper() {
 	const [helixClient, _] = useState();
 	const wallet = useAnchorWallet();
+	console.log("helix wrapper called");
 
 	useEffect(() => {
 		(async () => {
@@ -30,8 +31,8 @@ export default function HelixWrapper() {
 				return;
 			}
 
-			helixClient = useMemo(() => new HelixNetwork(wallet), [wallet]);
-		})
+			helixClient = new HelixNetwork(wallet);
+		})()
 	},[wallet]); 
 
 	const stakeToken = async (amount) => {
@@ -106,19 +107,19 @@ export default function HelixWrapper() {
 		}
 	}
 
-	const mintAndCloseIdoAccount = async() =>{
-		try {
-			await helixClient.MintAndCloseIDO();
-		} catch (e) {
-			toast.error("Failed to mint from and close ido account!", toastSettings);
-		}
-	}
-
 	const changeLockupPeriod = async(duration) =>{
 		try {
 			await helixClient.ChangeLockup(duration);
 		} catch (e) {
 			toast.error("Failed to change staking lockup period!", toastSettings);
+		}
+	}
+
+	const mintAndCloseIdoAccount = async() =>{
+		try {
+			await helixClient.MintAndCloseIDO();
+		} catch (e) {
+			toast.error("Failed to mint from and close ido account!", toastSettings);
 		}
 	}
 
@@ -148,8 +149,8 @@ export default function HelixWrapper() {
 		splBond, 
 		redeemBonds, 
 		collectCoupon, 
-		mintAndCloseIdoAccount, 
 		changeLockupPeriod, 
+		mintAndCloseIdoAccount,
 		idoDeposit, 
 		idoWithdraw
 	};

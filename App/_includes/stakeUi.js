@@ -13,8 +13,7 @@ export default function StakeInterface(props) {
 	const {
 		stakeToken,
 		unstakeToken,
-		// makeBond,
-		// redeemBond 
+		changeLockupPeriod,
 	} = HelixWrapper();
 
 	return(
