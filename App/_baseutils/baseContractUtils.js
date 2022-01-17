@@ -18,8 +18,10 @@ export class HelixNetwork {
 			// for each network and address map object defined
 			[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
 				let name_price_map = {};
+				console.log(network, name_price);
 				// for each name, price address in address map object
 				[...Object.entries(name_price)].forEach(([asset_name, price_addr]) =>{
+					console.log(price_addr);
 					name_price_map[asset_name] = new PublicKey(price_addr);
 				});
 				ret_map[network] = name_price_map;

@@ -3,12 +3,8 @@ import HelixWrapper from "@hooks/baseLayerHooks";
 
 export default function AccountUI(props) {
 	const {
-		stakeToken,
-		unstakeToken,
 		createUserAta,
 		createVault,
-		// makeBond,
-		// redeemBond 
 	} = HelixWrapper();
 
 	return(
