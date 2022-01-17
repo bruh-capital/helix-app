@@ -66,6 +66,72 @@ export default function HelixWrapper() {
 		}
 	}
 
+	const createBondAccount = async() =>{
+		try {
+			await helixClient.InitBondAccount();
+		} catch (e) {
+			toast.error("Failed to create bond account!", toastSettings);
+		}
+	}
+	
+
+	const solBond = async(bond_price, maturity, connection) =>{
+		try {
+			await helixClient.SolBond(bond_price, maturity, connection);
+		} catch (e) {
+			toast.error("Failed to create bond via sol deposit!", toastSettings);
+		}
+	}
+	const splBond = async(bond_price, bond_maturity, asset, connection) =>{
+		try {
+			await helixClient.SPLBond(bond_price, bond_maturity, asset, connection);
+		} catch (e) {
+			toast.error("Failed to create bond via spl deposit!", toastSettings);
+		}
+	}
+	const redeemBonds = async() =>{
+		try {
+			await helixClient.RedeemBonds();
+		} catch (e) {
+			toast.error("Failed to redeem bonds!", toastSettings);
+		}
+	}
+	const collectCoupon = async() =>{
+		try {
+			await helixClient.CollectCoupon();
+		} catch (e) {
+			toast.error("Failed to collect coupons!", toastSettings);
+		}
+	}
+	const mintAndCloseIdoAccount = async() =>{
+		try {
+			await helixClient.MintAndCloseIDO();
+		} catch (e) {
+			toast.error("Failed to mint from and close ido account!", toastSettings);
+		}
+	}
+	const changeLockupPeriod = async(duration) =>{
+		try {
+			await helixClient.ChangeLockup(duration);
+		} catch (e) {
+			toast.error("Failed to change staking lockup period!", toastSettings);
+		}
+	}
+	const idoDeposit = async(amount) =>{
+		try {
+			await helixClient.IDODeposit(amount);
+		} catch (e) {
+			toast.error("Failed to deposit to ido account!", toastSettings);
+		}
+	}
+	const idoWithdraw = async(amount) =>{
+		try {
+			await helixClient.IDOWithdraw(amount);
+		} catch (e) {
+			toast.error("Failed to withdraw from ido account!", toastSettings);
+		}
+	}
+
 	return { stakeToken, unstakeToken, createUserAta, createVault};
 }
 
