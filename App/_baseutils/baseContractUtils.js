@@ -1,6 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 import * as web3 from "@solana/web3.js";
-import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
+import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
 let ido_idl = require('@idl/ido.json');
 let bond_idl = require('@idl/bond_market.json');
@@ -346,21 +346,25 @@ export class HelixNetwork {
 	}
 	
 	CreateUserATA = async () => {
-		await this.helix_program.rpc.initUserAta(
-			this.helixMintBump,
-			{
-				accounts:{
-					userAta: this.userHelixAta,
-					payer: this.wallet.publicKey,
-					user: this.wallet.publicKey,
-					rent: web3.SYSVAR_RENT_PUBKEY,
-					mint: this.helixMintAddress,
-					tokenProgram: TOKEN_PROGRAM_ID,
-					systemProgram: SystemProgram.programId,
-				},
-				// signers:[this.wallet.Keypair],
-			}
+		let ata = await Token.getAssociatedTokenAddress(
+			ASSOCIATED_TOKEN_PROGRAM_ID, // always ASSOCIATED_TOKEN_PROGRAM_ID
+			TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
+			mintPubkey, // mint
+			this.wallet.publicKey // owner
 		);
+		
+		let tx = new Transaction().add(
+			Token.createAssociatedTokenAccountInstruction(
+				ASSOCIATED_TOKEN_PROGRAM_ID, // always ASSOCIATED_TOKEN_PROGRAM_ID
+				TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
+				this.helixMintAddress, // mint
+				ata, // ata
+				this.wallet.publicKey, // owner of token account
+				this.wallet.publicKey // fee payer
+			)
+		);
+
+		await this.connection.sendTransaction(tx, [this.wallet])
 	}
 
 	// stake amount is in twst
