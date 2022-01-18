@@ -42,7 +42,10 @@ export class HelixNetwork {
 
 	InitConsts = async () => {
 		// on mainnet
-		this.usdc_mint = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
+		// this.usdc_mint = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
+
+		// on devnet
+		this.usdc_mint = new PublicKey("yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz");
 
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		/// helix accounts
