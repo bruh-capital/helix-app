@@ -48,7 +48,7 @@ export class HelixNetwork {
 		/// helix accounts
 		const [helixMintAddress, helixMintBump] = await PublicKey.findProgramAddress(
 			[
-				Buffer.from("helixmint")
+				Buffer.from("helixmintaccount")
 			],
 			this.helix_program.programId
 		);
