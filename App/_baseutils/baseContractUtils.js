@@ -65,7 +65,7 @@ export class HelixNetwork {
 				TOKEN_PROGRAM_ID.toBuffer(),
 				helixMintAddress.toBuffer(),
 			],
-			this.spl_program_id.programId
+			this.spl_program_id
 		);
 		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("protocoldataaccount")],
@@ -78,7 +78,7 @@ export class HelixNetwork {
 				TOKEN_PROGRAM_ID.toBuffer(),
 				helixMintAddress.toBuffer(),
 			],
-			this.spl_program_id.programId
+			this.spl_program_id
 		);
 
 
@@ -263,7 +263,7 @@ export class HelixNetwork {
 				TOKEN_PROGRAM_ID.toBuffer(),
 				tokenMintAddress.toBuffer(),
 			],
-			this.spl_program_id.programId
+			this.spl_program_id
 		))[0];
 
 		const [bondMarketSpl, bondMarketSplBump] = await anchor.web3.PublicKey.findProgramAddress(
@@ -347,15 +347,15 @@ export class HelixNetwork {
 	
 	CreateUserATA = async () => {
 		let ata = await Token.getAssociatedTokenAddress(
-			ASSOCIATED_TOKEN_PROGRAM_ID, // always ASSOCIATED_TOKEN_PROGRAM_ID
+			this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
 			TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
-			mintPubkey, // mint
+			this.helixMintAddress, // mint
 			this.wallet.publicKey // owner
 		);
 		
-		let tx = new Transaction().add(
+		let tx = new anchor.web3.Transaction().add(
 			Token.createAssociatedTokenAccountInstruction(
-				ASSOCIATED_TOKEN_PROGRAM_ID, // always ASSOCIATED_TOKEN_PROGRAM_ID
+				this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
 				TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
 				this.helixMintAddress, // mint
 				ata, // ata
@@ -364,7 +364,10 @@ export class HelixNetwork {
 			)
 		);
 
-		await this.connection.sendTransaction(tx, [this.wallet])
+		tx.recentBlockhash = (await this.connection.getRecentBlockhash()).blockhash;
+		tx.feePayer = this.wallet.publicKey;
+		let signed_tx = await this.wallet.signTransaction(tx);
+		await this.connection.sendRawTransaction(signed_tx.serialize());
 	}
 
 	// stake amount is in twst
