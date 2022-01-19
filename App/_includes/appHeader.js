@@ -101,7 +101,7 @@ export default function Header(props) {
 					static
 					className="absolute z-20 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
 				>
-					<div className="rounded-lg shadow-lg ring-1 ring-purple-600 ring-opacity-5 bg-gray6 divide-y-2 divide-gray-600">
+					<div className="rounded-lg shadow-lg ring-1 ring-purple-600 ring-opacity-5 bg-gray1 divide-y-2 divide-gray-600">
 						<div className="pt-5 pb-6 px-5">	
 							<div className="flex items-center justify-between">
 								<span
