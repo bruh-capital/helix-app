@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import HelixWrapper from "@hooks/baseLayerHooks";
-import NotificationsSystem, { atalhoTheme, NotificationsProvider, useNotifications } from "reapop";
+import NotificationsSystem, { atalhoTheme, useNotifications } from "reapop";
 
 export default function StakeInterface(props) {
 	// Reapop things

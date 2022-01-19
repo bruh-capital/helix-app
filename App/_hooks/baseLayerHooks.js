@@ -4,7 +4,7 @@ import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect, useMemo} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { notify } from 'reapop';
+import { useNotifications } from "reapop";
 
 const toastSettings = {
 	position: "top-center",
@@ -22,8 +22,10 @@ const toastSettings = {
  * @returns {{bigass tuple of functions}}
  */
 export default function HelixWrapper() {
+	const { notify } = useNotifications();
 	const [helixClient, _] = useState();
 	const wallet = useAnchorWallet();
+
 	console.log("helix wrapper called");
 
 	useEffect(() => {
@@ -40,7 +42,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Stake(amount);
 		} catch (e) {
-			notify('Staking failed', 'error');
+			notify('Staking failed', 'info');
 		}
 	}
 	
