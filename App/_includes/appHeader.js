@@ -76,7 +76,7 @@ export default function Header(props) {
 						</button>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
-						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray-900 focus:outline-none'>
+						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray6 focus:outline-none'>
 							<span className="sr-only">Open menu</span>
 							<MenuIcon className="h-6 w-6" aria-hidden="true" />
 						</Popover.Button>
@@ -101,7 +101,7 @@ export default function Header(props) {
 					static
 					className="absolute z-20 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
 				>
-					<div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-gray-900 divide-y-2 divide-gray-600">
+					<div className="rounded-lg shadow-lg ring-1 ring-purple-600 ring-opacity-5 bg-gray6 divide-y-2 divide-gray-600">
 						<div className="pt-5 pb-6 px-5">	
 							<div className="flex items-center justify-between">
 								<span
