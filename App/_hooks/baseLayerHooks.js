@@ -2,19 +2,8 @@ import { useState } from "react";
 import * as anchor from "@project-serum/anchor";
 import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect, useMemo} from "react";
-import { ToastContainer, toast } from "react-toastify";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { useNotifications } from "reapop";
-
-const toastSettings = {
-	position: "top-center",
-	autoClose: 5000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
 
 /**
  * 
