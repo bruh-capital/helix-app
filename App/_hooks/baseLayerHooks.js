@@ -4,6 +4,7 @@ import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect, useMemo} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { notify } from 'reapop';
 
 const toastSettings = {
 	position: "top-center",
@@ -39,7 +40,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Stake(amount);
 		} catch (e) {
-			toast.error("Staking Failed!", toastSettings);
+			notify('Staking failed', 'error');
 		}
 	}
 	
