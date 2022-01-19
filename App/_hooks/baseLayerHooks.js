@@ -42,7 +42,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Stake(amount);
 		} catch (e) {
-			notify('Staking failed', 'info');
+			notify('Staking failed', 'error');
 		}
 	}
 	

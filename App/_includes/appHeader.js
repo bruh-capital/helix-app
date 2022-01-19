@@ -49,7 +49,7 @@ export default function Header(props) {
 							/>
 						</div>
 					</div>
-					<div className="flex-1 flex space-x-5">
+					<div className="hidden md:flex-1 md:flex md:space-x-5">
 						<button 
 							className={page === "dash" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
 							onClick={() => setPage("dash")}
@@ -81,7 +81,7 @@ export default function Header(props) {
 							<MenuIcon className="h-6 w-6" aria-hidden="true" />
 						</Popover.Button>
 					</div>
-					<Popover.Group as="nav" className='grid grid-cols-2 hidden divide-gray-600 md:flex space-x-6'>
+					<Popover.Group as="nav" className='hidden divide-gray-600 md:flex space-x-6'>
 						<WalletButton/>
 						<ConnectionButton/>
 					</Popover.Group>
