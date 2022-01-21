@@ -18,11 +18,7 @@ export default function StakeInterface(props) {
 
 	return(
 		<div className="grid justify-items-center justify-center w-full grid-cols-2">
-		<NotificationsSystem 
-			notifications={notifications}
-			dismissNotification={(id) => dissmissNotification(id)}
-			theme={atalhoTheme}
-		/>
+		
 			<div className="card flex justify-center bg-white p-3 mt-10 divide-y divide-gray-300">
 				<h3 className="font-semibold text-2xl text-gray8">APY</h3>
 				<span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-secPink to-primBlue">insert APY here</span>
@@ -32,6 +28,11 @@ export default function StakeInterface(props) {
 				<span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-secPink to-primBlue">insert TVL here</span>
 			</div>
 			<div className="card flex justify-center col-span-2 mt-10 bg-white p-3" style={{marginLeft: 0}}>
+			<NotificationsSystem 
+				notifications={notifications}
+				dismissNotification={(id) => dissmissNotification(id)}
+				theme={atalhoTheme}
+			/>
 				<h3 className="font-semibold text-gray8">{operation}</h3>
 				<div className="card-body">
 					<div className="bg-gray4 rounded-md space-x-2">
