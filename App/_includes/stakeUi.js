@@ -4,6 +4,8 @@ import NotificationsSystem, { atalhoTheme, useNotifications } from "reapop";
 
 // TODO(@millionz): make sure that the stats can be passed in as props
 // Add color changes for stat values
+// Add smartmath/input errors for invalid stake/unstake values
+// Add current staked balance
 export default function StakeInterface(props) {
 	// Reapop things
 	const { notifications, dissmissNotification } = useNotifications();
