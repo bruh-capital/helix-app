@@ -15,12 +15,9 @@ export function MintModal(props) {
   const cancelButtonRef = useRef(null);
 
 	const {
-		stakeToken,
-		unstakeToken,
-		createUserAta,
 		createVault,
-		makeBond,
-		redeemBond 
+		// makeBond,
+		// redeemBond 
 	} = HelixWrapper();
 
   const hasAccount = false;

@@ -1,19 +1,9 @@
 import { useState } from "react";
 import * as anchor from "@project-serum/anchor";
 import { HelixNetwork } from "@baseutils/baseContractUtils";
-import { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useEffect, useMemo} from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-
-const toastSettings = {
-	position: "top-center",
-	autoClose: 5000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
+import { useNotifications } from "reapop";
 
 /**
  * 
@@ -21,8 +11,11 @@ const toastSettings = {
  * @returns {{bigass tuple of functions}}
  */
 export default function HelixWrapper() {
+	const { notify } = useNotifications();
 	const [helixClient, _] = useState();
 	const wallet = useAnchorWallet();
+
+	console.log("helix wrapper called");
 
 	useEffect(() => {
 		(async () => {
@@ -30,15 +23,15 @@ export default function HelixWrapper() {
 				return;
 			}
 
-			helixClient = useMemo(() => new HelixNetwork(wallet), [wallet]);
-		})
+			helixClient = new HelixNetwork(wallet);
+		})()
 	},[wallet]); 
 
 	const stakeToken = async (amount) => {
 		try {
 			await helixClient.Stake(amount);
 		} catch (e) {
-			toast.error("Staking Failed!", toastSettings);
+			notify("Staking failed", "error");
 		}
 	}
 	
@@ -46,7 +39,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Unstake(amount);
 		} catch (e) {
-			toast.error("Unstaking Failed!", toastSettings);
+			notify("Unstaking Failed!", "error");
 		}
 	}
 
@@ -54,7 +47,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.CreateUserATA();
 		} catch(e) {
-			toast.error("Failed to create associated token account!", toastSettings);
+			notify("Failed to create associated token account!", "error");
 		}
 	}
 
@@ -62,26 +55,96 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.InitializeUserVault();
 		} catch (e) {
-			toast.error("Failed to create vault!", toastSettings);
+			notify("Failed to create vault!", "error");
 		}
 	}
 
-	const makeBond = async (assetAmount) => {
+	const createBondAccount = async() =>{
 		try {
-			await helixClient.DepositAssetPrintBond(assetAmount);
+			await helixClient.InitBondAccount();
 		} catch (e) {
-			toast.error("Failed to make bond!", toastSettings);
+			notify("Failed to create bond account!", "error");
 		}
 	}
 
-	const redeemBond = async () => {
+	const solBond = async(bond_price, maturity, connection) =>{
+		try {
+			await helixClient.SolBond(bond_price, maturity, connection);
+		} catch (e) {
+			notify("Failed to create bond via sol deposit!", "error");
+		}
+	}
+
+	const splBond = async(bond_price, bond_maturity, asset, connection) =>{
+		try {
+			await helixClient.SPLBond(bond_price, bond_maturity, asset, connection);
+		} catch (e) {
+			notify("Failed to create bond via spl deposit!", "error");
+		}
+	}
+
+	const redeemBonds = async() =>{
 		try {
 			await helixClient.RedeemBonds();
 		} catch (e) {
-			toast.error("Failed to redeem bond!", toastSettings);
+			notify("Failed to redeem bonds!", "error");
 		}
 	}
 
-	return { stakeToken, unstakeToken, createUserAta, createVault, makeBond, redeemBond };
+	const collectCoupon = async() =>{
+		try {
+			await helixClient.CollectCoupon();
+		} catch (e) {
+			notify("Failed to collect coupons!", "error");
+		}
+	}
+
+	const changeLockupPeriod = async(duration) =>{
+		try {
+			await helixClient.ChangeLockup(duration);
+		} catch (e) {
+			notify("Failed to change staking lockup period!", "error");
+		}
+	}
+
+	const mintAndCloseIdoAccount = async() =>{
+		try {
+			await helixClient.MintAndCloseIDO();
+		} catch (e) {
+			notify("Failed to mint from and close ido account!", "error");
+		}
+	}
+
+	const idoDeposit = async(amount) =>{
+		try {
+			await helixClient.IDODeposit(amount);
+		} catch (e) {
+			notify("Failed to deposit to ido account!", "error");
+		}
+	}
+
+	const idoWithdraw = async(amount) =>{
+		try {
+			await helixClient.IDOWithdraw(amount);
+		} catch (e) {
+			notify("Failed to withdraw from ido account!", "error");
+		}
+	}
+
+	return { 
+		stakeToken, 
+		unstakeToken, 
+		createUserAta, 
+		createVault,
+		createBondAccount, 
+		solBond, 
+		splBond, 
+		redeemBonds, 
+		collectCoupon, 
+		changeLockupPeriod, 
+		mintAndCloseIdoAccount,
+		idoDeposit, 
+		idoWithdraw
+	};
 }
 
