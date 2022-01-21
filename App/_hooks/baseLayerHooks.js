@@ -92,11 +92,12 @@ export default function HelixWrapper() {
 	}
 
 	const redeemBonds = async() =>{
-		try {
-			await helixClient.RedeemBonds();
-		} catch (e) {
-			toast.error("Failed to redeem bonds!", toastSettings);
-		}
+		await helixClient.RedeemBonds();
+		// try {
+		// 	await helixClient.RedeemBonds();
+		// } catch (e) {
+		// 	toast.error("Failed to redeem bonds!", toastSettings);
+		// }
 	}
 
 	const collectCoupon = async() =>{
