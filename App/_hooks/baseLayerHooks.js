@@ -2,18 +2,8 @@ import { useState } from "react";
 import * as anchor from "@project-serum/anchor";
 import { HelixNetwork } from "@baseutils/baseContractUtils";
 import { useEffect, useMemo} from "react";
-import { ToastContainer, toast } from "react-toastify";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-
-const toastSettings = {
-	position: "top-center",
-	autoClose: 5000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
+import { useNotifications } from "reapop";
 
 /**
  * 
@@ -21,8 +11,10 @@ const toastSettings = {
  * @returns {{bigass tuple of functions}}
  */
 export default function HelixWrapper() {
+	const { notify } = useNotifications();
 	const [helixClient, _] = useState();
 	const wallet = useAnchorWallet();
+
 	console.log("helix wrapper called");
 
 	useEffect(() => {
@@ -39,7 +31,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Stake(amount);
 		} catch (e) {
-			toast.error("Staking Failed!", toastSettings);
+			notify("Staking failed", "error");
 		}
 	}
 	
@@ -47,7 +39,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Unstake(amount);
 		} catch (e) {
-			toast.error("Unstaking Failed!", toastSettings);
+			notify("Unstaking Failed!", "error");
 		}
 	}
 
@@ -55,7 +47,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.CreateUserATA();
 		} catch(e) {
-			toast.error("Failed to create associated token account!", toastSettings);
+			notify("Failed to create associated token account!", "error");
 		}
 	}
 
@@ -63,7 +55,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.InitializeUserVault();
 		} catch (e) {
-			toast.error("Failed to create vault!", toastSettings);
+			notify("Failed to create vault!", "error");
 		}
 	}
 
@@ -71,7 +63,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.InitBondAccount();
 		} catch (e) {
-			toast.error("Failed to create bond account!", toastSettings);
+			notify("Failed to create bond account!", "error");
 		}
 	}
 
@@ -79,7 +71,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.SolBond(bond_price, maturity, connection);
 		} catch (e) {
-			toast.error("Failed to create bond via sol deposit!", toastSettings);
+			notify("Failed to create bond via sol deposit!", "error");
 		}
 	}
 
@@ -87,24 +79,32 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.SPLBond(bond_price, bond_maturity, asset, connection);
 		} catch (e) {
-			toast.error("Failed to create bond via spl deposit!", toastSettings);
+			notify("Failed to create bond via spl deposit!", "error");
 		}
 	}
 
 	const redeemBonds = async() =>{
+<<<<<<< HEAD
 		await helixClient.RedeemBonds();
 		// try {
 		// 	await helixClient.RedeemBonds();
 		// } catch (e) {
 		// 	toast.error("Failed to redeem bonds!", toastSettings);
 		// }
+=======
+		try {
+			await helixClient.RedeemBonds();
+		} catch (e) {
+			notify("Failed to redeem bonds!", "error");
+		}
+>>>>>>> b7687e178b5f9b6a0508213fc5122a0238d5fc4d
 	}
 
 	const collectCoupon = async() =>{
 		try {
 			await helixClient.CollectCoupon();
 		} catch (e) {
-			toast.error("Failed to collect coupons!", toastSettings);
+			notify("Failed to collect coupons!", "error");
 		}
 	}
 
@@ -112,7 +112,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.ChangeLockup(duration);
 		} catch (e) {
-			toast.error("Failed to change staking lockup period!", toastSettings);
+			notify("Failed to change staking lockup period!", "error");
 		}
 	}
 
@@ -120,7 +120,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.MintAndCloseIDO();
 		} catch (e) {
-			toast.error("Failed to mint from and close ido account!", toastSettings);
+			notify("Failed to mint from and close ido account!", "error");
 		}
 	}
 
@@ -128,7 +128,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.IDODeposit(amount);
 		} catch (e) {
-			toast.error("Failed to deposit to ido account!", toastSettings);
+			notify("Failed to deposit to ido account!", "error");
 		}
 	}
 
@@ -136,7 +136,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.IDOWithdraw(amount);
 		} catch (e) {
-			toast.error("Failed to withdraw from ido account!", toastSettings);
+			notify("Failed to withdraw from ido account!", "error");
 		}
 	}
 

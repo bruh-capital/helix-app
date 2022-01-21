@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 
 //Layouts
@@ -50,7 +49,6 @@ export default function AppPage({ bondsInfo }) {
 
 	return(
 		<BaseDappLayout>
-			<ToastContainer/>
 			<PWAprompt 
 				timesToShow={2}
 				permanentlyHideOnDismiss={false}
