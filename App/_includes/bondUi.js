@@ -2,9 +2,18 @@ import { useState, useEffect } from "react";
 import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 import Image from "next/image";
 import { MintModal } from "./modals";
+import HelixWrapper from "@hooks/baseLayerHooks";
 
 export default function BondInterface(props) {
 	const [tokenMap, setTokenMap] = useState(new Map());
+
+	const {
+		createBondAccount,
+		solBond,
+		splBond,
+		redeemBonds,
+		collectCoupon,
+	} = HelixWrapper();
 			
 	useEffect(() => {
 		new TokenListProvider().resolve().then(tokens => {

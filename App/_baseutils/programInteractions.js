@@ -31,7 +31,7 @@ export default class HelixInteractions {
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
 			[
 				Buffer.from("usertokenaccount"),
-				process.env.NEXT_PUBLIC_MULTISIG_PUBKEY
+				process.env.NEXT_PUBLIC_MULTISIG_SIGNER_PUBKEY
 			]
 		);
 
@@ -86,7 +86,7 @@ export default class HelixInteractions {
 		const [protocolATA, protocolATABump] = await PublicKey.findProgramAddress(
 			[
 				Buffer.from("usertokenaccount"),
-				process.env.NEXT_PUBLIC_MULTISIG_PUBKEY
+				process.env.NEXT_PUBLIC_MULTISIG_SIGNER_PUBKEY
 			]
 		);
 
