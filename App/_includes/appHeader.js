@@ -49,7 +49,7 @@ export default function Header(props) {
 							/>
 						</div>
 					</div>
-					<div className="flex-1 flex space-x-5">
+					<div className="hidden md:flex-1 md:flex md:space-x-5">
 						<button 
 							className={page === "dash" ? "font-semibold text-gray8 bg-gray4 p-0.5 px-1 rounded-md" : "text-gray6 p-0.5"}
 							onClick={() => setPage("dash")}
@@ -76,12 +76,12 @@ export default function Header(props) {
 						</button>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
-						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray-900 focus:outline-none'>
+						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray6 focus:outline-none'>
 							<span className="sr-only">Open menu</span>
 							<MenuIcon className="h-6 w-6" aria-hidden="true" />
 						</Popover.Button>
 					</div>
-					<Popover.Group as="nav" className='grid grid-cols-2 hidden divide-gray-600 md:flex space-x-6'>
+					<Popover.Group as="nav" className='hidden divide-gray-600 md:flex space-x-6'>
 						<WalletButton/>
 						<ConnectionButton/>
 					</Popover.Group>
@@ -101,7 +101,7 @@ export default function Header(props) {
 					static
 					className="absolute z-20 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
 				>
-					<div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-gray-900 divide-y-2 divide-gray-600">
+					<div className="rounded-lg shadow-lg ring-1 ring-purple-600 ring-opacity-5 bg-gray1 divide-y-2 divide-gray-600">
 						<div className="pt-5 pb-6 px-5">	
 							<div className="flex items-center justify-between">
 								<span

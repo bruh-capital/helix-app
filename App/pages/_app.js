@@ -34,12 +34,7 @@ import RpcUrlContext from '@context/rpcUrlContext';
 import ThemeContext from '@context/themeContext';
 import PageContext from '@context/pageContext';
 
-setUpNotifications({
-  defaultProps: {
-    position: 'top-right',
-    dismissible: true,
-  }
-});
+
 
 function MyApp({ Component, pageProps }) {
   const [ multiSigAddr, setMultiSigAddr ] = useState();
@@ -60,6 +55,13 @@ function MyApp({ Component, pageProps }) {
     ], []
   );
 
+  setUpNotifications({
+    defaultProps: {
+      position: 'top-right',
+      dismissible: true,
+    }
+  });
+
   return(
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <PageContext.Provider value={{ page, setPage }}>
@@ -68,7 +70,7 @@ function MyApp({ Component, pageProps }) {
             <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
               <ConnectionProvider endpoint={rpcUrl} >
                 <WalletProvider wallets={wallets}>
-                  <WalletModalProvider logo="https://helixdao.org/helix2dround.png">
+                  <WalletModalProvider logo="./helix2dround.png">
                     <NotificationsProvider>
                       <Component {...pageProps} />
                     </NotificationsProvider>
