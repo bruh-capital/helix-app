@@ -60,7 +60,16 @@ export default function BondInterface(props) {
 										<td>{asset.Price}</td>
 										<td>{asset.Roi}</td>
 										<td>
-											<MintModal bondName={asset.Name}/>
+											<MintModal 
+												bondName={asset.Name}
+												client={{
+													createBondAccount,
+													solBond,
+													splBond,
+													redeemBonds,
+													collectCoupon
+												}}
+											/>
 										</td>
 									</tr>
 								)

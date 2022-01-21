@@ -2,7 +2,6 @@
 @import "./inputs.css";
 @import "./cards.css";
 @import "./headers.css";
-@import "./stat.css";
 
 @tailwind base;
 @tailwind components;
