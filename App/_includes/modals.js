@@ -98,21 +98,22 @@ export function MintModal(props) {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  // onClick={hasAccount ? props.client.createBondAccount : (props.bondName == "SOL" ? props.client.solBond : props.client.splBond)}
+                  onClick={hasAccount ? props.client.createBondAccount : (props.bondName == "SOL" ? props.client.solBond : props.client.splBond)}
                 >
                   {!hasAccount ? "Make Vault" : "Mint Bond"}
                 </button>
-                {
+                
+                {/* {
                   hasAccount &&
                   (
                     <button
-                      // onClick={props.client.redeemBonds}
+                      onClick={props.client.redeemBonds}
                       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
                     >
                       Redeem Bruh Bonds
                     </button>
                   )
-                }
+                } */}
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
