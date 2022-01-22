@@ -12,9 +12,8 @@ import { useNotifications } from "reapop";
  */
 export default function HelixWrapper() {
 	const { notify } = useNotifications();
-	const [helixClient, _] = useState();
 	const wallet = useAnchorWallet();
-
+	const [helixClient, setClient] = useState();
 	console.log("helix wrapper called");
 
 	useEffect(() => {
@@ -23,7 +22,7 @@ export default function HelixWrapper() {
 			return;
 		}
 
-		helixClient = new HelixNetwork(wallet);
+		setClient(new HelixNetwork(wallet));
 		console.log("wallet set", helixClient);
 	},[wallet]); 
 
@@ -134,17 +133,17 @@ export default function HelixWrapper() {
 		}
 	}
 
-	const getTokenAccountBalance = async(amount) =>{
+	const getTokenAccountBalance = async(mint_key) =>{
 		try {
-			await helixClient.GetTokenAccountBalance(amount);
+			await helixClient.GetTokenAccountBalance(mint_key);
 		} catch (e) {
 			notify("Failed to get token account balance!", "error");
 		}
 	}
 
-	const getSolBalance = async(amount) => {
+	const getSolBalance = async() => {
 		try {
-			await helixClient.GetSolBalance(amount);
+			await helixClient.GetSolBalance();
 		} catch (e) {
 			notify("Failed to get wallet balance!", "error");
 		}
@@ -163,7 +162,9 @@ export default function HelixWrapper() {
 		changeLockupPeriod, 
 		mintAndCloseIdoAccount,
 		idoDeposit, 
-		idoWithdraw
+		idoWithdraw,
+		getTokenAccountBalance,
+		getSolBalance
 	};
 }
 
