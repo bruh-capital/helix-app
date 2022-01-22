@@ -322,7 +322,7 @@ export class HelixNetwork {
 		  },{
 			accounts:{
 				signerAccount: this.bondSigner,
-				collectionAccount: this.userAtaHelix,
+				collectionAccount: this.userHelixAta,
 				mint: this.helixMintAddress,
 				bondAccount: this.bondAccount,
 				twstProgram: this.helix_program.programId,

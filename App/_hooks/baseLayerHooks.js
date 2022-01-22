@@ -18,13 +18,13 @@ export default function HelixWrapper() {
 	console.log("helix wrapper called");
 
 	useEffect(() => {
-		(async () => {
-			if (!wallet || !wallet.publicKey) {
-				return;
-			}
+		if (!wallet || !wallet.publicKey) {
+			console.log("no wallet");
+			return;
+		}
 
-			helixClient = new HelixNetwork(wallet);
-		})()
+		helixClient = new HelixNetwork(wallet);
+		console.log("wallet set", helixClient);
 	},[wallet]); 
 
 	const stakeToken = async (amount) => {
@@ -60,7 +60,6 @@ export default function HelixWrapper() {
 	}
 
 	const createBondAccount = async() =>{
-		console.log("creating bond account");
 		await helixClient.InitBondAccount();
 		// try {
 		// 	await helixClient.InitBondAccount();
@@ -86,19 +85,21 @@ export default function HelixWrapper() {
 	}
 
 	const redeemBonds = async() =>{
-		try {
-			await helixClient.RedeemBonds();
-		} catch (e) {
-			notify("Failed to redeem bonds!", "error");
-		}
+		await helixClient.RedeemBonds();
+		// try {
+		// 	await helixClient.RedeemBonds();
+		// } catch (e) {
+		// 	notify("Failed to redeem bonds!", "error");
+		// }
 	}
 
 	const collectCoupon = async() =>{
-		try {
-			await helixClient.CollectCoupon();
-		} catch (e) {
-			notify("Failed to collect coupons!", "error");
-		}
+		await helixClient.CollectCoupon();
+		// try {
+		// 	await helixClient.CollectCoupon();
+		// } catch (e) {
+		// 	notify("Failed to collect coupons!", "error");
+		// }
 	}
 
 	const changeLockupPeriod = async(duration) =>{
