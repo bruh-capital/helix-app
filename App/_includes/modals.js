@@ -1,6 +1,6 @@
-import { Fragment, useRef, useState, useEffect } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { ExclamationIcon } from '@heroicons/react/outline';
+import { Fragment, useRef, useState , useEffect} from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { ExclamationIcon } from '@heroicons/react/outline'
 import HelixWrapper from '@hooks/baseLayerHooks';
 
 export function MintModal(props) {
@@ -18,6 +18,16 @@ export function MintModal(props) {
   useEffect(() => {
   },[]);
 
+  const {
+		createBondAccount,
+		solBond,
+		splBond,
+		// redeemBonds,
+		// collectCoupon,
+    getTokenAccountBalance,
+		getSolBalance
+	} = HelixWrapper();
+  
   // what the fuck is this ??????
   const hasAccount = true;
 
@@ -101,7 +111,7 @@ export function MintModal(props) {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={hasAccount ? props.client.createBondAccount : (props.bondName == "SOL" ? props.client.solBond : props.client.splBond)}
+                  onClick={hasAccount ? createBondAccount : (props.bondName == "SOL" ? solBond : splBond)}
                 >
                   {!hasAccount ? "Make Vault" : "Mint Bond"}
                 </button>
@@ -110,7 +120,7 @@ export function MintModal(props) {
                   hasAccount &&
                   (
                     <button
-                      onClick={props.client.redeemBonds}
+                      onClick={redeemBonds}
                       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
                     >
                       Redeem Bruh Bonds
