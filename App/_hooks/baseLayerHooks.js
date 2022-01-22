@@ -134,6 +134,22 @@ export default function HelixWrapper() {
 		}
 	}
 
+	const getTokenAccountBalance = async(amount) =>{
+		try {
+			await helixClient.GetTokenAccountBalance(amount);
+		} catch (e) {
+			notify("Failed to get token account balance!", "error");
+		}
+	}
+
+	const getSolBalance = async(amount) => {
+		try {
+			await helixClient.GetSolBalance(amount);
+		} catch (e) {
+			notify("Failed to get wallet balance!", "error");
+		}
+	}
+
 	return { 
 		stakeToken, 
 		unstakeToken, 
