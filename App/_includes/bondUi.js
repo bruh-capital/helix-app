@@ -9,8 +9,8 @@ export default function BondInterface(props) {
 
 	const {
 		createBondAccount,
-		solBond,
-		splBond,
+		// solBond,
+		// splBond,
 		redeemBonds,
 		collectCoupon,
 	} = HelixWrapper();
@@ -77,13 +77,13 @@ export default function BondInterface(props) {
 										<td>
 											<MintModal 
 												bondName={asset.Name}
-												client={{
-													createBondAccount: createBondAccount,
-													solBond: solBond,
-													splBond: splBond,
-													redeemBonds: redeemBonds,
-													collectCoupon: collectCoupon
-												}}
+												// client={{
+												// 	createBondAccount: createBondAccount,
+												// 	solBond: solBond,
+												// 	splBond: splBond,
+												// 	redeemBonds: redeemBonds,
+												// 	collectCoupon: collectCoupon
+												// }}
 											/>
 										</td>
 									</tr>
