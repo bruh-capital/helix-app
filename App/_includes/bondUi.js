@@ -38,17 +38,17 @@ export default function BondInterface(props) {
 			<div className="bg-white rounded-box py-5">
 				<button
 					className="btn btn-primary mx-2"
-					onClick={() => createBondAccount()}
+					onClick={createBondAccount}
 				>Create Bond Account</button>
 
 				<button
 					className="btn btn-primary mx-2"
-					onClick={() => redeemBonds()}
+					onClick={redeemBonds}
 				>Redeem Bonds</button>
 
 				<button
 					className="btn btn-primary mx-2"
-					onClick={() => collectCoupon()}
+					onClick={collectCoupon}
 				>Collect Coupons</button>
 			</div>
 
@@ -71,7 +71,7 @@ export default function BondInterface(props) {
 						{
 							props.bondsInfo?.map(function (asset, index) {
 								return(
-									<tr>
+									<tr key = {index}>
 										<th>
 											<Image 
 												src={tokenMap?.get(asset.MainNetAddress)?.logoURI || '/helix2d.png'}

@@ -60,11 +60,13 @@ export default function HelixWrapper() {
 	}
 
 	const createBondAccount = async() =>{
-		try {
-			await helixClient.InitBondAccount();
-		} catch (e) {
-			notify("Failed to create bond account!", "error");
-		}
+		console.log("creating bond account");
+		await helixClient.InitBondAccount();
+		// try {
+		// 	await helixClient.InitBondAccount();
+		// } catch (e) {
+		// 	notify("Failed to create bond account!", "error");
+		// }
 	}
 
 	const solBond = async(bond_price, maturity, connection) =>{
