@@ -21,7 +21,6 @@ export default function HelixWrapper() {
 			console.log("no wallet");
 			return;
 		}
-
 		setClient(new HelixNetwork(wallet));
 		console.log("wallet set", helixClient);
 	},[wallet]); 
