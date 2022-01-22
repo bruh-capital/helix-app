@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 import Image from "next/image";
 import { MintModal } from "./modals";
@@ -87,11 +87,11 @@ export default function BondInterface(props) {
 											<MintModal 
 												bondName={asset.Name}
 												client={{
-													createBondAccount,
-													solBond,
-													splBond,
-													redeemBonds,
-													collectCoupon
+													createBondAccount: createBondAccount,
+													solBond: solBond,
+													splBond: splBond,
+													redeemBonds: redeemBonds,
+													collectCoupon: collectCoupon
 												}}
 											/>
 										</td>
