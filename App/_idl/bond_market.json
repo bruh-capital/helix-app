@@ -243,6 +243,44 @@
       ]
     },
     {
+      "name": "redeemBonds",
+      "accounts": [
+        {
+          "name": "signerAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bondAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "twstProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bumps",
+          "type": {
+            "defined": "RedeemBondsBump"
+          }
+        }
+      ]
+    },
+    {
       "name": "tradeBond",
       "accounts": [
         {
@@ -416,6 +454,22 @@
           {
             "name": "marketSpace",
             "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RedeemBondsBump",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mintBump",
+            "type": "u8"
+          },
+          {
+            "name": "signerBump",
+            "type": "u8"
           }
         ]
       }

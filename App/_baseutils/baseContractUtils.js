@@ -300,17 +300,15 @@ export class HelixNetwork {
 	
 	RedeemBonds = async () => {
 		await this.bond_program.rpc.redeemBonds({
-			userVaultBump: this.userVaultBump,
-			userAtaBump: this.userHelixAtaBump,
-			helixMintBump: this.helixMintBump,
+			mintBump: this.helixMintBump,
+			signerBump: this.bondSignerBump
 		},{
 			accounts:{
-			user: this.wallet.publicKey,
-			userData: this.userVault,
-			mint: this.helixMintAddress,
-			userAta: this.userHelixAta,
-			tokenProgram: TOKEN_PROGRAM_ID,
-			systemProgram: SystemProgram.programId,
+				signerAccount: this.bondSigner,
+				mint: this.helixMintAddress,
+				bondAccount: this.bondAccount,
+				twstProgram: this.helix_program.programId,
+				tokenProgram: TOKEN_PROGRAM_ID,
 			},
 		});
 	}
