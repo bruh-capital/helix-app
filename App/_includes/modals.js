@@ -14,6 +14,14 @@ export function MintModal(props) {
   
   const cancelButtonRef = useRef(null);
 
+  // const {
+	// 	createBondAccount,
+	// 	solBond,
+	// 	splBond,
+	// 	redeemBonds,
+	// 	collectCoupon,
+	// } = HelixWrapper();
+
   // what the fuck is this ??????
   const hasAccount = true;
 
@@ -35,7 +43,6 @@ export function MintModal(props) {
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
           </span>
@@ -56,7 +63,7 @@ export function MintModal(props) {
                       {props.bondName + " Bonds"}
                     </Dialog.Title>
                     <div className="mt-2">
-                    {/* hacking align with cols wtf man*/}
+
                       <div className="grid grid-cols-2 gap-3 mb-4">
                         <input
                           type="number"
@@ -98,7 +105,7 @@ export function MintModal(props) {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => {hasAccount ? props.client.createVault() : props.client.makeBond()}}
+                  onClick={() => {hasAccount ? props.client.createBondAccount : (props.bondName == "SOL" ? props.client.solBond : props.client.splBond)}}
                 >
                   {!hasAccount ? "Make Vault" : "Mint Bond"}
                 </button>
@@ -106,7 +113,7 @@ export function MintModal(props) {
                   hasAccount &&
                   (
                     <button
-                      onClick={props.client.redeemBonds()}
+                      onClick={props.client.redeemBonds}
                       className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
                     >
                       Redeem Bruh Bonds
