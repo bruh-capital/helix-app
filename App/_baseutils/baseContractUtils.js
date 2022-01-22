@@ -306,6 +306,7 @@ export class HelixNetwork {
 			accounts:{
 				signerAccount: this.bondSigner,
 				mint: this.helixMintAddress,
+				collectionAccount: this.userHelixAta,
 				bondAccount: this.bondAccount,
 				twstProgram: this.helix_program.programId,
 				tokenProgram: TOKEN_PROGRAM_ID,
