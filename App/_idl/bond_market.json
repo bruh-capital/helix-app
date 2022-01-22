@@ -256,6 +256,11 @@
           "isSigner": false
         },
         {
+          "name": "collectionAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "bondAccount",
           "isMut": true,
           "isSigner": false
