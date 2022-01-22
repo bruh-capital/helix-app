@@ -6,15 +6,18 @@ import HelixWrapper from '@hooks/baseLayerHooks';
 export function MintModal(props) {
   const [open, setOpen] = useState(false);
 
-  const [bondAmount, setBondAmount] = useState();
-  const [userAssetBalance, setUserAssetBalance] = useState();
-  const [possibleHLX, setPossibleHLX] = useState();
-  const [maxBondAmount, setMaxBondAmount] = useState();
-  const [bondDiscount, setBondDiscount] = useState();
+  const [bondAmount, setBondAmount] = useState(0);
+  const [userAssetBalance, setUserAssetBalance] = useState(0);
+  const [possibleHLX, setPossibleHLX] = useState(0);
+  const [maxBondAmount, setMaxBondAmount] = useState(0);
+  const [bondDiscount, setBondDiscount] = useState(0);
   
   const cancelButtonRef = useRef(null);
 
-
+  // set the defaults
+  useEffect(()=>{
+    
+  },[]);
   // what the fuck is this ??????
   const hasAccount = true;
 

@@ -37,6 +37,7 @@ export class HelixNetwork {
 		this.spl_program_id = new PublicKey(process.env.NEXT_PUBLIC_SPL_ATA_PROGRAM_ID);
 
 		this.wallet = wallet;
+		this.token_program = Token;
 		this.InitConsts();
 	}
 
@@ -502,5 +503,22 @@ export class HelixNetwork {
 			},
 			// signers: [userKP],
 		});
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	GetTokenAccountBalance = async(mint) => {
+		let ata = await Token.getAssociatedTokenAddress(
+			this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
+			TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
+			mint, // mint
+			this.wallet.publicKey // owner
+		  );
+
+		return await this.connection.getTokenAccountBalance(ata);
+
+	}
+
+	GetSolBalance = async() =>{
+		return await this.connection.getBalance(this.wallet)/anchor.web3.LAMPORTS_PER_SOL;
 	}
 }
