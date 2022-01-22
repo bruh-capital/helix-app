@@ -1,6 +1,6 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationIcon } from '@heroicons/react/outline'
+import { Fragment, useRef, useState, useEffect } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationIcon } from '@heroicons/react/outline';
 import HelixWrapper from '@hooks/baseLayerHooks';
 
 export function MintModal(props) {
@@ -15,9 +15,9 @@ export function MintModal(props) {
   const cancelButtonRef = useRef(null);
 
   // set the defaults
-  useEffect(()=>{
-    
+  useEffect(() => {
   },[]);
+
   // what the fuck is this ??????
   const hasAccount = true;
 

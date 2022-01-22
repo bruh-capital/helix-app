@@ -6,8 +6,7 @@ import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { useNotifications } from "reapop";
 
 /**
- * 
- * @param {number} amount how much does the user want to stake 
+ * Function that returns functions to use for helix
  * @returns {{bigass tuple of functions}}
  */
 export default function HelixWrapper() {
@@ -61,11 +60,11 @@ export default function HelixWrapper() {
 
 	const createBondAccount = async() =>{
 		await helixClient.InitBondAccount();
-		// try {
-		// 	await helixClient.InitBondAccount();
-		// } catch (e) {
-		// 	notify("Failed to create bond account!", "error");
-		// }
+		 try {
+		 	await helixClient.InitBondAccount();
+		} catch (e) {
+			notify("Failed to create bond account!", "error");
+		}
 	}
 
 	const solBond = async(bond_price, maturity, connection) =>{
@@ -85,21 +84,19 @@ export default function HelixWrapper() {
 	}
 
 	const redeemBonds = async() =>{
-		await helixClient.RedeemBonds();
-		// try {
-		// 	await helixClient.RedeemBonds();
-		// } catch (e) {
-		// 	notify("Failed to redeem bonds!", "error");
-		// }
+		try {
+			await helixClient.RedeemBonds();
+		} catch (e) {
+			notify("Failed to redeem bonds!", "error");
+		}
 	}
 
 	const collectCoupon = async() =>{
-		await helixClient.CollectCoupon();
-		// try {
-		// 	await helixClient.CollectCoupon();
-		// } catch (e) {
-		// 	notify("Failed to collect coupons!", "error");
-		// }
+		try {
+			await helixClient.CollectCoupon();
+		} catch (e) {
+			notify("Failed to collect coupons!", "error");
+		}
 	}
 
 	const changeLockupPeriod = async(duration) =>{

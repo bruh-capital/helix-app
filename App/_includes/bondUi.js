@@ -33,29 +33,20 @@ export default function BondInterface(props) {
 		>
 			<div className="card-body">
 			<h2 className="card-title text-black text-4xl font-bold">Bond Account Info</h2>
-			
-
 			<div className="bg-white rounded-box py-5">
 				<button
 					className="btn btn-primary mx-2"
 					onClick={createBondAccount}
 				>Create Bond Account</button>
-
 				<button
 					className="btn btn-primary mx-2"
 					onClick={redeemBonds}
 				>Redeem Bonds</button>
-
 				<button
 					className="btn btn-primary mx-2"
 					onClick={collectCoupon}
 				>Collect Coupons</button>
 			</div>
-
-
-			
-
-
 				<h2 className="card-title text-black text-4xl font-bold">Mint Bonds</h2>
 				<table className="table table-zebra w-full text-black">
 					<thead className="rounded-4xl p-5 m-2">
