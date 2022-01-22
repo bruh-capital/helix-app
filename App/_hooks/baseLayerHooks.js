@@ -59,7 +59,6 @@ export default function HelixWrapper() {
 	}
 
 	const createBondAccount = async() =>{
-		await helixClient.InitBondAccount();
 		try {
 		 	await helixClient.InitBondAccount();
 		} catch (e) {
