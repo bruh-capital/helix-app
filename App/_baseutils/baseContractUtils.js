@@ -206,7 +206,6 @@ export class HelixNetwork {
 	}
 
 	SolBond = async (bond_price, maturity, connection) => {
-		// console.log("deposit asset, print bond");
 		// const url = clusterApiUrl("devnet");
 		// // full list at:
 		// // https://pyth.network/developers/accounts/?cluster=devnet#

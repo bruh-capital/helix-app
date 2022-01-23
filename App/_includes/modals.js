@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import HelixWrapper from '@hooks/baseLayerHooks';
 import { notify } from 'reapop';
+import { BN } from '@project-serum/anchor';
 
 export function MintModal(props) {
   const [open, setOpen] = useState(false);
@@ -19,9 +20,21 @@ export function MintModal(props) {
     getBondMarketInfo,
 	} = HelixWrapper();
 
-  /// present face value of bond
-  /// face value / (interest ^ maturity)
-  const [bondAmount, setBondAmount] = useState(0);
+  const [bondMarket, setBondMarket] = useState();
+
+  useEffect(async ()=>{
+    let market_raw = await getBondMarketInfo(props.bondAddr);
+    if(market_raw != undefined){
+      let market_parsed = {
+        couponRates: market_raw.couponRates.map((x)=>{return x.toNumber()}),
+        interestRate: market_raw.interestRate.toNumber(),
+        mint: market_raw.mint.toString(),
+      };
+      console.log(market_parsed);
+      setBondMarket(market_parsed);
+    }
+  }, [helixClient]);
+
 
   /// asset balance
   const [userAssetBalance, setUserAssetBalance] = useState(0);
@@ -33,23 +46,34 @@ export function MintModal(props) {
     }    
   },[helixClient])
 
-  /// face value of bond
-  const [possibleHLX, setPossibleHLX] = useState(0);
+  /// how much user wants to receive
+  const [redemptionValue, setRedemptionValue] = useState(0);
 
-  /// face value of bond
-  const [maxBondAmount, setMaxBondAmount] = useState(0);
+  /// maturity in weeks
+  const [maturity, setMaturity] = useState(0);
 
-  const [maturity, setMaturity] = useState();
-
-  /// fetch interest from backend
-  /// discount rate of bond
+  /// sum of coupon payments
+  const [couponTotal, setCouponTotal] = useState(0);
   
-  /// facevalue - ((face value / (interest rate ^ maturity)) + sum[coupons])/ face value
-  const [bondDiscount, setBondDiscount] = useState(0);
+  // (face value / (interest rate ^ maturity) ) + sum[coupons]
+  const [dueAmount, setDueAmount] = useState(0);
 
-  useEffect(()=>{
-    setBondDiscount();
-  }, [maturity])
+  const [presentValue, setPresentValue] = useState(0);
+
+  function updateAmounts(red_in, maturity_in){
+    if (bondMarket != undefined){
+      let sum = 0;
+      let couponAmt = (bondMarket.couponRates[maturity_in]/1000) * red_in;
+      for(let i = 1; i <= maturity_in; i++){
+        sum += couponAmt/Math.pow(1+(bondMarket.interestRate/1000), i)
+      };
+      setCouponTotal(sum);
+      let pv = red_in / Math.pow(1+(bondMarket.interestRate/1000), maturity_in);
+      setPresentValue(pv);
+      let dAmt = pv + sum;
+      setDueAmount(dAmt);
+    }
+  }
   
   const cancelButtonRef = useRef(null);
   
@@ -100,8 +124,11 @@ export function MintModal(props) {
                           type="number"
                           placeholder="Amount"
                           className="input col-span-2 ml-1 w-auto text-gray-500"
-                          value={bondAmount}
-                          onChange={(e) => setBondAmount(e.target.value)}
+                          value={redemptionValue}
+                          onChange={(e) => {
+                            setRedemptionValue(e.target.value);
+                            updateAmounts(e.target.value, maturity);
+                          }}
                         />
                       </div>
                       <table className="ml-6 w-full">
@@ -111,28 +138,48 @@ export function MintModal(props) {
                             <td>{userAssetBalance || "0"}</td>
                           </tr>
                           <tr>
-                            <td>You recieve</td>
-                            <td>{possibleHLX + " HLX" || "N/A"}</td>
+                            <td>You Receive</td>
+                            <td>{redemptionValue + " HLX" || "N/A"}</td>
                           </tr>
+
                           <tr>
-                            <td>Max Bond Amount</td>
-                            <td>{maxBondAmount || "N/A"}</td>
+                            <td>Present Value</td>
+                            <td>{presentValue || "N/A"}</td>
                           </tr>
+
                           <tr>
-                            <td>Bond Discount</td>
-                            <td>{bondDiscount || "N/A"}</td>
+                            <td>Coupon Total</td>
+                            <td>{couponTotal || "N/A"}</td>
+                          </tr>
+
+
+                          <tr>
+                            <td>Due Amount</td>
+                            <td>{dueAmount || "N/A"}</td>
                           </tr>
                           <tr>
                             <td>Vesting Period</td>
-                            <td><input
+                            <td>{maturity || "N/A"}</td>
+                            <td>
+                              <input
 									              	type="number"
 									              	placeholder="vesting period in weeks"
 									              	className="input input-bordered text-black"
 									              	value={maturity}
-									              	onChange={(e) => setMaturity(e.target.value)}
+									              	onChange={(e) => {
+                                    setMaturity(e.target.value);
+                                    updateAmounts(redemptionValue, e.target.value);
+                                  }}
 									              />
                             </td>
                           </tr>
+
+                          <tr>
+                            <td>Bond Discount</td>
+                            <td>{(redemptionValue - dueAmount) || "N/A"}</td>
+                          </tr>
+
+
                         </tbody>
                       </table>
                     </div>
