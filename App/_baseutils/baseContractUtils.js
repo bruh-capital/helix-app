@@ -7,6 +7,7 @@ import { notify } from "reapop";
 let ido_idl = require('@idl/ido.json');
 let bond_idl = require('@idl/bond_market.json');
 let helix_idl = require('@idl/twst.json');
+let governance_idl = require('@idl/governance_program.json');
 let pyth_mapping = require("@baseutils/pythMapping.json");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +29,7 @@ export class HelixNetwork {
 		this.helix_program = new anchor.Program(helix_idl, helix_idl.metadata.address, this.provider);
 		this.ido_program = new anchor.Program(ido_idl, ido_idl.metadata.address, this.provider);
 		this.bond_program = new anchor.Program(bond_idl, bond_idl.metadata.address, this.provider);
+		this.governance_program = new anchor.Program(governance_idl, governance_idl.metadata.address, this.provider);
 
 		this.multisigSigner = new PublicKey(process.env.NEXT_PUBLIC_MULTISIG_SIGNER_PUBKEY);
 		this.treasuryWallet = new PublicKey(process.env.NEXT_PUBLIC_TREASURY_PUBKEY);
@@ -500,6 +502,43 @@ export class HelixNetwork {
 			},
 			// signers: [userKP],
 		});
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	/// Governance
+
+	// create proposal
+	CreateProposal = async(government_address, title, description, expiration_weeks, pid, accs, data) => {
+		let proposalKp = anchor.web3.Keypair.generate();
+		await this.governance_program.rpc.createProposal(title, description, new anchor.BN(expiration_weeks), pid ? pid : null, accs ? accs : null, data ? data : null, {
+			accounts:{
+			  proposal: proposalKp.publicKey,
+			  payer: this.wallet.publicKey,
+			  government: new PublicKey(government_address),
+			  systemProgram: SystemProgram.programId,
+			},
+			signers:[proposalKp],
+		});
+	}
+
+	// cast vote
+	CastVote = async(proposal, choice) =>{
+		await this.governance_program.rpc.castVote(
+			choice,
+			{
+				accounts:{
+					proposal: new PublicKey(proposal),
+					user: this.wallet.publicKey,
+					userVault: this.userVault,
+					protocolData: this.protocolDataAccount,
+				}
+			}
+		)
+	}
+
+	// fetch proposals
+	FetchProposals = async(government) =>{
+		return await this.governance_program.account.government.fetch(new PublicKey(government));
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////

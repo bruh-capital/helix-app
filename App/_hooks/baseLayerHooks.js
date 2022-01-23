@@ -174,6 +174,41 @@ export default function HelixWrapper() {
 		}
 	}
 
+	const getProposals = async(government) =>{
+		try{
+			if (helixClient == undefined){
+				return undefined
+			};
+			return await helixClient.FetchProposals(government);
+		}catch(e){
+			notify("Failed to get proposals!", "error")
+		}
+	}
+	
+	// CreateProposal
+
+	const createProposal = async(government_address, title, description, expiration_weeks, pid, accs, data) =>{
+		try{
+			if (helixClient == undefined){
+				return undefined
+			};
+			return await helixClient.CreateProposal(government_address, title, description, expiration_weeks, pid, accs, data);
+		}catch(e){
+			notify("Failed to create proposal!", "error")
+		}
+	}
+
+	const castVote = async(proposal, choice) =>{
+		try{
+			if (helixClient == undefined){
+				return undefined
+			};
+			return await helixClient.CastVote(proposal, choice);
+		}catch(e){
+			notify("Failed to cast vote!", "error")
+		}
+	}
+
 	return { 
 		helixClient,
 		stakeToken, 
@@ -194,6 +229,9 @@ export default function HelixWrapper() {
 		getBondMarketInfo,
 		getUserVault,
 		getProtocolData,
+		getProposals,
+		createProposal,
+		castVote,
 	};
 }
 
