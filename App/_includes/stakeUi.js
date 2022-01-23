@@ -26,16 +26,10 @@ export default function StakeInterface(props) {
 	const [userVault, setUserVault] = useState();
 	const [protocData, setProtocData] = useState();
 
-	const [tvl, setTvl] = useState(0);
-	const [apy, setApy] = useState(0);
-
 	useEffect(async ()=>{
 		if (helixClient != undefined){
 			setUserVault(await getUserVault());
 			setProtocData(await getProtocolData());
-
-			console.log(protocData);
-			console.log(userVault);
 		}
 	}, [helixClient]);
 
