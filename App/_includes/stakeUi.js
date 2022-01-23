@@ -8,7 +8,7 @@ import NotificationsSystem, { atalhoTheme, useNotifications } from "reapop";
 // Add current staked balance
 export default function StakeInterface(props) {
 	// Reapop things
-	const { notifications, dissmissNotification } = useNotifications();
+	const { notifications, dismissNotification } = useNotifications();
 
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
@@ -24,7 +24,7 @@ export default function StakeInterface(props) {
 		<>
 			<NotificationsSystem 
 					notifications={notifications}
-					dismissNotification={(id) => dissmissNotification(id)}
+					dismissNotification={(id) => dismissNotification(id)}
 					theme={atalhoTheme}
 			/>
 			<div className="grid justify-items-center justify-center w-full grid-cols-2">
