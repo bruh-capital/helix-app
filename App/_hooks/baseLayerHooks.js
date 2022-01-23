@@ -129,6 +129,8 @@ export default function HelixWrapper() {
 	}
 
 	const getTokenAccountBalance = async(mint_addr) =>{
+		// return await helixClient.GetTokenAccountBalance(mint_addr);
+		
 		try {
 			return await helixClient.GetTokenAccountBalance(mint_addr);
 		} catch (e) {
@@ -137,8 +139,8 @@ export default function HelixWrapper() {
 	}
 
 	const getSolBalance = async() => {
+		// return await helixClient.GetSolBalance();
 		try {
-			
 			return await helixClient.GetSolBalance();
 		} catch (e) {
 			notify("Failed to get wallet balance!", "error");
@@ -146,6 +148,7 @@ export default function HelixWrapper() {
 	}
 
 	const getBondMarketInfo = async(mint_addr) =>{
+		// return await helixClient.FetchBondMarket(mint_addr);
 		try{
 			return await helixClient.FetchBondMarket(mint_addr);
 		}catch(e){

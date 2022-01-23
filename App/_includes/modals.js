@@ -2,6 +2,7 @@ import { Fragment, useRef, useState , useEffect} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
 import HelixWrapper from '@hooks/baseLayerHooks';
+import { notify } from 'reapop';
 
 export function MintModal(props) {
   const [open, setOpen] = useState(false);
@@ -26,8 +27,10 @@ export function MintModal(props) {
   const [userAssetBalance, setUserAssetBalance] = useState(0);
   
   useEffect(async ()=>{
-    let val = props.bondName == "SOL" ? getSolBalance() : getTokenAccountBalance(props.bondAddr);
-    setUserAssetBalance(await val);
+    if ( helixClient != undefined ){
+      let val = props.bondName == "SOL" ? getSolBalance() : getTokenAccountBalance(props.bondAddr);
+      setUserAssetBalance(await val);
+    }    
   },[helixClient])
 
   /// face value of bond
