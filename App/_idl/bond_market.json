@@ -3,6 +3,50 @@
   "name": "bond_market",
   "instructions": [
     {
+      "name": "changeCouponRates",
+      "accounts": [
+        {
+          "name": "market",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "invoker",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "couponVec",
+          "type": {
+            "vec": "u64"
+          }
+        }
+      ]
+    },
+    {
+      "name": "changeInterestRate",
+      "accounts": [
+        {
+          "name": "market",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "invoker",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "interestRate",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "collectCoupon",
       "accounts": [
         {
