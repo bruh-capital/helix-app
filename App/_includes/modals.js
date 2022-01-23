@@ -6,18 +6,6 @@ import HelixWrapper from '@hooks/baseLayerHooks';
 export function MintModal(props) {
   const [open, setOpen] = useState(false);
 
-  const [bondAmount, setBondAmount] = useState(0);
-  const [userAssetBalance, setUserAssetBalance] = useState(0);
-  const [possibleHLX, setPossibleHLX] = useState(0);
-  const [maxBondAmount, setMaxBondAmount] = useState(0);
-  const [bondDiscount, setBondDiscount] = useState(0);
-  
-  const cancelButtonRef = useRef(null);
-
-  // set the defaults
-  useEffect(() => {
-  },[]);
-
   const {
 		createBondAccount,
 		solBond,
@@ -25,8 +13,40 @@ export function MintModal(props) {
 		// redeemBonds,
 		// collectCoupon,
     getTokenAccountBalance,
-		getSolBalance
+		getSolBalance,
+    getBondMarketInfo,
 	} = HelixWrapper();
+
+  /// present face value of bond
+  /// face value / (interest ^ maturity)
+  const [bondAmount, setBondAmount] = useState(0);
+
+  /// asset balance
+  const [userAssetBalance, setUserAssetBalance] = useState(0);
+  
+  useEffect(()=>{
+    props.bondName == "SOL" ? getSolBalance() : getTokenAccountBalance("mint key");
+  },[setUserAssetBalance])
+
+  /// face value of bond
+  const [possibleHLX, setPossibleHLX] = useState(0);
+
+  /// face value of bond
+  const [maxBondAmount, setMaxBondAmount] = useState(0);
+
+  const [maturity, setMaturity] = useState();
+
+  /// fetch interest from backend
+  /// discount rate of bond
+  
+  /// facevalue - ((face value / (interest rate ^ maturity)) + sum[coupons])/ face value
+  const [bondDiscount, setBondDiscount] = useState(0);
+
+  useEffect(()=>{
+    setBondDiscount();
+  }, [maturity])
+  
+  const cancelButtonRef = useRef(null);
   
   // what the fuck is this ??????
   const hasAccount = true;
@@ -99,7 +119,14 @@ export function MintModal(props) {
                           </tr>
                           <tr>
                             <td>Vesting Period</td>
-                            <td>5 Days</td>
+                            <td><input
+									              	type="number"
+									              	placeholder="vesting period in weeks"
+									              	className="input input-bordered text-black"
+									              	value={maturity}
+									              	onChange={(e) => setMaturity(e.target.value)}
+									              />
+                            </td>
                           </tr>
                         </tbody>
                       </table>

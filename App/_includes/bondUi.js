@@ -26,6 +26,8 @@ export default function BondInterface(props) {
 		});
 	}, [setTokenMap]);
 
+	console.log(tokenMap);	
+
 	return (
 		<div 
 			className="card flex justify-center bg-white p-3 mt-10"
