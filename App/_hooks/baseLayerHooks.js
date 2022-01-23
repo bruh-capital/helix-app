@@ -69,12 +69,13 @@ export default function HelixWrapper() {
 		}
 	}
 
-	const splBond = async(bond_price, bond_maturity, asset, connection) =>{
-		try {
-			await helixClient.SPLBond(bond_price, bond_maturity, asset, connection);
-		} catch (e) {
-			notify("Failed to create bond via spl deposit!", "error");
-		}
+	const splBond = async(bond_price, bond_maturity, tokenMintAddress, asset, connection) =>{
+		await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection);
+		// try {
+		// 	await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection);
+		// } catch (e) {
+		// 	notify("Failed to create bond via spl deposit!", "error");
+		// }
 	}
 
 	const redeemBonds = async() =>{

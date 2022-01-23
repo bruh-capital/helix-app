@@ -14,18 +14,13 @@ let pyth_mapping = require("@baseutils/pythMapping.json");
 
 export class HelixNetwork {
 	constructor(wallet){
-		this.pyth_map = (()=>{
-			let ret_map = {};
-			// for each network and address map object defined
-			[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
-				let name_price_map = {};
-				// for each name, price address in address map object
-				[...Object.entries(name_price)].forEach(([asset_name, price_addr]) =>{
-					name_price_map[asset_name] = new PublicKey(price_addr);
-				});
-				ret_map[network] = name_price_map;
-			})
-		})();
+		this.pyth_map = pyth_mapping;
+		[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
+			// for each name, price address in address map object
+			[...Object.entries(name_price)].forEach(([asset_name, price_addr]) =>{
+				this.pyth_map[network][asset_name] = new PublicKey(price_addr);
+			});
+		});
 
 		this.connection = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
 		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions());
@@ -208,9 +203,9 @@ export class HelixNetwork {
 
 	SolBond = async (bond_price, maturity, connection) => {
 
-		const pyth_sol_price_address = this.pyth_map[connection.value].SOL; // sol pubkey address for that connection
+		const pyth_sol_price_address = this.pyth_map[connection].SOL; // sol pubkey address for that connection
 		
-		await program.rpc.depositAssetPrintBondSol(
+		await this.bond_program.rpc.depositAssetPrintBondSol(
 			new anchor.BN(bond_price),
 			new anchor.BN(maturity),
 			{
@@ -229,7 +224,8 @@ export class HelixNetwork {
 	}
 
 	/// take asset mint as input
-	SPLBond = async (bond_price, bond_maturity, tokenMintAddress, asset, connection) => {	
+	SPLBond = async (bond_price, bond_maturity, mintAddress, asset, connection) => {	
+		let tokenMintAddress = new PublicKey(mintAddress);
 
 		const userAta = (await PublicKey.findProgramAddress(
 			[
@@ -257,9 +253,9 @@ export class HelixNetwork {
 			this.bond_program.programId
 		);
 
-		const pyth_spl_price_address = this.pyth_map[connection.value][asset]; // sol pubkey address for that connection
+		const pyth_spl_price_address = this.pyth_map[connection][asset]; // sol pubkey address for that connection
 
-		await program.rpc.depositAssetPrintBondSpl(
+		await this.bond_program.rpc.depositAssetPrintBondSpl(
 			new anchor.BN(bond_price),
 			new anchor.BN(bond_maturity),
 			{
