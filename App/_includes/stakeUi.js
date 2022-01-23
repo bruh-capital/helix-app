@@ -33,6 +33,8 @@ export default function StakeInterface(props) {
 		}
 	}, [helixClient]);
 
+	const [lockupPeriod, setLockupPeriod] = useState(0);
+
 	return(
 		<>
 			<NotificationsSystem 
@@ -85,6 +87,20 @@ export default function StakeInterface(props) {
 								}
 							>Unstake</button>
 						</div>
+					</div>
+					
+					<div className="grid grid-rows-1 grid-flow-col gap-4">
+					<input 
+							type="number"
+							placeholder="Lockup period in weeks"
+							className="input input-bordered text-black"
+							value={lockupPeriod}
+							onChange={(e) => setLockupPeriod(e.target.value)}
+						/>
+						<button
+							className="btn btn-primary"
+							onClick={() => changeLockupPeriod(lockupPeriod)}
+						>Change Lockup</button>
 					</div>
 				</div>
 			</div>
