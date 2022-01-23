@@ -7,6 +7,7 @@ export function MintModal(props) {
   const [open, setOpen] = useState(false);
 
   const {
+    helixClient,
 		createBondAccount,
 		solBond,
 		splBond,
@@ -24,9 +25,10 @@ export function MintModal(props) {
   /// asset balance
   const [userAssetBalance, setUserAssetBalance] = useState(0);
   
-  useEffect(()=>{
-    props.bondName == "SOL" ? getSolBalance() : getTokenAccountBalance("mint key");
-  },[setUserAssetBalance])
+  useEffect(async ()=>{
+    let val = props.bondName == "SOL" ? getSolBalance() : getTokenAccountBalance(props.bondAddr);
+    setUserAssetBalance(await val);
+  },[helixClient])
 
   /// face value of bond
   const [possibleHLX, setPossibleHLX] = useState(0);

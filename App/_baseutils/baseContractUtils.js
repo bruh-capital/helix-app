@@ -531,6 +531,6 @@ export class HelixNetwork {
 	}
 
 	GetSolBalance = async() =>{
-		return await this.connection.getBalance(this.wallet)/anchor.web3.LAMPORTS_PER_SOL;
+		return await this.connection.getBalance(this.wallet.publicKey)/anchor.web3.LAMPORTS_PER_SOL;;
 	}
 }
