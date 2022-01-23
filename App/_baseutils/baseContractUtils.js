@@ -202,7 +202,7 @@ export class HelixNetwork {
 	}
 
 	SolBond = async (bond_price, maturity, connection) => {
-
+		console.log(bond_price);
 		const pyth_sol_price_address = this.pyth_map[connection].SOL; // sol pubkey address for that connection
 		
 		await this.bond_program.rpc.depositAssetPrintBondSol(
@@ -431,6 +431,16 @@ export class HelixNetwork {
 			},
 		// signers:[userKP],
 		})
+	}
+
+	FetchUserVault = async() =>{
+		console.log("FetchUserVault", this.userVault.toString());
+		return await this.helix_program.account.userVault.fetch(this.userVault);
+	}
+
+	FetchProtocolData = async() =>{
+		console.log("FetchProtocolData", this.protocolDataAccount.toString());
+		return await this.helix_program.account.protocolDataAccount.fetch(this.protocolDataAccount);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////

@@ -70,12 +70,11 @@ export default function HelixWrapper() {
 	}
 
 	const splBond = async(bond_price, bond_maturity, tokenMintAddress, asset, connection) =>{
-		await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection);
-		// try {
-		// 	await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection);
-		// } catch (e) {
-		// 	notify("Failed to create bond via spl deposit!", "error");
-		// }
+		try {
+			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection);
+		} catch (e) {
+			notify("Failed to create bond via spl deposit!", "error");
+		}
 	}
 
 	const redeemBonds = async() =>{
@@ -127,8 +126,6 @@ export default function HelixWrapper() {
 	}
 
 	const getTokenAccountBalance = async(mint_addr) =>{
-		// return await helixClient.GetTokenAccountBalance(mint_addr);
-		
 		try {
 			return await helixClient.GetTokenAccountBalance(mint_addr);
 		} catch (e) {
@@ -137,7 +134,6 @@ export default function HelixWrapper() {
 	}
 
 	const getSolBalance = async() => {
-		// return await helixClient.GetSolBalance();
 		try {
 			return await helixClient.GetSolBalance();
 		} catch (e) {
@@ -145,8 +141,7 @@ export default function HelixWrapper() {
 		}
 	}
 
-	const getBondMarketInfo = async(mint_addr) =>{
-		// return await helixClient.FetchBondMarket(mint_addr);
+	const getBondMarketInfo = async(mint_addr) => {
 		try{
 			if (helixClient == undefined){
 				return undefined
@@ -155,6 +150,37 @@ export default function HelixWrapper() {
 		}catch(e){
 			notify("Failed to get bond market for product!" + mint_addr, "error")
 		}
+	}
+
+	const getUserVault = async() =>{
+		if (helixClient == undefined){
+			return undefined
+		};
+		return await helixClient.FetchUserVault();
+		
+		// try{
+		// 	if (helixClient == undefined){
+		// 		return undefined
+		// 	};
+		// 	return await helixClient.FetchUserVault();
+		// }catch(e){
+		// 	notify("Failed to get user vault!", "error")
+		// }
+	}
+
+	const getProtocolData = async() =>{
+		if (helixClient == undefined){
+			return undefined
+		};
+		return await helixClient.FetchProtocolData();
+		// try{
+		// 	if (helixClient == undefined){
+		// 		return undefined
+		// 	};
+		// 	return await helixClient.FetchProtocolData();
+		// }catch(e){
+		// 	notify("Failed to get protocol data!", "error")
+		// }
 	}
 
 	return { 
@@ -175,6 +201,8 @@ export default function HelixWrapper() {
 		getTokenAccountBalance,
 		getSolBalance,
 		getBondMarketInfo,
+		getUserVault,
+		getProtocolData,
 	};
 }
 
