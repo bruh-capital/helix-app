@@ -153,34 +153,25 @@ export default function HelixWrapper() {
 	}
 
 	const getUserVault = async() =>{
-		if (helixClient == undefined){
-			return undefined
-		};
-		return await helixClient.FetchUserVault();
-		
-		// try{
-		// 	if (helixClient == undefined){
-		// 		return undefined
-		// 	};
-		// 	return await helixClient.FetchUserVault();
-		// }catch(e){
-		// 	notify("Failed to get user vault!", "error")
-		// }
+		try{
+			if (helixClient == undefined){
+				return undefined
+			};
+			return await helixClient.FetchUserVault();
+		}catch(e){
+			notify("Failed to get user vault!", "error")
+		}
 	}
 
 	const getProtocolData = async() =>{
-		if (helixClient == undefined){
-			return undefined
-		};
-		return await helixClient.FetchProtocolData();
-		// try{
-		// 	if (helixClient == undefined){
-		// 		return undefined
-		// 	};
-		// 	return await helixClient.FetchProtocolData();
-		// }catch(e){
-		// 	notify("Failed to get protocol data!", "error")
-		// }
+		try{
+			if (helixClient == undefined){
+				return undefined
+			};
+			return await helixClient.FetchProtocolData();
+		}catch(e){
+			notify("Failed to get protocol data!", "error")
+		}
 	}
 
 	return { 
