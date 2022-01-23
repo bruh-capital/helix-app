@@ -70,7 +70,9 @@ export async function getStaticProps() {
 			Price: 'N/A',
 			Roi: 'N/A%',
 			LocalNetAddress: '',
-			TestNetAddress: '',
+			// this is just for SOL
+			// i didnt know we were doing wSOL
+			TestNetAddress: '11111111111111111111111111111111',
 			MainNetAddress: 'So11111111111111111111111111111111111111112'
 		},
 		{
@@ -78,7 +80,7 @@ export async function getStaticProps() {
 			Price: 'N/A',
 			Roi: 'N/A%',
 			LocalNetAddress: '',
-			TestNetAddress: '',
+			TestNetAddress: 'yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz',
 			MainNetAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
 		},
 		{
@@ -86,7 +88,7 @@ export async function getStaticProps() {
 			Price: 'N/A',
 			Roi: 'N/A%',
 			LocalNetAddress: '',
-			TestNetAddress: '',
+			TestNetAddress: 'AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE',
 			MainNetAddress: 'CXLBjMMcwkc17GfJtBos6rQCo1ypeH6eDbB82Kby4MRm',
 		},
 		/*FIXME(millionz): Implement!

@@ -330,6 +330,18 @@ export class HelixNetwork {
 			}
 		  });
 	}
+
+	FetchBondMarket = async(mint) => {
+		let [bond_market_address,] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("bondmarket"), 
+				new PublicKey(mint).toBuffer()
+			],
+			this.bond_program.programId
+		);
+
+		return await this.bond_program.account.bondMarket.fetch(bond_market_address);
+	}
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	/// twst
@@ -510,7 +522,7 @@ export class HelixNetwork {
 		let ata = await Token.getAssociatedTokenAddress(
 			this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
 			TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
-			mint, // mint
+			new PublicKey(mint), // mint
 			this.wallet.publicKey // owner
 		  );
 
