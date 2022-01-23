@@ -13,15 +13,12 @@ export default function HelixWrapper() {
 	const { notify } = useNotifications();
 	const wallet = useAnchorWallet();
 	const [helixClient, setClient] = useState();
-	console.log("helix wrapper called");
 
 	useEffect(() => {
 		if (!wallet || !wallet.publicKey) {
-			console.log("no wallet");
 			return;
 		}
 		setClient(new HelixNetwork(wallet));
-		console.log("wallet set", helixClient);
 	},[wallet]); 
 
 	const stakeToken = async (amount) => {
@@ -150,9 +147,12 @@ export default function HelixWrapper() {
 	const getBondMarketInfo = async(mint_addr) =>{
 		// return await helixClient.FetchBondMarket(mint_addr);
 		try{
+			if (helixClient == undefined){
+				return undefined
+			};
 			return await helixClient.FetchBondMarket(mint_addr);
 		}catch(e){
-			notify("Failed to get bond market for product!", "error")
+			notify("Failed to get bond market for product!" + mint_addr, "error")
 		}
 	}
 

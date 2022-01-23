@@ -1,4 +1,5 @@
 import * as anchor from "@project-serum/anchor";
+
 import * as web3 from "@solana/web3.js";
 import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
@@ -206,20 +207,8 @@ export class HelixNetwork {
 	}
 
 	SolBond = async (bond_price, maturity, connection) => {
-		// const url = clusterApiUrl("devnet");
-		// // full list at:
-		// // https://pyth.network/developers/accounts/?cluster=devnet#
-		// const SolProductKey = 'J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix';
-		// const connection = new Connection(url);
-		// const publicKey = new PublicKey(SolProductKey);
-		// const SolData = await connection.getAccountInfo(publicKey);
-		// const SolPriceInfo = pythUtils.parsePriceData(SolData.data);
-		// //gives sol in terms of usd
-		// const SolPrice = SolPriceInfo.aggregate.price;
 
-		// const bond_amount = SolPrice;
-
-		const pyth_sol_price_address = this.pyth_map[connection.value].sol; // sol pubkey address for that connection
+		const pyth_sol_price_address = this.pyth_map[connection.value].SOL; // sol pubkey address for that connection
 		
 		await program.rpc.depositAssetPrintBondSol(
 			new anchor.BN(bond_price),
@@ -240,17 +229,7 @@ export class HelixNetwork {
 	}
 
 	/// take asset mint as input
-	SPLBond = async (bond_price, bond_maturity, asset, connection) => {	
-		let tokenMintAddress;
-
-		// map asset to address. MUST USE BREAKS BECAUSE JAVASCRIPT IS DUMB LIKE THAT
-		switch(asset){
-			case "usdc":
-				tokenMintAddress = this.usdc_mint;
-				break;
-			default:
-				break;
-		};
+	SPLBond = async (bond_price, bond_maturity, tokenMintAddress, asset, connection) => {	
 
 		const userAta = (await PublicKey.findProgramAddress(
 			[
