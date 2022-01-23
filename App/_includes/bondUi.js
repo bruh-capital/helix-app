@@ -24,9 +24,7 @@ export default function BondInterface(props) {
 				return map;
 			}, new Map()));
 		});
-	}, [setTokenMap]);
-
-	console.log(tokenMap);	
+	}, [setTokenMap]);	
 
 	return (
 		<div 
@@ -79,6 +77,7 @@ export default function BondInterface(props) {
 										<td>
 											<MintModal 
 												bondName={asset.Name}
+												bondAddr = {asset.TestNetAddress}
 												// client={{
 												// 	createBondAccount: createBondAccount,
 												// 	solBond: solBond,

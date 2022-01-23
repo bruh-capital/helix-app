@@ -138,6 +138,7 @@ export default function HelixWrapper() {
 
 	const getSolBalance = async() => {
 		try {
+			
 			return await helixClient.GetSolBalance();
 		} catch (e) {
 			notify("Failed to get wallet balance!", "error");
@@ -153,6 +154,7 @@ export default function HelixWrapper() {
 	}
 
 	return { 
+		helixClient,
 		stakeToken, 
 		unstakeToken, 
 		createUserAta, 
