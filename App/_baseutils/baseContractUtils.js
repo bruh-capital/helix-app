@@ -1,7 +1,7 @@
 import * as anchor from "@project-serum/anchor";
 
 import * as web3 from "@solana/web3.js";
-import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
+import {Token, TOKEN_PROGRAM_ID, getOrCreateAssociatedAccountInfo} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
 let ido_idl = require('@idl/ido.json');
 let bond_idl = require('@idl/bond_market.json');
@@ -344,28 +344,28 @@ export class HelixNetwork {
 			this.wallet.publicKey // owner
 		);
 
-		let tx = new anchor.web3.Transaction().add(
-			Token.getOrCreateAssociatedTokenAddress(
-				this.wallet.publicKey,
-			)
-		);
-		/*
-		let tx = new anchor.web3.Transaction().add(
-			Token.createAssociatedTokenAccountInstruction(
-				this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
-				TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
-				this.helixMintAddress, // mint
-				ata, // ata
-				this.wallet.publicKey, // owner of token account
-				this.wallet.publicKey // fee payer
-			)
-		);
-		*/
+		try{
+			await this.connection.getParsedAccountInfo(
+				ata
+			);
+		}catch(e){
+			let tx = new anchor.web3.Transaction().add(
+				Token.createAssociatedTokenAccountInstruction(
+					this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
+					TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
+					this.helixMintAddress, // mint
+					ata, // ata
+					this.wallet.publicKey, // owner of token account
+					this.wallet.publicKey // fee payer
+				)
+			);
 
-		tx.recentBlockhash = (await this.connection.getRecentBlockhash()).blockhash;
-		tx.feePayer = this.wallet.publicKey;
-		let signed_tx = await this.wallet.signTransaction(tx);
-		this.userHelixAta = await this.connection.sendRawTransaction(signed_tx.serialize());
+			tx.recentBlockhash = (await this.connection.getRecentBlockhash()).blockhash;
+			tx.feePayer = this.wallet.publicKey;
+			let signed_tx = await this.wallet.signTransaction(tx);
+			await this.connection.sendRawTransaction(signed_tx.serialize());
+		};
+		// console.log("created token account");
 	}
 
 	// stake amount is in twst
