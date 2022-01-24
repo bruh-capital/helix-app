@@ -343,7 +343,13 @@ export class HelixNetwork {
 			this.helixMintAddress, // mint
 			this.wallet.publicKey // owner
 		);
-		
+
+		let tx = new anchor.web3.Transaction().add(
+			Token.getOrCreateAssociatedTokenAddress(
+				this.wallet.publicKey,
+			)
+		);
+		/*
 		let tx = new anchor.web3.Transaction().add(
 			Token.createAssociatedTokenAccountInstruction(
 				this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
@@ -354,11 +360,12 @@ export class HelixNetwork {
 				this.wallet.publicKey // fee payer
 			)
 		);
+		*/
 
 		tx.recentBlockhash = (await this.connection.getRecentBlockhash()).blockhash;
 		tx.feePayer = this.wallet.publicKey;
 		let signed_tx = await this.wallet.signTransaction(tx);
-		await this.connection.sendRawTransaction(signed_tx.serialize());
+		this.userHelixAta = await this.connection.sendRawTransaction(signed_tx.serialize());
 	}
 
 	// stake amount is in twst
