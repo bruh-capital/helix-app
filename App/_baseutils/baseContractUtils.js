@@ -392,7 +392,7 @@ export class HelixNetwork {
 	
 	// unstake amount is stwst
 	Unstake = async (amount) => {
-		await this.helix_program.rpc.rpc.unstake({
+		await this.helix_program.rpc.unstake({
 		vaultBump: this.userVaultBump,
 		protocolDataBump: this.protocolDataBump,
 		mintBump: this.helixMintBump,

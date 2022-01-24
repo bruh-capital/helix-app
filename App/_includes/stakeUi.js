@@ -67,12 +67,12 @@ export default function StakeInterface(props) {
 										type="number"
 										placeholder="Stake Amount"
 										className="input input-bordered text-black"
-										value={unstakeAmount || ''}
-										onChange={(e) => setUnstakeAmount(e.target.value)}
+										value={stakeAmount || ''}
+										onChange={(e) => setStakeAmount(e.target.value)}
 									/>
 									<button
 										className="btn btn-primary"
-										onClick={() => unstakeToken(unstakeAmount)}
+										onClick={() => stakeToken(unstakeAmount)}
 									>Enter</button>
 								</div>
 								<div className="grid grid-rows-1 grid-flow-col gap-4 my-2">
@@ -96,12 +96,12 @@ export default function StakeInterface(props) {
 										type="number"
 										placeholder="Unstake Amount"
 										className="input input-bordered text-black"
-										value={stakeAmount || ''}
-										onChange={(e) => setStakeAmount(e.target.value)}
+										value={unstakeAmount || ''}
+										onChange={(e) => setUnstakeAmount(e.target.value)}
 									/>
 									<button
 										className="btn btn-primary"
-										onClick={() => stakeToken(stakeAmount)}
+										onClick={() => unstakeToken(stakeAmount)}
 									>
 										Enter
 									</button>
