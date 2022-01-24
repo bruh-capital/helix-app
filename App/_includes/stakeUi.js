@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Tab } from "@headlessui/react";
 import HelixWrapper from "@hooks/baseLayerHooks";
 
 // TODO(@millionz): make sure that the stats can be passed in as props
@@ -8,7 +9,8 @@ import HelixWrapper from "@hooks/baseLayerHooks";
 export default function StakeInterface(props) {
 	// State Stuff
 	const [ operation, setOperation ] = useState("Stake");
-	const [ stakeAmount, setStakeAmount ] = useState(0);
+	const [ stakeAmount, setStakeAmount ] = useState();
+	const [ unstakeAmount, setUnstakeAmount ] = useState();
 
 	const {
 		helixClient,
@@ -29,7 +31,11 @@ export default function StakeInterface(props) {
 		}
 	}, [helixClient]);
 
-	const [lockupPeriod, setLockupPeriod] = useState(0);
+	const [lockupPeriod, setLockupPeriod] = useState();
+
+	function classNames(...classes) {
+		return classes.filter(Boolean).join(' ')
+	}
 
 	return(
 		<div className="grid justify-items-center justify-center w-full grid-cols-2">
@@ -47,50 +53,80 @@ export default function StakeInterface(props) {
 			<div className="card flex justify-center col-span-2 mt-10 bg-white p-10 w-2/3">
 				<h3 className="font-semibold text-4xl text-gray8">{operation}</h3>
 				<div className="card-body content-center text-center justify-center">
-					
-					<div className="grid grid-rows-1 grid-flow-col gap-4">
-					<input 
-						type="number"
-						placeholder="Unstake Amount"
-						className="input input-bordered text-black"
-						value={stakeAmount}
-						onChange={(e) => setStakeAmount(e.target.value)}
-					/>
-					<button 
-						className="btn btn-primary"
-						onClick={() => {operation ===  "Stake" ? stakeToken(stakeAmount) : unstakeToken(stakeAmount)}}
-					>Enter</button>
-					</div>
-					<div className="bg-gray4 grid grid-cols-2 grid-rows-1 justify-center justify-self-center content-center rounded-md mt-3 p-1 w-1/3">
-						<button
-							onClick={() => setOperation("Stake")}
-							className={
-								operation === "Stake" ? 
-								"bg-purple-600 px-4 py-1 rounded-md justify-self-start" : "bg-white text-gray7 px-4 py-1 rounded-md justify-self-start"
-							}
-						>Stake</button>
-						<button
-							onClick={() => setOperation("Unstake")}
-							className={
-								operation === "Unstake" ? 
-								"bg-purple-600 px-2 py-1 rounded-md justify-self-end" : "bg-white text-gray7 px-2 py-1 rounded-md justify-self-end"
-							}
-						>Unstake</button>
-					</div>
-				</div>
-				
-				<div className="grid grid-rows-1 grid-flow-col gap-4">
-				<input 
-						type="number"
-						placeholder="Lockup period in weeks"
-						className="input input-bordered text-black"
-						value={lockupPeriod}
-						onChange={(e) => setLockupPeriod(e.target.value)}
-					/>
-					<button
-						className="btn btn-primary"
-						onClick={() => changeLockupPeriod(lockupPeriod)}
-					>Change Lockup</button>
+					<Tab.Group
+						defaultIndex={0}
+						onChange={(index) => {
+							index === 0 ? setOperation("Stake") : setOperation("Unstake");
+						}}
+					>
+						<Tab.Panels>
+							<Tab.Panel>
+								<div className="grid grid-rows-2 grid-flow-col">
+								<div className="grid grid-rows-1 grid-flow-col gap-4 my-2">
+									<input
+										type="number"
+										placeholder="Stake Amount"
+										className="input input-bordered text-black"
+										value={unstakeAmount || ''}
+										onChange={(e) => setUnstakeAmount(e.target.value)}
+									/>
+									<button
+										className="btn btn-primary"
+										onClick={() => unstakeToken(unstakeAmount)}
+									>Enter</button>
+								</div>
+								<div className="grid grid-rows-1 grid-flow-col gap-4 my-2">
+									<input 
+										type="number"
+										placeholder="Lockup period in weeks"
+										className="input input-bordered text-black"
+										value={lockupPeriod || ''}
+										onChange={(e) => setLockupPeriod(e.target.value)}
+									/>
+									<button
+										className="btn btn-primary"
+										onClick={() => changeLockupPeriod(lockupPeriod)}
+									>Change Lockup</button>
+								</div>
+								</div>
+							</Tab.Panel>
+							<Tab.Panel>
+								<div className="grid grid-rows-1 grid-flow-col my-2 gap-4">
+									<input
+										type="number"
+										placeholder="Unstake Amount"
+										className="input input-bordered text-black"
+										value={stakeAmount || ''}
+										onChange={(e) => setStakeAmount(e.target.value)}
+									/>
+									<button
+										className="btn btn-primary"
+										onClick={() => stakeToken(stakeAmount)}
+									>
+										Enter
+									</button>
+								</div>
+							</Tab.Panel>
+						</Tab.Panels>
+						<Tab.List className="flex p-1 space-x-1 my-2 bg-purple-100 rounded-md">
+							<Tab 
+								className={({ selected }) =>
+									classNames(
+									'w-full py-2.5 text-sm leading-5 font-medium text-gray8 rounded-lg',
+									'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-purple-400 ring-white ring-opacity-60',
+									selected && 'bg-white shadow',
+								)}
+							>Stake</Tab>
+							<Tab
+								className={({ selected }) =>
+									classNames(
+									'w-full py-2.5 text-sm leading-5 font-medium text-gray8 rounded-lg',
+									'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-purple-400 ring-white ring-opacity-60',
+									selected && 'bg-white shadow',
+								)}
+							>Unstake</Tab>
+						</Tab.List>
+					</Tab.Group>
 				</div>
 			</div>
 		</div>
