@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }) {
             <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
               <ConnectionProvider endpoint={rpcUrl} >
                 <WalletProvider wallets={wallets}>
-                  <WalletModalProvider logo="./helix2dround.png">
+                  <WalletModalProvider logo="./2d/logo.png">
                     <NotificationsProvider>
                       <Component {...pageProps} />
                     </NotificationsProvider>
