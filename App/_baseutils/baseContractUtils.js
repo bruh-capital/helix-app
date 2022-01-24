@@ -7,7 +7,7 @@ import { notify } from "reapop";
 let ido_idl = require('@idl/ido.json');
 let bond_idl = require('@idl/bond_market.json');
 let helix_idl = require('@idl/twst.json');
-let governance_idl = require('@idl/governance_program.json');
+let governance_idl = require('@idl/government_program.json');
 let pyth_mapping = require("@baseutils/pythMapping.json");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
