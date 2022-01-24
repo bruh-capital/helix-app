@@ -16,10 +16,10 @@ export default function AppMetaTagComponent (props) {
 				<meta name='msapplication-tap-highlight' content='no' />
 				<meta name='theme-color' content='#000000' />
 
-				<link rel='apple-touch-icon' href='/icons/helixicon.png' />
-				<link rel='apple-touch-icon' sizes='152x152' href='/icons/helixicon.png' />
-				<link rel='apple-touch-icon' sizes='180x180' href='/icons/helixicon.png' />
-				<link rel='apple-touch-icon' sizes='167x167' href='/icons/helixicon.png' />
+				<link rel='apple-touch-icon' href='/icons/helixicon_post.png' />
+				<link rel='apple-touch-icon' sizes='152x152' href='/icons/helixicon_post.png' />
+				<link rel='apple-touch-icon' sizes='180x180' href='/icons/helixicon_post.png' />
+				<link rel='apple-touch-icon' sizes='167x167' href='/icons/helixicon_post.png' />
 
 				<link rel='icon' type='image/png' sizes='32x32' href='/icons/helixicon_post.png' />
 				<link rel='icon' type='image/png' sizes='16x16' href='/icons/helixicon_post.png' />
@@ -32,7 +32,7 @@ export default function AppMetaTagComponent (props) {
 				<meta name='twitter:url' content='https://app.helixdao.org' />
 				<meta name='twitter:title' content='Helix Finance' />
 				<meta name='twitter:description' content='Stacking Incentives' />
-				<meta name='twitter:image' content='https://yourdomain.com/icons/android-chrome-192x192.png' />
+				<meta name='twitter:image' content='https://helixdao.org/pageassets/wide_banner.png' />
 				<meta name='twitter:creator' content='@0xmillionz' />
 				<meta property='og:type' content='website' />
 				<meta property='og:title' content='Helix Finance' />

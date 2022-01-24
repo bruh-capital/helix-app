@@ -25,7 +25,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Stake(amount);
 		} catch (e) {
-			notify("Staking failed", "error");
+			notify(e.message.toString(), "error", {title: "Staking Failed"});
 		}
 	}
 	
@@ -33,7 +33,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.Unstake(amount);
 		} catch (e) {
-			notify("Unstaking Failed!", "error");
+			notify(e.message.toString(), "error", {title: "Unstaking Failed"});
 		}
 	}
 
@@ -41,7 +41,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.CreateUserATA();
 		} catch(e) {
-			notify("Failed to create associated token account!", "error");
+			notify(e.message.toString(), "error", {title: "ATA Creation Failed"});
 		}
 	}
 
@@ -49,7 +49,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.InitializeUserVault();
 		} catch (e) {
-			notify("Failed to create vault!", "error");
+			notify(e.message.toString(), "error", {title: "Vault Creation Failed"});
 		}
 	}
 
@@ -57,7 +57,7 @@ export default function HelixWrapper() {
 		try {
 		 	await helixClient.InitBondAccount();
 		} catch (e) {
-			notify("Failed to create bond account!", "error");
+			notify(e.message.toString(), "error", {title: "Bond Account Creation Failed"});
 		}
 	}
 
@@ -65,7 +65,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.SolBond(bond_price, maturity, connection);
 		} catch (e) {
-			notify("Failed to create bond via sol deposit!", "error");
+			notify(e.message.toString(), "error", {title: "SOL Bond Creation Failed"});
 		}
 	}
 
@@ -73,7 +73,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection);
 		} catch (e) {
-			notify("Failed to create bond via spl deposit!", "error");
+			notify(e.message.toString(), "error", {title: "SPL Bond Creation Failed"});
 		}
 	}
 
@@ -81,7 +81,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.RedeemBonds();
 		} catch (e) {
-			notify("Failed to redeem bonds!", "error");
+			notify(e.message.toString(), "error", {title: "Bond Redemption Failed"});
 		}
 	}
 
@@ -89,7 +89,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.CollectCoupon();
 		} catch (e) {
-			notify("Failed to collect coupons!", "error");
+			notify(e.message.toString(), "error", {title: "Coupon Collection Failed"});
 		}
 	}
 
@@ -97,7 +97,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.ChangeLockup(duration);
 		} catch (e) {
-			notify("Failed to change staking lockup period!", "error");
+			notify(e.message.toString(), "error", {title: "Lockup Change Failed"});
 		}
 	}
 
@@ -105,7 +105,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.MintAndCloseIDO();
 		} catch (e) {
-			notify("Failed to mint from and close ido account!", "error");
+			notify(e.message.toString(), "error", {title: "IDO Mint and Close Failed"});
 		}
 	}
 
@@ -113,7 +113,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.IDODeposit(amount);
 		} catch (e) {
-			notify("Failed to deposit to ido account!", "error");
+			notify(e.message.toString(), "error", {title: "IDO Deposit Failed"});
 		}
 	}
 
@@ -121,7 +121,7 @@ export default function HelixWrapper() {
 		try {
 			await helixClient.IDOWithdraw(amount);
 		} catch (e) {
-			notify("Failed to withdraw from ido account!", "error");
+			notify(e.message.toString(), "error", {title: "IDO Withdraw Failed"});
 		}
 	}
 
@@ -129,7 +129,7 @@ export default function HelixWrapper() {
 		try {
 			return await helixClient.GetTokenAccountBalance(mint_addr);
 		} catch (e) {
-			notify("Failed to get token account balance!", "error");
+			notify(e.message.toString(), "error", {title: "Get Token Acct Balance Failed"});
 		}
 	}
 
@@ -137,7 +137,7 @@ export default function HelixWrapper() {
 		try {
 			return await helixClient.GetSolBalance();
 		} catch (e) {
-			notify("Failed to get wallet balance!", "error");
+			notify(e.message.toString(), "error", {title: "Get SOL Balance Failed"});
 		}
 	}
 
@@ -147,8 +147,8 @@ export default function HelixWrapper() {
 				return undefined
 			};
 			return await helixClient.FetchBondMarket(mint_addr);
-		}catch(e){
-			notify("Failed to get bond market for product!" + mint_addr, "error")
+		} catch(e){
+			notify("Product: " + mint_addr + "\n" + e.message.toString(), "error", {title: "Get Bond Market Failed"});
 		}
 	}
 
@@ -159,7 +159,7 @@ export default function HelixWrapper() {
 			};
 			return await helixClient.FetchUserVault();
 		}catch(e){
-			notify("Failed to get user vault!", "error")
+			notify(e.message.toString(), "error", {title: "Get User Vault Failed"});
 		}
 	}
 
@@ -170,7 +170,7 @@ export default function HelixWrapper() {
 			};
 			return await helixClient.FetchProtocolData();
 		}catch(e){
-			notify("Failed to get protocol data!", "error")
+			notify(e.message.toString(), "error", {title: "Get Protocol Data Failed"});
 		}
 	}
 
@@ -181,7 +181,7 @@ export default function HelixWrapper() {
 			};
 			return await helixClient.FetchProposals(government);
 		}catch(e){
-			notify("Failed to get proposals!", "error")
+			notify(e.message.toString(), "error", {title: "Get Proposals Failed"});
 		}
 	}
 	
@@ -194,7 +194,7 @@ export default function HelixWrapper() {
 			};
 			return await helixClient.CreateProposal(government_address, title, description, expiration_weeks, pid, accs, data);
 		}catch(e){
-			notify("Failed to create proposal!", "error")
+			notify(e.message.toString(), "error", {title: "Create Proposal Failed"});
 		}
 	}
 
@@ -205,7 +205,7 @@ export default function HelixWrapper() {
 			};
 			return await helixClient.CastVote(proposal, choice);
 		}catch(e){
-			notify("Failed to cast vote!", "error")
+			notify(e.message.toString(), "error", {title: "Cast Vote Failed"});
 		}
 	}
 
