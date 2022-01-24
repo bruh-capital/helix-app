@@ -59,6 +59,8 @@ function MyApp({ Component, pageProps }) {
     defaultProps: {
       position: 'top-right',
       dismissible: true,
+      dismissAfter: 5000,
+      showDismissButton: true,
     }
   });
 
