@@ -3,7 +3,6 @@ import * as anchor from "@project-serum/anchor";
 import * as web3 from "@solana/web3.js";
 import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
-import { notify } from "reapop";
 let ido_idl = require('@idl/ido.json');
 let bond_idl = require('@idl/bond_market.json');
 let helix_idl = require('@idl/twst.json');
@@ -478,7 +477,6 @@ export class HelixNetwork {
 	}
 
 	IDOWithdraw = async(amount)  => {
-
 		const userAta = (await PublicKey.findProgramAddress(
 			[
 				this.wallet.publicKey.toBuffer(),
