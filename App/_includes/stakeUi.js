@@ -72,7 +72,7 @@ export default function StakeInterface(props) {
 									/>
 									<button
 										className="btn btn-primary"
-										onClick={() => stakeToken(unstakeAmount)}
+										onClick={() => stakeToken(stakeAmount)}
 									>Enter</button>
 								</div>
 								<div className="grid grid-rows-1 grid-flow-col gap-4 my-2">
@@ -101,7 +101,7 @@ export default function StakeInterface(props) {
 									/>
 									<button
 										className="btn btn-primary"
-										onClick={() => unstakeToken(stakeAmount)}
+										onClick={() => unstakeToken(unstakeAmount)}
 									>
 										Enter
 									</button>

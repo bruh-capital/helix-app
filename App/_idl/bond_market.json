@@ -211,7 +211,11 @@
         },
         {
           "name": "maturity",
-          "type": "i64"
+          "type": "u64"
+        },
+        {
+          "name": "decimals",
+          "type": "u8"
         }
       ]
     },
@@ -455,6 +459,10 @@
             "type": {
               "vec": "u64"
             }
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
           }
         ]
       }

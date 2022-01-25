@@ -30,11 +30,12 @@ export default function HelixWrapper() {
 	}
 	
 	const unstakeToken = async (amount) => {
-		try {
-			await helixClient.Unstake(amount);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Unstaking Failed"});
-		}
+		await helixClient.Unstake(amount);
+		// try {
+		// 	await helixClient.Unstake(amount);
+		// } catch (e) {
+		// 	notify(e.message.toString(), "error", {title: "Unstaking Failed"});
+		// }
 	}
 
 	const createUserAta = async () => {
@@ -69,9 +70,9 @@ export default function HelixWrapper() {
 		}
 	}
 
-	const splBond = async(bond_price, bond_maturity, tokenMintAddress, asset, connection) =>{
+	const splBond = async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
 		try {
-			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection);
+			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
 		} catch (e) {
 			notify(e.message.toString(), "error", {title: "SPL Bond Creation Failed"});
 		}
