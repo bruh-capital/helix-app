@@ -372,14 +372,14 @@ export class HelixNetwork {
 	Stake = async(amount) => {
 		await this.helix_program.rpc.stake({
 			userVault: this.userVaultBump,
-			userAta: this.userAtaHelixBump,
+			userAta: this.userHelixAtaBump,
 			protocolData: this.protocolDataBump,
 			mintBump: this.helixMintBump,
-			protocolAta: this.protocolATABump,
+			protocolAta: this.protocolHelixAtaBump,
 		}, new anchor.BN(amount), {
 		accounts:{
-			userAta: this.userAtaHelix,
-			protocAta: this.protocolATA,
+			userAta: this.userHelixAta,
+			protocAta: this.protocolHelixAta,
 			mint: this.helixMintAddress,
 			userVault: this.userVault,
 			protocolData: this.protocolDataAccount,
@@ -392,18 +392,18 @@ export class HelixNetwork {
 	
 	// unstake amount is stwst
 	Unstake = async (amount) => {
-		await this.helix_program.rpc.rpc.unstake({
+		await this.helix_program.rpc.unstake({
 		vaultBump: this.userVaultBump,
 		protocolDataBump: this.protocolDataBump,
 		mintBump: this.helixMintBump,
-		protocolAtaBump: this.protocolATABump,
+		protocolAtaBump: this.protocolHelixAtaBump,
 		}, new anchor.BN(amount), {
 		accounts:{
 			user: this.wallet.publicKey,
-			userAta: this.userAtaHelix,
+			userAta: this.userHelixAta,
 			userVault: this.userVault,
 			protocolData: this.protocolDataAccount,
-			protocAta: this.protocolATA,
+			protocAta: this.protocolHelixAta,
 			mint: this.helixMintAddress,
 			tokenProgram: TOKEN_PROGRAM_ID,
 		},
@@ -421,7 +421,7 @@ export class HelixNetwork {
 			  idoAccount: this.idoAccount,
 			  user: this.wallet.publicKey,
 			  mint: this.helixMintAddress,
-			  userHelixAta: this.userAtaHelix,
+			  userHelixAta: this.userHelixAta,
 			  tokenProgram: TOKEN_PROGRAM_ID,
 			  idoProgram: this.ido_program.programId,
 			},
