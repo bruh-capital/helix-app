@@ -83,6 +83,15 @@ export class HelixNetwork {
 			this.spl_program_id
 		);
 
+		const [protocolATAOwner, protocolATAOwnerBump] = await anchor.web3.PublicKey.findProgramAddress(
+			[
+				this.multisigSigner.toBuffer(), 
+			  	TOKEN_PROGRAM_ID.toBuffer(), 
+			  	helixMintAddress.toBuffer()
+			],
+			this.helix_program.programId
+		  );
+
 
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		/// bond accounts
@@ -174,6 +183,8 @@ export class HelixNetwork {
 
 		this.userVault = userVault;
 		this.userVaultBump = userVaultBump;
+
+		this.protocolHelixAuth = protocolATAOwner;
 		
 		this.protocolDataAccount = protocolDataAccount;
 		this.protocolDataBump = protocolDataBump;
@@ -404,6 +415,7 @@ export class HelixNetwork {
 			userVault: this.userVault,
 			protocolData: this.protocolDataAccount,
 			protocAta: this.protocolHelixAta,
+			protocAuth: this.protocolHelixAuth,
 			mint: this.helixMintAddress,
 			tokenProgram: TOKEN_PROGRAM_ID,
 		},
