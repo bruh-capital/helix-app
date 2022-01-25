@@ -47,7 +47,7 @@ export default function StakeInterface(props) {
 			</div>
 			<div className="card flex justify-self-center bg-white w-2/3 py-8 px-6 mt-10 divide-gray-300 place-items-center place-content-center">
 				<h3 className="font-semibold text-left text-2xl text-gray8">TVL</h3>
-				<span className="text-4xl font-bold text-left text-transparent bg-clip-text bg-gradient-to-r from-secPink to-primBlue">{(userVault && protocData) ? userVault.stakeBalance.toNumber() * protocData.shareRatio.toNumber()/1000 : "XXXXXXXX"}</span>
+				<span className="text-4xl font-bold text-left text-transparent bg-clip-text bg-gradient-to-r from-secPink to-primBlue">{(userVault && protocData) ? userVault.stakeBalance.toNumber(): "XXXXXXXX"}</span>
 				<span className="text-sm opacity-50 text-green-500">↗︎ $1234 (2%)</span>
 			</div>
 			<div className="card flex justify-center col-span-2 mt-10 bg-white p-10 w-2/3">

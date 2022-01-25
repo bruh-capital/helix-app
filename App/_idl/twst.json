@@ -364,22 +364,7 @@
       "name": "unstake",
       "accounts": [
         {
-          "name": "user",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
           "name": "userAta",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "userVault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "protocolData",
           "isMut": true,
           "isSigner": false
         },
@@ -394,7 +379,27 @@
           "isSigner": false
         },
         {
+          "name": "userVault",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "protocolData",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
           "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "protocAuth",
           "isMut": false,
           "isSigner": false
         }
@@ -518,23 +523,15 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "userVault",
+            "name": "vaultBump",
             "type": "u8"
           },
           {
-            "name": "protocolData",
-            "type": "u8"
-          },
-          {
-            "name": "userAta",
+            "name": "protocolDataBump",
             "type": "u8"
           },
           {
             "name": "mintBump",
-            "type": "u8"
-          },
-          {
-            "name": "protocolAta",
             "type": "u8"
           }
         ]
