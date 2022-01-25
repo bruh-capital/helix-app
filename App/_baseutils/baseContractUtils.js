@@ -384,11 +384,9 @@ export class HelixNetwork {
 	// todo indianeros: make mint decimals dynamic
 	Stake = async(amount) => {
 		await this.helix_program.rpc.stake({
-			userVault: this.userVaultBump,
-			userAta: this.userHelixAtaBump,
-			protocolData: this.protocolDataBump,
+			vaultBump: this.userVaultBump,
+			protocolDataBump: this.protocolDataBump,
 			mintBump: this.helixMintBump,
-			protocolAta: this.protocolHelixAtaBump,
 		}, new anchor.BN(amount), {
 		accounts:{
 			userAta: this.userHelixAta,
@@ -456,7 +454,7 @@ export class HelixNetwork {
 	}
 
 	FetchUserVault = async() =>{
-		console.log("FetchUserVault", this.userVault.toString());
+		
 		return await this.helix_program.account.userVault.fetch(this.userVault);
 	}
 
