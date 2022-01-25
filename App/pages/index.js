@@ -73,7 +73,8 @@ export async function getStaticProps() {
 			// this is just for SOL
 			// i didnt know we were doing wSOL
 			TestNetAddress: '11111111111111111111111111111111',
-			MainNetAddress: 'So11111111111111111111111111111111111111112'
+			MainNetAddress: 'So11111111111111111111111111111111111111112',
+			Decimals: 9,
 		},
 		{
 			Name: 'USDC',
@@ -82,6 +83,7 @@ export async function getStaticProps() {
 			LocalNetAddress: '',
 			TestNetAddress: 'yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz',
 			MainNetAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+			Decimals: 6,
 		},
 		{
 			Name: 'wUST',
@@ -90,6 +92,7 @@ export async function getStaticProps() {
 			LocalNetAddress: '',
 			TestNetAddress: 'AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE',
 			MainNetAddress: 'CXLBjMMcwkc17GfJtBos6rQCo1ypeH6eDbB82Kby4MRm',
+			Decimals: 9,
 		},
 		/*FIXME(millionz): Implement!
 		{

@@ -236,7 +236,7 @@ export class HelixNetwork {
 	}
 
 	/// take asset mint as input
-	SPLBond = async (bond_price, bond_maturity, mintAddress, asset, connection) => {	
+	SPLBond = async (bond_price, bond_maturity, mintAddress, asset, connection, decimals) => {	
 		let tokenMintAddress = new PublicKey(mintAddress);
 
 		const userAta = (await PublicKey.findProgramAddress(
@@ -270,6 +270,7 @@ export class HelixNetwork {
 		await this.bond_program.rpc.depositAssetPrintBondSpl(
 			new anchor.BN(bond_price),
 			new anchor.BN(bond_maturity),
+			new anchor.BN(decimals),
 			{
 				accounts:{
 				pythOraclePrice: pyth_spl_price_address,
@@ -380,6 +381,7 @@ export class HelixNetwork {
 	}
 
 	// stake amount is in twst
+	// todo indianeros: make mint decimals dynamic
 	Stake = async(amount) => {
 		await this.helix_program.rpc.stake({
 			userVault: this.userVaultBump,

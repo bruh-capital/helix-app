@@ -78,13 +78,7 @@ export default function BondInterface(props) {
 											<MintModal 
 												bondName={asset.Name}
 												bondAddr = {asset.TestNetAddress}
-												// client={{
-												// 	createBondAccount: createBondAccount,
-												// 	solBond: solBond,
-												// 	splBond: splBond,
-												// 	redeemBonds: redeemBonds,
-												// 	collectCoupon: collectCoupon
-												// }}
+												bondDecimals = {asset.Decimals}
 											/>
 										</td>
 									</tr>
