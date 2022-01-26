@@ -442,7 +442,7 @@ export class HelixNetwork {
 	}
 
 	ChangeLockup = async(duration) => {
-		await program.rpc.changeLockup(
+		await this.helix_program.rpc.changeLockup(
 			this.userVaultBump,
 			new anchor.BN(duration), {
 			accounts:{
