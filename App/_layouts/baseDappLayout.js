@@ -13,7 +13,7 @@ export default function BaseDappLayout(props) {
 			<Head>
 				<title>{props.title}</title>
 			</Head>
-			<body className='overflow-hidden bg-hero-gradient bg-cover'>
+			<body className='overflow-auto bg-hero-gradient bg-cover'>
 				<NotificationsSystem 
 					notifications={notifications}
 					dismissNotification={(id) => dismissNotification(id)}

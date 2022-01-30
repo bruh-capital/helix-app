@@ -44,7 +44,7 @@
         {
           "name": "government",
           "isMut": true,
-          "isSigner": true
+          "isSigner": false
         },
         {
           "name": "payer",
@@ -63,6 +63,12 @@
         }
       ],
       "args": [
+        {
+          "name": "vars",
+          "type": {
+            "defined": "CreateGovernmentVars"
+          }
+        },
         {
           "name": "govProgramId",
           "type": "publicKey"
@@ -246,6 +252,22 @@
     }
   ],
   "types": [
+    {
+      "name": "CreateGovernmentVars",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "govProgId",
+            "type": "publicKey"
+          },
+          {
+            "name": "govBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
     {
       "name": "InstructionAccount",
       "type": {
