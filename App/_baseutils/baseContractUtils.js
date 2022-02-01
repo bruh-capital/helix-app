@@ -554,8 +554,14 @@ export class HelixNetwork {
 	}
 
 	// fetch proposals
-	FetchProposals = async(government) =>{
-		return await this.governance_program.account.government.fetch(new PublicKey(government));
+	FetchProposals = async(governed_program) =>{
+		const [govId, govBump] = await anchor.web3.PublicKey.findProgramAddress(
+			[
+				new PublicKey(governed_program).toBuffer(),
+			],
+			this.governance_program.programId,
+		);
+		return await this.governance_program.account.government.fetch(new PublicKey(govId));
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
