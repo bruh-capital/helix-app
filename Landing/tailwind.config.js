@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "tokenbg": "url('/pageassets/bg/tokens.png')",
+        "tokenbg": "url('/landingassets/landingpage/bg/tokens.png')",
       },
     },
   },
