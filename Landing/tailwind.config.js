@@ -7,6 +7,10 @@ module.exports = {
     "./_layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "tokenbg": "url('/pageassets/bg/tokens.png')",
+      },
+    },
   },
 }

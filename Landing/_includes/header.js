@@ -10,11 +10,11 @@ export default function Header(props) {
 				<div className="flex justify-between items-center py-4">
 					<div className="flex flex-none justify-start">
 						<Image
-							src="/icons/helixicon_post.png"
-							height={90}
-							width={90}
+							src="/landingassets/3dlogos/4K_3D_icon.png"
+							height={72}
+							width={72}
 						/>
-						<div className="text-3xl mt-6 text-white font-[Junegull] align-center text-center">HELIX</div>
+						<div className="text-3xl mt-5 ml-3 text-white font-[Junegull] align-center text-center">HELIX</div>
 					</div>
 					<div className="flex flex-grow justify-center space-x-8 text-[#909090]">
 						<button>Staking</button>
