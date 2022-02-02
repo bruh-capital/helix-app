@@ -41,7 +41,8 @@ export class HelixNetwork {
 		this.millionz = new PublicKey("E5EP2qkdXmPwXA9ANzoG69Gmj86Jdqepjw2XrQDGj9sM");
 		this.mazer = new PublicKey("6P3MTfMqidubdgQEaoxPSZJpjuzz7MopVH76fnJK9JM1");
 
-		[...this.helix_program._idl.instructions].forEach((instruction)=>{
+		console.log(this.governance_program._idl);
+		[...this.governance_program._idl.instructions].forEach((instruction)=>{
 			console.log(instruction.name);
 			console.log(instruction.args);
 		});
