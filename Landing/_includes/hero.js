@@ -27,7 +27,7 @@ export default function Hero(props) {
 				<Ticker>
 					{({ index }) => (
 						<>
-							<h1 className="font-bold text-2xl text-white">Available on Solana 👾</h1>
+							<h1 className="font-bold text-2xl text-white">AVAILABLE ON SOLANA. 👾</h1>
 						</>
 					)}
 				</Ticker>
