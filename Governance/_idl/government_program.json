@@ -1,0 +1,295 @@
+{
+  "version": "0.0.0",
+  "name": "government_program",
+  "instructions": [
+    {
+      "name": "castVote",
+      "accounts": [
+        {
+          "name": "proposal",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "userVault",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "protocolData",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "government",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "voteChoice",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "createGovernment",
+      "accounts": [
+        {
+          "name": "government",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "protocolData",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "vars",
+          "type": {
+            "defined": "CreateGovernmentVars"
+          }
+        },
+        {
+          "name": "govProgramId",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "createProposal",
+      "accounts": [
+        {
+          "name": "proposal",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "government",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "expiration",
+          "type": "i64"
+        },
+        {
+          "name": "pid",
+          "type": {
+            "option": "publicKey"
+          }
+        },
+        {
+          "name": "accs",
+          "type": {
+            "option": {
+              "vec": {
+                "defined": "InstructionAccount"
+              }
+            }
+          }
+        },
+        {
+          "name": "data",
+          "type": {
+            "option": "bytes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "evaluateProposal",
+      "accounts": [
+        {
+          "name": "proposal",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "government",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "govAuth",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "govAuthBump",
+          "type": "u8"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Government",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "programId",
+            "type": "publicKey"
+          },
+          {
+            "name": "protocolDataAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "proposalList",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Proposal",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "type": "string"
+          },
+          {
+            "name": "yesVotes",
+            "type": "u64"
+          },
+          {
+            "name": "noVotes",
+            "type": "u64"
+          },
+          {
+            "name": "voters",
+            "type": {
+              "vec": "publicKey"
+            }
+          },
+          {
+            "name": "expiration",
+            "type": "i64"
+          },
+          {
+            "name": "expired",
+            "type": "bool"
+          },
+          {
+            "name": "programId",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "accounts",
+            "type": {
+              "option": {
+                "vec": {
+                  "defined": "InstructionAccount"
+                }
+              }
+            }
+          },
+          {
+            "name": "instruction",
+            "type": {
+              "option": "bytes"
+            }
+          },
+          {
+            "name": "government",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "CreateGovernmentVars",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "govProgId",
+            "type": "publicKey"
+          },
+          {
+            "name": "govBump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InstructionAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pubkey",
+            "type": "publicKey"
+          },
+          {
+            "name": "isSigner",
+            "type": "bool"
+          },
+          {
+            "name": "isWritable",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "address": "BdBCUoHR5rT6ZLYE8uqDS2XTcxXhGEAtpCKm374GKBWv"
+  }
+}
