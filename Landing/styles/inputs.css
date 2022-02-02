@@ -1,0 +1,12 @@
+@tailwind components;
+
+@layer components {
+	/* Input Styles */
+	.input {
+		@apply border-2 border-gray-300 rounded-md w-full;
+	}
+
+	.input:focus {
+		@apply ring-2 ring-offset-2 ring-purple-500;
+	}
+}
