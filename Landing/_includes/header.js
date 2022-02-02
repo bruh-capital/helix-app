@@ -7,7 +7,7 @@ export default function Header(props) {
 	return(
 		<div className="sticky bg-transparant z-50">
 			<div className="mx-auto md:mx-10 px-4 sm:px-6">
-				<div className="flex justify-between items-center py-4">
+				<div className="flex justify-around items-center py-4">
 					<div className="flex flex-none justify-start">
 						<Image
 							src="/landingassets/3dlogos/4K_3D_icon.png"
