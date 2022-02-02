@@ -4,6 +4,7 @@
 
 html,
 body {
+  background: black;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -17,4 +18,11 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@layer base {
+	@font-face {
+		font-family: 'Junegull';
+		src: url('/fonts/junegull/junegull.ttf') format('truetype');
+	}
 }
