@@ -10,7 +10,7 @@ export default function Hero(props) {
 				</video>
 				*/}
 				<div className="m-auto flex flex-col">
-					<span className="text-6xl mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#E66EE9] to-[#9293FF]">
+					<span className="text-6xl mb-2 py-2 font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#E66EE9] to-[#9293FF]">
 						Get more out of your tokens
 					</span>
 					<span className="text-xl font-bold text-white mb-10">HelixDAO develops revenue generating platforms that give back to users</span>
