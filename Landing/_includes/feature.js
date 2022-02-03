@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Feature(props) {
 	return(
 		<div className="h-screen flex overflow-hidden">
-			<div className="mx-auto mt-40 flex flex-col content-center">
+			<div className="m-auto flex flex-col content-center">
 				<h1 className="text-white text-6xl font-bold text-center mb-5">Helix<br/>Branches</h1>
 				<div className="w-full flex justify-around mb-16">
 					<div className="text-gray-500 text-xl font-bold text-center">
