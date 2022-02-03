@@ -10,15 +10,15 @@ export default function Feature(props) {
 						Helix branches are designed with modularity in mind <br/> Adding new functionalities is as easy as plug and play
 					</div>
 				</div>
-				<div className="flex flex-row w-full space-x-8">
+				<div className="flex flex-col md:flex-row w-full md:space-x-8">
 					<div className="flex flex-col bg-transparent rounded-2xl border-2 border-[#686868] px-10 py-8 items-center m-auto">
 						<Image 
 							src="/landingassets/landingpage/icons/Shopping_cart_perspective_matte.png"
 							height={150}
 							width={150}
 						/>
-						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 mb-6">Marketplace</span>
-						<span className="text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
+						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Marketplace</span>
+						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
 					</div>
 					<div className="flex flex-col bg-transparent rounded-2xl border-2 border-[#686868] px-10 py-8 items-center m-auto">
 						<Image 
@@ -26,8 +26,8 @@ export default function Feature(props) {
 							height={150}
 							width={150}
 						/>
-						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 mb-6">Revenue</span>
-						<span className="text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
+						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Revenue</span>
+						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
 					</div>
 					<div className="flex flex-col bg-transparent rounded-2xl border-2 border-[#686868] px-10 py-8 items-center m-auto">
 						<Image 
@@ -35,8 +35,8 @@ export default function Feature(props) {
 							height={150}
 							width={150}
 						/>
-						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 mb-6">Governance</span>
-						<span className="text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
+						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Governance</span>
+						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
 					</div>
 				</div>
 			</div>
