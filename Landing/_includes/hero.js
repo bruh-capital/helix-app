@@ -15,8 +15,8 @@ export default function Hero(props) {
 					</span>
 					<span className="text-xl font-semibold text-white mb-10">HelixDAO develops platforms that give back to users</span>
 					<div className="flex m-auto flex-row space-x-12">
-						<button className="bg-black text-white text-xl px-8 py-4 font-normal border-solid border-4 border-[#59A6F4] rounded-2xl shadow-blue-glow-md hover:shadow-blue-glow-lg hover:scale-105">Launch App</button>
-						<button className="bg-black text-white text-xl px-8 py-4 font-normal border-solid border-4 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+						<button className="bg-black bg-opacity-50 text-white text-xl px-8 py-4 font-normal border-solid border-4 border-[#59A6F4] rounded-2xl shadow-blue-glow-md hover:shadow-blue-glow-lg hover:scale-105">Launch App</button>
+						<button className="bg-black bg-opacity-50 text-white text-xl px-8 py-4 font-normal border-solid border-4 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 							Marketplace
 							<span className="absolute inline-flex items-center justify-center px-3 py-2 text-sm font-normal leading-none text-white bg-[#E66EE9] rounded-full -translate-y-7 translate-x-1">WIP</span>	
 						</button>
