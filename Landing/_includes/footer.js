@@ -13,7 +13,7 @@ export default function Footer(props) {
 				/>
 				<span className="ml-4 text-white text-4xl font-[junegull] -mb-3">Helix</span>
 			</div>
-			<div className="flex flex-col text center">
+			<div className="hidden md:flex flex-col text center">
 				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Products</h2>
 				<ul className="space-y-3">
 					<li className="text-[#8A8A8A] text-sm text-center">Staking</li>
@@ -21,7 +21,7 @@ export default function Footer(props) {
 					<li className="text-[#8A8A8A] text-sm text-center">Bonding</li>
 				</ul>
 			</div>
-			<div className="flex flex-col text center">
+			<div className="hidden md:flex flex-col text center">
 				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Learn</h2>
 				<ul className="space-y-3">
 					<li className="text-[#8A8A8A] text-sm text-center">Governance</li>
