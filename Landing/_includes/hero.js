@@ -3,7 +3,7 @@ import Ticker from 'react-ticker';
 export default function Hero(props) {
 	return(
 		<>
-			<div className="flex h-screen text-center bg-tokenbg -mt-32">
+			<div className="flex h-screen text-center bg-tokenbg bg-cover -mt-32">
 				{/*
 				<video className="z-20 -translate-y-32" autoPlay loop>
 					<source src="/landingassets/landingpage/bg/k.mp4" type="video/mp4"/>
