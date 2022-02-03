@@ -2,18 +2,19 @@ import Image from "next/image";
 
 export default function Footer(props) {
 	return(
-		<div className="flex justify-around bg-black">
-			<div className="flex items-center pt-5 pb-7">
+		<div className="flex justify-around bg-black py-8">
+			<div className="flex items-center pt-5 pb-7 mb-10">
 				<Image
+					className="mb-2"
 					src="/landingassets/2d_logos/2d_logo2.png"
 					layout="fixed"
-					height={128}
-					width={82}
+					height={100}
+					width={65}
 				/>
-				<span className="ml-2 text-white text-6xl font-[junegull]">Helix</span>
+				<span className="ml-4 text-white text-4xl font-[junegull] -mb-3">Helix</span>
 			</div>
 			<div className="flex flex-col text center">
-				<h2 className="text-[#B1B1B1] text-3xl font-bold text-center mb-2">Products</h2>
+				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Products</h2>
 				<ul className="space-y-3">
 					<li className="text-[#8A8A8A] text-sm text-center">Staking</li>
 					<li className="text-[#8A8A8A] text-sm text-center">Marketplace</li>
@@ -21,14 +22,14 @@ export default function Footer(props) {
 				</ul>
 			</div>
 			<div className="flex flex-col text center">
-				<h2 className="text-[#B1B1B1] text-3xl font-bold text-center mb-2">Learn</h2>
+				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Learn</h2>
 				<ul className="space-y-3">
 					<li className="text-[#8A8A8A] text-sm text-center">Governance</li>
 					<li className="text-[#8A8A8A] text-sm text-center">Docs</li>
 				</ul>
 			</div>
 			<div className="flex flex-col text center">
-				<h2 className="text-[#B1B1B1] text-3xl font-bold text-center mb-2">Community</h2>
+				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Community</h2>
 				<div className="flex flex-row justify-around">
 					<a href="https://twitter.com/Helix_DAO">
 						<Image src="/landingassets/landingpage/icons/twitter.png" height={29} width={29} />
