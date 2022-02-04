@@ -1,5 +1,4 @@
 import { useState } from "react";
-import * as anchor from "@project-serum/anchor";
 import { HelixNetwork } from "./baseContractUtils";
 import { useEffect, useMemo} from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
