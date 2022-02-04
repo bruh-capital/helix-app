@@ -68,12 +68,6 @@ export default function Header(props) {
 						>
 							Bonds
 						</button>
-						<button
-							onClick={() => setPage("governance")}
-							className={page === "governance" ? "font-semibold text-gray8 bg-gray4 p-0.5 rounded-md" : "text-gray6 p-0.5"}
-						>
-							Governance
-						</button>
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
 						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray6 focus:outline-none'>

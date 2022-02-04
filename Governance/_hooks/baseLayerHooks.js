@@ -187,12 +187,12 @@ export default function HelixWrapper() {
 	
 	// CreateProposal
 
-	const createProposal = async(government_address, title, description, expiration_weeks, pid, accs, data) =>{
+	const createProposal = async(government_address, title, description, expiration_weeks) =>{
 		try{
 			if (helixClient == undefined){
 				return undefined
 			};
-			return await helixClient.CreateProposal(government_address, title, description, expiration_weeks, pid, accs, data);
+			return await helixClient.CreateProposal(government_address, title, description, expiration_weeks);
 		}catch(e){
 			notify(e.message.toString(), "error", {title: "Create Proposal Failed"});
 		}
