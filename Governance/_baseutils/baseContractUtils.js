@@ -41,11 +41,6 @@ export class HelixNetwork {
 		this.millionz = new PublicKey("E5EP2qkdXmPwXA9ANzoG69Gmj86Jdqepjw2XrQDGj9sM");
 		this.mazer = new PublicKey("6P3MTfMqidubdgQEaoxPSZJpjuzz7MopVH76fnJK9JM1");
 
-		console.log(this.governance_program._idl);
-		[...this.governance_program._idl.instructions].forEach((instruction)=>{
-			console.log(instruction.name);
-			console.log(instruction.args);
-		});
 		this.txsize = 1000;
 
 		this.wallet = wallet;
@@ -65,6 +60,13 @@ export class HelixNetwork {
 		const [helixMintAddress, helixMintBump] = await PublicKey.findProgramAddress(
 			[
 				Buffer.from("helixmintaccount")
+			],
+			this.helix_program.programId
+		);
+		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("uservault"), 
+				this.wallet.publicKey.toBuffer()
 			],
 			this.helix_program.programId
 		);
@@ -175,6 +177,9 @@ export class HelixNetwork {
 
 		this.protocolHelixAta = protocolHelixAta;
 		this.protocolHelixAtaBump = protocolHelixAtaBump;
+
+		this.userVault = userVault;
+		this.userVaultBump = userVaultBump;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -449,6 +454,7 @@ export class HelixNetwork {
 			this.governance_program.programId,
 		);
 		let government = await this.governance_program.account.government.fetch(new PublicKey(govId));
+		console.log("government", government);
 		return government.proposalList;
 	}
 
