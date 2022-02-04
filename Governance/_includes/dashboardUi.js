@@ -4,165 +4,99 @@ import HelixWrapper from "@hooks/baseLayerHooks";
 export default function dashboardUi(props) {
 	const {
 		helixClient,
-		createGovernemnt,
-		createBondMarket,
-		createHelixMint,
-		governmentOwnedTokenAccount,
-		multisigOwnedTokenAccount,
-		mintToAccount,
-		rebase,
-		changeRebaseRate,
-		createBondSigner
+		getProposals,
+		createProposal,
+		castVote,
 	} = HelixWrapper();
 
-	const [programList, setProgramList] = useState([]);
-	const [chosenProgram, setCurrentProgram] = useState();
+	// for the time being users cant do this because i dont want them to
+	// CreateGovernment governed_program
 
-	useEffect(()=>{
-		if(helixClient){
-			setProgramList({
-				"helix":helixClient.helix_program,
-				"bond":helixClient.bond_program,
-				"governance":helixClient.governance_program,
-				// "multisig":helixClient.multisig_program,
-			});
+	// CreateProposal government_address, title, description, expiration_weeks, pid, accs, data
+	// CastVote proposal, choice
+	// FetchProposals governed_program
+
+	// 	getProposals
+	//  createProposal
+	//  castVote
+
+	const [proposalGovAddress, setProposalGovAddress] = useState("AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv");
+	const [proposalTitle, setProposalTitle] = useState("");
+	const [proposalDescription, setProposalDescription] = useState("");
+	const [proposalExpiration, setProposalExpiration] = useState(0);
+
+	// usused for now
+	const [proposalPid, setProposalPid] = useState("");
+	const [proposalAccs, setProposalAccs] = useState("");
+	const [proposalData, setProposalData] = useState("");
+	
+	const [voteProposal, setVoteProposal] = useState("");
+	const [voteChoice, setVoteChoice] = useState(true);
+	
+	const [fetchProposalsGovAddress, setFetchProposalsGovAddress] = useState("AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv");
+	const [proposalList, setProposalList] = useState();
+
+	useEffect(async ()=>{
+		if (helixClient != undefined){
+			let proposals = await getProposals(fetchProposalsGovAddress);
+			console.log(proposals);
+			setProposalList(proposals);
 		}
-	},[helixClient])
+	}, [fetchProposalsGovAddress, helixClient])
 
-	function argGenerator(args, types, tidbit){
-		return args.map((argument, argind)=>{
-			switch(argument.type){
-				case "bool":
-					return <div>
-						<input
-						type = "checkbox"
-						key = {argument.name + tidbit + argind}
-						/>
-						{argument.name + tidbit}
-					</div>
-					break;
-				case "u8":
-				case "i8":
-				case "u16":
-				case "i16":
-				case "u32":
-				case "i32":
-				case "u64":
-				case "i64":
-				case "u128":
-				case "i128":
-					return <input
-						type = "number"
-						placeholder = {tidbit + argument.name}
-						key = {argument.name + tidbit + argind}
-						onChange = {(e)=>{
-							this.value = e.target.value;
-						}}
-					/>
-					break;
-				case "bytes":
-					return <div
-							key = {argument.name + tidbit + argind}
-						>
-							bytes here. indianeros fucked up
-						</div>
-					break;
-				case "string":
-				case "publicKey":
-					return <input
-							type="text"
-							placeholder = {tidbit + argument.name}
-							key = {argument.name + tidbit + argind}
-							onChange = {(e)=>{
-								this.value = e.target.value;
-							}}
-						/>
-					break;
-				default:
-					console.log(argument.name, argument.type);
-					switch(Object.keys(argument.type)[0]){
-						case "option":
-							return argGenerator([{
-								name: argument.name,
-								type: argument.type.option
-							}], types, tidbit+"optional");
-							break;
-						case "vec":
-							let components = [];
-							components.push(
-								argGenerator([{
-									name: argument.name + components.length,
-									type: argument.type.vec
-								}], types, tidbit+"vec")
-							)
-							return <div
-									key = {argument.name + tidbit + argind}
-								>
-								{components}
-								<button
-									onClick={()=>{
-										components.push(
-										argGenerator([{
-											name: argument.name + components.length,
-											type: argument.type.vec
-										}], types, tidbit+"vec"));
-										console.log(components);
-									}}
-								>
-									Add To Vec
-								</button>
-							</div>
-							break;
-						case "defined":
-							for(let type of types){
-								if(type.name == argument.type.defined){
-									return argGenerator(type.type.fields, types, tidbit+"");
-								}
-							}
-						break;
-					}
-				
-					break;
-			}
-		})
-	}
 
 	return(
-		<div className="my-5 grid md:grid-cols-1 md:grid-rows-1 sm:grid-cols-1 sm:grid-rows-4 place-content-center">
-			<input 
-				type="radio"
-				name="program_choice"
-				value="helix"
-				onClick={()=>{setCurrentProgram("helix")}}
-			/>helix
-			<input 
-				type="radio"
-				name="program_choice"
-				value="bond"
-				onClick={()=>{setCurrentProgram("bond")}}
-			/>bond
-			<input 
-				type="radio"
-				name="program_choice"
-				value="governance"
-				onClick={()=>{setCurrentProgram("governance")}}
-			/>governance
-			{/* <input 
-				type="radio"
-				name="program_choice"
-				value="multisig"
-				onClick={()=>{setCurrentProgram("multisig")}}
-			/>multisig */}
-			{
-				programList[chosenProgram]?._idl.instructions.map((instruction, ind)=>{
-					return <div key = {ind}>
-						{instruction.name}
-						{
-							argGenerator(instruction.args, programList[chosenProgram]._idl.types, "")
-						}
-					</div>
-				})
-			}
+		<div className="my-5 grid md:grid-cols-1 md:grid-rows-1 sm:grid-cols-1 sm:grid-rows-4 place-content-center text-black">
+			<input
+				type = "text"
+				value = {fetchProposalsGovAddress}
+				onChange={(e)=>{setFetchProposalsGovAddress(e.target.value)}}
+			/>
+
+			<input
+				type = "text"
+				// placeholder = "governed program id"
+				value = {proposalGovAddress}
+				onChange={(e)=>{setProposalGovAddress(e.target.value)}}
+			/>
+			<input
+				type = "text"
+				placeholder = "proposal title"
+				value = {proposalTitle}
+				onChange={(e)=>{setProposalTitle(e.target.value)}}
+			/>
+			<input
+				type = "text"
+				placeholder = "proposal description"
+				value = {proposalDescription}
+				onChange={(e)=>{setProposalDescription(e.target.value)}}
+			/>
+			<input
+				type = "number"
+				value = {proposalExpiration}
+				onChange={(e)=>{setProposalExpiration(e.target.value)}}
+			/>
+			<button
+				onClick={()=>{createProposal()}}
+			>Create Proposal</button>
+			
+			
+			<input
+				type = "text"
+				placeholder = "proposal id"
+				value = {voteProposal}
+				onChange={(e)=>{setVoteProposal(e.target.value)}}
+			/>
+			<input
+				type = "checkbox"
+				placeholder = "vote choice"
+				value = {voteChoice}
+				onChange={(e)=>{setVoteChoice(e.target.checked)}}
+			/>
+			<button
+				onClick={()=>{castVote(voteProposal, voteChoice)}}
+			>Cast Vote</button>
+
 		</div>
 	)
 }

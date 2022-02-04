@@ -405,13 +405,20 @@ export class HelixNetwork {
 	}
 
 	// create proposal
-	CreateProposal = async(government_address, title, description, expiration_weeks, pid, accs, data) => {
+	CreateProposal = async(government, title, description, expiration_weeks) => {
+		const [govId, govBump] = await anchor.web3.PublicKey.findProgramAddress(
+			[
+				new PublicKey(government).toBuffer(),
+			],
+			this.governance_program.programId,
+		)
+
 		let proposalKp = anchor.web3.Keypair.generate();
-		await this.governance_program.rpc.createProposal(title, description, new anchor.BN(expiration_weeks), pid ? pid : null, accs ? accs : null, data ? data : null, {
+		await this.governance_program.rpc.createProposal(title, description, new anchor.BN(expiration_weeks), {
 			accounts:{
 			  proposal: proposalKp.publicKey,
 			  payer: this.wallet.publicKey,
-			  government: new PublicKey(government_address),
+			  government: new PublicKey(govId),
 			  systemProgram: SystemProgram.programId,
 			},
 			signers:[proposalKp],
@@ -441,7 +448,8 @@ export class HelixNetwork {
 			],
 			this.governance_program.programId,
 		);
-		return await this.governance_program.account.government.fetch(new PublicKey(govId));
+		let government = await this.governance_program.account.government.fetch(new PublicKey(govId));
+		return government.proposalList;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
