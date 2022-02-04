@@ -1,5 +1,5 @@
 {
-  "name": "helix",
+  "name": "governance",
   "private": true,
   "scripts": {
     "dev": "next dev",

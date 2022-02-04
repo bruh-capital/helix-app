@@ -1,5 +1,5 @@
 {
-  "name": "twst",
+  "name": "dapp",
   "private": true,
   "scripts": {
     "dev": "next dev",
