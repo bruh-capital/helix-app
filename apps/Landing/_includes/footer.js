@@ -28,7 +28,7 @@ export default function Footer(props) {
 					<li className="text-[#8A8A8A] text-sm text-center">Docs</li>
 				</ul>
 			</div>
-			<div className="flex flex-col text center">
+			<div className="flex md:mt-0 mt-10 flex-col text center">
 				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Community</h2>
 				<div className="flex flex-row justify-around">
 					<a href="https://twitter.com/Helix_DAO">
