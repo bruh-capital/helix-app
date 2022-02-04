@@ -1,0 +1,7 @@
+{
+  "name": "helix-client",
+  "version": "1.0.0",
+  "description": "bruh client for interacting with helix programs",
+  "main": "index.js",
+  "author": "bruh capital"
+}
