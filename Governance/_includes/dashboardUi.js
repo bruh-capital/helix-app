@@ -77,7 +77,7 @@ export default function dashboardUi(props) {
 				onChange={(e)=>{setProposalExpiration(e.target.value)}}
 			/>
 			<button
-				onClick={()=>{createProposal()}}
+				onClick={()=>{createProposal(proposalGovAddress, proposalTitle, proposalDescription, proposalExpiration)}}
 			>Create Proposal</button>
 			
 			
