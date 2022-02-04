@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 import Image from "next/image";
 import { MintModal } from "./modals";
-import HelixWrapper from "@hooks/baseLayerHooks";
+import HelixWrapper from "helix-client";
 
 export default function BondInterface(props) {
 	const [tokenMap, setTokenMap] = useState(new Map());

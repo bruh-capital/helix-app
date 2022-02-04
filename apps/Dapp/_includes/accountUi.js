@@ -1,5 +1,5 @@
 /* this is a temp file until I can figure out how to call in a less obtrusive manner */
-import HelixWrapper from "@hooks/baseLayerHooks";
+import HelixWrapper from "helix-client";
 
 export default function AccountUI(props) {
 	const {
