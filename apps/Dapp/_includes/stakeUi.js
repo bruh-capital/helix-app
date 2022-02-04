@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
-import HelixWrapper from "@hooks/baseLayerHooks";
+import HelixWrapper from "helix-client";
 
 // TODO(@millionz): make sure that the stats can be passed in as props
 // Add color changes for stat values

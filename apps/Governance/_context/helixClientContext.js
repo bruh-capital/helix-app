@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import HelixWrapper from "@hooks/baseLayerHooks";
+import HelixWrapper from "helix-client";
 
 const clientContext = createContext({
 	  client: new HelixWrapper(),

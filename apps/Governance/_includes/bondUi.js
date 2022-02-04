@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import HelixWrapper from "@hooks/baseLayerHooks";
+import HelixWrapper from "helix-client";
 
 export default function bondUi(props){
     

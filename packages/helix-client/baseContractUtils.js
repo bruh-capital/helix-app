@@ -3,12 +3,12 @@ import * as anchor from "@project-serum/anchor";
 import * as web3 from "@solana/web3.js";
 import {Token, TOKEN_PROGRAM_ID, getOrCreateAssociatedAccountInfo} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
-let ido_idl = require('@idl/ido.json');
-let bond_idl = require('@idl/bond_market.json');
-let helix_idl = require('@idl/twst.json');
-let multisig_idl = require("@idl/serum_multisig.json");
-let governance_idl = require('@idl/government_program.json');
-let pyth_mapping = require("@baseutils/pythMapping.json");
+let ido_idl = require('./idl/ido.json');
+let bond_idl = require('./idl/bond_market.json');
+let helix_idl = require('./idl/twst.json');
+let multisig_idl = require("./idl/serum_multisig.json");
+let governance_idl = require('./idl/government_program.json');
+let pyth_mapping = require("./pythMapping.json");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
