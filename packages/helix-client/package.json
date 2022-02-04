@@ -2,6 +2,18 @@
   "name": "helix-client",
   "version": "1.0.0",
   "description": "bruh client for interacting with helix programs",
-  "main": "./index.js",
-  "author": "bruh capital"
+  "main": "baseLayerHooks.js",
+  "types": "baseLayerHooks.js",
+  "author": "bruh capital",
+  "dependencies": {
+    "react": "^17.0.2",
+    "@project-serum/anchor": "^0.19.0",
+    "@solana/spl-token": "^0.1.8",
+    "@solana/spl-token-registry": "^0.2.7",
+    "@solana/wallet-adapter-base": "^0.7.0",
+    "@solana/wallet-adapter-react": "^0.13.1",
+    "@solana/wallet-adapter-react-ui": "^0.6.1",
+    "@solana/wallet-adapter-wallets": "^0.11.3",
+    "reapop": "^4.0.3"
+  }
 }

@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState , useEffect} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
-import HelixWrapper from '@hooks/baseLayerHooks';
+import HelixWrapper from 'helix-client';
 import { notify } from 'reapop';
 import { BN } from '@project-serum/anchor';
 

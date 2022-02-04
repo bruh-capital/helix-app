@@ -4,6 +4,9 @@
     "apps/*",
     "packages/*"
   ],
+  "bundledDependencies": [
+    "helix-client"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
