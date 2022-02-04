@@ -8,7 +8,7 @@ export default function Header(props) {
 		<div className="sticky bg-transparant z-50">
 			<div className="mx-auto md:mx-10 px-4 sm:px-6">
 				<div className="flex justify-around items-center py-4">
-					<div className="flex flex-none justify-start">
+					<div className="flex flex-auto justify-start basis-1/4">
 						<Image
 							src="/landingassets/3dlogos/4K_3D_icon.png"
 							height={72}
@@ -16,7 +16,7 @@ export default function Header(props) {
 						/>
 						<div className="text-3xl mt-5 ml-3 text-white font-[Junegull] align-center text-center">HELIX</div>
 					</div>
-					<div className="flex flex-grow justify-center space-x-8 text-[#909090]">
+					<div className="hidden md:flex flex-grow justify-center space-x-8 text-[#909090]">
 						<button>Staking</button>
 						<button>Bonding</button>
 						<button>Governance</button>
@@ -63,7 +63,7 @@ export default function Header(props) {
 							</Transition>
 						</Menu>
 					</div>
-					<div className="flex justify-end">
+					<div className="flex flex-auto basis-1/4 justify-end">
 						<button className="inline-flex text-white font-md font-semibold">
 							Get $HLX
 							<ExternalLinkIcon className="h-3 w-3"/>
