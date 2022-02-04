@@ -1,28 +1,20 @@
 {
+  "private": true,
   "workspaces": [
-    "App/*",
-    "Landing/*"
+    "apps/*"
   ],
-  "turbo": {
-    "baseBranch": "origin/main",
-    "pipeline": {
-      "build": {
-        "dependsOn": ["^build"],
-        "outputs": [".next/**"]
-      },
-      "test": {
-        "dependsOn": ["^build"],
-        "outputs": []
-      },
-        "lint": {
-        "outputs": []
-      },
-      "dev": {
-        "cache": false
-      }
-    }
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "turbo": "^1.0.26"
-  }
+    "turbo": "^1.1.2"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "packageManager": "yarn@1.22.10"
 }
