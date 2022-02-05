@@ -32,7 +32,7 @@ export default function Feature(props) {
 							/>
 						</div>
 						<span className="text-white text-xl md:text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Revenue</span>
-						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">From delta-neutral strategies to privacy apps, Helix builds platforms that make the treasury number go up. Now you can finally touch grass while earning money.</span>
+						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">From delta-neutral strategies to privacy apps, Helix builds platforms that make the treasury number go up. Now you can finally touch that grass while stacking rewards.</span>
 					</div>
 					<div className="flex h-full flex-col bg-transparent rounded-2xl border-2 border-[#686868] py-4 px-10 md:py-8 items-center m-auto">
 						<div className="hidden md:flex">
