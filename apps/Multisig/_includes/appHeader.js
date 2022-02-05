@@ -29,7 +29,7 @@ export default function Header(props) {
 		</svg>`;
 
 	return(
-		<Popover className='dappHeader'>
+		<Popover className='dappHeader bg-neutral'>
 		{({ open }) => (
 			<>
 			<div className='mx-auto px-16 mb-10'>
@@ -48,7 +48,8 @@ export default function Header(props) {
 							/>
 						</div>
 					</div>
-					<div className="hidden md:flex-1 md:flex md:space-x-5">
+					<div className="hidden md:flex-1 md:flex md:space-x-5 text-3xl">
+						Multisig
 					</div>
 					<div className="-mr-2 -my-2 md:hidden">
 						<Popover.Button className='bg- rounded-md p-2 inline-flex items-center justify-center text-gray-white hover:bg-gray6 focus:outline-none'>
