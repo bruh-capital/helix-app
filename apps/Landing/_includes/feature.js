@@ -11,32 +11,38 @@ export default function Feature(props) {
 					</div>
 				</div>
 				{/* Add something here to show details on click for mobile layout */}
-				<div className="flex flex-col md:flex-row w-full space-x-0 md:space-x-8">
+				<div className="flex flex-col md:flex-row w-full space-x-0 space-y-4 md:space-x-8 md:space-y-0">
 					<div className="flex flex-col bg-transparent rounded-2xl border-2 border-[#686868] py-4 px-10 md:py-8 items-center m-auto">
-						<Image 
-							src="/landingassets/landingpage/icons/Shopping_cart_perspective_matte.png"
-							height={150}
-							width={150}
-						/>
-						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Marketplace</span>
+						<div className="hidden md:flex">
+							<Image 
+								src="/landingassets/landingpage/icons/Shopping_cart_perspective_matte.png"
+								height={150}
+								width={150}
+							/>
+						</div>
+						<span className="text-white text-xl md:text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Marketplace</span>
 						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
 					</div>
 					<div className="flex flex-col bg-transparent rounded-2xl border-2 border-[#686868] py-4 px-10 md:py-8 items-center m-auto">
-						<Image 
-							src="/landingassets/landingpage/icons/Bank_perspective_matte.png"
-							height={150}
-							width={150}
-						/>
-						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Revenue</span>
+						<div className="hidden md:flex">
+							<Image 
+								src="/landingassets/landingpage/icons/Bank_perspective_matte.png"
+								height={150}
+								width={150}
+							/>
+						</div>
+						<span className="text-white text-xl md:text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Revenue</span>
 						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
 					</div>
 					<div className="flex flex-col bg-transparent rounded-2xl border-2 border-[#686868] py-4 px-10 md:py-8 items-center m-auto">
-						<Image 
-							src="/landingassets/landingpage/icons/Government_perspective_matte.png"
-							height={150}
-							width={150}
-						/>
-						<span className="text-white text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Governance</span>
+						<div className="hidden md:flex">
+							<Image 
+								src="/landingassets/landingpage/icons/Government_perspective_matte.png"
+								height={150}
+								width={150}
+							/>
+						</div>
+						<span className="text-white text-xl md:text-3xl font-bold border-b-2 border-[#686868] py-2 md:mb-6">Governance</span>
 						<span className="hidden md:flex text-center text-[#ABABAB] text-sm w-40">Bro have you ever watched any anime bro? Basically we're the shadowy supercoders with anime pfps that MGNR talks about all day.</span>
 					</div>
 				</div>
