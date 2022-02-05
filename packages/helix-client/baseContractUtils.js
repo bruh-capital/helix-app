@@ -274,7 +274,7 @@ export class HelixNetwork {
 				// creates transaction account clientside
 				await this.multisig_program.account.transaction.createInstruction(
 					createBondMarket,
-					this.txSize
+					this.txsize
 				),
 			],
 			signers: [createBondMarket],
@@ -580,7 +580,7 @@ export class HelixNetwork {
 			this.spl_program_id
 		))[0];
 
-		await program.rpc.idoDeposit({
+		await this.ido_program.rpc.idoDeposit({
 			vaultBump: this.idoAcocuntBump,
 			protocolBump: this.idoUSDCAtaBump,
 		  },new anchor.BN(amount),{
@@ -657,12 +657,19 @@ export class HelixNetwork {
 
 	// create proposal
 	CreateProposal = async(government_address, title, description, expiration_weeks) => {
+		const [govAddress, govAddressBump] = await PublicKey.findProgramAddress(
+			[
+				new PublicKey(government_address).toBuffer()
+			],
+		  	this.governance_program.programId
+		  );
+
 		let proposalKp = anchor.web3.Keypair.generate();
 		await this.governance_program.rpc.createProposal(title, description, new anchor.BN(expiration_weeks), {
 			accounts:{
 			  proposal: proposalKp.publicKey,
 			  payer: this.wallet.publicKey,
-			  government: new PublicKey(government_address),
+			  government: new PublicKey(govAddress),
 			  systemProgram: SystemProgram.programId,
 			},
 			signers:[proposalKp],
@@ -743,7 +750,7 @@ export class HelixNetwork {
 			// creates transaction account clientside
 				await this.multisig_program.account.transaction.createInstruction(
 					mintTransaction,
-					txSize
+					this.txsize
 				),
 			],
 			signers: [mintTransaction],
@@ -815,9 +822,9 @@ export class HelixNetwork {
 			},
 			instructions: [
 			// creates transaction account clientside
-			await program.account.transaction.createInstruction(
+			await this.multisig_program.account.transaction.createInstruction(
 				createAtaGovTransaction,
-				txSize
+				this.txsize
 			),
 			],
 			signers: [createAtaGovTransaction],
@@ -864,9 +871,9 @@ export class HelixNetwork {
 			},
 			instructions: [
 			// creates transaction account clientside
-			await program.account.transaction.createInstruction(
+			await this.multisig_program.account.transaction.createInstruction(
 				ataOwnershipTransaction,
-				txSize
+				this.txsize
 			),
 			],
 			signers: [ataOwnershipTransaction],
@@ -926,9 +933,9 @@ export class HelixNetwork {
 		  },
 		  instructions: [
 			// creates transaction account clientside
-			await program.account.transaction.createInstruction(
+			await this.multisig_program.account.transaction.createInstruction(
 			  multisigAtaTransaction,
-			  txSize
+			  this.txsize
 			),
 		  ],
 		  signers: [multisigAtaTransaction],
@@ -957,7 +964,7 @@ export class HelixNetwork {
 			[
 				new PublicKey(mintToAccount).toBuffer(),
 				TOKEN_PROGRAM_ID.toBuffer(),
-				helixMintAddress.toBuffer(),
+				this.helixMintAddress.toBuffer(),
 			],
 			this.spl_program_id
 		)
@@ -1006,9 +1013,9 @@ export class HelixNetwork {
 			},
 			instructions: [
 			  // creates transaction account clientside
-			  await program.account.transaction.createInstruction(
+			  await this.multisig_program.account.transaction.createInstruction(
 				mintToAccountTransaction,
-				txSize
+				this.txsize
 			  ),
 			],
 			signers: [mintToAccountTransaction],
@@ -1082,9 +1089,9 @@ export class HelixNetwork {
 			},
 			instructions: [
 			// creates transaction account clientside
-			await program.account.transaction.createInstruction(
+			await this.multisig_program.account.transaction.createInstruction(
 				rebaseTransaction,
-				txSize
+				this.txsize
 			),
 			],
 			signers: [rebaseTransaction],
@@ -1122,9 +1129,7 @@ export class HelixNetwork {
 	  
 		// callee function name and params
 		const data = this.helix_program.coder.instruction.encode("change_rebase_rate", {
-		    bump:{
-		      protocolBump: this.protocolDataBump,
-		    }
+		    protocolBump: this.protocolDataBump
 		  });
 	  
 		  await this.multisig_program.rpc.createTransaction(
@@ -1139,9 +1144,9 @@ export class HelixNetwork {
 		    },
 		    instructions: [
 		      // creates transaction account clientside
-		      await program.account.transaction.createInstruction(
+		      await this.multisig_program.account.transaction.createInstruction(
 		        changeRebaseTransaction,
-		        txSize
+		        this.txsize
 		      ),
 		    ],
 		    signers: [changeRebaseTransaction],
@@ -1205,9 +1210,9 @@ export class HelixNetwork {
 		    },
 		    instructions: [
 		      // creates transaction account clientside
-		      await program.account.transaction.createInstruction(
+		      await this.multisig_program.account.transaction.createInstruction(
 		        createBondSigner,
-		        txSize
+		        this.txsize
 		      ),
 		    ],
 		    signers: [createBondSigner],

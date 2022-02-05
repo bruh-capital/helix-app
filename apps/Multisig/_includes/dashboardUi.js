@@ -13,10 +13,10 @@ export default function dashboardUi(props) {
 	const [rebaseRate, setRebaseRate] = useState();
 
 	useEffect(()=>{
-		if(client.helixClient){
+		if(client){
 			setMintToAcc(client.helixClient.wallet.publicKey.toString());
 		}
-	},[client.helixClient])
+	},[client])
 	return(
 		<div className="my-5 grid md:grid-cols-1 md:grid-rows-1 sm:grid-cols-1 sm:grid-rows-4 place-content-center">
 
