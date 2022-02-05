@@ -11,7 +11,7 @@ export default function Footer(props) {
 					height={100}
 					width={65}
 				/>
-				<span className="ml-4 text-white text-4xl font-[junegull] -mb-3">Helix</span>
+				<span className="ml-4 text-white text-3xl md:text-4xl font-[junegull] -mb-3">Helix</span>
 			</div>
 			<div className="hidden md:flex flex-col text center">
 				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Products</h2>
@@ -29,7 +29,7 @@ export default function Footer(props) {
 				</ul>
 			</div>
 			<div className="flex md:mt-0 mt-10 flex-col text center">
-				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Community</h2>
+				<h2 className="text-[#B1B1B1] text-lg md:text-2xl font-bold text-center mb-1 md:mb-2">Community</h2>
 				<div className="flex flex-row justify-around">
 					<a href="https://twitter.com/Helix_DAO">
 						<Image src="/landingassets/landingpage/icons/twitter.png" height={29} width={29} />
