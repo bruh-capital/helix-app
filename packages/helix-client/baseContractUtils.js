@@ -63,6 +63,22 @@ export class HelixNetwork {
 			],
 			this.helix_program.programId
 		);
+
+		const [userHelixAta, userHelixAtaBump] = await PublicKey.findProgramAddress(
+			[
+				this.wallet.publicKey.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
+				helixMintAddress.toBuffer(),
+			],
+			this.spl_program_id
+		);
+		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
+			[
+				Buffer.from("uservault"), 
+				this.wallet.publicKey.toBuffer()
+			],
+			this.helix_program.programId
+		);
 		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("protocoldataaccount")],
 			this.helix_program.programId
@@ -90,7 +106,13 @@ export class HelixNetwork {
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		/// bond accounts
 
-
+		const [bondAccount, bondAccountBump] = await anchor.web3.PublicKey.findProgramAddress(
+			[
+			  Buffer.from("bondaccount"),
+			  this.wallet.publicKey.toBuffer()
+			],
+			this.bond_program.programId
+		);
 		const [bondMarketHelix, bondMarketHelixBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondmarket"),
@@ -142,6 +164,9 @@ export class HelixNetwork {
 		
 		// alphabetical
 		
+		this.bondAccount = bondAccount;
+		this.bondAccountBump = bondAccountBump;
+
 		this.bondMarketHelix = bondMarketHelix;
 		this.bondMarketHelixBump = bondMarketHelixBump;
 		
@@ -165,6 +190,20 @@ export class HelixNetwork {
 
 		this.protocolHelixAuth = protocolATAOwner;
 		
+		this.protocolDataAccount = protocolDataAccount;
+		this.protocolDataBump = protocolDataBump;
+
+		this.protocolHelixAta = protocolHelixAta;
+		this.protocolHelixAtaBump = protocolHelixAtaBump;
+
+		this.userHelixAta = userHelixAta;
+		this.userHelixAtaBump = userHelixAtaBump;
+
+		this.userVault = userVault;
+		this.userVaultBump = userVaultBump;
+
+		this.protocolHelixAuth = protocolATAOwner;
+
 		this.protocolDataAccount = protocolDataAccount;
 		this.protocolDataBump = protocolDataBump;
 
@@ -253,6 +292,136 @@ export class HelixNetwork {
 
 	}
 
+	InitBondAccount = async() => {
+		await this.bond_program.rpc.initBondAccount({
+			bondAccountBump: this.bondAccountBump,
+			bondAccountSpace: new anchor.BN(1208) // account can hold 10 bonds, each with a maturity of 4 weeks
+			},{
+			accounts:{
+				bondAccount: this.bondAccount,
+				payer: this.wallet.publicKey,
+				systemProgram: SystemProgram.programId,
+			},
+			// signers: [this.wallet],
+			});
+	}
+
+	CloseBondAccount = async() =>{
+		await this.bond_program.rpc.closeAccount(this.bondAccountBump,{
+			accounts:{
+				owner: this.wallet.publicKey,
+				bondAccount: this.bondAccount,
+			},
+			// signers: [this.wallet],
+			});
+	}
+
+	SolBond = async (bond_price, maturity, connection) => {
+		console.log(bond_price);
+		const pyth_sol_price_address = this.pyth_map[connection].SOL; // sol pubkey address for that connection
+
+		await this.bond_program.rpc.depositAssetPrintBondSol(
+			new anchor.BN(bond_price),
+			new anchor.BN(maturity),
+			{
+				accounts:{
+				pythOraclePrice: pyth_sol_price_address,
+				userWallet: this.wallet.publicKey,
+				treasuryWallet: this.multisigSigner,
+				bondMarket: this.bondMarketSOL,
+				bondAccount: this.bondAccount,
+				systemProgram: SystemProgram.programId,
+				},
+				// signers: [this.wallet]
+			}
+		);
+
+	}
+
+	/// take asset mint as input
+	SPLBond = async (bond_price, bond_maturity, mintAddress, asset, connection, decimals) => {	
+		let tokenMintAddress = new PublicKey(mintAddress);
+
+		const userAta = (await PublicKey.findProgramAddress(
+			[
+				this.wallet.publicKey.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
+				tokenMintAddress.toBuffer(),
+			],
+			this.spl_program_id
+		))[0];
+
+		const protocolSplAta = (await PublicKey.findProgramAddress(
+			[
+				this.multisigSigner.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
+				tokenMintAddress.toBuffer(),
+			],
+			this.spl_program_id
+		))[0];
+
+		const [bondMarketSpl, bondMarketSplBump] = await anchor.web3.PublicKey.findProgramAddress(
+			[
+			  Buffer.from("bondmarket"),
+			  tokenMintAddress.toBuffer(),
+			],
+			this.bond_program.programId
+		);
+
+		const pyth_spl_price_address = this.pyth_map[connection][asset]; // sol pubkey address for that connection
+
+		await this.bond_program.rpc.depositAssetPrintBondSpl(
+			new anchor.BN(bond_price),
+			new anchor.BN(bond_maturity),
+			new anchor.BN(decimals),
+			{
+				accounts:{
+				pythOraclePrice: pyth_spl_price_address,
+				user: this.wallet.publicKey,
+				userAta: userAta,
+				protocAta: protocolSplAta,
+				bondAccount: this.bondAccount,
+				mint: tokenMintAddress,
+				bondMarket: bondMarketSpl,
+				tokenProgram: TOKEN_PROGRAM_ID,
+				},
+				// signers: [userKP]
+			}
+		);
+	}
+
+	RedeemBonds = async () => {
+		await this.bond_program.rpc.redeemBonds({
+			mintBump: this.helixMintBump,
+			signerBump: this.bondSignerBump
+		},{
+			accounts:{
+				signerAccount: this.bondSigner,
+				mint: this.helixMintAddress,
+				collectionAccount: this.userHelixAta,
+				bondAccount: this.bondAccount,
+				twstProgram: this.helix_program.programId,
+				tokenProgram: TOKEN_PROGRAM_ID,
+			},
+		});
+	}
+
+	CollectCoupon = async () => {
+		await this.bond_program.rpc.collectCoupon({
+			mintBump: this.helixMintBump,
+			signerBump: this.bondSignerBump
+		  },{
+			accounts:{
+				signerAccount: this.bondSigner,
+				collectionAccount: this.userHelixAta,
+				mint: this.helixMintAddress,
+				bondAccount: this.bondAccount,
+				twstProgram: this.helix_program.programId,
+				tokenProgram: TOKEN_PROGRAM_ID,
+			}
+		  });
+	}
+
 	FetchBondMarket = async(mint) => {
 		let [bond_market_address,] = await PublicKey.findProgramAddress(
 			[
@@ -268,6 +437,20 @@ export class HelixNetwork {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	/// twst
 	
+	InitializeUserVault = async () => {
+		await this.helix_program.rpc.initUserVault(
+			this.userVaultBump,
+			{
+				accounts:{
+					userAccount: this.userVault,
+					payer: this.wallet.publicKey,
+					user: this.wallet.publicKey,
+					systemProgram: SystemProgram.programId,
+				},
+			// signers:[this.wallet.Keypair],
+		});
+	}
+
 	CreateUserATA = async () => {
 		let ata = await Token.getAssociatedTokenAddress(
 			this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
@@ -298,6 +481,79 @@ export class HelixNetwork {
 			await this.connection.sendRawTransaction(signed_tx.serialize());
 		};
 		// console.log("created token account");
+	}
+
+	// stake amount is in twst
+	// todo indianeros: make mint decimals dynamic
+	Stake = async(amount) => {
+		await this.helix_program.rpc.stake({
+			vaultBump: this.userVaultBump,
+			protocolDataBump: this.protocolDataBump,
+			mintBump: this.helixMintBump,
+		}, new anchor.BN(amount), {
+		accounts:{
+			userAta: this.userHelixAta,
+			protocAta: this.protocolHelixAta,
+			mint: this.helixMintAddress,
+			userVault: this.userVault,
+			protocolData: this.protocolDataAccount,
+			user: this.wallet.publicKey,
+			tokenProgram: TOKEN_PROGRAM_ID,
+		},
+		// signers:[userKP],
+		})
+	}
+
+	// unstake amount is stwst
+	Unstake = async (amount) => {
+		await this.helix_program.rpc.unstake({
+		vaultBump: this.userVaultBump,
+		protocolDataBump: this.protocolDataBump,
+		mintBump: this.helixMintBump,
+		protocolAtaBump: this.protocolHelixAtaBump,
+		}, new anchor.BN(amount), {
+		accounts:{
+			user: this.wallet.publicKey,
+			userAta: this.userHelixAta,
+			userVault: this.userVault,
+			protocolData: this.protocolDataAccount,
+			protocAta: this.protocolHelixAta,
+			protocAuth: this.protocolHelixAuth,
+			mint: this.helixMintAddress,
+			tokenProgram: TOKEN_PROGRAM_ID,
+		},
+		// signers:[userKP],
+		})
+	}
+
+	MintAndCloseIDO = async() => {
+		await this.helix_program.rpc.mintAndCloseIdo({
+			idoAccountBump: this.idoAccountBump,
+			mintBump: this.helixMintBump,
+		  },
+			{
+			accounts:{
+			  idoAccount: this.idoAccount,
+			  user: this.wallet.publicKey,
+			  mint: this.helixMintAddress,
+			  userHelixAta: this.userHelixAta,
+			  tokenProgram: TOKEN_PROGRAM_ID,
+			  idoProgram: this.ido_program.programId,
+			},
+			// signers:[userKP],
+		  });
+	}
+
+	ChangeLockup = async(duration) => {
+		await this.helix_program.rpc.changeLockup(
+			this.userVaultBump,
+			new anchor.BN(duration), {
+			accounts:{
+				userVault: this.userVault,
+				user: this.wallet.publicKey,
+			},
+		// signers:[userKP],
+		})
 	}
 
 	FetchUserVault = async() =>{
@@ -981,7 +1237,7 @@ export class HelixNetwork {
 			this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
 			TOKEN_PROGRAM_ID, // always TOKEN_PROGRAM_ID
 			new PublicKey(mint), // mint
-			this.multisigSigner // owner
+			this.wallet.publicKey // owner
 		);
 
 		let val = await this.connection.getTokenAccountBalance(ata);
@@ -989,6 +1245,6 @@ export class HelixNetwork {
 	}
 
 	GetSolBalance = async() =>{
-		return await this.connection.getBalance(this.multisigSigner)/anchor.web3.LAMPORTS_PER_SOL;;
+		return await this.connection.getBalance(this.wallet.publicKey)/anchor.web3.LAMPORTS_PER_SOL;;
 	}
 }

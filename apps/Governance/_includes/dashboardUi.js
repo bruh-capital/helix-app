@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import HelixWrapper from "helix-client";
+import React, { useEffect, useState, useContext} from "react";
+import helixContext from "@context/helixClientContext";
 
 export default function dashboardUi(props) {
-	const {
-		helixClient,
-		getProposals,
-		createProposal,
-		castVote,
-	} = HelixWrapper();
+	const {client} = useContext(helixContext);
+	
 
 	// for the time being users cant do this because i dont want them to
 	// CreateGovernment governed_program
@@ -16,9 +12,9 @@ export default function dashboardUi(props) {
 	// CastVote proposal, choice
 	// FetchProposals governed_program
 
-	// 	getProposals
-	//  createProposal
-	//  castVote
+	// 	client.getProposals
+	//  client.createProposal
+	//  client.castVote
 
 	const [proposalGovAddress, setProposalGovAddress] = useState("AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv");
 	const [proposalTitle, setProposalTitle] = useState("");
@@ -37,12 +33,12 @@ export default function dashboardUi(props) {
 	const [proposalList, setProposalList] = useState();
 
 	useEffect(async ()=>{
-		if (helixClient != undefined){
-			let proposals = await getProposals(fetchProposalsGovAddress);
+		if (client.helixClient != undefined){
+			let proposals = await client.getProposals(fetchProposalsGovAddress);
 			console.log(proposals);
 			setProposalList(proposals);
 		}
-	}, [fetchProposalsGovAddress, helixClient])
+	}, [fetchProposalsGovAddress, client.helixClient])
 
 
 	return(
@@ -77,7 +73,7 @@ export default function dashboardUi(props) {
 				onChange={(e)=>{setProposalExpiration(e.target.value)}}
 			/>
 			<button
-				onClick={()=>{createProposal(proposalGovAddress, proposalTitle, proposalDescription, proposalExpiration)}}
+				onClick={()=>{client.createProposal(proposalGovAddress, proposalTitle, proposalDescription, proposalExpiration)}}
 			>Create Proposal</button>
 			
 			
@@ -94,7 +90,7 @@ export default function dashboardUi(props) {
 				onChange={(e)=>{setVoteChoice(e.target.checked)}}
 			/>
 			<button
-				onClick={()=>{castVote(voteProposal, voteChoice)}}
+				onClick={()=>{client.castVote(voteProposal, voteChoice)}}
 			>Cast Vote</button>
 
 		</div>

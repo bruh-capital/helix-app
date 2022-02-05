@@ -1,4 +1,3 @@
-import { useState, useContext } from "react";
 import dynamic from "next/dynamic";
 
 //Layouts
@@ -9,7 +8,6 @@ import DashboardUI from "@includes/dashboardUi";
 /// todo: add marketplace ui
 
 // Contexts
-import PageContext from "@context/pageContext";
 
 const PWAprompt = dynamic(
 	() => {

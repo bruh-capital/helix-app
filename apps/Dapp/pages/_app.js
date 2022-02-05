@@ -33,6 +33,7 @@ import MultiSigContext from '@context/multiSigContext';
 import RpcUrlContext from '@context/rpcUrlContext';
 import ThemeContext from '@context/themeContext';
 import PageContext from '@context/pageContext';
+import HelixContext from '@context/helixClientContext';
 
 
 
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }) {
   const [ multiSigAddr, setMultiSigAddr ] = useState();
   const [ theme, setTheme ] = useState("light");
   const [ page, setPage ] = useState("dash");
+  const [client, setClient] = useState();
 
   const [ rpcUrl, setRpcUrl ] = useState(CLUSTERS.devnet);
   const endpoint = useMemo(() => rpcUrl, []);
@@ -67,21 +69,23 @@ function MyApp({ Component, pageProps }) {
   return(
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <PageContext.Provider value={{ page, setPage }}>
-        <AppMetaTagComponent classname="bg-black">
-          <MultiSigContext.Provider value={{ multiSigAddr, setMultiSigAddr }}>
-            <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
-              <ConnectionProvider endpoint={rpcUrl} >
-                <WalletProvider wallets={wallets}>
-                  <WalletModalProvider logo="./2d/logo.png">
-                    <NotificationsProvider>
-                      <Component {...pageProps} />
-                    </NotificationsProvider>
-                  </WalletModalProvider>
-                </WalletProvider>
-              </ConnectionProvider>
-            </RpcUrlContext.Provider>
-          </MultiSigContext.Provider>
-        </AppMetaTagComponent>
+        <HelixContext.Provider value = {{client, setClient}}>
+          <AppMetaTagComponent classname="bg-black">
+            <MultiSigContext.Provider value={{ multiSigAddr, setMultiSigAddr }}>
+              <RpcUrlContext.Provider value={{ rpcUrl, setRpcUrl }}>
+                <ConnectionProvider endpoint={rpcUrl} >
+                  <WalletProvider wallets={wallets}>
+                    <WalletModalProvider logo="./2d/logo.png">
+                      <NotificationsProvider>
+                        <Component {...pageProps} />
+                      </NotificationsProvider>
+                    </WalletModalProvider>
+                  </WalletProvider>
+                </ConnectionProvider>
+              </RpcUrlContext.Provider>
+            </MultiSigContext.Provider>
+          </AppMetaTagComponent>
+        </HelixContext.Provider>
       </PageContext.Provider>
     </ThemeContext.Provider>
   );
