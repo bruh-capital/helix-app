@@ -1,19 +1,12 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useContext } from "react";
 import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 import Image from "next/image";
 import { MintModal } from "./modals";
-import HelixWrapper from "helix-client";
+import helixContext from "@context/helixClientContext";
 
 export default function BondInterface(props) {
 	const [tokenMap, setTokenMap] = useState(new Map());
-
-	const {
-		createBondAccount,
-		// solBond,
-		// splBond,
-		redeemBonds,
-		collectCoupon,
-	} = HelixWrapper();
+	const {client} = useContext(helixContext);
 			
 	useEffect(() => {
 		new TokenListProvider().resolve().then(tokens => {
@@ -36,16 +29,20 @@ export default function BondInterface(props) {
 			<div className="bg-white rounded-box py-5">
 				<button
 					className="btn btn-primary mx-2"
-					onClick={createBondAccount}
+					onClick={() =>{client.createBondAccount()}}
 				>Create Bond Account</button>
 				<button
 					className="btn btn-primary mx-2"
-					onClick={redeemBonds}
+					onClick={() =>{client.redeemBonds()}}
 				>Redeem Bonds</button>
 				<button
 					className="btn btn-primary mx-2"
-					onClick={collectCoupon}
+					onClick={() =>{client.collectCoupon()}}
 				>Collect Coupons</button>
+				<button
+					className="btn btn-primary mx-2"
+					onClick={() =>{client.closeBondAccount()}}
+				>Close Bond Account</button>
 			</div>
 				<h2 className="card-title text-black text-4xl font-bold">Mint Bonds</h2>
 				<table className="table table-zebra w-full text-black">

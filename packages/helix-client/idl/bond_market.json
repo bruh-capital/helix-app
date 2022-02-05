@@ -47,6 +47,27 @@
       ]
     },
     {
+      "name": "closeAccount",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "bondAccount",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "accountBump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
       "name": "collectCoupon",
       "accounts": [
         {

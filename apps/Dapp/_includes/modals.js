@@ -1,49 +1,40 @@
-import { Fragment, useRef, useState , useEffect} from 'react'
+import { Fragment, useRef, useState , useEffect, useContext} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
-import HelixWrapper from 'helix-client';
+import helixContext from "@context/helixClientContext";
 import { notify } from 'reapop';
 import { BN } from '@project-serum/anchor';
 
 export function MintModal(props) {
   const [open, setOpen] = useState(false);
-
-  const {
-    helixClient,
-		createBondAccount,
-		solBond,
-		splBond,
-		// redeemBonds,
-		// collectCoupon,
-    getTokenAccountBalance,
-		getSolBalance,
-    getBondMarketInfo,
-	} = HelixWrapper();
+  const {client} = useContext(helixContext);
 
   const [bondMarket, setBondMarket] = useState();
 
   useEffect(async ()=>{
-    let market_raw = await getBondMarketInfo(props.bondAddr);
-    if(market_raw != undefined){
-      let market_parsed = {
-        couponRates: market_raw.couponRates.map((x)=>{return x.toNumber()}),
-        interestRate: market_raw.interestRate.toNumber(),
-        mint: market_raw.mint.toString(),
-      };
-      setBondMarket(market_parsed);
+    if(client){
+      let market_raw = await client.getBondMarketInfo(props.bondAddr);
+      if(market_raw){
+        let market_parsed = {
+          couponRates: market_raw.couponRates.map((x)=>{return x.toNumber()}),
+          interestRate: market_raw.interestRate.toNumber(),
+          mint: market_raw.mint.toString(),
+        };
+        setBondMarket(market_parsed);
+      }
     }
-  }, [helixClient]);
+  }, [client]);
 
 
   /// asset balance
   const [userAssetBalance, setUserAssetBalance] = useState(0);
   
   useEffect(async ()=>{
-    if ( helixClient != undefined ){
-      let val = props.bondName == "SOL" ? getSolBalance() : getTokenAccountBalance(props.bondAddr);
+    if ( client){
+      let val = props.bondName == "SOL" ? client.getSolBalance() : client.getTokenAccountBalance(props.bondAddr);
       setUserAssetBalance(await val);
     }    
-  },[helixClient])
+  },[client])
 
   /// how much user wants to receive
   const [redemptionValue, setRedemptionValue] = useState(0);
@@ -190,7 +181,7 @@ export function MintModal(props) {
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple-600 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() =>{
-                    hasAccount ? (props.bondName == "SOL" ? solBond(redemptionValue, maturity, "devnet") : splBond(redemptionValue, maturity, props.bondAddr, props.bondName, "devnet", props.bondDecimal)) : createBondAccount()
+                    hasAccount ? (props.bondName == "SOL" ? client.solBond(redemptionValue, maturity, "devnet") : client.splBond(redemptionValue, maturity, props.bondAddr, props.bondName, "devnet", props.bondDecimal)) : client.createBondAccount()
                   }}
                 >
                   {!hasAccount ? "Make Vault" : "Mint Bond"}

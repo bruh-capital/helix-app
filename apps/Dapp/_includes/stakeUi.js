@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Tab } from "@headlessui/react";
-import HelixWrapper from "helix-client";
+// import HelixWrapper from "helix-client";
+import helixContext from "@context/helixClientContext";
 
 // TODO(@millionz): make sure that the stats can be passed in as props
 // Add color changes for stat values
@@ -12,24 +13,17 @@ export default function StakeInterface(props) {
 	const [ stakeAmount, setStakeAmount ] = useState();
 	const [ unstakeAmount, setUnstakeAmount ] = useState();
 
-	const {
-		helixClient,
-		stakeToken,
-		unstakeToken,
-		changeLockupPeriod,
-		getUserVault,
-		getProtocolData,
-	} = HelixWrapper();
+	const {client} = useContext(helixContext);
 
 	const [userVault, setUserVault] = useState();
 	const [protocData, setProtocData] = useState();
 
 	useEffect(async ()=>{
-		if (helixClient != undefined){
-			setUserVault(await getUserVault());
-			setProtocData(await getProtocolData());
+		if (client.helixClient != undefined){
+			setUserVault(await client.getUserVault());
+			setProtocData(await client.getProtocolData());
 		}
-	}, [helixClient]);
+	}, [client.helixClient]);
 
 	const [lockupPeriod, setLockupPeriod] = useState();
 
@@ -72,7 +66,7 @@ export default function StakeInterface(props) {
 									/>
 									<button
 										className="btn btn-primary"
-										onClick={() => stakeToken(stakeAmount)}
+										onClick={() => client.stakeToken(stakeAmount)}
 									>Enter</button>
 								</div>
 								<div className="grid grid-rows-1 grid-flow-col gap-4 my-2">
@@ -85,7 +79,7 @@ export default function StakeInterface(props) {
 									/>
 									<button
 										className="btn btn-primary"
-										onClick={() => changeLockupPeriod(lockupPeriod)}
+										onClick={() => client.changeLockupPeriod(lockupPeriod)}
 									>Change Lockup</button>
 								</div>
 								</div>
@@ -101,7 +95,7 @@ export default function StakeInterface(props) {
 									/>
 									<button
 										className="btn btn-primary"
-										onClick={() => unstakeToken(unstakeAmount)}
+										onClick={() => client.unstakeToken(unstakeAmount)}
 									>
 										Enter
 									</button>

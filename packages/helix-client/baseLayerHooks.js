@@ -1,276 +1,134 @@
 import { useState } from "react";
 import { HelixNetwork } from "./baseContractUtils";
-import { useEffect, useMemo} from "react";
-import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { useNotifications } from "reapop";
 
 /**
  * Function that returns functions to use for helix
  * @returns {{bigass tuple of functions}}
  */
-export default function HelixWrapper() {
-	const { notify } = useNotifications();
-	const wallet = useAnchorWallet();
-	const [helixClient, setClient] = useState();
-
-	useEffect(() => {
-		if (!wallet || !wallet.publicKey) {
-			return;
-		}
-		setClient(new HelixNetwork(wallet));
-	},[wallet]); 
+export default function HelixWrapper(wallet) {
+	if (!wallet || !wallet.publicKey) {
+		return;
+	}
+	const helixClient = new HelixNetwork(wallet);
+	// console.log(helixClient);
 
 	const stakeToken = async (amount) => {
-		try {
-			await helixClient.Stake(amount);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Staking Failed"});
-		}
+		await helixClient.Stake(amount);
 	}
 	
 	const unstakeToken = async (amount) => {
-		try {
-			await helixClient.Unstake(amount);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Unstaking Failed"});
-		}
+		await helixClient.Unstake(amount);
 	}
 
 	const createUserAta = async () => {
-		try {
-			await helixClient.CreateUserATA();
-		} catch(e) {
-			notify(e.message.toString(), "error", {title: "ATA Creation Failed"});
-		}
+		await helixClient.CreateUserATA();
 	}
 
 	const createVault = async () => {
-		try {
-			await helixClient.InitializeUserVault();
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Vault Creation Failed"});
-		}
+		await helixClient.InitializeUserVault();
 	}
 
 	const createBondAccount = async() =>{
-		try {
-		 	await helixClient.InitBondAccount();
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Bond Account Creation Failed"});
-		}
+		await helixClient.InitBondAccount();
+	}
+
+	const closeBondAccount = async() =>{
+		await helixClient.CloseBondAccount();
 	}
 
 	const solBond = async(bond_price, maturity, connection) =>{
-		try {
-			await helixClient.SolBond(bond_price, maturity, connection);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "SOL Bond Creation Failed"});
-		}
+		await helixClient.SolBond(bond_price, maturity, connection);
 	}
 
 	const splBond = async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
-		try {
-			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "SPL Bond Creation Failed"});
-		}
+		await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
 	}
 
 	const redeemBonds = async() =>{
-		try {
-			await helixClient.RedeemBonds();
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Bond Redemption Failed"});
-		}
+		await helixClient.RedeemBonds();
 	}
 
 	const collectCoupon = async() =>{
-		try {
-			await helixClient.CollectCoupon();
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Coupon Collection Failed"});
-		}
+		await helixClient.CollectCoupon();
 	}
 
 	const changeLockupPeriod = async(duration) =>{
-		try {
-			await helixClient.ChangeLockup(duration);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Lockup Change Failed"});
-		}
+		await helixClient.ChangeLockup(duration);
 	}
 
 	const mintAndCloseIdoAccount = async() =>{
-		try {
-			await helixClient.MintAndCloseIDO();
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "IDO Mint and Close Failed"});
-		}
+		await helixClient.MintAndCloseIDO();
 	}
 
 	const idoDeposit = async(amount) =>{
-		try {
-			await helixClient.IDODeposit(amount);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "IDO Deposit Failed"});
-		}
+		await helixClient.IDODeposit(amount);
 	}
 
 	const idoWithdraw = async(amount) =>{
-		try {
-			await helixClient.IDOWithdraw(amount);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "IDO Withdraw Failed"});
-		}
+		await helixClient.IDOWithdraw(amount);
 	}
 
 	const getTokenAccountBalance = async(mint_addr) =>{
-		try {
-			return await helixClient.GetTokenAccountBalance(mint_addr);
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Get Token Acct Balance Failed"});
-		}
+		return await helixClient.GetTokenAccountBalance(mint_addr);
 	}
 
 	const getSolBalance = async() => {
-		try {
-			return await helixClient.GetSolBalance();
-		} catch (e) {
-			notify(e.message.toString(), "error", {title: "Get SOL Balance Failed"});
-		}
+		return await helixClient.GetSolBalance();
 	}
 
 	const getBondMarketInfo = async(mint_addr) => {
-		try{
-			if (helixClient == undefined){
-				return undefined
-			};
-			return await helixClient.FetchBondMarket(mint_addr);
-		} catch(e){
-			notify("Product: " + mint_addr + "\n" + e.message.toString(), "error", {title: "Get Bond Market Failed"});
-		}
+		return await helixClient.FetchBondMarket(mint_addr);
 	}
 
 	const getUserVault = async() =>{
-		try{
-			if (helixClient == undefined){
-				return undefined
-			};
-			return await helixClient.FetchUserVault();
-		}catch(e){
-			notify(e.message.toString(), "error", {title: "Get User Vault Failed"});
-		}
+		return await helixClient.FetchUserVault();
 	}
 
 	const getProtocolData = async() =>{
-		try{
-			if (helixClient == undefined){
-				return undefined
-			};
-			return await helixClient.FetchProtocolData();
-		}catch(e){
-			notify(e.message.toString(), "error", {title: "Get Protocol Data Failed"});
-		}
+		return await helixClient.FetchProtocolData();
 	}
 
 	const getProposals = async(government) =>{
-		try{
-			if (helixClient == undefined){
-				return undefined
-			};
-			return await helixClient.FetchProposals(government);
-		}catch(e){
-			notify(e.message.toString(), "error", {title: "Get Proposals Failed"});
-		}
+		return await helixClient.FetchProposals(government);
 	}
 	
 	// CreateProposal
 
 	const createProposal = async(government_address, title, description, expiration_weeks) =>{
-		try{
-			if (helixClient == undefined){
-				return undefined
-			};
-			return await helixClient.CreateProposal(government_address, title, description, expiration_weeks);
-		}catch(e){
-			notify(e.message.toString(), "error", {title: "Create Proposal Failed"});
-		}
+		return await helixClient.CreateProposal(government_address, title, description, expiration_weeks);
 	}
 
 	const castVote = async(proposal, choice) =>{
-		try{
-			if (helixClient == undefined){
-				return undefined
-			};
-			return await helixClient.CastVote(proposal, choice);
-		}catch(e){
-			notify(e.message.toString(), "error", {title: "Cast Vote Failed"});
-		}
+		return await helixClient.CastVote(proposal, choice);
 	}
 	
 	
 	const createGovernemnt = async(governed_program_id) =>{
-		try{
-			helixClient.CreateGovernment(governed_program_id);
-		}catch(e){
-			notify("couldnt create government", "error");
-		}
+		helixClient.CreateGovernment(governed_program_id);
 	}
 	const createBondMarket = async (mint) =>{
-		try{
-			helixClient.CreateBondMarket(mint);
-		}catch(e){
-			notify("coult not CreateBondMarket", "error");
-		}
+		helixClient.CreateBondMarket(mint);
 	}
 	const createHelixMint = async() =>{
-		try{
-			helixClient.CreateHelixMint();
-		}catch(e){
-			notify("coult not CreateHelixMint", "error");
-		}
+		helixClient.CreateHelixMint();
 	}
 	const governmentOwnedTokenAccount = async (mint, government) =>{
-		try{
-			helixClient.GovernmentOwnedTokenAccount(mint, government);
-		}catch(e){
-			notify("coult not GovernmentOwnedTokenAccount", "error");
-		}
+		helixClient.GovernmentOwnedTokenAccount(mint, government);
 	}
 	const multisigOwnedTokenAccount = async (mint) =>{
-		try{
-			helixClient.MultisigOwnedTokenAccount(mint);
-		}catch(e){
-			notify("coult not MultisigOwnedTokenAccount", "error");
-		}
+		helixClient.MultisigOwnedTokenAccount(mint);
 	}
 	const mintToAccount = async(mintToAccount, amount) =>{
-		try{
-			helixClient.MintToAccount(mintToAccount, amount);
-		}catch(e){
-			notify("coult not MintToAccount", "error");
-		}
+		helixClient.MintToAccount(mintToAccount, amount);
 	}
 	const rebase = async() =>{
-		try{
-			helixClient.Rebase();
-		}catch(e){
-			notify("coult not Rebase", "error");
-		}
+		helixClient.Rebase();
 	}
 	const changeRebaseRate = async() =>{
-		try{
-			helixClient.ChangeRebaseRate();
-		}catch(e){
-			notify("coult not ChangeRebaseRate", "error");
-		}
+		helixClient.ChangeRebaseRate();
 	}
 	const createBondSigner = async() =>{
-		try{
-			helixClient.CreateBondSigner();
-		}catch(e){
-			notify("coult not CreateBondSigner", "error");
-		}
+		helixClient.CreateBondSigner();
 	}
 
 	return { 
@@ -279,7 +137,8 @@ export default function HelixWrapper() {
 		unstakeToken, 
 		createUserAta, 
 		createVault,
-		createBondAccount, 
+		createBondAccount,
+		closeBondAccount,
 		solBond, 
 		splBond, 
 		redeemBonds, 

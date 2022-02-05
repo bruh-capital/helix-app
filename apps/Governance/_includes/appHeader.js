@@ -3,7 +3,6 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import {WalletButton} from '@includes/wallet';
 import ConnectionButton from '@includes/connection';
-import PageContext from '@context/pageContext';
 import ThemeContext from '@context/themeContext';
 import Image from 'next/image';
 
