@@ -33,12 +33,12 @@ export default function dashboardUi(props) {
 	const [proposalList, setProposalList] = useState();
 
 	useEffect(async ()=>{
-		if (client.helixClient != undefined){
+		if (client){
 			let proposals = await client.getProposals(fetchProposalsGovAddress);
 			console.log(proposals);
 			setProposalList(proposals);
 		}
-	}, [fetchProposalsGovAddress, client.helixClient])
+	}, [fetchProposalsGovAddress, client])
 
 
 	return(

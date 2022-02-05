@@ -43,10 +43,8 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "ChangeRebaseBumps"
-          }
+          "name": "protocolBump",
+          "type": "u8"
         },
         {
           "name": "newRate",
@@ -469,18 +467,6 @@
     }
   ],
   "types": [
-    {
-      "name": "ChangeRebaseBumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "protocolBump",
-            "type": "u8"
-          }
-        ]
-      }
-    },
     {
       "name": "MintCloseIdoBumps",
       "type": {
