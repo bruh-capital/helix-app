@@ -20,7 +20,7 @@ export default function dashboardUi(props) {
 	return(
 		<div className="my-5 grid md:grid-cols-3 md:grid-rows-1 sm:grid-cols-1 sm:grid-rows-4 place-content-center">
 
-			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<input
 					type="text"
 					placeholder="mint address"
@@ -38,7 +38,7 @@ export default function dashboardUi(props) {
 			</div>
 		
 
-			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<input
 					type="text"
 					placeholder="governed program"
@@ -87,7 +87,7 @@ export default function dashboardUi(props) {
 			</div>
 			
 
-			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<div className="grid grid-cols-2 mt-4 mb-4">
 				<input
 					type="number"
@@ -116,7 +116,7 @@ export default function dashboardUi(props) {
 			
 			
 			
-			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<input
 					type="number"
 					placeholder="rebase rate (every 10 is 1%)"
@@ -133,7 +133,7 @@ export default function dashboardUi(props) {
 			</div>
 			
 			
-			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 
 				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-full">
 					<button
