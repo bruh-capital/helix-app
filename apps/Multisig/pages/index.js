@@ -8,9 +8,6 @@ import BaseDappLayout from "@layouts/baseDappLayout";
 import DashboardUI from "@includes/dashboardUi";
 /// todo: add marketplace ui
 
-// Contexts
-import PageContext from "@context/pageContext";
-
 const PWAprompt = dynamic(
 	() => {
 	  return import('react-ios-pwa-prompt');
@@ -20,42 +17,10 @@ const PWAprompt = dynamic(
 
 // TODO: add conditional rendering for Bond/stake interface
 export default function AppPage({ bondsInfo }) {
-	const { page, setPage } = useContext(PageContext);
-
-	// TODO(@millionz): make on chain client to fetch data about protocol-
-	//					if no data is avaiable show loading
-	const tempDashData = [
-		{ 
-			label: "Total Value Deposited", 
-			values: undefined, // <- data that gets graphed goes in here
-		},
-		{ 
-			label: "Treasury Value", 
-			values: undefined, // <- data that gets graphed goes in here
-		},
-		{ 
-			label: "APY", 
-			values: undefined, // <- data that gets graphed goes in here
-		},
-		{ 
-			label: "HLX Staked", 
-			values: undefined, // <- data that gets graphed goes in here
-		},
-	];
-
 
 	return(
-		<BaseDappLayout>
-			<PWAprompt 
-				timesToShow={2}
-				permanentlyHideOnDismiss={false}
-				copyTitle="Add Helix to Home Screen"
-				copyClosePrompt="Close"
-			/>
-			<DashboardUI 
-			
-			protocolData={tempDashData}/> 
-		</BaseDappLayout>
+		<BaseDappLayout/>
+
 	)
 }
 

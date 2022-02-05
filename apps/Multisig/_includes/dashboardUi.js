@@ -18,84 +18,81 @@ export default function dashboardUi(props) {
 		}
 	},[client])
 	return(
-		<div className="my-5 grid md:grid-cols-1 md:grid-rows-1 sm:grid-cols-1 sm:grid-rows-4 place-content-center">
+		<div className="my-5 grid md:grid-cols-3 md:grid-rows-1 sm:grid-cols-1 sm:grid-rows-4 place-content-center">
 
-			<div className="bg-white rounded-box py-5 border-2 border-black">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<input
 					type="text"
-					placeholder="mint"
-					className="input input-bordered text-black"
+					placeholder="mint address"
+					className="input input-bordered text-gray bg-neutral mt-4 mb-4 w-full"
 					value={bondMarketMint || ''}
 					onChange={(e) => setBondMarketMintAddress(e.target.value)}
 				/>
-				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-1/4">
-					<h3 className="text-base text-4xl text-gray8">client.createBondMarket</h3>
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4">
 					<button
 						className="btn btn-primary mx-2"
 						onClick = {() =>{client.createBondMarket(bondMarketMint)}}
-					>client.createBondMarket</button>
+					>Create Bond Market</button>
 				</div>
 
 			</div>
 		
 
-			<div className="bg-white rounded-box py-5 border-2 border-black">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<input
 					type="text"
 					placeholder="governed program"
-					className="input input-bordered text-black"
+					className="input input-bordered text-gray bg-neutral w-full mt-4 mb-4"
 					value={governedProgram || ''}
 					onChange={(e) => setGovProgram(e.target.value)}
 				/>
 
 
-				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-1/4">
-					<h3 className="text-base text-4xl text-gray8">client.createGovernemnt</h3>
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4">
 					<button
 						className="btn btn-primary mx-2"
 						onClick = {() =>{client.createGovernemnt(governedProgram)}}
-					>client.createGovernemnt</button>
+					>Create Government</button>
 				</div>
 			</div>
 
-			<div className="grid grid-cols-2 bg-white rounded-box py-5 border-2 border-black">
+			<div className="grid grid-cols-1 bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#FFFFFF] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+				<div className="text-base text-4xl text-white">Create Token Account</div>
 				<input
 					type="text"
 					placeholder="mint"
-					className="input input-bordered text-black"
+					className="input input-bordered text-gray bg-neutral mt-2"
 					value={tokenAccountMint || ''}
 					onChange={(e) => setTokenAccountMintAddress(e.target.value)}
 				/>
 				<input
 					type="text"
 					placeholder="governed program address"
-					className="input input-bordered text-black"
+					className="input input-bordered text-gray bg-neutral mt-2 mb-2"
 					value={government || ''}
 					onChange={(e) => setGovernment(e.target.value)}
 				/>
-				<div className="grid grid-rows-1 grid-cols-2 my-2 gap-4">
-					<div className="text-base text-4xl text-gray8">create government owned token account</div>
+
+				<div className="grid grid-cols-2">
 					<button
-						className="btn btn-primary mx-2"
-						onClick = {() =>{client.governmentOwnedTokenAccount(mint, government)}}
-					>create</button>
-				</div>
-				
-				<div className="grid grid-rows-1 grid-cols-2 my-2 gap-4">
-					<h3 className="text-base text-4xl text-gray8">create multisig owned token account</h3>
+							className="btn btn-primary mx-2"
+							onClick = {() =>{client.governmentOwnedTokenAccount(mint, government)}}
+						>Gov Owned</button>
+					
 					<button
-						className="btn btn-primary mx-2"
-						onClick = {() =>{client.multisigOwnedTokenAccount(mint)}}
-					>create</button>
+							className="btn btn-primary mx-2"
+							onClick = {() =>{client.multisigOwnedTokenAccount(mint)}}
+						>Multisig Owned</button>
 				</div>
 			</div>
 			
 
-			<div className="bg-white rounded-box py-5 border-2 border-black">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+				<div className="grid grid-cols-2 mt-4 mb-4">
 				<input
 					type="number"
 					placeholder="mint amount"
-					className="input input-bordered text-black"
+					className="input input-bordered text-gray bg-neutral mr-6"
 					value={mintAmount || ''}
 					onChange={(e) => setMintAmount(e.target.value)}
 				/>
@@ -103,65 +100,60 @@ export default function dashboardUi(props) {
 				<input
 					type="text"
 					placeholder="mint to account"
-					className="input input-bordered text-black"
+					className="input input-bordered text-gray bg-neutral"
 					value={mintToAcc || ''}
 					onChange={(e) => setMintToAcc(e.target.value)}
 				/>
+				</div>
 
-				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-1/4">
-					<h3 className="text-base text-4xl text-gray8">client.mintToAccount</h3>
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4">
 					<button
 						className="btn btn-primary mx-2"
 						onClick = {() =>{client.mintToAccount(mintToAcc, mintAmount)}}
-					>client.mintToAccount</button>
+					>Mint To Account</button>
 				</div>
 			</div>
 			
 			
 			
-			<div className="bg-white rounded-box py-5 border-2 border-black">
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<input
 					type="number"
-					placeholder="client.rebase rate (every 10 is 1%)"
-					className="input input-bordered text-black"
+					placeholder="rebase rate (every 10 is 1%)"
+					className="input input-bordered text-gray bg-neutral w-full mt-4 mb-4"
 					value={rebaseRate || ''}
 					onChange={(e) => setRebaseRate(e.target.value)}
 				/>
-			<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-1/4">
-				<h3 className="text-base text-4xl text-gray8">client.changeRebaseRate</h3>
+			<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4">
 				<button
 					className="btn btn-primary mx-2"
 					onClick = {() =>{client.changeRebaseRate()}}
-				>client.changeRebaseRate</button>
+				>Change Rebase Rate</button>
 			</div>
 			</div>
 			
 			
-			<div className="bg-white rounded-box py-5 border-2 border-black">
-				<h3 className="text-base text-4xl text-gray8">DO NOT TOUCH UNLESS YOU KNOW WHAT YOU ARE DOING</h3>
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-[#E66EE9] rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 
-				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-1/4">
-					<h3 className="text-base text-4xl text-gray8">client.createHelixMint</h3>
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-full">
 					<button
 						className="btn btn-primary mx-2"
 						onClick = {() =>{client.createHelixMint()}}
-					>client.createHelixMint</button>
+					>Create Helix Mint</button>
 				</div>
 
-				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-1/4">
-					<h3 className="text-base text-4xl text-gray8">client.rebase</h3>
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-full">
 					<button
 						className="btn btn-primary mx-2"
 						onClick = {() =>{client.rebase()}}
-					>client.rebase</button>
+					>Rebase </button>
 				</div>
 
-				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-1/4">
-					<h3 className="text-base text-4xl text-gray8">client.createBondSigner</h3>
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-full">
 					<button
 						className="btn btn-primary mx-2"
 						onClick = {() =>{client.createBondSigner()}}
-					>client.createBondSigner</button>
+					>Create Bond Signer</button>
 				</div>
 			</div>
 		</div>
