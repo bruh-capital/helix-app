@@ -2,7 +2,8 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/helix-client/*"
   ],
   "bundledDependencies": [
     "helix-client"
