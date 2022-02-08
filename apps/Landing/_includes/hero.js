@@ -14,7 +14,7 @@ export default function Hero(props) {
 						Get more out of your tokens
 					</span>
 					<span
-						style={{"text-shadow": "0px 0px 10px #FFFFFF"}}
+						style={{"textShadow": "0px 0px 10px #FFFFFF"}}
 						className="absolute animate-pulse text-4xl md:text-7xl mb-2 px-6 md:px-0 py-2 font-bold text-transparent">
 						Get more out of your tokens
 					</span>
