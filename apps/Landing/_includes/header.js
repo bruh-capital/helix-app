@@ -5,7 +5,7 @@ import { ChevronDownIcon, ExternalLinkIcon, MenuIcon } from "@heroicons/react/so
 
 export default function Header(props) {
 	return(
-		<div className="sticky bg-transparant z-50">
+		<div className="static bg-transparant z-50">
 			<div className="mx-auto md:mx-10 px-4 sm:px-6">
 				<div className="flex justify-around items-center py-4">
 					<div className="flex flex-auto justify-start basis-1/4">
@@ -16,13 +16,13 @@ export default function Header(props) {
 						/>
 						<div className="text-3xl mt-5 ml-1 md:ml-3 text-white font-[Junegull] align-center text-center">HELIX</div>
 					</div>
-					<div className="hidden md:flex flex-grow justify-center space-x-8 text-[#909090]">
-						<button>Staking</button>
-						<button>Bonding</button>
-						<button>Governance</button>
+					<div className="hidden md:flex flex-grow justify-center space-x-8">
+						<button className="text-[#909090] hover:text-white">Staking</button>
+						<button className="text-[#909090] hover:text-white">Bonding</button>
+						<button className="text-[#909090] hover:text-white">Governance</button>
 						<Menu as="div">
 							<div>
-								<Menu.Button className="inline-flex justify-center">
+								<Menu.Button className="inline-flex justify-center text-[#909090]">
 									More
 									<ChevronDownIcon className="h-3 w-3 mt-2" aria-hidden="true"/>
 								</Menu.Button>
@@ -42,7 +42,7 @@ export default function Header(props) {
 											{({ active }) => (
 												<a
 													href="#"
-													className="group flex items-center px-2 py-2 text-sm"
+													className="group flex items-center px-2 py-2 text-sm text-[#909090] hover:text-white"
 												>
 													Helix
 												</a>
@@ -52,7 +52,7 @@ export default function Header(props) {
 											{({ active }) => (
 												<a
 													href="#"
-													className="group flex items-center px-2 py-2 text-sm"
+													className="group flex items-center px-2 py-2 text-sm text-[#909090] hover:text-white"
 												>
 													Rocks
 												</a>
