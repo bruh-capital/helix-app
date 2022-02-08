@@ -1,6 +1,7 @@
 const withTM = require('next-transpile-modules')([
   '@solana/wallet-adapter-react',
   '@solana/wallet-adapter-base',
+  'helix-client',
 ]);
 
 const withPWA = require('next-pwa');
