@@ -1,5 +1,6 @@
 {
   "name": "helix-client",
+  "private": true,
   "version": "1.0.0",
   "description": "bruh client for interacting with helix programs",
   "main": "baseLayerHooks.js",
