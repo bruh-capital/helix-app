@@ -22,7 +22,7 @@ export default function Header(props) {
 						<button className="text-[#909090] hover:text-white">Governance</button>
 						<Menu as="div">
 							<div>
-								<Menu.Button className="inline-flex justify-center text-[#909090]">
+								<Menu.Button className="inline-flex justify-center text-[#909090] hover:text-white">
 									More
 									<ChevronDownIcon className="h-3 w-3 mt-2" aria-hidden="true"/>
 								</Menu.Button>
