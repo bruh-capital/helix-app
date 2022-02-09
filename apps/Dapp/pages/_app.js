@@ -1,6 +1,7 @@
 import 'styles/globals.css';
 import { useState } from 'react';
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
+import Image from 'next/image';
 
 // Contexts
 import { ThemeProvider } from "next-themes";
@@ -14,11 +15,21 @@ function MyApp({ Component, pageProps }) {
     hlxPrice: 0,
   }); 
 
+  const icon = (
+    <Image
+      className="rounded-full"
+      src="/3d/4K_3D_circleicon.png"
+      width={48}
+      height={48}
+    />
+  );
+
   return(
     <WalletKitProvider
       defaultNetwork='devnet'
       app={{
-        name: 'Helix'
+        name: 'Helix',
+        icon:  icon,
       }}
     >
       <ProtocolContext.Provider value={{ data, setData }}>
