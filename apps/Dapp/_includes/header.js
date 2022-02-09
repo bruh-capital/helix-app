@@ -34,7 +34,7 @@ export default function Header(props) {
 						<div className="flex flex-row m-6 ml-16 space-x-14">
 						<button
 							className={
-								"rounded-md text-md px-4 font-semibold" +
+								"rounded-md text-md px-4 font-semibold " +
 								(layout == "dashboard"?
 									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 									"bg-transparent text-[#949494]"
@@ -44,7 +44,7 @@ export default function Header(props) {
 						>Dashboard</button>
 						<button
 							className={
-								"rounded-md text-md px-4 font-semibold" +
+								"rounded-md text-md px-4 font-semibold " +
 								(layout == "stake"?
 									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 									"bg-transparent text-[#949494]"
@@ -54,7 +54,7 @@ export default function Header(props) {
 						>Stake</button>
 						<button
 							className={
-								"rounded-md text-md px-4 font-semibold" +
+								"rounded-md text-md px-4 font-semibold " +
 								(layout == "bond"?
 									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 									"bg-transparent text-[#949494]"
