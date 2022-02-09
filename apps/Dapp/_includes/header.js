@@ -23,9 +23,10 @@ export default function Header(props) {
 							width={159}
 							layout="fixed"
 						/>
+						<div className="flex flex-row m-6 ml-16 align-items-middle space-x-14">
 						<button
 							className={
-								"rounded-xl px-4 py-2" +
+								"rounded-lg px-4 m-5" +
 								(layout == "dashboard"?
 									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#404040] dark:text-white dark:bg-opacity-75":
 									"text-md bg-transparent text-[#949494] font-md"
@@ -34,7 +35,7 @@ export default function Header(props) {
 						>Dashboard</button>
 						<button
 							className={
-								"rounded-xl px-4 py-2" +
+								"rounded-lg px-4 m-5" +
 								(layout == "stake"?
 									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#404040] dark:text-white dark:bg-opacity-75":
 									"text-md bg-transparent text-[#949494] font-md"
@@ -43,13 +44,14 @@ export default function Header(props) {
 						>Stake</button>
 						<button
 							className={
-								"rounded-xl px-4 py-2" +
+								"rounded-lg px-4 m-5" +
 								(layout == "bond"?
 									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#404040] dark:text-white dark:bg-opacity-75":
 									"text-md bg-transparent text-[#949494] font-md"
 								) 
 							}
 						>Bond</button>
+						</div>
 					</div>
 					<div className="flex justify-self-end h-full text-white text-md font-bold">
 					</div>

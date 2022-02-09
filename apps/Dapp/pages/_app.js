@@ -1,4 +1,5 @@
 import 'styles/globals.css';
+import { useState } from 'react';
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import { ThemeProvider } from "next-themes";
 import LayoutContext from '@context/layoutContext';
