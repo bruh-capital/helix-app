@@ -1,8 +1,11 @@
 import 'styles/globals.css';
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import { ThemeProvider } from "next-themes";
+import LayoutContext from '@context/layoutContext';
 
 function MyApp({ Component, pageProps }) {
+  const [ layout, setLayout ] = useState("dashboard");
+
   return(
     <WalletKitProvider
       defaultNetwork='devnet'
@@ -11,7 +14,9 @@ function MyApp({ Component, pageProps }) {
       }}
     >
       <ThemeProvider attribute='class'>
-        <Component {...pageProps} />
+        <LayoutContext.Provider value={{ layout, setLayout }}>
+          <Component {...pageProps} />
+        </LayoutContext.Provider>
       </ThemeProvider>
     </WalletKitProvider>
   );
