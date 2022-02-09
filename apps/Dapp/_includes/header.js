@@ -7,6 +7,7 @@ import { MoonIcon, SunIcon } from "@heroicons/react/outline"
 // Contexts
 import LayoutContext from "@context/layoutContext";
 import ProtocolContext from "@context/protocolDataContext";
+import { NonceAccount } from "@solana/web3.js";
 
 export default function Header(props) {
 	const { theme, setTheme } = useTheme();
@@ -20,19 +21,20 @@ export default function Header(props) {
 					<div className="flex h-full justify-self-start justify-around">
 						<Image 
 							src={ 
-								"/dapp-assets/Logo/" + 
+								"/3d/" + 
 								(theme == "light"? 
-								"lightmode.png":
-								"Darkmode.png")
+								"4K_3D_black.png":
+								"4K_3D_white.png")
 							}
-							height={89}
-							width={159}
+							height={90}
+							width={90}
 							layout="fixed"
 						/>
+						<div className="text-4xl my-auto -ml-3 text-[#3E3E3E] dark:text-white font-[Junegull] align-center text-center">HELIX</div>
 						<div className="flex flex-row m-6 ml-16 space-x-14">
 						<button
 							className={
-								"rounded-lg px-4 m-5" +
+								"rounded-md px-4 m-5" +
 								(layout == "dashboard"?
 									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#3A3D45] dark:text-white":
 									"text-md bg-transparent text-[#949494] font-md"
@@ -41,7 +43,7 @@ export default function Header(props) {
 						>Dashboard</button>
 						<button
 							className={
-								"rounded-lg px-4 m-5" +
+								"rounded-md px-4 m-5" +
 								(layout == "stake"?
 									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#3A3D45] dark:text-white":
 									"text-md bg-transparent text-[#949494] font-md"
@@ -50,7 +52,7 @@ export default function Header(props) {
 						>Stake</button>
 						<button
 							className={
-								"rounded-lg px-4 m-5" +
+								"rounded-md px-4 m-5" +
 								(layout == "bond"?
 									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#3A3D45] dark:text-white":
 									"text-md bg-transparent text-[#949494] font-md"
@@ -62,7 +64,13 @@ export default function Header(props) {
 					<div className="flex justify-self-end h-full text-white text-md font-bold">
 						<div className="flex flex-row items-center m-6 space-x-12">
 							<div className="text-black rounded-lg py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white ">{"$HLX: $" + data.hlxPrice}</div>
-							<ConnectWalletButton />
+							<ConnectWalletButton style={{
+								"boxShadow": "none",
+								"background":(theme === "light"?"#C8C7CA":"#3A3D45"),
+								"color":(theme === "light"?"#000000":"#FFFFFF"),
+								"borderRadius": "0.375rem",
+								}} 
+							/>
 							<button 
 								className="rounded-lg py-2 px-4 text-black bg-[#C8C7CA] dark:text-white dark:bg-[#3A3D45] font-bold" 
 								onClick={() => setTheme(theme === "light"?"dark":"light")}

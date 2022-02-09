@@ -19,3 +19,11 @@ body, html {
 	justify-content: center;
 	align-items: center;
 }
+
+
+@layer base {
+	@font-face {
+		font-family: 'Junegull';
+		src: url('https://helixdao.org/fonts/junegull/junegull.ttf') format('truetype');
+	}
+}
