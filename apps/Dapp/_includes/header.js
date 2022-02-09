@@ -34,48 +34,51 @@ export default function Header(props) {
 						<div className="flex flex-row m-6 ml-16 space-x-14">
 						<button
 							className={
-								"rounded-md px-4 m-5" +
+								"rounded-md text-md px-4 font-semibold" +
 								(layout == "dashboard"?
-									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#3A3D45] dark:text-white":
-									"text-md bg-transparent text-[#949494] font-md"
+									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
+									"bg-transparent text-[#949494]"
 								) 
 							}
-							onClick={() => {layout === "dashboard" && setLayout("dashboard")}}
+							onClick={() => {layout !== "dashboard" && setLayout("dashboard")}}
 						>Dashboard</button>
 						<button
 							className={
-								"rounded-md px-4 m-5" +
+								"rounded-md text-md px-4 font-semibold" +
 								(layout == "stake"?
-									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#3A3D45] dark:text-white":
-									"text-md bg-transparent text-[#949494] font-md"
+									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
+									"bg-transparent text-[#949494]"
 								) 
 							}
-							onClick={() => {layout === "stake" && setLayout("stake")}}
+							onClick={() => {layout !== "stake" && setLayout("stake")}}
 						>Stake</button>
 						<button
 							className={
-								"rounded-md px-4 m-5" +
+								"rounded-md text-md px-4 font-semibold" +
 								(layout == "bond"?
-									"text-md bg-[#C8C7CA] text-black font-bold dark:bg-[#3A3D45] dark:text-white":
-									"text-md bg-transparent text-[#949494] font-md"
+									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
+									"bg-transparent text-[#949494]"
 								) 
 							}
-							onClick={() => {layout === "bond" && setLayout("bond")}}
+							onClick={() => {layout !== "bond" && setLayout("bond")}}
 						>Bond</button>
 						</div>
 					</div>
-					<div className="flex justify-self-end h-full text-white text-md font-bold">
+					<div className="flex justify-self-end h-full">
 						<div className="flex flex-row items-center m-6 space-x-12">
-							<div className="text-black rounded-lg py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white ">{"$HLX: $" + data.hlxPrice}</div>
-							<ConnectWalletButton style={{
-								"boxShadow": "none",
-								"background":(theme === "light"?"#C8C7CA":"#3A3D45"),
-								"color":(theme === "light"?"#000000":"#FFFFFF"),
-								"borderRadius": "0.375rem",
-								}} 
-							/>
+							<div className="text-black rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white ">{"$HLX: $" + data.hlxPrice}</div>
+							<div className="">
+								<ConnectWalletButton style={{
+									"fontStyle": "normal",
+									"boxShadow": "none",
+									"background":(theme === "light"?"#C8C7CA":"#3A3D45"),
+									"color":(theme === "light"?"#000000":"#FFFFFF"),
+									"borderRadius": "0.375rem",
+									}} 
+								/>
+							</div>
 							<button 
-								className="rounded-lg py-2 px-4 text-black bg-[#C8C7CA] dark:text-white dark:bg-[#3A3D45] font-bold" 
+								className="rounded-md py-2 px-4 text-black bg-[#C8C7CA] dark:text-white dark:bg-[#3A3D45]" 
 								onClick={() => setTheme(theme === "light"?"dark":"light")}
 							>
 								{theme == "light"?
