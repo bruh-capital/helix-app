@@ -40,6 +40,7 @@ export default function Header(props) {
 									"text-md bg-transparent text-[#949494] font-md"
 								) 
 							}
+							onClick={() => {layout === "dashboard" && setLayout("dashboard")}}
 						>Dashboard</button>
 						<button
 							className={
@@ -49,6 +50,7 @@ export default function Header(props) {
 									"text-md bg-transparent text-[#949494] font-md"
 								) 
 							}
+							onClick={() => {layout === "stake" && setLayout("stake")}}
 						>Stake</button>
 						<button
 							className={
@@ -58,6 +60,7 @@ export default function Header(props) {
 									"text-md bg-transparent text-[#949494] font-md"
 								) 
 							}
+							onClick={() => {layout === "bond" && setLayout("bond")}}
 						>Bond</button>
 						</div>
 					</div>
