@@ -1,9 +1,8 @@
 import 'styles/globals.css';
-
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
+import { ThemeProvider } from "next-themes";
 
 function MyApp({ Component, pageProps }) {
-
   return(
     <WalletKitProvider
       defaultNetwork='devnet'
@@ -11,7 +10,9 @@ function MyApp({ Component, pageProps }) {
         name: 'Helix'
       }}
     >
-      <Component {...pageProps} />
+      <ThemeProvider attribute='class'>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </WalletKitProvider>
   );
 }
