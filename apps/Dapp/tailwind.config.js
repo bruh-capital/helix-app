@@ -8,6 +8,13 @@ module.exports = {
     "./_context/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: 'class', // or 'media' or 'class'
-  theme: {},
+  theme: {
+    backgroundImage: {
+      "lightDesktopBg": "url('/dapp-assets/backgrounds/lightdesktop.png')",
+      "darkDesktopBg": "url('/dapp-assets/backgrounds/darkdesktop.png')",
+      "lightMobileBg": "url('/dapp-assets/backgrounds/lightmobile.png')",
+      "darkMobilepBg": "url('/dapp-assets/backgrounds/darkmobile.png')",
+    },
+  },
   variants: {}
 }
