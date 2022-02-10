@@ -1,7 +1,8 @@
 import { createContext } from "react";
 
-const ProtocolDataContext = createContext({
-	protocolData: {}
+const ProtocolContext = createContext({
+	data: {},
+	setData: () => {},
 });
 
-export default ProtocolDataContext;
+export default ProtocolContext;
