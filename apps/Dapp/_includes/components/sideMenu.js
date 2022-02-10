@@ -52,7 +52,7 @@ export default function DappSideMenu(props) {
 												"/3d/" + 
 												(theme == "light"? 
 												"4K_3D_black.png":
-												"4K_3D_white.png")
+												"4k_3D_white.png")
 											}
 											height={120}
 											width={120}
@@ -94,7 +94,7 @@ export default function DappSideMenu(props) {
 													onClick={() => {layout !== "bond" && setLayout("bond")}}
 												>Bond</button>
 											</div>
-											<div>
+											<div className="flex ">
 												<a>
 													<div></div>
 												</a>
@@ -102,7 +102,7 @@ export default function DappSideMenu(props) {
 													<div></div>
 												</a>
 												<a>
-													<div></div>
+													<div><Image href/></div>
 												</a>
 											</div>
 										</div>
