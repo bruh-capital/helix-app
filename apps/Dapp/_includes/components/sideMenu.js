@@ -1,12 +1,14 @@
 import { Fragment, useContext, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
+import { CashIcon, ChartBarIcon, ExternalLinkIcon, InformationCircleIcon, LibraryIcon, ShoppingBagIcon, UsersIcon, XIcon } from '@heroicons/react/outline'
 import Image from 'next/image';
 
 import { useTheme } from 'next-themes';
 import LayoutContext from '@context/layoutContext';
+import ProtocolContext from '@context/protocolDataContext';
 
 export default function DappSideMenu(props) {
+	const { data, setData } = useContext(ProtocolContext);
 	const { theme, setTheme } = useTheme();
 	const { layout, setLayout } = useContext(LayoutContext);
 
@@ -46,7 +48,7 @@ export default function DappSideMenu(props) {
 											<XIcon className="h-6 w-6" aria-hidden="true" />
 										</button>
 									</div>
-									<div className="flex items-center justify-center">
+									<div className="flex items-center justify-center sm:-ml-6">
 										<Image 
 											src={ 
 												"/3d/" + 
@@ -65,7 +67,7 @@ export default function DappSideMenu(props) {
 											<div className="flex flex-col px-4 py-3 space-y-2 items-center">
 												<button
 													className={
-														"rounded-md text-xl px-4 py-2 font-semibold " +
+														"rounded-md text-xl px-4 py-2 font-semibold flex flex-row items-center " +
 														(layout == "dashboard"?
 															"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 															"bg-transparent text-[#949494]"
@@ -73,18 +75,12 @@ export default function DappSideMenu(props) {
 													}
 													onClick={() => {layout !== "dashboard" && setLayout("dashboard")}}
 												>
-													<span className="mr-2 mt-1">
-													<Image 
-														src={"/dapp-assets/icons/" + (theme === "dark" ? "darkmode/barGraph.png" : "lightmode/barGraph.png")}
-														height={24}
-														width={24}
-													/>
-													</span>
+													<ChartBarIcon className='m-auto mr-2 h-6 w-6' />
 													Dashboard
 												</button>
 												<button
 													className={
-														"rounded-md text-xl px-4 font-semibold " +
+														"rounded-md text-xl px-4 py-2 font-semibold flex flex-row items-center " +
 														(layout == "stake"?
 															"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 															"bg-transparent text-[#949494]"
@@ -92,18 +88,12 @@ export default function DappSideMenu(props) {
 													}
 													onClick={() => {layout !== "stake" && setLayout("stake")}}
 												>
-													<div className='m-2'>
-														<Image 
-															src={"/dapp-assets/icons/" + (theme === "dark" ? "darkmode/dollar.png" : "lightmode/dollar.png")}
-															height={24}
-															width={24}
-														/>
-													</div>
+													<CashIcon className='m-auto mr-2 h-6 w-6' />
 													Stake
 												</button>
 												<button
 													className={
-														"rounded-md text-xl px-4 font-semibold " +
+														"rounded-md text-xl px-4 py-2 font-semibold flex flex-row items-center " +
 														(layout == "bond"?
 															"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 															"bg-transparent text-[#949494]"
@@ -111,24 +101,52 @@ export default function DappSideMenu(props) {
 													}
 													onClick={() => {layout !== "bond" && setLayout("bond")}}
 												>
-													<Image 
-														src={"/dapp-assets/icons/" + (theme === "dark" ? "darkmode/withdrawal.png" : "lightmode/withdrawal.png")}
-														height={24}
-														width={24}
-													/>
+													<LibraryIcon className='m-auto mr-2 h-6 w-6' />
 													Bond
 												</button>
 											</div>
-											<div className="flex ">
-												<a>
-													<div></div>
+											<div className="flex flex-col m-auto w-1/2">
+												<div aria-hidden="true"/>
+												<a className="flex">
+													<div className="flex flex-row items-center">
+														<InformationCircleIcon className="h-6 w-6 mr-3"/>
+														Learn
+														<ExternalLinkIcon className="h-3 w-3 ml-1"/>
+													</div>
 												</a>
-												<a>
-													<div></div>
+												<a className="flex">
+													<div className="flex flex-row items-center">
+														<UsersIcon className="h-6 w-6 mr-3"/>
+														Governance
+														<ExternalLinkIcon className="h-3 w-3 ml-1"/>
+													</div>
 												</a>
-												<a>
-													<div></div>
+												<a className="flex">
+													<div className="flex flex-row items-center">
+														<ShoppingBagIcon className="h-6 w-6 mr-3"/>
+														Marketplace
+														<ExternalLinkIcon className="h-3 w-3 ml-1"/>
+													</div>
 												</a>
+											</div>
+											<div className="flex flex-row gap-4">
+												<div className="flex flex-row gap-2 rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
+													<a href="https://twitter.com/Helix_DAO">
+														<Image src="/landingassets/landingpage/icons/twitter.png" height={29} width={29} />
+													</a>
+													<a href="https://github.com/bruh-capital">
+														<Image src="/landingassets/landingpage/icons/Vector.png" height={25} width={25} />
+													</a>
+													<a>
+														<Image src="/landingassets/landingpage/icons/Frame 1.png" height={32} width={32} />
+													</a>
+													<a>
+														<Image src="/landingassets/landingpage/icons/image 24.png" height={29} width={29} />
+													</a>
+												</div>
+												<div className="flex rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
+													$HLX:<span className={data?.lastHlxPrice > data?.hlxPrice ? "text-red-500" : "text-green-500"}>{"$" + data?.hlxPrice}</span>
+												</div>
 											</div>
 										</div>
 									</div>
