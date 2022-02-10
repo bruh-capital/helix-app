@@ -5,8 +5,8 @@ export default function DappLayout(props) {
 	return(
 		<main>
 			<MetaTagComponent />
-			<body className="bg-lightDesktopBg bg-cover dark:bg-darkDesktopBg">
-			<Header />
+			<body className="bg-darkMobileBg bg-cover w-full">
+				<Header />
 			</body>
 		</main>
 	)
