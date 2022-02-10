@@ -1,8 +1,8 @@
 export default class KeyStore{
     constructor(){
-        
         this.pubKey;
         this.privKey;
+        this.loadKeys();
     }
 
     // i think this also returns a promise. should be awaited
@@ -18,7 +18,9 @@ export default class KeyStore{
         };
 
         getData.onerror = function (event){
-          console.log("your keys have not been made yet");
+          console.log("your keys have not been made yet :(");
+          console.log("generating...");
+          this.genKeyPair();
         };
 
       })
@@ -29,7 +31,8 @@ export default class KeyStore{
       this.accessDB(function (store) {
         var getData = store.get("self");
         getData.onsuccess = function(event) {
-          return event.target.result.keys.shared;
+            console.log("fetched shared key for: ", name);
+            return event.target.result.keys.shared;
         };
 
         getData.onerror = function (event){
@@ -75,57 +78,67 @@ export default class KeyStore{
           ["deriveKey", "deriveBits"]
         );
       
-        const publicKeyJwk = await window.crypto.subtle.exportKey(
-          "jwk",
+        const publicKeyRaw = await window.crypto.subtle.exportKey(
+          "raw",
           keyPair.publicKey
         );
       
-        const privateKeyJwk = await window.crypto.subtle.exportKey(
-          "jwk",
+        const privateKeyRaw = await window.crypto.subtle.exportKey(
+          "raw",
           keyPair.privateKey
         );
       
         this.accessDB(function (store) {
-          store.put({name: "self", keys: {pub: publicKeyJwk, priv :privateKeyJwk}});
-        })
+          store.put({name: "self", keys: {pub: publicKeyRaw, priv :privateKeyRaw}});
+        });
+
+        this.pubKey = publicKeyRaw;
+        this.privKey = privateKeyRaw;
+        
+        console.log("generated and set keypair");
     };
 
-    deriveSharedKey(publicKeyJwk, privateKeyJwk, sender) {
-      const publicKey = await window.crypto.subtle.importKey(
-        "jwk",
-        publicKeyJwk,
-        {
-          name: "ECDH",
-          namedCurve: "P-256",
-        },
-        true,
-        []
-      );
+    deriveSharedKey(publicKeyRaw, sender) {
+        console.log("deriving shared key");
+        const publicKey = await window.crypto.subtle.importKey(
+            "raw",
+            publicKeyRaw,
+            {
+            name: "ECDH",
+            namedCurve: "P-256",
+            },
+            true,
+            []
+        );
     
-      const privateKey = await window.crypto.subtle.importKey(
-        "jwk",
-        privateKeyJwk,
-        {
-          name: "ECDH",
-          namedCurve: "P-256",
-        },
-        true,
-        ["deriveKey", "deriveBits"]
-      );
+    //   const privateKey = await window.crypto.subtle.importKey(
+    //     "raw",
+    //     privateKeyRaw,
+    //     {
+    //       name: "ECDH",
+    //       namedCurve: "P-256",
+    //     },
+    //     true,
+    //     ["deriveKey", "deriveBits"]
+    //   );
+
+    const privateKey = this.privkey;
     
-      const sharedKey = await window.crypto.subtle.deriveKey(
-        { name: "ECDH", public: publicKey },
-        privateKey,
-        { name: "AES-GCM", length: 256 },
-        true,
-        ["encrypt", "decrypt"]
-      );
+        const sharedKey = await window.crypto.subtle.deriveKey(
+            { name: "ECDH", public: publicKey },
+            privateKey,
+            { name: "AES-GCM", length: 256 },
+            true,
+            ["encrypt", "decrypt"]
+        );
 
-      this.accessDB(function (store) {
-        store.put({name: sender, keys: {shared: sharedKey}});
-      })
+        this.accessDB(function (store) {
+            store.put({name: sender, keys: {shared: sharedKey}});
+        })
 
-      return sharedKey;
+        console.log("derived and stored shared key for: ", sender);
+
+        return sharedKey;
     };
 
     encrypt(text, derivedKey) {
