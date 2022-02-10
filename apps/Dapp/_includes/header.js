@@ -82,9 +82,9 @@ export default function Header(props) {
 										{({ open }) => (
 											<>
 												<Popover.Button
-													className="px-3 py-2 rounded-md text-black bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white text-ellipsis font-bold"
+													className="px-3 py-2 rounded-md text-black bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white text-ellipsis font-normal"
 												>
-												<span>{"🔑 " + wallet?.publicKey?.toString()?.slice(0, 10) + "..."}</span>
+												<span>{"🔑 " + wallet?.publicKey?.toString()?.slice(0, 6) + "..."}</span>
 												</Popover.Button>
 												<Transition
 													as={Fragment}
