@@ -93,8 +93,16 @@ export default function Header(props) {
 													<Popover.Panel className="absolute z-50 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0">
 														<div className="overflow-hidden bg-opacity-75 rounded-md shadow-md bg-white dark:bg-black dark:bg-opacity-75">
 															<div className="relative grid p-4 grid-cols-1 space-y-3">
-																<button className="rounded-md py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white">Change to Devnet</button>
-																<button className="rounded-md py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white">Disconnect</button>
+																<button
+																	className="rounded-md py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white"
+																	onClick={() => {
+																		setNetwork("devnet")
+																	}}
+																>Change to Devnet</button>
+																<button
+																	className="rounded-md py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white"
+																	onClick={disconnect}
+																>Disconnect</button>
 															</div>
 														</div>
 													</Popover.Panel>
