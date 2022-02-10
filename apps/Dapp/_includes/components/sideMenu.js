@@ -65,14 +65,23 @@ export default function DappSideMenu(props) {
 											<div className="flex flex-col px-4 py-3 space-y-2 items-center">
 												<button
 													className={
-														"rounded-md text-xl px-4 font-semibold " +
+														"rounded-md text-xl px-4 py-2 font-semibold " +
 														(layout == "dashboard"?
 															"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 															"bg-transparent text-[#949494]"
 														) 
 													}
 													onClick={() => {layout !== "dashboard" && setLayout("dashboard")}}
-												>Dashboard</button>
+												>
+													<span className="mr-2 mt-1">
+													<Image 
+														src={"/dapp-assets/icons/" + (theme === "dark" ? "darkmode/barGraph.png" : "lightmode/barGraph.png")}
+														height={24}
+														width={24}
+													/>
+													</span>
+													Dashboard
+												</button>
 												<button
 													className={
 														"rounded-md text-xl px-4 font-semibold " +
@@ -82,7 +91,16 @@ export default function DappSideMenu(props) {
 														) 
 													}
 													onClick={() => {layout !== "stake" && setLayout("stake")}}
-												>Stake</button>
+												>
+													<div className='m-2'>
+														<Image 
+															src={"/dapp-assets/icons/" + (theme === "dark" ? "darkmode/dollar.png" : "lightmode/dollar.png")}
+															height={24}
+															width={24}
+														/>
+													</div>
+													Stake
+												</button>
 												<button
 													className={
 														"rounded-md text-xl px-4 font-semibold " +
@@ -92,7 +110,14 @@ export default function DappSideMenu(props) {
 														) 
 													}
 													onClick={() => {layout !== "bond" && setLayout("bond")}}
-												>Bond</button>
+												>
+													<Image 
+														src={"/dapp-assets/icons/" + (theme === "dark" ? "darkmode/withdrawal.png" : "lightmode/withdrawal.png")}
+														height={24}
+														width={24}
+													/>
+													Bond
+												</button>
 											</div>
 											<div className="flex ">
 												<a>
@@ -102,7 +127,7 @@ export default function DappSideMenu(props) {
 													<div></div>
 												</a>
 												<a>
-													<div><Image href/></div>
+													<div></div>
 												</a>
 											</div>
 										</div>
