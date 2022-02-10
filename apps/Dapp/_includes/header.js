@@ -40,7 +40,7 @@ export default function Header(props) {
 						<div className="hidden flex-row my-6 ml-16 space-x-6 lg:flex lg:space-x-10">
 							<button
 								className={
-									"rounded-md text-md px-4 font-semibold " +
+									"rounded-md text-md px-4 font-normal " +
 									(layout == "dashboard"?
 										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 										"bg-transparent text-[#949494]"
@@ -50,7 +50,7 @@ export default function Header(props) {
 							>Dashboard</button>
 							<button
 								className={
-									"rounded-md text-md px-4 font-semibold " +
+									"rounded-md text-md px-4 font-normal " +
 									(layout == "stake"?
 										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 										"bg-transparent text-[#949494]"
@@ -60,7 +60,7 @@ export default function Header(props) {
 							>Stake</button>
 							<button
 								className={
-									"rounded-md text-md px-4 font-semibold " +
+									"rounded-md text-md px-4 font-normal " +
 									(layout == "bond"?
 										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 										"bg-transparent text-[#949494]"
@@ -97,13 +97,13 @@ export default function Header(props) {
 														<div className="overflow-hidden bg-opacity-75 rounded-md shadow-md bg-white dark:bg-black dark:bg-opacity-75">
 															<div className="relative grid p-4 grid-cols-1 space-y-3">
 																<button
-																	className="rounded-md py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white"
+																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white"
 																	onClick={() => {
 																		setNetwork("devnet")
 																	}}
 																>Change to Devnet</button>
 																<button
-																	className="rounded-md py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white"
+																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white"
 																	onClick={disconnect}
 																>Disconnect</button>
 															</div>
@@ -115,6 +115,7 @@ export default function Header(props) {
 									</Popover>
 								) : (
 									<ConnectWalletButton style={{
+										"fontWeight": "normal",
 										"boxShadow": "none",
 										"background":(theme === "light"?"#C8C7CA":"#3A3D45"),
 										"color":(theme === "light"?"#000000":"#FFFFFF"),

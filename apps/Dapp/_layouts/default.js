@@ -11,8 +11,8 @@ export default function DappLayout(props) {
 			<body 
 				className={
 					theme === "light" ? 
-						"bg-lightMobileBg sm:bg-lightDesktopBg" :
-						"bg-darkMobileBg sm:bg-darkDesktopBg"
+						"bg-lightMobileBg sm:bg-lightDesktopBg bg-cover" :
+						"bg-darkMobileBg sm:bg-darkDesktopBg bg-cover"
 				}
 			>
 				<Header />
