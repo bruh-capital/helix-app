@@ -10,9 +10,6 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      backgroundImage: {
-        'hero-gradient': "url('/pageassets/DappBg.png')",
-      },
       colors: {
         gray1: "#FFFFFF",
         gray2: "#FAFAFA",
