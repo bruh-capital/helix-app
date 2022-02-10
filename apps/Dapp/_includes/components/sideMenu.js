@@ -40,7 +40,7 @@ export default function DappSideMenu(props) {
 									<div className="flex items-center justify-start px-4 pt-4 pb-0">
 										<button
 											type="button"
-											className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+											className="rounded-md text-[#3E3E3E] dark:hover:text-white hover:text-black"
 											onClick={() => props.setOpen(false)}
 										>
 											<XIcon className="h-6 w-6" aria-hidden="true" />
@@ -65,7 +65,7 @@ export default function DappSideMenu(props) {
 											<div className="flex flex-col px-4 py-3 space-y-2 items-center">
 												<button
 													className={
-														"rounded-md text-md px-4 font-semibold " +
+														"rounded-md text-xl px-4 font-semibold " +
 														(layout == "dashboard"?
 															"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 															"bg-transparent text-[#949494]"
@@ -75,7 +75,7 @@ export default function DappSideMenu(props) {
 												>Dashboard</button>
 												<button
 													className={
-														"rounded-md text-md px-4 font-semibold " +
+														"rounded-md text-xl px-4 font-semibold " +
 														(layout == "stake"?
 															"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 															"bg-transparent text-[#949494]"
@@ -85,7 +85,7 @@ export default function DappSideMenu(props) {
 												>Stake</button>
 												<button
 													className={
-														"rounded-md text-md px-4 font-semibold " +
+														"rounded-md text-xl px-4 font-semibold " +
 														(layout == "bond"?
 															"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 															"bg-transparent text-[#949494]"
@@ -93,6 +93,17 @@ export default function DappSideMenu(props) {
 													}
 													onClick={() => {layout !== "bond" && setLayout("bond")}}
 												>Bond</button>
+											</div>
+											<div>
+												<a>
+													<div></div>
+												</a>
+												<a>
+													<div></div>
+												</a>
+												<a>
+													<div></div>
+												</a>
 											</div>
 										</div>
 									</div>
