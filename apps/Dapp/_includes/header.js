@@ -30,7 +30,7 @@ export default function Header(props) {
 								"/3d/" + 
 								(theme == "light"? 
 								"4K_3D_black.png":
-								"4K_3D_white.png")
+								"4k_3D_white.png")
 							}
 							height={90}
 							width={90}

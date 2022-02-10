@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
   const icon = (
     <Image
       className="rounded-full"
-      src="/3d/4K_3D_circleicon.png"
+      src="/3d/4k_3D_circleicon.png"
       width={48}
       height={48}
     />
