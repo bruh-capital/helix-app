@@ -72,7 +72,9 @@ export default function Header(props) {
 					</div>
 					<div className="flex md:justify-self-end h-full">
 						<div className="flex flex-row items-center m-6 space-x-4 md:space-x-10">
-							<div className="text-black font-bold rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white hidden md:flex">{"$HLX: $" + data.hlxPrice}</div>
+							<div className="text-black font-normal rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white hidden md:flex">
+								$HLX:<span className={data?.lastHlxPrice > data?.hlxPrice ? "text-red-500" : "text-green-500"}>{"$" + data?.hlxPrice}</span>
+							</div>
 							{
 								wallet ? 
 								(
