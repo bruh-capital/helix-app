@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { useTheme } from 'next-themes';
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useState } from "react";
 import { ConnectWalletButton } from "@gokiprotocol/walletkit";
 import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
-import { MoonIcon, SunIcon } from "@heroicons/react/outline"
+import { MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
 import { Popover, Transition } from "@headlessui/react";
+import SideMenu from "@includes/components/sideMenu";
 
 // Contexts
 import LayoutContext from "@context/layoutContext";
@@ -17,8 +18,10 @@ export default function Header(props) {
 	const wallet = useConnectedWallet();
 	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
 
+	const [ menuOpen, setMenuOpen ] = useState(false);
+
 	return(
-		<div className="static bg-[#E1E1E1] dark:bg-[#191B1F] z-50">
+		<div className="static bg-[#E1E1E1] dark:bg-[#191B1F] z-50 w-full overflow-hidden duration-300">
 			<div className="mx-auto">
 				<div className="flex flex-row justify-between">
 					<div className="flex h-full justify-self-start justify-around">
@@ -33,43 +36,43 @@ export default function Header(props) {
 							width={90}
 							layout="fixed"
 						/>
-						<div className="text-4xl my-auto -ml-3 text-[#3E3E3E] dark:text-white font-[Junegull] align-center text-center">HELIX</div>
-						<div className="flex flex-row m-6 ml-16 space-x-6 md:space-x-10">
-						<button
-							className={
-								"rounded-md text-md px-4 font-semibold " +
-								(layout == "dashboard"?
-									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
-									"bg-transparent text-[#949494]"
-								) 
-							}
-							onClick={() => {layout !== "dashboard" && setLayout("dashboard")}}
-						>Dashboard</button>
-						<button
-							className={
-								"rounded-md text-md px-4 font-semibold " +
-								(layout == "stake"?
-									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
-									"bg-transparent text-[#949494]"
-								) 
-							}
-							onClick={() => {layout !== "stake" && setLayout("stake")}}
-						>Stake</button>
-						<button
-							className={
-								"rounded-md text-md px-4 font-semibold " +
-								(layout == "bond"?
-									"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
-									"bg-transparent text-[#949494]"
-								) 
-							}
-							onClick={() => {layout !== "bond" && setLayout("bond")}}
-						>Bond</button>
+						<div className="hidden sm:flex sm:text-2xl md:text-4xl my-auto -ml-3 text-[#3E3E3E] dark:text-white font-[Junegull] align-center text-center">HELIX</div>
+						<div className="hidden flex-row my-6 ml-16 space-x-6 lg:flex lg:space-x-10">
+							<button
+								className={
+									"rounded-md text-md px-4 font-semibold " +
+									(layout == "dashboard"?
+										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
+										"bg-transparent text-[#949494]"
+									) 
+								}
+								onClick={() => {layout !== "dashboard" && setLayout("dashboard")}}
+							>Dashboard</button>
+							<button
+								className={
+									"rounded-md text-md px-4 font-semibold " +
+									(layout == "stake"?
+										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
+										"bg-transparent text-[#949494]"
+									) 
+								}
+								onClick={() => {layout !== "stake" && setLayout("stake")}}
+							>Stake</button>
+							<button
+								className={
+									"rounded-md text-md px-4 font-semibold " +
+									(layout == "bond"?
+										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
+										"bg-transparent text-[#949494]"
+									) 
+								}
+								onClick={() => {layout !== "bond" && setLayout("bond")}}
+							>Bond</button>
 						</div>
 					</div>
-					<div className="flex justify-self-end h-full">
-						<div className="flex flex-row items-center m-6 space-x-10">
-							<div className="text-black font-bold rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white ">{"$HLX: $" + data.hlxPrice}</div>
+					<div className="flex md:justify-self-end h-full">
+						<div className="flex flex-row items-center m-6 space-x-4 md:space-x-10">
+							<div className="text-black font-bold rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white hidden md:flex">{"$HLX: $" + data.hlxPrice}</div>
 							{
 								wallet ? 
 								(
@@ -112,7 +115,6 @@ export default function Header(props) {
 									</Popover>
 								) : (
 									<ConnectWalletButton style={{
-										"fontStyle": "normal",
 										"boxShadow": "none",
 										"background":(theme === "light"?"#C8C7CA":"#3A3D45"),
 										"color":(theme === "light"?"#000000":"#FFFFFF"),
@@ -122,7 +124,7 @@ export default function Header(props) {
 								)
 							}
 							<button 
-								className="rounded-md py-2 px-4 text-black bg-[#C8C7CA] dark:text-white dark:bg-[#3A3D45]" 
+								className="rounded-md p-2 md:py-2 md:px-4 text-black bg-[#C8C7CA] dark:text-white dark:bg-[#3A3D45]" 
 								onClick={() => setTheme(theme === "light"?"dark":"light")}
 							>
 								{theme == "light"?
@@ -130,6 +132,13 @@ export default function Header(props) {
 									(<SunIcon className="h-6 w-6" />)
 								}
 							</button>
+							<button
+								className="my-auto rounded-md ml-4 p-2 lg:hidden bg-[#C8C7CA] dark:bg-[#3A3D45]"
+								onClick={() => setMenuOpen(!menuOpen)}
+							>
+								<MenuIcon className="text-black dark:text-white h-6 w-6" />
+							</button>
+							<SideMenu open={menuOpen} setOpen={setMenuOpen} />
 						</div>
 					</div>
 				</div>
