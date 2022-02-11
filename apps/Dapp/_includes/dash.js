@@ -8,18 +8,18 @@ export default function Dash(props) {
 		<div className="h-screen -mt-24 content-center items-center py-36" >
 			<div className="grid relative grid-cols-2 grid-rows-6 lg:grid-rows-3 w-full px-8 md:px-24 h-full space-y-8">
 				<div className="flex col-span-2 row-span-1 rounded-xl bg-mesh-1-bg bg-cover">
-					<div className="flex flex-row px-4 md:px-12 my-auto justify-around align-center w-full">
-						<div className="flex flex-col basis-3/4 h-full">
-							<span className="basis-full md:basis-3/4 text-xl md:text-4xl xl:text-7xl md:mb-2 py-2 font-bold text-white">
+					<div className="flex flex-row px-4 xl:px-14 py-auto my-auto md:my-4 lg:my-auto justify-around align-center w-full">
+						<div className="flex flex-col basis-3/4 h-full items-start align-middle">
+							<span className="basis-full md:basis-3/4 text-xl md:text-3xl lg:text-6xl xl:text-7xl max-w-3xl md:my-auto py-2 font-bold text-white">
 								Helix is exclusively available on Solana.
 							</span>
-							<span className="hidden md:flex font-bold basis-1/4 text-xs md:text-xl xl:font-3xl text-white">
+							<span className="hidden lg:flex md:hidden sm:flex font-bold basis-1/4 text-xs md:text-xl xl:font-3xl text-white">
 								Discover physical and digital marketplaces and more!
 							</span>	
 						</div>
-						<div className="md:flex justify-center align-center basis-1/4">
+						<div className="justify-center basis-1/4 align-middle my-auto">
 						{/* Scaling is so bad XD so this is my hack fix */}
-							<div className="hidden lg:flex">
+							<div className="hidden lg:flex justify-center place-content-center">
 								<Image 
 									src="/dapp-assets/Card/1/stats.png"
 									height={175}
@@ -27,7 +27,7 @@ export default function Dash(props) {
 									layout="fixed"
 								/>
 							</div>
-							<div className="flex lg:hidden">
+							<div className="flex lg:hidden justify-center place-content-center">
 								<Image 
 									src="/dapp-assets/Card/1/stats.png"
 									height={75}
