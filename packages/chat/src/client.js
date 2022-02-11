@@ -50,7 +50,7 @@ export default class WsClient {
       let name = text.substring(0, text.indexOf(":"));
       let encrypted = text.substring(text.indexOf(":")+1);
       let dk = this.keystore.loadSharedKey(name);
-      return this.keystore.decrypt(encrypted, dk);
+      return {from:name,data:this.keystore.decrypt(encrypted, dk)};
     }
 
     fetchMessages(){
