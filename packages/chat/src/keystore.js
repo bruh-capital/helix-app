@@ -1,3 +1,5 @@
+const helpers = require("./helpers");
+
 export default class KeyStore{
     constructor(){
         this.pubKey;
@@ -68,7 +70,7 @@ export default class KeyStore{
       }
     }
 
-    genKeyPair() {
+    async genKeyPair() {
         const keyPair = await window.crypto.subtle.generateKey(
           {
             name: "ECDH",
@@ -78,31 +80,21 @@ export default class KeyStore{
           ["deriveKey", "deriveBits"]
         );
       
-        const publicKeyRaw = await window.crypto.subtle.exportKey(
-          "raw",
-          keyPair.publicKey
-        );
-      
-        const privateKeyRaw = await window.crypto.subtle.exportKey(
-          "raw",
-          keyPair.privateKey
-        );
-      
         this.accessDB(function (store) {
           store.put({name: "self", keys: {pub: publicKeyRaw, priv :privateKeyRaw}});
         });
 
-        this.pubKey = publicKeyRaw;
-        this.privKey = privateKeyRaw;
+        this.pubKey = keyPair.publicKey;
+        this.privKey = keyPair.privateKey;
         
         console.log("generated and set keypair");
     };
 
-    deriveSharedKey(publicKeyRaw, sender) {
+    async deriveSharedKey(publicKeyPem, sender) {
       console.log("deriving shared key");
       const publicKey = await window.crypto.subtle.importKey(
-          "raw",
-          publicKeyRaw,
+          "spki",
+          helpers.convertPemToBinary(publicKeyPem),
           {
           name: "ECDH",
           namedCurve: "P-256",
@@ -141,7 +133,7 @@ export default class KeyStore{
       return sharedKey;
     };
 
-    encrypt(text, derivedKey) {
+    async encrypt(text, derivedKey) {
       const encodedText = new TextEncoder().encode(text);
     
       const encryptedData = await window.crypto.subtle.encrypt(
@@ -159,7 +151,7 @@ export default class KeyStore{
       return base64Data;
     };
 
-    decrypt(messageJSON, derivedKey) {
+    async decrypt(messageJSON, derivedKey) {
       try {
         const message = JSON.parse(messageJSON);
         const text = message.base64Data;
@@ -184,6 +176,10 @@ export default class KeyStore{
         return `error decrypting message: ${e}`;
       }
     };
+
+    async exportPubKey(){
+      return await helpers.exportPublicKey(this.pubkey)
+    }
 
     closeChat(recipient){
       this.accessDB(function (store) {

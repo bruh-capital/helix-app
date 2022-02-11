@@ -8,11 +8,7 @@ export default class WsClient {
       this.socket = new WebSocket("ws://localhost:8080/ws?username="+name);
       this.keystore = new keystore();
 
-      this.socket.onmessage = this.decryptMessage;
-
-      this.socket.onclose = function(event){
-        console.log("socket closed? if you are a developer, check the chat backend. something went wrong");
-      };
+      this.socket.onmessage = this.filterMessageType;
     }
 
     addRecipient(publicKey, name){
