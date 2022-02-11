@@ -16,28 +16,6 @@ export function base64StringToArrayBuffer(b64str) {
     return bytes.buffer
 }
 
-export function textToArrayBuffer(str) {
-    var buf = unescape(encodeURIComponent(str)) // 2 bytes for each char
-    var bufView = new Uint8Array(buf.length)
-    for (var i=0; i < buf.length; i++) {
-    bufView[i] = buf.charCodeAt(i)
-    }
-    return bufView
-}
-
-export function arrayBufferToText(arrayBuffer) {
-    var byteArray = new Uint8Array(arrayBuffer)
-    var str = ''
-    for (var i=0; i<byteArray.byteLength; i++) {
-    str += String.fromCharCode(byteArray[i])
-    }
-    return str
-}
-
-export function arrayBufferToBase64(arr) {
-    return btoa(String.fromCharCode.apply(null, new Uint8Array(arr)))
-}
-
 export function convertBinaryToPem(binaryData, label) {
     var base64Cert = arrayBufferToBase64String(binaryData);
     var pemCert = "-----BEGIN " + label + "-----\r\n";
