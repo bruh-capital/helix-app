@@ -60,12 +60,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "accountBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "collectCoupon",
@@ -129,12 +124,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "signerBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "depositAssetPrintBondSol",
@@ -261,10 +251,8 @@
       ],
       "args": [
         {
-          "name": "vars",
-          "type": {
-            "defined": "InitBondAccountVars"
-          }
+          "name": "bondAccSpace",
+          "type": "u64"
         }
       ]
     },
@@ -294,10 +282,8 @@
       ],
       "args": [
         {
-          "name": "vars",
-          "type": {
-            "defined": "InitBondMarketVars"
-          }
+          "name": "marketAccSpace",
+          "type": "u32"
         },
         {
           "name": "couponRates",
@@ -500,38 +486,6 @@
           {
             "name": "signerBump",
             "type": "u8"
-          }
-        ]
-      }
-    },
-    {
-      "name": "InitBondAccountVars",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "bondAccountBump",
-            "type": "u8"
-          },
-          {
-            "name": "bondAccountSpace",
-            "type": "u64"
-          }
-        ]
-      }
-    },
-    {
-      "name": "InitBondMarketVars",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "marketBump",
-            "type": "u8"
-          },
-          {
-            "name": "marketSpace",
-            "type": "u32"
           }
         ]
       }

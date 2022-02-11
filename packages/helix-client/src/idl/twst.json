@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "name": "twst",
   "instructions": [
     {
@@ -17,10 +17,6 @@
         }
       ],
       "args": [
-        {
-          "name": "vaultBump",
-          "type": "u8"
-        },
         {
           "name": "lockupPeriod",
           "type": "i64"
@@ -42,10 +38,6 @@
         }
       ],
       "args": [
-        {
-          "name": "protocolBump",
-          "type": "u8"
-        },
         {
           "name": "newRate",
           "type": "u64"
@@ -116,12 +108,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "mintBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "initProtocolData",
@@ -173,12 +160,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "userVaultBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "mintAndCloseIdo",
@@ -216,10 +198,8 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "MintCloseIdoBumps"
-          }
+          "name": "mintBump",
+          "type": "u8"
         }
       ]
     },
@@ -299,10 +279,8 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "RebaseBumps"
-          }
+          "name": "mintBump",
+          "type": "u8"
         }
       ]
     },
@@ -468,42 +446,6 @@
   ],
   "types": [
     {
-      "name": "MintCloseIdoBumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "idoAccountBump",
-            "type": "u8"
-          },
-          {
-            "name": "mintBump",
-            "type": "u8"
-          }
-        ]
-      }
-    },
-    {
-      "name": "RebaseBumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "protocolDataBump",
-            "type": "u8"
-          },
-          {
-            "name": "mintBump",
-            "type": "u8"
-          },
-          {
-            "name": "protocolAtaBump",
-            "type": "u8"
-          }
-        ]
-      }
-    },
-    {
       "name": "StakeBumps",
       "type": {
         "kind": "struct",
@@ -550,7 +492,7 @@
   ],
   "errors": [
     {
-      "code": 300,
+      "code": 6000,
       "name": "IncorrectInitAccount",
       "msg": "failed to create account due to permissions error"
     }
