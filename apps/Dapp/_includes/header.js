@@ -23,8 +23,8 @@ export default function Header(props) {
 	return(
 		<div className="static bg-[#E1E1E1] dark:bg-[#191B1F] z-50 w-full overflow-hidden duration-300">
 			<div className="mx-auto">
-				<div className="flex flex-row justify-between">
-					<div className="flex h-full justify-self-start justify-around">
+				<div className="flex flex-row justify-around">
+					<div className="flex items-center flex-auto">
 						<Image 
 							src={ 
 								"/3d/" + 
@@ -70,9 +70,9 @@ export default function Header(props) {
 							>Bond</button>
 						</div>
 					</div>
-					<div className="flex md:justify-self-end h-full">
-						<div className="flex flex-row items-center m-6 space-x-4 md:space-x-10">
-							<div className="text-black font-normal rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white hidden md:flex">
+					<div className="flex justify-self-end">
+						<div className="flex flex-row items-center align-middle m-auto md:m-6 gap-x-4 md:gap-x-10">
+							<div className="text-black font-sm sm:font-normal rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white hidden md:flex">
 								$HLX:<span className={data?.lastHlxPrice > data?.hlxPrice ? "text-red-500" : "text-green-500"}>{"$" + data?.hlxPrice}</span>
 							</div>
 							{
@@ -82,7 +82,7 @@ export default function Header(props) {
 										{({ open }) => (
 											<>
 												<Popover.Button
-													className="px-3 py-2 rounded-md text-black bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white text-ellipsis font-normal"
+													className="px-2 md:px-3 py-1 md:py-2 rounded-md text-black bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white text-ellipsis font-sm md:font-normal"
 												>
 												<span>{"🔑 " + wallet?.publicKey?.toString()?.slice(0, 6) + "..."}</span>
 												</Popover.Button>
@@ -131,15 +131,15 @@ export default function Header(props) {
 								onClick={() => setTheme(theme === "light"?"dark":"light")}
 							>
 								{theme == "light"?
-									(<MoonIcon className="h-6 w-6"/>):
-									(<SunIcon className="h-6 w-6" />)
+									(<MoonIcon className="h-4 w-4 md:h-6 md:w-6"/>):
+									(<SunIcon className="h-4 w-4 md:h-6 md:w-6" />)
 								}
 							</button>
 							<button
-								className="my-auto rounded-md ml-4 p-2 lg:hidden bg-[#C8C7CA] dark:bg-[#3A3D45]"
+								className="mr-6 md:mr-0 rounded-md p-2 lg:hidden bg-[#C8C7CA] dark:bg-[#3A3D45]"
 								onClick={() => setMenuOpen(!menuOpen)}
 							>
-								<MenuIcon className="text-black dark:text-white h-6 w-6" />
+								<MenuIcon className="text-black dark:text-white h-4 w-4 md:h-6 md:w-6" />
 							</button>
 							<SideMenu open={menuOpen} setOpen={setMenuOpen} />
 						</div>
