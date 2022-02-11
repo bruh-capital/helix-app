@@ -63,7 +63,7 @@ export default function DappSideMenu(props) {
 										<div className="hidden sm:flex text-5xl mt-10 my-auto -ml-5 text-[#3E3E3E] dark:text-white font-[Junegull] align-center text-center">HELIX</div>
 									</div>
 									<div className="mt-6 relative flex-1 px-4 sm:px-6">
-										<div className="absolute content-center items-center inset-0 px-4 sm:px-6">
+										<div className="flex flex-col content-center items-center h-full inset-0 px-4 sm:px-6">
 											<div className="flex flex-col px-4 py-3 space-y-2 items-center">
 												<button
 													className={
@@ -105,7 +105,7 @@ export default function DappSideMenu(props) {
 													Bond
 												</button>
 											</div>
-											<div className="flex flex-col gap-y-2 m-auto w-1/2 mt-52 mb-8">
+											<div className="flex flex-col gap-y-2 m-auto w-1/2 mb-4">
 												<a className="flex">
 													<div className="flex flex-row items-center text-[#949494]">
 														<InformationCircleIcon className="h-6 w-6 mr-3 text-black dark:text-white"/>
@@ -128,7 +128,7 @@ export default function DappSideMenu(props) {
 													</div>
 												</a>
 											</div>
-											<div className="flex flex-row justify-around m-auto">
+											<div className="flex flex-row justify-around gap-4 m-auto">
 												<div className="flex flex-row items-center pt-1 gap-x-2 justify-between rounded-md px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
 													<a href="https://twitter.com/Helix_DAO">
 														<Image src="/dapp-assets/icons/assets/twitter.png" height={29} width={29} />
