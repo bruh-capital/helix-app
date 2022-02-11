@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "name": "government_program",
   "instructions": [
     {
@@ -64,12 +64,6 @@
       ],
       "args": [
         {
-          "name": "vars",
-          "type": {
-            "defined": "CreateGovernmentVars"
-          }
-        },
-        {
           "name": "govProgramId",
           "type": "publicKey"
         }
@@ -133,12 +127,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "govAuthBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     }
   ],
   "accounts": [
@@ -202,24 +191,6 @@
           {
             "name": "government",
             "type": "publicKey"
-          }
-        ]
-      }
-    }
-  ],
-  "types": [
-    {
-      "name": "CreateGovernmentVars",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "govProgId",
-            "type": "publicKey"
-          },
-          {
-            "name": "govBump",
-            "type": "u8"
           }
         ]
       }
