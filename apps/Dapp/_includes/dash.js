@@ -13,7 +13,7 @@ export default function Dash(props) {
 							<span className="basis-full leading-none md:basis-3/4 text-xl md:text-3xl lg:text-6xl xl:text-7xl max-w-3xl md:my-auto py-2 font-bold text-white">
 								Helix is exclusively available on Solana.
 							</span>
-							<span className="flex font-bold basis-1/4 text-xs -mt-3 md:-mt-0 md:text-xl xl:font-3xl text-white">
+							<span className="flex font-bold basis-1/4 text-xs -mt-1 md:-mt-0 md:text-xl xl:font-3xl text-white leading-none">
 								Discover physical and digital marketplaces and more!
 							</span>	
 						</div>
