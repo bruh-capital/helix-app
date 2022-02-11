@@ -1,6 +1,5 @@
-import MetaTagComponent from "@includes/metatags";
 import Header from "@includes/header";
-import Dash from "@includes/dash"; 
+import MetaTagComponent from "@includes/metatags";
 
 import { useTheme } from 'next-themes';
 
@@ -15,7 +14,7 @@ export default function DappLayout(props) {
 		>
 			<MetaTagComponent />
 			<Header />
-			<Dash />
+			{props.children}
 		</main>
 	)
 }
