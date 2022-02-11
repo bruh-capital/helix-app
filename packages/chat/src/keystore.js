@@ -99,17 +99,17 @@ export default class KeyStore{
     };
 
     deriveSharedKey(publicKeyRaw, sender) {
-        console.log("deriving shared key");
-        const publicKey = await window.crypto.subtle.importKey(
-            "raw",
-            publicKeyRaw,
-            {
-            name: "ECDH",
-            namedCurve: "P-256",
-            },
-            true,
-            []
-        );
+      console.log("deriving shared key");
+      const publicKey = await window.crypto.subtle.importKey(
+          "raw",
+          publicKeyRaw,
+          {
+          name: "ECDH",
+          namedCurve: "P-256",
+          },
+          true,
+          []
+      );
     
     //   const privateKey = await window.crypto.subtle.importKey(
     //     "raw",
@@ -122,23 +122,23 @@ export default class KeyStore{
     //     ["deriveKey", "deriveBits"]
     //   );
 
-    const privateKey = this.privkey;
+      const privateKey = this.privkey;
     
-        const sharedKey = await window.crypto.subtle.deriveKey(
-            { name: "ECDH", public: publicKey },
-            privateKey,
-            { name: "AES-GCM", length: 256 },
-            true,
-            ["encrypt", "decrypt"]
-        );
+      const sharedKey = await window.crypto.subtle.deriveKey(
+          { name: "ECDH", public: publicKey },
+          privateKey,
+          { name: "AES-GCM", length: 256 },
+          true,
+          ["encrypt", "decrypt"]
+      );
 
-        this.accessDB(function (store) {
-            store.put({name: sender, keys: {shared: sharedKey}});
-        })
+      this.accessDB(function (store) {
+          store.put({name: sender, keys: {shared: sharedKey}});
+      })
 
-        console.log("derived and stored shared key for: ", sender);
+      console.log("derived and stored shared key for: ", sender);
 
-        return sharedKey;
+      return sharedKey;
     };
 
     encrypt(text, derivedKey) {
@@ -184,4 +184,10 @@ export default class KeyStore{
         return `error decrypting message: ${e}`;
       }
     };
+
+    closeChat(recipient){
+      this.accessDB(function (store) {
+        store.delete(recipient);
+      });
+    }
 }
