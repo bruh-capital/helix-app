@@ -15,6 +15,7 @@ module.exports = {
       "lightMobileBg": "url('/dapp-assets/backgrounds/lightmobile.png')",
       "darkMobileBg": "url('/dapp-assets/backgrounds/darkmobile.png')",
       "card1Bg": "url('/dapp-assets/Card/1/bg.png')",
+      "mesh-1-bg": "url('/dapp-assets/Card/1/mesh.png')",
     },
   },
   variants: {}
