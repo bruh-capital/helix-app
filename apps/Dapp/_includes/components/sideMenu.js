@@ -105,46 +105,45 @@ export default function DappSideMenu(props) {
 													Bond
 												</button>
 											</div>
-											<div className="flex flex-col m-auto w-1/2">
-												<div aria-hidden="true"/>
+											<div className="flex flex-col gap-y-2 m-auto w-1/2 mt-52 mb-8">
 												<a className="flex">
-													<div className="flex flex-row items-center">
-														<InformationCircleIcon className="h-6 w-6 mr-3"/>
+													<div className="flex flex-row items-center text-[#949494]">
+														<InformationCircleIcon className="h-6 w-6 mr-3 text-black dark:text-white"/>
 														Learn
 														<ExternalLinkIcon className="h-3 w-3 ml-1"/>
 													</div>
 												</a>
 												<a className="flex">
-													<div className="flex flex-row items-center">
-														<UsersIcon className="h-6 w-6 mr-3"/>
+													<div className="flex flex-row items-center text-[#949494]">
+														<UsersIcon className="h-6 w-6 mr-3 text-black dark:text-white"/>
 														Governance
 														<ExternalLinkIcon className="h-3 w-3 ml-1"/>
 													</div>
 												</a>
 												<a className="flex">
-													<div className="flex flex-row items-center">
-														<ShoppingBagIcon className="h-6 w-6 mr-3"/>
+													<div className="flex flex-row items-center text-[#949494]">
+														<ShoppingBagIcon className="h-6 w-6 mr-3 text-black dark:text-white"/>
 														Marketplace
 														<ExternalLinkIcon className="h-3 w-3 ml-1"/>
 													</div>
 												</a>
 											</div>
-											<div className="flex flex-row gap-4">
-												<div className="flex flex-row gap-2 rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
+											<div className="flex flex-row justify-around m-auto">
+												<div className="flex flex-row items-center pt-1 gap-x-2 justify-between rounded-md px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
 													<a href="https://twitter.com/Helix_DAO">
-														<Image src="/landingassets/landingpage/icons/twitter.png" height={29} width={29} />
+														<Image src="/dapp-assets/icons/assets/twitter.png" height={29} width={29} />
 													</a>
 													<a href="https://github.com/bruh-capital">
-														<Image src="/landingassets/landingpage/icons/Vector.png" height={25} width={25} />
+														<Image src="/dapp-assets/icons/assets/Vector.png" height={25} width={25} />
 													</a>
 													<a>
-														<Image src="/landingassets/landingpage/icons/Frame 1.png" height={32} width={32} />
+														<Image src="/dapp-assets/icons/assets/discord.png" height={25} width={25} />
 													</a>
 													<a>
-														<Image src="/landingassets/landingpage/icons/image 24.png" height={29} width={29} />
+														<Image src="/dapp-assets/icons/assets/medium.png" height={29} width={29} />
 													</a>
 												</div>
-												<div className="flex rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
+												<div className="flex font-semibold rounded-md my-auto py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
 													$HLX:<span className={data?.lastHlxPrice > data?.hlxPrice ? "text-red-500" : "text-green-500"}>{"$" + data?.hlxPrice}</span>
 												</div>
 											</div>
