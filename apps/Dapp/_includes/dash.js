@@ -44,28 +44,28 @@ export default function Dash(props) {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col col-span-2 md:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+				<div className="flex flex-col col-span-2 lg:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat
 						statName="Revenue (24HR)"
 						statValue={data?.revenue}
 						statChange={data?.revenueChange}
 					/>
 				</div>
-				<div className="flex flex-col col-span-2 md:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+				<div className="flex flex-col col-span-2 lg:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="HLX Staked (USDC)"
 						statValue={data?.stakedHlx}
 						statChange={false}
 					/>
 				</div>
-				<div className="flex flex-col col-span-2 md:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+				<div className="flex flex-col col-span-2 lg:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="Staking APY (%)"
 						statValue={data?.stakedHlx}
 						statChange={false}
 					/>
 				</div>
-				<div className="flex col-start-2 row-start-2 flex-col col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+				<div className="flex col-start-1 lg:md:col-start-2 row-start-2 flex-col col-span-2 lg:col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Graph
 						graphName="TVL"
 					/>
