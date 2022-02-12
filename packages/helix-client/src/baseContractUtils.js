@@ -610,6 +610,8 @@ export class HelixNetwork {
 		  	this.governance_program.programId
 		  );
 
+		  console.log(govAddress.toString());
+
 		await this.governance_program.rpc.createGovernment(
 			new PublicKey(governed_program),
 			{
