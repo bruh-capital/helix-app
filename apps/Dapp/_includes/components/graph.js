@@ -30,15 +30,13 @@ export default function Graph(props) {
 					}
 				</div>
 			</div>
-			<div className="flex-grow">
-				{
-					props.graphData ? (
-						<div className="flex flex-grow bg-[#C0C0C0] animate-pulse px-24"/>
-					) : (
-						<div className="rounded-md bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse p-auto m-auto"></div>
-					)
-				}
-			</div>
+			{
+				props.graphData ? (
+					<div className="flex flex-grow bg-[#C0C0C0] animate-pulse"/>
+				) : (
+					<div className="rounded-md  bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-fit"></div>
+				)
+			}
 		</div>
 	);
 }
