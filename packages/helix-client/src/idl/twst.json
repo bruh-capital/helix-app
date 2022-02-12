@@ -325,12 +325,6 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "StakeBumps"
-          }
-        },
-        {
           "name": "amt",
           "type": "u64"
         }
@@ -382,10 +376,8 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "UnStakeBumps"
-          }
+          "name": "protocolAtaBump",
+          "type": "u8"
         },
         {
           "name": "amt",
@@ -439,52 +431,6 @@
           {
             "name": "lockupPeriod",
             "type": "i64"
-          }
-        ]
-      }
-    }
-  ],
-  "types": [
-    {
-      "name": "StakeBumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "vaultBump",
-            "type": "u8"
-          },
-          {
-            "name": "protocolDataBump",
-            "type": "u8"
-          },
-          {
-            "name": "mintBump",
-            "type": "u8"
-          }
-        ]
-      }
-    },
-    {
-      "name": "UnStakeBumps",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "vaultBump",
-            "type": "u8"
-          },
-          {
-            "name": "protocolDataBump",
-            "type": "u8"
-          },
-          {
-            "name": "mintBump",
-            "type": "u8"
-          },
-          {
-            "name": "protocolAtaBump",
-            "type": "u8"
           }
         ]
       }
