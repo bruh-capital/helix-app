@@ -250,10 +250,7 @@ export class HelixNetwork {
 			}];
 
 		const data = this.bond_program.coder.instruction.encode("init_bond_market", {
-			vars: {
-				marketBump: bondMarketAddressBump,
-				marketSpace: new anchor.BN(184), // 24 for variables + 160 for a vec of 20 pubkeys
-			},
+			marketSpace: new anchor.BN(184),
 			// default [0%, 1%, 1%, 2%, 3%]
 			couponRates: [new anchor.BN(0), new anchor.BN(10), new anchor.BN(10), new anchor.BN(20), new anchor.BN(30)],
 			interestRate: new anchor.BN(300),
@@ -293,10 +290,7 @@ export class HelixNetwork {
 	}
 
 	InitBondAccount = async() => {
-		await this.bond_program.rpc.initBondAccount({
-			bondAccountBump: this.bondAccountBump,
-			bondAccountSpace: new anchor.BN(1208) // account can hold 10 bonds, each with a maturity of 4 weeks
-			},{
+		await this.bond_program.rpc.initBondAccount(new anchor.BN(1208),{
 			accounts:{
 				bondAccount: this.bondAccount,
 				payer: this.wallet.publicKey,
@@ -307,7 +301,7 @@ export class HelixNetwork {
 	}
 
 	CloseBondAccount = async() =>{
-		await this.bond_program.rpc.closeAccount(this.bondAccountBump,{
+		await this.bond_program.rpc.closeAccount({
 			accounts:{
 				owner: this.wallet.publicKey,
 				bondAccount: this.bondAccount,
@@ -317,7 +311,6 @@ export class HelixNetwork {
 	}
 
 	SolBond = async (bond_price, maturity, connection) => {
-		console.log(bond_price);
 		const pyth_sol_price_address = this.pyth_map[connection].SOL; // sol pubkey address for that connection
 
 		await this.bond_program.rpc.depositAssetPrintBondSol(
@@ -439,7 +432,6 @@ export class HelixNetwork {
 	
 	InitializeUserVault = async () => {
 		await this.helix_program.rpc.initUserVault(
-			this.userVaultBump,
 			{
 				accounts:{
 					userAccount: this.userVault,
@@ -486,11 +478,7 @@ export class HelixNetwork {
 	// stake amount is in twst
 	// todo indianeros: make mint decimals dynamic
 	Stake = async(amount) => {
-		await this.helix_program.rpc.stake({
-			vaultBump: this.userVaultBump,
-			protocolDataBump: this.protocolDataBump,
-			mintBump: this.helixMintBump,
-		}, new anchor.BN(amount), {
+		await this.helix_program.rpc.stake(new anchor.BN(amount), {
 		accounts:{
 			userAta: this.userHelixAta,
 			protocAta: this.protocolHelixAta,
@@ -506,12 +494,7 @@ export class HelixNetwork {
 
 	// unstake amount is stwst
 	Unstake = async (amount) => {
-		await this.helix_program.rpc.unstake({
-		vaultBump: this.userVaultBump,
-		protocolDataBump: this.protocolDataBump,
-		mintBump: this.helixMintBump,
-		protocolAtaBump: this.protocolHelixAtaBump,
-		}, new anchor.BN(amount), {
+		await this.helix_program.rpc.unstake(this.protocolHelixAtaBump, new anchor.BN(amount), {
 		accounts:{
 			user: this.wallet.publicKey,
 			userAta: this.userHelixAta,
@@ -527,10 +510,7 @@ export class HelixNetwork {
 	}
 
 	MintAndCloseIDO = async() => {
-		await this.helix_program.rpc.mintAndCloseIdo({
-			idoAccountBump: this.idoAccountBump,
-			mintBump: this.helixMintBump,
-		  },
+		await this.helix_program.rpc.mintAndCloseIdo(this.helixMintBump,
 			{
 			accounts:{
 			  idoAccount: this.idoAccount,
@@ -546,7 +526,6 @@ export class HelixNetwork {
 
 	ChangeLockup = async(duration) => {
 		await this.helix_program.rpc.changeLockup(
-			this.userVaultBump,
 			new anchor.BN(duration), {
 			accounts:{
 				userVault: this.userVault,
@@ -580,10 +559,7 @@ export class HelixNetwork {
 			this.spl_program_id
 		))[0];
 
-		await this.ido_program.rpc.idoDeposit({
-			vaultBump: this.idoAcocuntBump,
-			protocolBump: this.idoUSDCAtaBump,
-		  },new anchor.BN(amount),{
+		await this.ido_program.rpc.idoDeposit(new anchor.BN(amount),{
 			accounts:{
 			  user: this.wallet.publicKey,
 			  userAta: userAta,
@@ -608,10 +584,7 @@ export class HelixNetwork {
 			this.spl_program_id
 		))[0];
 
-		await this.ido_program.rpc.idoWithdraw({
-			vaultBump: this.idoAccountBump,
-			protocolBump: this.idoUSDCAtaBump,
-			},new anchor.BN(amount),{
+		await this.ido_program.rpc.idoWithdraw(new anchor.BN(amount),{
 			accounts:{
 				user: this.wallet.publicKey,
 				userAta: userAta,
@@ -638,10 +611,6 @@ export class HelixNetwork {
 		  );
 
 		await this.governance_program.rpc.createGovernment(
-			{
-				govProgId: new PublicKey(governed_program),
-				govBump: govAddressBump
-			},
 			new PublicKey(governed_program),
 			{
 				accounts:{
@@ -733,9 +702,7 @@ export class HelixNetwork {
 			}
 		];
 		
-		const init_mint_data = this.helix_program.coder.instruction.encode("init_mint", {
-			mintBump: mintBump,
-		});
+		const init_mint_data = this.helix_program.coder.instruction.encode("init_mint", {});
 		await this.multisig_program.rpc.createTransaction(
 			this.helix_program.programId,
 			mintAccounts, 
@@ -1070,11 +1037,7 @@ export class HelixNetwork {
 
 		// callee function name and params
 		const data = this.helix_program.coder.instruction.encode("rebase", {
-			bump:{
-			protocolDataBump: this.protocolDataBump,
 			mintBump: this.helixMintBump,
-			protocolAtaBump: this.protocolHelixAtaBump,
-			}
 		});
 
 		await this.multisig_program.rpc.createTransaction(
@@ -1113,7 +1076,7 @@ export class HelixNetwork {
 
 	}
 
-	ChangeRebaseRate = async() =>{
+	ChangeRebaseRate = async(new_rate) =>{
 		const changeRebaseTransaction = anchor.web3.Keypair.generate();
 
 		const changeRebaseAccounts = [
@@ -1129,7 +1092,7 @@ export class HelixNetwork {
 	  
 		// callee function name and params
 		const data = this.helix_program.coder.instruction.encode("change_rebase_rate", {
-		    protocolBump: this.protocolDataBump
+		    newRate: new anchor.BN(new_rate)
 		  });
 	  
 		  await this.multisig_program.rpc.createTransaction(
@@ -1194,9 +1157,7 @@ export class HelixNetwork {
 			isWritable: false
 		  }];
 	  
-		  const data = bond_program.coder.instruction.encode("create_signer", {
-		    signerBump: bondSignerBump,
-		  });
+		  const data = bond_program.coder.instruction.encode("create_signer", {});
 	  
 		  await this.multisig_program.rpc.createTransaction(
 		    bond_program.programId,

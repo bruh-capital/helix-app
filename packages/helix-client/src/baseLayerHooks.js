@@ -124,8 +124,8 @@ export default function HelixWrapper(wallet) {
 	const rebase = async() =>{
 		helixClient.Rebase();
 	}
-	const changeRebaseRate = async() =>{
-		helixClient.ChangeRebaseRate();
+	const changeRebaseRate = async(new_rate) =>{
+		helixClient.ChangeRebaseRate(new_rate);
 	}
 	const createBondSigner = async() =>{
 		helixClient.CreateBondSigner();
