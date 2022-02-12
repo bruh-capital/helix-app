@@ -6,6 +6,7 @@ import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
 import { Popover, Transition } from "@headlessui/react";
 import SideMenu from "@includes/components/sideMenu";
+import { ChartBarIcon, CashIcon, LibraryIcon } from "@heroicons/react/outline";
 
 // Contexts
 import LayoutContext from "@context/layoutContext";
@@ -41,34 +42,43 @@ export default function Header(props) {
 						<div className="hidden flex-row my-6 ml-16 space-x-6 lg:flex lg:space-x-10">
 							<button
 								className={
-									"rounded-md text-md px-4 py-2 font-normal " +
+									"flex flex-row rounded-md text-md px-4 py-2 font-normal " +
 									(layout == "dashboard"?
 										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 										"bg-transparent text-[#949494]"
 									) 
 								}
 								onClick={() => {layout !== "dashboard" && setLayout("dashboard")}}
-							>Dashboard</button>
+							>
+								<ChartBarIcon className='m-auto mr-2 h-6 w-6' />
+								Dashboard
+							</button>
 							<button
 								className={
-									"rounded-md text-md px-4 py-2 font-normal " +
+									"flex flex-row rounded-md text-md px-4 py-2 font-normal " +
 									(layout == "stake"?
 										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 										"bg-transparent text-[#949494]"
 									) 
 								}
 								onClick={() => {layout !== "stake" && setLayout("stake")}}
-							>Stake</button>
+							>
+								<CashIcon className='m-auto mr-2 h-6 w-6' />
+								Stake
+							</button>
 							<button
 								className={
-									"rounded-md text-md px-4 py-2 font-normal " +
+									"flex flex-row rounded-md text-md px-4 py-2 font-normal " +
 									(layout == "bond"?
 										"bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white":
 										"bg-transparent text-[#949494]"
 									) 
 								}
 								onClick={() => {layout !== "bond" && setLayout("bond")}}
-							>Bond</button>
+							>
+								<LibraryIcon className='m-auto mr-2 h-6 w-6' />
+								Bond
+							</button>
 						</div>
 					</div>
 					<div className="flex justify-self-end">
