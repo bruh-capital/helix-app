@@ -127,7 +127,7 @@ export default function dashboardUi(props) {
 			<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4">
 				<button
 					className="btn btn-primary mx-2"
-					onClick = {() =>{client.changeRebaseRate()}}
+					onClick = {() =>{client.changeRebaseRate(rebaseRate)}}
 				>Change Rebase Rate</button>
 			</div>
 			</div>
