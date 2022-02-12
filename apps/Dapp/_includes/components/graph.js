@@ -8,8 +8,8 @@ import { ArrowSmUpIcon, ArrowSmDownIcon } from "@heroicons/react/outline"
  */
 export default function Graph(props) {
 	return(
-		<div className="flex flex-col justify-start my-auto mx-16">
-			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] mb-2">{props.graphName}</h2>
+		<div className="flex flex-col justify-start my-auto mx-8 md:mx-16">
+			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] md:mb-2">{props.graphName}</h2>
 			<div className="flex flex-row items-center justify-between mb-4">
 				<span className="text-[#474747] dark:text-white font-bold text-xl md:text-3xl">
 					{props.graphCurrentValue || "N/A"}	
@@ -35,7 +35,7 @@ export default function Graph(props) {
 					props.graphData ? (
 						<div className="flex flex-grow bg-[#C0C0C0] animate-pulse px-24"/>
 					) : (
-						<div className="rounded-md bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse px-24 py-48 m-auto"></div>
+						<div className="rounded-md bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse p-auto m-auto"></div>
 					)
 				}
 			</div>

@@ -8,8 +8,8 @@ import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/outline";
  */
 export default function Stat(props) {
 	return(
-		<div className="flex flex-col justify-start my-auto mx-16">
-			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] mb-2">{props.statName}</h2>
+		<div className="flex flex-col justify-start my-auto mx-8 md:mx-16">
+			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] md:mb-2">{props.statName}</h2>
 			<div className="flex flex-row justify-between items-center">
 				<span className="text-[#474747] dark:text-white font-bold text-xl md:text-3xl">
 					{props.statValue || "N/A"}	
