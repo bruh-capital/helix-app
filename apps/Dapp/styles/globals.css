@@ -20,6 +20,15 @@ body, html {
 	align-items: center;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
 
 @layer base {
 	@font-face {
