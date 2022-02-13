@@ -3,7 +3,7 @@ import { ArrowSmUpIcon, ArrowSmDownIcon } from "@heroicons/react/outline"
 /**
  * @param {string} props.graphName
  * @param {string} props.currentGraphValue
- * @param {} props.
+ * @param {} props.graphChange
  * @param {} props.graphData
  */
 export default function Graph(props) {
@@ -30,13 +30,13 @@ export default function Graph(props) {
 					}
 				</div>
 			</div>
-			{
-				props.graphData ? (
-					<div className="flex flex-grow bg-[#C0C0C0] animate-pulse"/>
-				) : (
-					<div className="rounded-md  bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-fit"></div>
-				)
-			}
+				{
+					props.graphData ? (
+						<div className="flex flex-grow bg-[#C0C0C0] animate-pulse"/>
+					) : (
+						<div className="rounded-md flex bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-48 md:h-40 lg:h-80"></div>
+					)
+				}
 		</div>
 	);
 }
