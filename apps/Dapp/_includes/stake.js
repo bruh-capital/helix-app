@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 
 import UserDataContext from "@context/userDataContext";
+import { useWalletKit } from "@gokiprotocol/walletkit";
 
 export default function Stake(props) {
-	const [ uiFunction, setUiFunction ] = useState(null);	
-	const [ amount, setAmount ] = useState(0.0);
+	const wallet = useWalletKit();
+	const [ uiFunction, setUiFunction ] = useState("stake");	
+	const [ amount, setAmount ] = useState(null);
 	const { userData, setUserData } = useContext(UserDataContext);
 
 	return(
@@ -44,17 +46,31 @@ export default function Stake(props) {
 							onClick={() => setUiFunction("unstake")}
 						>Unstake</button>
 					</div>
-					<div className="flex flex-row rounded-lg mx-10 md:mx-16 p-8 bg-[#C0C0C0] dark:bg-[#212429]">
+					<div className="flex flex-row rounded-lg mx-10 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
 							<input
-								className="border-0 bg-transparent text-2xl w-full outline-none"
+								className="border-0 bg-transparent text-xl w-full outline-none"
 								type="number"
 								placeholder={uiFunction === "stake" ? "Stake Amount" : "Unstake Amount"}
 								value={amount || ""}
 								onChange={(e) => setAmount(e.target.value)}
 							/>
 					</div>
+					{/* needs some UX cleanups like adding the connect button directly here...*/}
 					<button
-						className="rounded-xl py-2"
+						className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]"
+						onClick={() => {
+								if (wallet) {
+									if (uiFunction === "stake") {
+										stake();
+									} else if(uiFunction === "unstake") {
+										unstake();
+									}
+								} else {
+									// FIXME(milly): Add nice lil reapop notifs here
+									console.log("Please Connect Your Wallet")
+								}
+							}
+						}
 					>
 						{uiFunction === "stake" ? "Stake" : "Unstake"}
 					</button>
