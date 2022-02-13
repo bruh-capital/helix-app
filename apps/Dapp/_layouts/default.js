@@ -7,11 +7,7 @@ export default function DappLayout(props) {
 	const { theme, setTheme } = useTheme();
 
 	return(
-		<main
-			className={
-				theme === "light" ? "bg-lightMobileBg sm:bg-lightDesktopBg bg-cover" : "bg-darkMobileBg sm:bg-darkDesktopBg bg-cover"
-			}
-		>
+		<main className="bg-lightMobileBg sm:bg-lightDesktopBg dark:bg-darkMobileBg dark:sm:bg-darkDesktopBg bg-cover">
 			<MetaTagComponent />
 			<Header />
 			{props.children}
