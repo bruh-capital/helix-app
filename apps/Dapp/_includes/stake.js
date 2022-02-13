@@ -40,7 +40,7 @@ export default function Stake(props) {
 						</button>
 						<button
 							className={
-								"rounded-lg px-4 py-2" + (uiFunction === "unstake" ?
+								"rounded-lg px-4 py-2 " + (uiFunction === "unstake" ?
 									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70]")
 							}
 							onClick={() => setUiFunction("unstake")}
