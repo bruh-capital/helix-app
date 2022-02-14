@@ -50,7 +50,7 @@ export default function Graph(props) {
 						<div className="rounded-md flex bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-32 md:h-36 lg:h-80">
 							<AreaChart>
 								<XAxis dataKey="time" />
-								<YAxis dataKey={protocol.label} />
+								<YAxis dataKey={props.graphName} />
 							</AreaChart>
 						</div>
 					)
