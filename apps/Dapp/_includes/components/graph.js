@@ -1,4 +1,17 @@
 import { ArrowSmUpIcon, ArrowSmDownIcon } from "@heroicons/react/outline"
+import {
+	Area,
+	AreaChart,
+	Bar,
+	BarChart,
+	CartesianGrid,
+	Line,
+	LineChart,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis,
+} from "recharts";
 
 /**
  * @param {string} props.graphName
@@ -34,7 +47,12 @@ export default function Graph(props) {
 					props.graphData ? (
 						<div className="flex flex-grow bg-[#C0C0C0] animate-pulse"/>
 					) : (
-						<div className="rounded-md flex bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-36 md:h-36 lg:h-80"></div>
+						<div className="rounded-md flex bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-32 md:h-36 lg:h-80">
+							<AreaChart>
+								<XAxis dataKey="time" />
+								<YAxis dataKey={protocol.label} />
+							</AreaChart>
+						</div>
 					)
 				}
 		</div>
