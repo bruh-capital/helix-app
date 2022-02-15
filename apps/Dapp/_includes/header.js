@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useTheme } from 'next-themes';
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { ConnectWalletButton } from "@gokiprotocol/walletkit";
 import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
@@ -11,15 +11,23 @@ import { ChartBarIcon, CashIcon, LibraryIcon } from "@heroicons/react/outline";
 // Contexts
 import LayoutContext from "@context/layoutContext";
 import ProtocolContext from "@context/protocolDataContext";
+import HelixContext from "@context/helixContext";
 
 export default function Header(props) {
 	const { theme, setTheme } = useTheme();
 	const { layout, setLayout } = useContext(LayoutContext);
 	const { data, setData } = useContext(ProtocolContext);
+	const {client, setClient} = useContext(HelixContext);
 	const wallet = useConnectedWallet();
 	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
 
 	const [ menuOpen, setMenuOpen ] = useState(false);
+
+	useEffect(()=>{
+		if(wallet){
+			setClient(new helixClient(wallet));
+		}
+	}, [!!wallet]);
 
 	return(
 		<div className="static bg-[#E1E1E1] dark:bg-[#191B1F] z-50 w-full duration-300">
