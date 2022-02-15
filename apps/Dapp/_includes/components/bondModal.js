@@ -2,7 +2,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
 export default function BondModalButton(props) {
-	let [isOpen, setIsOpen] = useState(false);
+	let [ isOpen, setIsOpen] = useState(false);
+	let [ bondAmount, setBondAmount ] = useState(null);
 
 	function closeModal() {
 		setIsOpen(false);
@@ -63,26 +64,31 @@ export default function BondModalButton(props) {
 								>
 									Bond
 								</Dialog.Title>
-								<div className="mt-2">
-								{/*}
-									<input
-										className="border-0 bg-transparent text-xl w-full outline-none"
-										type="number"
-										placeholder={uiFunction === "stake" ? "Stake Amount" : "Unstake Amount"}
-										value={amount || ""}
-										onChange={(e) => setAmount(e.target.value)}
-									/>
-									*/}
-								</div>
-								<div className="mt-4">
+								<div className="mt-2 flex flex-col">
+									<div className="flex flex-row rounded-lg mx-10 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
+										<input
+											className="border-0 bg-transparent text-xl w-full outline-none"
+											type="number"
+											placeholder="Amount of bonds to mint"
+											value={bondAmount || ""}
+											onChange={(e) => setBondAmount(e.target.value)}
+										/>
+									</div>
 									<button
-										type="button"
-										className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-										onClick={closeModal}
+										className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]"
+										onClick={() => {}}
 									>
-										Close!
+
+										Mint!	
 									</button>
 								</div>
+								<button
+									type="button"
+									className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+									onClick={closeModal}
+								>
+									Close!
+								</button>
 							</div>
 						</Transition.Child>
 					</div>
