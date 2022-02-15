@@ -17,7 +17,7 @@ export default function BondModalButton(props) {
 			<button
 				type="button"
 				onClick={openModal}
-				className="px-4 py-2 text-sm font-medium bg-[#3A3D45] rounded-md"
+				className="px-4 py-2 text-sm font-medium bg-[#40444F] dark:bg-[#3A3D45] rounded-md"
 			>
 				Bond
 			</button>
@@ -64,9 +64,15 @@ export default function BondModalButton(props) {
 									Bond
 								</Dialog.Title>
 								<div className="mt-2">
-									<p className="text-sm text-gray-500">
-										Place Content in here
-									</p>
+								{/*}
+									<input
+										className="border-0 bg-transparent text-xl w-full outline-none"
+										type="number"
+										placeholder={uiFunction === "stake" ? "Stake Amount" : "Unstake Amount"}
+										value={amount || ""}
+										onChange={(e) => setAmount(e.target.value)}
+									/>
+									*/}
 								</div>
 								<div className="mt-4">
 									<button
