@@ -1,6 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
+// TODO(Milly):
+// - add extra pretty data to modal dialogue
+// - fix table spacing
+// - pass in token icons
+// - replace temp data for getpageProps
+// - mobile scaling for bonds page
+// - theme appropriate colors
 export default function BondModalButton(props) {
 	let [ isOpen, setIsOpen] = useState(false);
 	let [ bondAmount, setBondAmount ] = useState(null);
