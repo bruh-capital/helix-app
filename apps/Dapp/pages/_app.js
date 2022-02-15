@@ -3,10 +3,13 @@ import { useState } from 'react';
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import Image from 'next/image';
 
+import helixClient from 'helix-client';
+
 // Contexts
 import { ThemeProvider } from "next-themes";
 import LayoutContext from '@context/layoutContext';
 import ProtocolContext from '@context/protocolDataContext';
+import HelixContext from '@context/helixContext';
 
 
 function MyApp({ Component, pageProps }) {
@@ -14,6 +17,7 @@ function MyApp({ Component, pageProps }) {
   const [ data, setData ] = useState({
     hlxPrice: 0,
   }); 
+  const [client, setClient] = useState(new helixClient());
 
   const icon = (
     <Image
@@ -34,9 +38,11 @@ function MyApp({ Component, pageProps }) {
     >
       <ProtocolContext.Provider value={{ data, setData }}>
         <ThemeProvider attribute='class'>
-          <LayoutContext.Provider value={{ layout, setLayout }}>
-            <Component {...pageProps} />
-          </LayoutContext.Provider>
+          <HelixContext.Provider value={{client, setClient}}>
+            <LayoutContext.Provider value={{ layout, setLayout }}>
+              <Component {...pageProps} />
+            </LayoutContext.Provider>
+          </HelixContext.Provider>
         </ThemeProvider>
       </ProtocolContext.Provider>
     </WalletKitProvider>

@@ -15,6 +15,7 @@ let pyth_mapping = require("./pythMapping.json");
 
 export class HelixNetwork {
 	constructor(wallet){
+		console.log("created wallet");
 		this.pyth_map = pyth_mapping;
 		[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
 			// for each name, price address in address map object
