@@ -13,6 +13,8 @@ import LayoutContext from "@context/layoutContext";
 import ProtocolContext from "@context/protocolDataContext";
 import HelixContext from "@context/helixContext";
 
+import helixClient from 'helix-client';
+
 export default function Header(props) {
 	const { theme, setTheme } = useTheme();
 	const { layout, setLayout } = useContext(LayoutContext);
