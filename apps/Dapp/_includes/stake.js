@@ -3,12 +3,14 @@ import { InformationCircleIcon } from "@heroicons/react/outline";
 
 import UserDataContext from "@context/userDataContext";
 import { useWalletKit } from "@gokiprotocol/walletkit";
+import helixContext from "@context/helixContext";
 
 export default function Stake(props) {
 	const wallet = useWalletKit();
 	const [ uiFunction, setUiFunction ] = useState("stake");	
 	const [ amount, setAmount ] = useState(null);
 	const { userData, setUserData } = useContext(UserDataContext);
+	const {client} = useContext(helixContext);
 
 	return(
 		<div className="h-screen -mt-24 content-center items-center pt-32 md:pt-36 pb-24">
@@ -61,9 +63,9 @@ export default function Stake(props) {
 						onClick={() => {
 								if (wallet) {
 									if (uiFunction === "stake") {
-										stake();
+										client.stakeToken(amount);
 									} else if(uiFunction === "unstake") {
-										unstake();
+										client.unstakeToken(amount);
 									}
 								} else {
 									// FIXME(milly): Add nice lil reapop notifs here
