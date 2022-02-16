@@ -1,7 +1,11 @@
 import Graph from "@includes/components/graph";
 import BondModalButton from "@includes/components/bondModal";
+import helixContext from "@context/helixContext";
+import {useContext} from 'react';
 
 export default function Bond(props) {
+	const {client} = useContext(helixContext);
+
 	// FIXME(milly): this is temp make sure to include this on
 	let bondItems = [{
 			asset: "SOL",
@@ -42,7 +46,7 @@ export default function Bond(props) {
 							<th></th>
 						</tr>
 						{/*props.*/bondItems?.map((bond, index) => (
-							<tr className="py-4">
+							<tr className="py-4" key={index}>
 								<td className="text-center text-[#D8D8D8]">{bond.asset}</td>
 								<td className="text-center text-[#696B70]">{bond.roi}</td>
 								<td className="text-center text-[#696B70]">{bond.price}</td>
