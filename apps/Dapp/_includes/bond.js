@@ -45,8 +45,9 @@ export default function Bond(props) {
 							<th>ROI</th>
 							<th></th>
 						</tr>
-						{/*props.*/bondItems?.map((bond, index) => (
-							<tr className="py-4" key={index}>
+						{props.bondItems?.map((bond, index) => {
+							console.log(bond);
+							return <tr className="py-4" key={index}>
 								<td className="text-center text-[#D8D8D8]">{bond.asset}</td>
 								<td className="text-center text-[#696B70]">{bond.roi}</td>
 								<td className="text-center text-[#696B70]">{bond.price}</td>
@@ -56,10 +57,21 @@ export default function Bond(props) {
 									/>
 								</td>
 							</tr>
-						))}
+						})}
 					</table>
 				</div>
 			</div>
 		</div>
 	);
+}
+
+Bond.defaultProps = {
+	bondItems:[
+		{
+		asset:"",
+		roi:"",
+		price:"",
+		tokenAddress:"",
+		}
+	]
 }
