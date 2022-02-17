@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-const {client} = useContext(helixContext);
+import { Fragment, useState, useContext } from 'react';
+import helixContext from '@context/helixContext';
 
 // TODO(Milly):
 // - add extra pretty data to modal dialogue
@@ -13,6 +13,7 @@ export default function BondModalButton(props) {
 	const [ isOpen, setIsOpen] = useState(false);
 	const [ bondAmount, setBondAmount ] = useState(null);
 	const [ expiration, setExpiration] = useState(0);
+	const {client} = useContext(helixContext);
 
 	function closeModal() {
 		setIsOpen(false);

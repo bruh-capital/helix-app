@@ -70,7 +70,7 @@ export default function Bond(props) {
 										tokenAddress={bond.tokenAddress}
 										tokenName = {bond.asset}
 										network = {props.network}
-										decimals = {props.decimals}
+										decimals = {bond.decimals}
 									/>
 								</td>
 							</tr>
@@ -84,7 +84,7 @@ export default function Bond(props) {
 
 // devnet addresses
 Bond.defaultProps = {
-	network: "testnet",
+	network: "devnet",
 	// testnet token addresses. we have mainnet ones cba to dig up a grave rn though
 	bondItems:[
 		{
@@ -98,7 +98,7 @@ Bond.defaultProps = {
 			decimals:9,
 		},
 		{
-			asset:"WUST",
+			asset:"wUST",
 			tokenAddress:"AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE",
 			decimals:9,
 		}
