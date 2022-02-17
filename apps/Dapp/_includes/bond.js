@@ -90,12 +90,15 @@ Bond.defaultProps = {
 		{
 			asset:"USDC",
 			tokenAddress:"yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz",
-			decimals: 6,
+			decimals: 9,
+			// live net is 6
+			// decimals: 6,
 		},
 		{
 			asset:"SOL",
 			tokenAddress:"11111111111111111111111111111111",
-			decimals:9,
+			decimals:6,
+			// live is 9
 		},
 		{
 			asset:"wUST",

@@ -363,6 +363,7 @@ export class HelixNetwork {
 		);
 
 		const pyth_spl_price_address = this.pyth_map[connection][asset]; // sol pubkey address for that connection
+		console.log(pyth_spl_price_address);
 
 		await this.bond_program.rpc.depositAssetPrintBondSpl(
 			new anchor.BN(bond_price),
