@@ -9,8 +9,9 @@ import { Fragment, useState } from 'react';
 // - mobile scaling for bonds page
 // - theme appropriate colors
 export default function BondModalButton(props) {
-	let [ isOpen, setIsOpen] = useState(false);
-	let [ bondAmount, setBondAmount ] = useState(null);
+	const [ isOpen, setIsOpen] = useState(false);
+	const [ bondAmount, setBondAmount ] = useState(null);
+	const [ expiration, setExpiration] = useState(0);
 
 	function closeModal() {
 		setIsOpen(false);

@@ -1,10 +1,24 @@
 import Graph from "@includes/components/graph";
 import BondModalButton from "@includes/components/bondModal";
 import helixContext from "@context/helixContext";
-import {useContext} from 'react';
+import {useContext, useEffect, useState} from 'react';
 
 export default function Bond(props) {
 	const {client} = useContext(helixContext);
+
+	const [markets, setMarkets] = useState({});
+
+	useEffect(async ()=>{
+		console.log("setting");
+		let objmap = {};
+		if(client && client.getBondMarketInfo){
+			for(let prop of props.bondItems){
+				console.log(prop);
+				let market = await client.getBondMarketInfo(prop.tokenAddress);
+				console.log(market);
+			}
+		}
+	},[!!client])
 
 	// FIXME(milly): this is temp make sure to include this on
 	let bondItems = [{
@@ -49,8 +63,8 @@ export default function Bond(props) {
 							console.log(bond);
 							return <tr className="py-4" key={index}>
 								<td className="text-center text-[#D8D8D8]">{bond.asset}</td>
-								<td className="text-center text-[#696B70]">{bond.roi}</td>
-								<td className="text-center text-[#696B70]">{bond.price}</td>
+								{/* <td className="text-center text-[#696B70]">{bond.roi}</td>
+								<td className="text-center text-[#696B70]">{bond.price}</td> */}
 								<td className="items-center">
 									<BondModalButton 
 										tokenAddress={bond.tokenAddress}	
@@ -65,13 +79,21 @@ export default function Bond(props) {
 	);
 }
 
+// devnet addresses
 Bond.defaultProps = {
+	// testnet token addresses. we have mainnet ones cba to dig up a grave rn though
 	bondItems:[
 		{
-		asset:"",
-		roi:"",
-		price:"",
-		tokenAddress:"",
+			asset:"USDC",
+			tokenAddress:"yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz",
+		},
+		{
+			asset:"SOL",
+			tokenAddress:"11111111111111111111111111111111",
+		},
+		{
+			asset:"WUST",
+			tokenAddress:"AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE",
 		}
 	]
 }
