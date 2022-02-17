@@ -6,17 +6,22 @@ import {useContext, useEffect, useState} from 'react';
 export default function Bond(props) {
 	const {client} = useContext(helixContext);
 
-	const [markets, setMarkets] = useState({});
+	const [priceMap, setPriceMap] = useState({});
+	const [marketMap, setMarketMap] = useState({});
+
 
 	useEffect(async ()=>{
 		console.log("setting");
-		let objmap = {};
-		if(client && client.getBondMarketInfo){
-			for(let prop of props.bondItems){
-				console.log(prop);
-				let market = await client.getBondMarketInfo(prop.tokenAddress);
-				console.log(market);
+		let pricemap = {};
+		let marketmap = {};
+		if(client && client.getBondMarketInfo && client.getTokenPrice){
+			for(let bond of props.bondItems){
+				console.log(bond);
+				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
+				marketmap[bond.asset] = await client.getBondMarketInfo(bond.tokenAddress);
 			}
+			setPriceMap(pricemap);
+			setMarketMap(marketmap);
 		}
 	},[!!client])
 
@@ -63,8 +68,7 @@ export default function Bond(props) {
 							console.log(bond);
 							return <tr className="py-4" key={index}>
 								<td className="text-center text-[#D8D8D8]">{bond.asset}</td>
-								{/* <td className="text-center text-[#696B70]">{bond.roi}</td>
-								<td className="text-center text-[#696B70]">{bond.price}</td> */}
+								{/* <td className="text-center text-[#696B70]">{ }</td> */}
 								<td className="items-center">
 									<BondModalButton 
 										tokenAddress={bond.tokenAddress}
