@@ -16,7 +16,6 @@ export default function Bond(props) {
 		let marketmap = {};
 		if(client && client.getBondMarketInfo && client.getTokenPrice){
 			for(let bond of props.bondItems){
-				console.log(bond);
 				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
 				marketmap[bond.asset] = await client.getBondMarketInfo(bond.tokenAddress);
 			}
@@ -65,10 +64,9 @@ export default function Bond(props) {
 							<th></th>
 						</tr>
 						{props.bondItems?.map((bond, index) => {
-							console.log(bond);
 							return <tr className="py-4" key={index}>
 								<td className="text-center text-[#D8D8D8]">{bond.asset}</td>
-								{/* <td className="text-center text-[#696B70]">{ }</td> */}
+								<td className="text-center text-[#696B70]">{priceMap ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
 								<td className="items-center">
 									<BondModalButton 
 										tokenAddress={bond.tokenAddress}
