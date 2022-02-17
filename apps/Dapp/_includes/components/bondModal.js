@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+const {client} = useContext(helixContext);
 
 // TODO(Milly):
 // - add extra pretty data to modal dialogue
@@ -82,9 +83,18 @@ export default function BondModalButton(props) {
 											onChange={(e) => setBondAmount(e.target.value)}
 										/>
 									</div>
+									<div className="flex flex-row rounded-lg mx-10 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
+										<input
+											className="border-0 bg-transparent text-xl w-full outline-none"
+											type="number"
+											placeholder="Maturity in weeks"
+											value={expiration || ""}
+											onChange={(e) => setExpiration(e.target.value)}
+										/>
+									</div>
 									<button
 										className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]"
-										onClick={() => {}}
+										onClick={() => {props.tokenName == "SOL" ? client.solBond(bondAmount, expiration, props.network) : client.splBond(bondAmount, expiration, props.tokenAddress, props.tokenName, props.network, props.decimals)}}
 									>
 
 										Mint!	

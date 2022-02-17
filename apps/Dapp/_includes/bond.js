@@ -67,7 +67,10 @@ export default function Bond(props) {
 								<td className="text-center text-[#696B70]">{bond.price}</td> */}
 								<td className="items-center">
 									<BondModalButton 
-										tokenAddress={bond.tokenAddress}	
+										tokenAddress={bond.tokenAddress}
+										tokenName = {bond.asset}
+										network = {props.network}
+										decimals = {props.decimals}
 									/>
 								</td>
 							</tr>
@@ -81,19 +84,23 @@ export default function Bond(props) {
 
 // devnet addresses
 Bond.defaultProps = {
+	network: "testnet",
 	// testnet token addresses. we have mainnet ones cba to dig up a grave rn though
 	bondItems:[
 		{
 			asset:"USDC",
 			tokenAddress:"yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz",
+			decimals: 6,
 		},
 		{
 			asset:"SOL",
 			tokenAddress:"11111111111111111111111111111111",
+			decimals:9,
 		},
 		{
 			asset:"WUST",
 			tokenAddress:"AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE",
+			decimals:9,
 		}
 	]
 }
