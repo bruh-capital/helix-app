@@ -130,6 +130,9 @@ export default function HelixWrapper(wallet) {
 	const createBondSigner = async() =>{
 		helixClient.CreateBondSigner();
 	}
+	const getTokenPrice = async(assetName, network) =>{
+		return await helixClient.GetTokenPrice(assetName, network);
+	}
 
 	return { 
 		helixClient,
@@ -164,6 +167,7 @@ export default function HelixWrapper(wallet) {
 		rebase,
 		changeRebaseRate,
 		createBondSigner,
+		getTokenPrice,
 	};
 }
 

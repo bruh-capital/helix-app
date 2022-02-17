@@ -1,6 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 
-import * as web3 from "@solana/web3.js";
+import * as pyth_utils from "./pythUtils";
 import {Token, TOKEN_PROGRAM_ID, getOrCreateAssociatedAccountInfo} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
 let ido_idl = require('./idl/ido.json');
@@ -1216,5 +1216,13 @@ export class HelixNetwork {
 
 	GetSolBalance = async() =>{
 		return await this.connection.getBalance(this.wallet.publicKey)/anchor.web3.LAMPORTS_PER_SOL;;
+	}
+
+	GetTokenPrice = async(name, connection) => {
+		let address = this.pyth_map[connection][name];
+		let priceAccount = await this.connection.getAccountInfo(address);
+		let priceData = pyth_utils.parsePriceData(priceAccount.data);
+		console.log("priceData", priceData);
+		return priceData;
 	}
 }
