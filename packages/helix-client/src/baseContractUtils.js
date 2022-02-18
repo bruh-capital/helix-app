@@ -445,6 +445,15 @@ export class HelixNetwork {
 		});
 	}
 
+	DeleteUserVault = async() =>{
+		await this.helix_program.rpc.closeUserVault({
+			accounts:{
+				owner: this.wallet.publicKey,
+				userVault: this.userVault,
+			}
+		})
+	}
+
 	CreateUserATA = async () => {
 		let ata = await Token.getAssociatedTokenAddress(
 			this.spl_program_id, // always ASSOCIATED_TOKEN_PROGRAM_ID
