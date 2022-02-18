@@ -45,6 +45,22 @@
       ]
     },
     {
+      "name": "closeUserVault",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userVault",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "cpiMint",
       "accounts": [
         {

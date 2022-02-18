@@ -27,6 +27,9 @@ export default function HelixWrapper(wallet) {
 	const createVault = async () => {
 		await helixClient.InitializeUserVault();
 	}
+	const closeVault = async () => {
+		await helixClient.DeleteUserVault();
+	}
 
 	const createBondAccount = async() =>{
 		await helixClient.InitBondAccount();
@@ -140,6 +143,7 @@ export default function HelixWrapper(wallet) {
 		unstakeToken, 
 		createUserAta, 
 		createVault,
+		closeVault,
 		createBondAccount,
 		closeBondAccount,
 		solBond, 

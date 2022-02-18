@@ -53,11 +53,31 @@ export default function Bond(props) {
 			</div>
 			<div className="flex flex-col  md:px-24 xl:px-32 2xl:px-64">
 				<div className="flex flex-col rounded-xl mx-8 md:mx-0 border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F] items-start">
-					<div className="font-bold mb-6 text-2xl md:text-3xl text-[#272629] dark:text-white pl-10 md:pl-16 pt-10 mx-6 md:mx-16">
-						Bonds
+					<div className="flex flex-row w-full">
+						<div className="font-bold mb-6 text-2xl md:text-3xl text-[#272629] dark:text-white pl-10 md:pl-16 pt-10 mx-6 md:mx-16">
+							Bonds
+						</div>
+						<div className="flex flex-row-reverse w-full">
+							<button
+								className={
+									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
+								}
+								onClick={() => {}}
+							>
+								Delete Account
+							</button>
+							<button
+								className={
+									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
+								}
+								onClick={() => {}}
+							>
+								Create Account
+							</button>
+						</div>
 					</div>
-					<table className="w-5/6 self-center">
-						<tr className="border-b -px-4 border-[#52555A]">
+					<table className="w-5/6 self-center mb-5">
+						<tr className="border-b py-8 border-[#52555A]">
 							<th>Accepted Asset</th>
 							<th>Price</th>
 							{/* <th>ROI</th> */}

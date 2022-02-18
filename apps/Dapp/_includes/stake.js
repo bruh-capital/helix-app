@@ -34,7 +34,7 @@ export default function Stake(props) {
 	}, [client]);
 
 	return(
-		<div className="h-screen -mt-24 content-center items-center pt-32 md:pt-36 pb-24">
+		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">
 			<div className="flex flex-col sm:px-0 md:px-28 lg:px-50 xl:px-70 2xl:px-96 sm:mx-20 gap-y-8">
 				<div className="flex flex-row justify-items-start rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-full">
 					<div className="rounded-xl p-2 m-2 bg-[#EEEEEE] bg-opacity-60 dark:bg-[#383838]">
@@ -57,7 +57,7 @@ export default function Stake(props) {
 						<button
 							className={
 								"rounded-lg px-4 py-2 " + (uiFunction === "stake" ?
-									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70]")
+									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70] hover:bg-indigo-900 hover:text-gray-300")
 							}
 							onClick={() => setUiFunction("stake")}
 						>
@@ -66,7 +66,7 @@ export default function Stake(props) {
 						<button
 							className={
 								"rounded-lg px-4 py-2 " + (uiFunction === "unstake" ?
-									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70]")
+									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70] hover:bg-indigo-900 hover:text-gray-300")
 							}
 							onClick={() => setUiFunction("unstake")}
 						>Unstake</button>
@@ -95,7 +95,8 @@ export default function Stake(props) {
 					</div>
 					{/* needs some UX cleanups like adding the connect button directly here...*/}
 					<button
-						className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]"
+						className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
+						dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
 						onClick={() => {
 								if (wallet) {
 									uiFunction == "stake" ? client.stakeToken(amount) : client.unstakeToken(amount);
@@ -118,7 +119,8 @@ export default function Stake(props) {
 							/>
 					</div>
 					<button
-						className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]"
+						className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]
+						dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
 						onClick={() => {
 							if(client && client.ChangeLockup){
 								client.ChangeLockup(lockupPeriod);
@@ -128,6 +130,25 @@ export default function Stake(props) {
 					>
 						Change
 					</button>
+				</div>
+				<div className="grid grid-cols-2 place-items-center">
+					<div className="grid grid-col place-items-center align-middle rounded-xl justify-center bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-7/8">
+						<button
+								className="rounded-lg py-4 p-8 mx-10 md:mx-8 font-bold text-lg m-4 bg-[#C0C0C0] dark:bg-[#212429] dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
+								onClick={() => {client.createVault()}}
+						>
+							Create Vault
+						</button>
+					</div>
+
+					<div className="grid grid-col place-items-center align-middle rounded-xl justify-center bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-7/8">
+						<button
+							className="rounded-lg py-4 p-8 mx-10 md:mx-8 font-bold text-lg m-4 bg-[#C0C0C0] dark:bg-[#212429] dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
+							onClick={() => {client.closeVault()}}
+						>
+							Delete Vault
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
