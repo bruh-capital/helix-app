@@ -60,13 +60,13 @@ export default function Bond(props) {
 						<tr className="border-b -px-4 border-[#52555A]">
 							<th>Accepted Asset</th>
 							<th>Price</th>
-							<th>ROI</th>
+							{/* <th>ROI</th> */}
 							<th></th>
 						</tr>
 						{props.bondItems?.map((bond, index) => {
 							return <tr className="py-4" key={index}>
 								<td className="text-center text-[#D8D8D8]">{bond.asset}</td>
-								<td className="text-center text-[#696B70]">{priceMap ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
+								<td className="text-center text-[#696B70]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
 								<td className="items-center">
 									<BondModalButton 
 										tokenAddress={bond.tokenAddress}
