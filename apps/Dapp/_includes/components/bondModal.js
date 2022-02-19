@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useContext } from 'react';
+import { Fragment, useState, useContext, useEffect } from 'react';
 import helixContext from '@context/helixContext';
 
 // TODO(Milly):
@@ -14,6 +14,20 @@ export default function BondModalButton(props) {
 	const [ bondAmount, setBondAmount ] = useState(null);
 	const [ expiration, setExpiration] = useState(0);
 	const {client} = useContext(helixContext);
+	const [market, setMarket] = useState();
+	const [amountDue, setAmountDue] = useState(0);
+
+	useEffect(async ()=>{
+		if(client && client.getBondMarketInfo){
+			let bond_market = await client.getBondMarketInfo(props.tokenAddress);
+			console.log(bond_market);
+			setMarket(bond_market);
+		}
+	}, [!!client]);
+
+	useEffect(()=>{
+		setAmountDue(bondAmount / Math.pow(1 + (market.interestRate.toNumber()/ 1000), expiration));
+	}, [bondAmount, expiration])
 
 	function closeModal() {
 		setIsOpen(false);
@@ -79,7 +93,7 @@ export default function BondModalButton(props) {
 										<input
 											className="border-0 bg-transparent text-xl w-full outline-none"
 											type="number"
-											placeholder="Amount of bonds to mint"
+											placeholder="Helix Received at Maturity"
 											value={bondAmount || ""}
 											onChange={(e) => setBondAmount(e.target.value)}
 										/>
@@ -93,11 +107,13 @@ export default function BondModalButton(props) {
 											onChange={(e) => setExpiration(e.target.value)}
 										/>
 									</div>
+									<div className='flex flex-row ml-16 mb-2 text-zinc-400 text-sm'>
+										Amount Due: {amountDue}
+									</div>
 									<button
 										className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]"
 										onClick={() => {props.tokenName == "SOL" ? client.solBond(bondAmount, expiration, props.network) : client.splBond(bondAmount, expiration, props.tokenAddress, props.tokenName, props.network, props.decimals)}}
 									>
-
 										Mint!	
 									</button>
 								</div>
