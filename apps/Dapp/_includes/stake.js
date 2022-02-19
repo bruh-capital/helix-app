@@ -14,7 +14,7 @@ export default function Stake(props) {
 	const [ uiFunction, setUiFunction ] = useState("stake");	
 	const [ amount, setAmount ] = useState(null);
 	const [ lockupPeriod, setLockupPeriod] = useState(0);
-	const { userData, setUserData } = useContext(UserDataContext);
+	const { userData, setUserVault } = useContext(UserDataContext);
 	const [stakedBalance, setStakedBalance] = useState();
 	const {client} = useContext(helixContext);
 
@@ -24,7 +24,7 @@ export default function Stake(props) {
 		if(client && client?.getUserVault){
 			let userVault = await client.getUserVault();
 			if(userVault){
-				setUserData(userVault);
+				setUserVault(userVault);
 				setStakedBalance(userVault.stakeBalance.toNumber())	
 			}
 		}

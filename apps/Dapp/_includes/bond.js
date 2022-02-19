@@ -2,12 +2,16 @@ import Graph from "@includes/components/graph";
 import BondModalButton from "@includes/components/bondModal";
 import helixContext from "@context/helixContext";
 import {useContext, useEffect, useState} from 'react';
+import { useWalletKit } from "@gokiprotocol/walletkit";
+import { useConnectedWallet } from "@saberhq/use-solana";
 
 // create delete dynamic
 // create if no account
 // blur bond buttons if wallet not connected && no account
 
 export default function Bond(props) {
+	const wallet = useConnectedWallet();
+	const goki = useWalletKit();
 	const {client} = useContext(helixContext);
 
 	const [priceMap, setPriceMap] = useState({});
@@ -26,15 +30,17 @@ export default function Bond(props) {
 		}
 	},[!!client]);
 
-
-	useEffect(async ()=>{
+	async function checkBondAccount(){
 		if(client && client.getBondAccount){
 			let bondAcc = await client.getBondAccount();
 			if(bondAcc != undefined){
 				setBondAccount(bondAcc);
 			}
 		}
-	}, [!!client])
+	}
+
+
+	useEffect(checkBondAccount, [!!client])
 
 	// FIXME(milly): this is temp make sure to include this on
 	let bondItems = [{
@@ -74,9 +80,9 @@ export default function Bond(props) {
 								className={
 									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
 								}
-								onClick={() => {client != undefined ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : ()=>{};}}
+								onClick={() => {wallet?.connected && client ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : goki.connect() && checkBondAccount()}}
 							>
-								{client && client.getBondAccount ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
+								{ wallet?.connected && client && client.getBondAccount ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
 							</button>
 						</div>
 					</div>

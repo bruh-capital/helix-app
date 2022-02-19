@@ -10,6 +10,7 @@ import { ThemeProvider } from "next-themes";
 import LayoutContext from '@context/layoutContext';
 import ProtocolContext from '@context/protocolDataContext';
 import HelixContext from '@context/helixContext';
+import UserDataContext from '@context/userDataContext';
 
 
 function MyApp({ Component, pageProps }) {
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }) {
   const [ data, setData ] = useState({
     hlxPrice: 0,
   }); 
+  const [userVault, setUserVault] = useState();
   const [client, setClient] = useState(new helixClient());
 
   const icon = (
@@ -39,9 +41,11 @@ function MyApp({ Component, pageProps }) {
       <ProtocolContext.Provider value={{ data, setData }}>
         <ThemeProvider attribute='class'>
           <HelixContext.Provider value={{client, setClient}}>
-            <LayoutContext.Provider value={{ layout, setLayout }}>
-              <Component {...pageProps} />
-            </LayoutContext.Provider>
+            <UserDataContext.Provider value ={{userVault, setUserVault}}>
+              <LayoutContext.Provider value={{ layout, setLayout }}>
+                <Component {...pageProps} />
+              </LayoutContext.Provider>
+            </UserDataContext.Provider>
           </HelixContext.Provider>
         </ThemeProvider>
       </ProtocolContext.Provider>
