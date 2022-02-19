@@ -48,8 +48,9 @@ function MarketCard(props) {
 		<div className="flex w-full h-full rounded-xl bg-mesh-2-bg bg-cover justify-around content-center items-center">
 			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto lg:my-auto justify-around">
 				<div className="flex flex-col basis-3/4 h-full items-start align-middle my-auto text-center">
-					<span className="text-xl md:text-3xl lg:text-5xl xl:text-5xl max-w-3xl md:my-auto py-2 font-bold text-[#3D3D3D]">
-						Explore information markets on Solana
+				<span className="text-sm text-[#727272] font-medium right-0">MARKETPLACE</span>
+					<span className="text-xl md:text-3xl lg:text-4xl xl:text-4xl max-w-3xl md:my-auto py-2 font-bold text-[#3D3D3D]">
+						Explore assets and information on the Helix marketplace.
 					</span>
 					<button className="self-center bg-white bg-opacity-40 font-semibold text-xl px-4 py-2 rounded-lg text-[#6D6D6D]">
 						Coming Soon
