@@ -11,31 +11,31 @@ export default function Dash(props) {
 	const { theme, setTheme } = useTheme();
 	const { data, setData } = useContext(ProtocolContext);
 	return(
-		<div className="h-screen -mt-24 content-center items-center pt-28 md:pt-36 pb-8 md:pb-24" >
-			<div className="grid gap-x-0 md:gap-x-24 grid-cols-2 grid-rows-7 lg:grid-rows-4 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full space-y-2 md:space-y-8 justify-around">
-				<CardCarousel className="w-screen"/>
-				<div className="flex flex-col col-span-2 lg:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+		<div className="h-screen -mt-24 items-center pt-28 md:pt-36 pb-8 md:pb-24" >
+			<div className="grid grid-cols-1 grid-rows-8 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full space-y-4 md:space-y-8 justify-around">
+				<CardCarousel />
+				<div className="flex flex-col rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat
 						statName="Revenue (24HR)"
 						statValue={data?.revenue}
 						statChange={data?.revenueChange}
 					/>
 				</div>
-				<div className="flex flex-col col-span-2 lg:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+				<div className="flex flex-col rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="HLX Staked (USDC)"
 						statValue={data?.stakedHlx}
 						statChange={data?.stakedHlxChange}
 					/>
 				</div>
-				<div className="flex flex-col col-span-2 lg:col-span-1 row-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+				<div className="flex flex-col rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="Staking APY (%)"
 						statValue={data?.stakingApy}
 						statChange={data?.stakingApyChange}
 					/>
 				</div>
-				<div className="flex col-start-1 lg:md:col-start-2 row-start-2 flex-col col-span-2 lg:col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
+				<div className="flex flex-col rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Graph
 						graphName="TVL"
 					/>
