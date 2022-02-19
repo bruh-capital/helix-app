@@ -12,17 +12,29 @@ export default function Bond(props) {
 
 	const [priceMap, setPriceMap] = useState({});
 
+	const [bondAccount, setBondAccount] = useState();
+
 
 	useEffect(async ()=>{
 		console.log("setting");
 		let pricemap = {};
-		if(client && client.getBondMarketInfo && client.getTokenPrice){
+		if(client && client.getTokenPrice){
 			for(let bond of props.bondItems){
 				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
 			}
 			setPriceMap(pricemap);
 		}
-	},[!!client])
+	},[!!client]);
+
+
+	useEffect(async ()=>{
+		if(client && client.getBondAccount){
+			let bondAcc = await client.getBondAccount();
+			if(bondAcc != undefined){
+				setBondAccount(bondAcc);
+			}
+		}
+	}, [!!client])
 
 	// FIXME(milly): this is temp make sure to include this on
 	let bondItems = [{
@@ -62,17 +74,9 @@ export default function Bond(props) {
 								className={
 									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
 								}
-								onClick={() => {client.closeBondAccount()}}
+								onClick={() => {client != undefined ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : ()=>{};}}
 							>
-								Delete Account
-							</button>
-							<button
-								className={
-									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
-								}
-								onClick={() => {client.closeBondAccount()}}
-							>
-								Create Account
+								{client && client.getBondAccount ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
 							</button>
 						</div>
 					</div>

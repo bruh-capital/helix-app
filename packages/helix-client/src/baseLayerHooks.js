@@ -83,6 +83,14 @@ export default function HelixWrapper(wallet) {
 		return await helixClient.FetchBondMarket(mint_addr);
 	}
 
+	const getBondAccount = async() =>{
+		try{
+			return await helixClient.FetchBondAccount();
+		}catch(e){
+			return undefined;
+		}
+	}
+
 	const getUserVault = async() =>{
 		return await helixClient.FetchUserVault();
 	}
@@ -172,6 +180,7 @@ export default function HelixWrapper(wallet) {
 		changeRebaseRate,
 		createBondSigner,
 		getTokenPrice,
+		getBondAccount,
 	};
 }
 

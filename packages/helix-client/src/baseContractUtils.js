@@ -332,6 +332,10 @@ export class HelixNetwork {
 
 	}
 
+	FetchBondAccount = async() => {
+		return await this.bond_program.account.bondAccount.fetch(this.bondAccount);
+	}
+
 	/// take asset mint as input
 	SPLBond = async (bond_price, bond_maturity, mintAddress, asset, connection, decimals) => {	
 		let tokenMintAddress = new PublicKey(mintAddress);
