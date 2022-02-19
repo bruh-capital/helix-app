@@ -37,13 +37,13 @@ export default function Stake(props) {
 
 	return(
 		<div className="-mt-24 h-screen content-center items-center pt-32 md:pt-36 pb-24">
-			<div className="flex flex-col mx-8 md:mx-auto md:w-1/2 gap-y-8">
+			<div className="flex flex-col mx-8 sm:mx-auto sm:w-3/4 md:w-1/2 gap-y-8">
 				<div className="hidden md:flex md:flex-row justify-items-start rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-full">
 					<div className="rounded-xl p-2 m-2 bg-[#EEEEEE] bg-opacity-60 dark:bg-[#343A45]">
 						<InformationCircleIcon className="h-5 w-5"/>
 					</div>
 					<div className="text-sx md:text-medium font-medium text-[#606060] dark:text-[#7C849A] my-auto whitespace-nowrap truncate text-sm">
-						Note: The "Configure" transaction is only needed when interacting for the first time.
+						Note: The "Create Vault" transaction is only needed when interacting for the first time.
 					</div>
 				</div>
 
@@ -85,9 +85,10 @@ export default function Stake(props) {
 										layout="fixed"
 										priority={true}
 									/>
+									<span className="font-bold text-sm text-white pt-1 pl-1 leading-relaxed">HLX</span>
 								</div>
-								<div className="text-xs text-[#435178] dark:text-[#7C849A]">
-									Total: {protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : "0.00"}
+								<div className="text-xs text-[#435178] dark:text-[#7C849A] whitespace-nowrap">
+									{"Total: " + (protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : "0.00")}
 								</div>
 							</div>
 							<input
