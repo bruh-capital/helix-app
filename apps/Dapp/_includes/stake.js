@@ -79,15 +79,15 @@ export default function Stake(props) {
 							<div className="flex flex-col">
 								<div className="flex bg-[#333A45] rounded-lg m-auto p-2 justify-between">
 									<Image
-										src = {"/2d/" + (theme == "light"? "2d_logo3.png" : "2d_logo4.png")}
-										height = {30}
-										width = {18}
+										src = {"/2d/2d_logo4.png"}
+										height = {26}
+										width = {16}
 										layout="fixed"
 										priority={true}
 									/>
 									<span className="font-bold text-sm text-white pt-1 pl-1 leading-relaxed">HLX</span>
 								</div>
-								<div className="text-xs text-[#435178] dark:text-[#7C849A] whitespace-nowrap">
+								<div className="text-xs text-[#435178] dark:text-[#7C849A] whitespace-nowrap mt-1">
 									{"Total: " + (protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : "0.00")}
 								</div>
 							</div>
@@ -101,7 +101,6 @@ export default function Stake(props) {
 							</>
 						)}
 					</div>
-					{/* needs some UX cleanups like adding the connect button directly here...*/}
 					<button
 						className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
 						dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
