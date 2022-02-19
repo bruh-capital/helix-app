@@ -36,8 +36,8 @@ export default function Stake(props) {
 	}, [client]);
 
 	return(
-		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">
-			<div className="flex flex-col mx-8 gap-y-8">
+		<div className="-mt-24 h-screen content-center items-center pt-32 md:pt-36 pb-24">
+			<div className="flex flex-col mx-8 md:mx-auto md:w-1/2 gap-y-8">
 				<div className="hidden md:flex md:flex-row justify-items-start rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-full">
 					<div className="rounded-xl p-2 m-2 bg-[#EEEEEE] bg-opacity-60 dark:bg-[#343A45]">
 						<InformationCircleIcon className="h-5 w-5"/>
@@ -86,12 +86,12 @@ export default function Stake(props) {
 										priority={true}
 									/>
 								</div>
-								<div className="text-xs text-slate-500 align-text-bottom">
-									Total: {protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : null}
+								<div className="text-xs text-[#435178] dark:text-[#7C849A]">
+									Total: {protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : "0.00"}
 								</div>
 							</div>
 							<input
-								className="border-0 bg-transparent font-normal text-lg w-full outline-none text-right"
+								className="border-0 bg-transparent font-normal text-lg w-full outline-none text-right text-[#435178] dark:text-[#7C849A]"
 								type="number"
 								placeholder={uiFunction === "stake" ? "Stake Amount" : "Unstake Amount"}
 								value={amount || ""}
@@ -123,7 +123,7 @@ export default function Stake(props) {
 					<div className={"flex flex-row rounded-lg mx-8 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429] " + (!wallet?.connected && " h-12 animate-pulse") }>
 						{wallet?.connected && (
 							<input
-								className="border-0 bg-transparent text-lg w-full outline-none"
+								className="border-0 bg-transparent text-lg w-full outline-none text-[#435178] dark:text-[#7C849A]"
 								type="number"
 								placeholder={"Change Lockup Period"}
 								value={lockupPeriod || ""}
