@@ -6,7 +6,7 @@ import Image from "next/image";
  */
 function AvailableCard() {
 	return(
-		<div className="flex w-full h-28 rounded-xl bg-mesh-1-bg bg-cover">
+		<div className="flex w-full h-full rounded-xl bg-mesh-1-bg bg-cover">
 			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto md:my-4 lg:my-auto justify-around align-center w-full">
 				<div className="flex flex-col basis-3/4 h-full items-start align-middle my-auto text-left">
 					<span className="basis-full leading-none md:basis-3/4 text-xl md:text-3xl lg:text-6xl xl:text-6xl max-w-3xl md:my-auto py-2 font-bold text-white">
