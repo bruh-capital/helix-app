@@ -47,7 +47,7 @@ export default function Graph(props) {
 					props.graphData ? (
 						<div className="flex flex-grow bg-[#C0C0C0] animate-pulse"/>
 					) : (
-						<div className="rounded-md flex bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72">
+						<div className="rounded-md flex bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72 xl:h-96">
 							<AreaChart>
 								<XAxis dataKey="time" />
 								<YAxis dataKey={props.graphName} />
