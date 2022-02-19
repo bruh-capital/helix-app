@@ -119,16 +119,16 @@ export default function Header(props) {
 													leaveTo="opacity-0 translate-y-2"
 												>
 													<Popover.Panel className="absolute z-50 w-screen max-w-sm mt-3 transform left-0 -translate-x-1/2 md:left-auto md:-translate-x-0 md:right-0 sm:px-0">
-														<div className="overflow-hidden bg-opacity-100 rounded-md shadow-md bg-white dark:bg-black dark:bg-opacity-75">
+														<div className="overflow-hidden bg-opacity-100 rounded-md shadow-md bg-[#C0C0C0] dark:bg-black dark:bg-opacity-75">
 															<div className="relative grid p-4 grid-cols-1 space-y-3">
 																<button
-																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-105 hover:font-semibold duration-300"
+																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-105 duration-300"
 																	onClick={() => {
 																		setNetwork("devnet")
 																	}}
 																>Change to Devnet</button>
 																<button
-																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-x-105 hover:font-semibold duration-300"
+																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-x-105 duration-300"
 																	onClick={disconnect}
 																>Disconnect</button>
 															</div>
