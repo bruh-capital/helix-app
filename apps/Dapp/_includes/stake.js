@@ -3,12 +3,14 @@ import { useTheme } from 'next-themes';
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import UserDataContext from "@context/userDataContext";
+import { useConnectedWallet } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import helixContext from "@context/helixContext";
 
 export default function Stake(props) {
 	const { theme, setTheme } = useTheme();
-	const wallet = useWalletKit();
+	const wallet = useConnectedWallet();
+	const goki = useWalletKit();
 	const [ uiFunction, setUiFunction ] = useState("stake");	
 	const [ amount, setAmount ] = useState(null);
 	const [ lockupPeriod, setLockupPeriod] = useState(0);
@@ -19,7 +21,7 @@ export default function Stake(props) {
 	const [protocolData, setProtocolData] = useState();
 
 	useEffect(async ()=>{
-		if(client && client.getUserVault){
+		if(client && client?.getUserVault){
 			let userVault = await client.getUserVault();
 			if(userVault){
 				setData(userVault);
@@ -27,7 +29,7 @@ export default function Stake(props) {
 			}
 		}
 
-		if(client && client.getProtocolData){
+		if(client && client?.getProtocolData){
 			let protocData = await client.getProtocolData();
 			setProtocolData(protocData);
 		}
@@ -36,7 +38,7 @@ export default function Stake(props) {
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">
 			<div className="flex flex-col mx-8 gap-y-8">
-				<div className="flex flex-row justify-items-start rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-full">
+				<div className="hidden md:flex md:flex-row justify-items-start rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-full">
 					<div className="rounded-xl p-2 m-2 bg-[#EEEEEE] bg-opacity-60 dark:bg-[#343A45]">
 						<InformationCircleIcon className="h-5 w-5"/>
 					</div>
@@ -71,7 +73,7 @@ export default function Stake(props) {
 							onClick={() => setUiFunction("unstake")}
 						>Unstake</button>
 					</div>
-					<div className="flex flex-col rounded-lg mx-6 md:mx-16 p-3 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
+					<div className="flex flex-col rounded-lg mx-8 md:mx-16 p-3 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
 						<div className="grid grid-cols-2 mb-2">
 							<Image
 								src = {"/2d/" + (theme == "light"? "2d_logo3.png" : "2d_logo4.png")}
@@ -89,27 +91,31 @@ export default function Stake(props) {
 							/>
 						</div>
 						<div className="text-xs text-slate-500">
-							Total: {protocolData ? amount/(protocolData.shareRatio.toNumber()/1000) : null}
+							Total: {protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : null}
 						</div>
 
 					</div>
 					{/* needs some UX cleanups like adding the connect button directly here...*/}
-					<button
-						className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
-						dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
-						onClick={() => {
-								if (wallet) {
-									uiFunction == "stake" ? client.stakeToken(amount) : client.unstakeToken(amount);
-								} else {
-									// FIXME(milly): Add nice lil reapop notifs here
-									console.log("Please Connect Your Wallet")
-								}
-							}
-						}
-					>
-						{uiFunction === "stake" ? "Stake" : "Unstake"}
-					</button>
-					<div className="flex flex-row rounded-lg mx-10 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
+					{ 
+						wallet?.connected ? (
+							<button
+								className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
+								dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
+								onClick={() => {uiFunction == "stake" ? client.stakeToken(amount) : client?.unstakeToken(amount)}}
+							>
+								{uiFunction === "stake" ? "Stake" : "Unstake"}
+							</button>
+						) : (
+							<button
+								className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
+								dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
+								onClick={() => goki.connect()}
+							>
+								Connect Wallet
+							</button>
+						)
+					}
+					<div className="flex flex-row rounded-lg mx-8 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
 							<input
 								className="border-0 bg-transparent text-xl w-full outline-none"
 								type="number"
