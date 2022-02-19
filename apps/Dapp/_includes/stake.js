@@ -14,7 +14,7 @@ export default function Stake(props) {
 	const [ uiFunction, setUiFunction ] = useState("stake");	
 	const [ amount, setAmount ] = useState(null);
 	const [ lockupPeriod, setLockupPeriod] = useState(0);
-	const { userData, setData } = useContext(UserDataContext);
+	const { userData, setUserData } = useContext(UserDataContext);
 	const [stakedBalance, setStakedBalance] = useState();
 	const {client} = useContext(helixContext);
 
@@ -24,7 +24,7 @@ export default function Stake(props) {
 		if(client && client?.getUserVault){
 			let userVault = await client.getUserVault();
 			if(userVault){
-				setData(userVault);
+				setUserData(userVault);
 				setStakedBalance(userVault.stakeBalance.toNumber())	
 			}
 		}
@@ -50,7 +50,7 @@ export default function Stake(props) {
 
 				<div className="flex flex-col rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838]" >
 					<div className="flex font-medium pt-10 px-10 md:px-16 text-[#435178] dark:text-[#7C849A]">
-						Your Staked sHLX
+						Your Staked HLX
 					</div>
 					<div className="flex font-bold text-[#272629] dark:text-white px-10 md:px-16 text-3xl md:text-6xl">
 						{typeof stakedBalance == "number" ? stakedBalance : "N/A"}
@@ -73,88 +73,77 @@ export default function Stake(props) {
 							onClick={() => setUiFunction("unstake")}
 						>Unstake</button>
 					</div>
-					<div className="flex flex-col rounded-lg mx-8 md:mx-16 p-3 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
-						<div className="grid grid-cols-2 mb-2">
-							<Image
-								src = {"/2d/" + (theme == "light"? "2d_logo3.png" : "2d_logo4.png")}
-								height = {30}
-								width = {18}
-								layout="fixed"
-								priority={true}
-							/>
+					<div className={"flex flex-row rounded-lg mx-8 md:mx-16 p-3 mb-4 bg-[#C0C0C0] dark:bg-[#212429] " + (!wallet?.connected && " animate-pulse h-12")}>
+						{wallet?.connected && (
+							<>
+							<div className="flex flex-col">
+								<div className="flex bg-[#333A45] rounded-lg m-auto p-2 justify-between">
+									<Image
+										src = {"/2d/" + (theme == "light"? "2d_logo3.png" : "2d_logo4.png")}
+										height = {30}
+										width = {18}
+										layout="fixed"
+										priority={true}
+									/>
+								</div>
+								<div className="text-xs text-slate-500 align-text-bottom">
+									Total: {protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : null}
+								</div>
+							</div>
 							<input
-								className="border-0 bg-transparent text-xl w-full outline-none text-right"
+								className="border-0 bg-transparent font-normal text-lg w-full outline-none text-right"
 								type="number"
 								placeholder={uiFunction === "stake" ? "Stake Amount" : "Unstake Amount"}
 								value={amount || ""}
 								onChange={(e) => setAmount(e.target.value)}
-							/>
-						</div>
-						<div className="text-xs text-slate-500">
-							Total: {protocolData ? amount/(protocolData?.shareRatio?.toNumber()/1000) : null}
-						</div>
-
+							/> 
+							</>
+						)}
 					</div>
 					{/* needs some UX cleanups like adding the connect button directly here...*/}
-					{ 
-						wallet?.connected ? (
-							<button
-								className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
-								dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
-								onClick={() => {uiFunction == "stake" ? client.stakeToken(amount) : client?.unstakeToken(amount)}}
-							>
-								{uiFunction === "stake" ? "Stake" : "Unstake"}
-							</button>
-						) : (
-							<button
-								className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
-								dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
-								onClick={() => goki.connect()}
-							>
-								Connect Wallet
-							</button>
-						)
-					}
-					<div className="flex flex-row rounded-lg mx-8 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429]">
+					<button
+						className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
+						dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
+						onClick={() => {
+							if (client && client?.stakeToken && client?.unstakeToken && wallet?.connected && userData) {
+								uiFunction == "stake" ? client.stakeToken(amount) : client?.unstakeToken(amount);
+							} else if (client && client?.stakeToken && client?.unstakeToken && !userData) {
+								client.createVault();
+							} else {
+								goki.connect();
+							}
+						}}
+					>
+						{
+							wallet?.connected && userData ?
+							(uiFunction === "stake" ? "Stake" : "Unstake") :
+							(wallet?.connected && !userData ? "Create Vault" : "Connect Wallet")
+						}
+					</button>
+					<div className={"flex flex-row rounded-lg mx-8 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429] " + (!wallet?.connected && " h-12 animate-pulse") }>
+						{wallet?.connected && (
 							<input
-								className="border-0 bg-transparent text-xl w-full outline-none"
+								className="border-0 bg-transparent text-lg w-full outline-none"
 								type="number"
 								placeholder={"Change Lockup Period"}
 								value={lockupPeriod || ""}
 								onChange={(e) => setLockupPeriod(e.target.value)}
 							/>
+						)}
 					</div>
 					<button
-						className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]
+						className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]
 						dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
 						onClick={() => {
-							if(client && client.ChangeLockup){
+							if(client && client?.ChangeLockup && wallet?.connected && userData){
 								client.ChangeLockup(lockupPeriod);
+							} else if (client && client?.ChangeLockup && wallet?.connected && !userData) {
+								client.createVault();
 							}
-						}
-						}
+						}}
 					>
-						Change
+						{wallet?.connected && userData ? "Change" : wallet?.connected && !userData ? "Create Vault" : "Connect Wallet"}
 					</button>
-				</div>
-				<div className="grid grid-cols-2 place-items-center">
-					<div className="grid grid-col place-items-center align-middle rounded-xl justify-center bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-7/8">
-						<button
-								className="rounded-lg py-4 p-8 mx-10 md:mx-8 font-bold text-lg m-4 bg-[#C0C0C0] dark:bg-[#212429] dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
-								onClick={() => {client.createVault()}}
-						>
-							Create Vault
-						</button>
-					</div>
-
-					<div className="grid grid-col place-items-center align-middle rounded-xl justify-center bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-7/8">
-						<button
-							className="rounded-lg py-4 p-8 mx-10 md:mx-8 font-bold text-lg m-4 bg-[#C0C0C0] dark:bg-[#212429] dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
-							onClick={() => {client.closeVault()}}
-						>
-							Delete Vault
-						</button>
-					</div>
 				</div>
 			</div>
 		</div>
