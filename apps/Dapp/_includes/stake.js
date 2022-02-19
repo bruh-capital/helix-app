@@ -123,7 +123,7 @@ export default function Stake(props) {
 					<div className={"flex flex-row rounded-lg mx-8 md:mx-16 p-4 mb-4 bg-[#C0C0C0] dark:bg-[#212429] " + (!wallet?.connected && " h-12 animate-pulse") }>
 						{wallet?.connected && (
 							<input
-								className="border-0 bg-transparent text-xl w-full outline-none"
+								className="border-0 bg-transparent text-lg w-full outline-none"
 								type="number"
 								placeholder={"Change Lockup Period"}
 								value={lockupPeriod || ""}
@@ -144,24 +144,6 @@ export default function Stake(props) {
 					>
 						{wallet?.connected && userData ? "Change" : wallet?.connected && !userData ? "Create Vault" : "Connect Wallet"}
 					</button>
-				</div>
-				<div className="grid grid-cols-2 place-items-center">
-					<div className="grid grid-col place-items-center align-middle rounded-xl justify-center bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-7/8">
-						<button
-								className="rounded-lg py-4 p-8 mx-10 md:mx-8 font-bold text-lg m-4 bg-[#C0C0C0] dark:bg-[#212429] dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
-								onClick={() => {client.createVault()}}
-						>
-							Create Vault
-						</button>
-					</div>
-					<div className="grid grid-col place-items-center align-middle rounded-xl justify-center bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838] w-7/8">
-						<button
-							className="rounded-lg py-4 p-8 mx-10 md:mx-8 font-bold text-lg m-4 bg-[#C0C0C0] dark:bg-[#212429] dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
-							onClick={() => {client.closeVault()}}
-						>
-							Delete Vault
-						</button>
-					</div>
 				</div>
 			</div>
 		</div>
