@@ -26,7 +26,7 @@ export default function BondModalButton(props) {
 	}, [!!client]);
 
 	useEffect(()=>{
-		if(market){
+		if(market != undefined){
 			setAmountDue(bondAmount / Math.pow(1 + (market.interestRate.toNumber()/ 1000), expiration));
 		}
 	}, [bondAmount, expiration])

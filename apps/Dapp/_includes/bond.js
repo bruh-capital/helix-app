@@ -130,9 +130,7 @@ Bond.defaultProps = {
 		{
 			asset:"SOL",
 			tokenAddress:"11111111111111111111111111111111",
-			decimals:6,
-			// live is 9
-			// decimals: 9,
+			decimals:9,
 		},
 		{
 			asset:"wUST",
