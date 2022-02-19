@@ -11,8 +11,8 @@ export default function Dash(props) {
 	const { theme, setTheme } = useTheme();
 	const { data, setData } = useContext(ProtocolContext);
 	return(
-		<div className="h-screen -mt-24 items-center pt-28 md:pt-36 pb-8 md:pb-24" >
-			<div className="grid grid-cols-1 grid-rows-8 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full space-y-4 md:space-y-8 justify-around">
+		<div className="h-screen items-center mt-4 md:mt-10" >
+			<div className="grid grid-cols-1 grid-rows-8 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full space-y-4 md:space-y-8">
 				<CardCarousel />
 				<div className="flex flex-col rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat
