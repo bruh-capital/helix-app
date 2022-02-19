@@ -92,7 +92,11 @@ export default function HelixWrapper(wallet) {
 	}
 
 	const getUserVault = async() =>{
-		return await helixClient.FetchUserVault();
+		try{
+			return await helixClient.FetchUserVault();
+		}catch(e){
+			return undefined;
+		}
 	}
 
 	const getProtocolData = async() =>{
