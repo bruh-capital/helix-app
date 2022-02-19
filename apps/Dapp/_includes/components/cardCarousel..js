@@ -9,8 +9,10 @@ export default function CardCarousel() {
 			infiniteLoop
 			stopOnHover
 			showStatus={false}
+			showArrows={false}
+			showThumbs={false}
 			interval={7000}
-			className="h-full w-full col-span-2 row-span-1"
+			className="-mb-12"
 		>
 			<AvailableCard />
 			<AvailableCard />
