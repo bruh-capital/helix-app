@@ -5,7 +5,7 @@ import Graph from "@includes/components/graph";
 
 import { useTheme } from "next-themes";
 import ProtocolContext from "@context/protocolDataContext";
-import CardCarousel from "@includes/components/cardCarousel.";
+import CardCarousel from "@includes/components/cardCarousel";
 
 export default function Dash(props) {
 	const { theme, setTheme } = useTheme();
