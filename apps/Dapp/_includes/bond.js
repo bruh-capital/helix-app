@@ -62,7 +62,7 @@ export default function Bond(props) {
 								className={
 									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
 								}
-								onClick={() => {}}
+								onClick={() => {client.closeBondAccount()}}
 							>
 								Delete Account
 							</button>
@@ -70,7 +70,7 @@ export default function Bond(props) {
 								className={
 									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
 								}
-								onClick={() => {}}
+								onClick={() => {client.closeBondAccount()}}
 							>
 								Create Account
 							</button>
