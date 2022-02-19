@@ -3,24 +3,24 @@ import BondModalButton from "@includes/components/bondModal";
 import helixContext from "@context/helixContext";
 import {useContext, useEffect, useState} from 'react';
 
+// create delete dynamic
+// create if no account
+// blur bond buttons if wallet not connected && no account
+
 export default function Bond(props) {
 	const {client} = useContext(helixContext);
 
 	const [priceMap, setPriceMap] = useState({});
-	const [marketMap, setMarketMap] = useState({});
 
 
 	useEffect(async ()=>{
 		console.log("setting");
 		let pricemap = {};
-		let marketmap = {};
 		if(client && client.getBondMarketInfo && client.getTokenPrice){
 			for(let bond of props.bondItems){
 				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
-				marketmap[bond.asset] = await client.getBondMarketInfo(bond.tokenAddress);
 			}
 			setPriceMap(pricemap);
-			setMarketMap(marketmap);
 		}
 	},[!!client])
 
@@ -93,6 +93,7 @@ export default function Bond(props) {
 										tokenName = {bond.asset}
 										network = {props.network}
 										decimals = {bond.decimals}
+										price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
 									/>
 								</td>
 							</tr>
