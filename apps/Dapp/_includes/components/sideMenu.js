@@ -1,6 +1,15 @@
 import { Fragment, useContext, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { CashIcon, ChartBarIcon, ExternalLinkIcon, InformationCircleIcon, LibraryIcon, ShoppingBagIcon, UsersIcon, XIcon } from '@heroicons/react/outline'
+import { 
+	CashIcon,
+	ChartBarIcon,
+	ExternalLinkIcon,
+	InformationCircleIcon,
+	LibraryIcon,
+	ShoppingBagIcon,
+	UserGroupIcon,
+	XIcon
+} from '@heroicons/react/outline'
 import Image from 'next/image';
 
 import { useTheme } from 'next-themes';
@@ -105,7 +114,7 @@ export default function DappSideMenu(props) {
 													Bond
 												</button>
 											</div>
-											<div className="flex flex-col gap-y-2 m-auto w-1/2 mb-4">
+											<div className="flex flex-col gap-y-4 m-auto w-1/2 mb-16">
 												<a className="flex">
 													<div className="flex flex-row items-center text-[#949494]">
 														<InformationCircleIcon className="h-6 w-6 mr-3 text-black dark:text-white"/>
@@ -115,7 +124,7 @@ export default function DappSideMenu(props) {
 												</a>
 												<a className="flex">
 													<div className="flex flex-row items-center text-[#949494]">
-														<UsersIcon className="h-6 w-6 mr-3 text-black dark:text-white"/>
+														<UserGroupIcon className="h-6 w-6 mr-3 text-black dark:text-white"/>
 														Governance
 														<ExternalLinkIcon className="h-3 w-3 ml-1"/>
 													</div>
@@ -128,7 +137,7 @@ export default function DappSideMenu(props) {
 													</div>
 												</a>
 											</div>
-											<div className="flex flex-row justify-around gap-4 m-auto">
+											<div className="flex flex-row justify-around gap-4 bottom-0">
 												<div className="flex flex-row items-center pt-1 gap-x-2 justify-between rounded-md px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
 													<a href="https://twitter.com/Helix_DAO">
 														<Image src="/dapp-assets/icons/assets/twitter.png" height={29} width={29} />
