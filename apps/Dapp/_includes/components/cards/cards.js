@@ -4,9 +4,9 @@ import Image from "next/image";
  *	Card shows a pink mesh + clock announcing release! 
  * @returns {React.Component}
  */
-function AvailableCard() {
+function AvailableCard(props) {
 	return(
-		<div className="flex w-full h-full rounded-xl bg-mesh-1-bg bg-cover justify-around content-center items-center">
+		<div ref={props.passedRef} className="flex w-full h-full rounded-xl bg-mesh-1-bg bg-cover justify-around content-center items-center">
 			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto lg:my-auto justify-around">
 				<div className="flex flex-col basis-3/4 h-full items-start align-middle my-auto text-left">
 					<span className="basis-full leading-none md:basis-3/4 text-xl md:text-3xl lg:text-6xl xl:text-6xl max-w-3xl md:my-auto py-2 font-bold text-white">
@@ -39,5 +39,27 @@ function AvailableCard() {
 	);
 }
 
+/**
+ * Card shows a marketplace link card + a button
+ * @returns {React.Component}
+ */
+function MarketCard(props) {
+	return(
+		<div className="flex w-full h-full rounded-xl bg-mesh-2-bg bg-cover justify-around content-center items-center">
+			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto lg:my-auto justify-around">
+				<div className="flex flex-col basis-3/4 h-full items-start align-middle my-auto text-center">
+					<span className="text-xl md:text-3xl lg:text-5xl xl:text-5xl max-w-3xl md:my-auto py-2 font-bold text-[#3D3D3D]">
+						Explore information markets on Solana
+					</span>
+					<button className="self-center bg-white bg-opacity-40 font-semibold text-xl px-4 py-2 rounded-lg text-[#6D6D6D]">
+						Coming Soon
+					</button>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+
 // Exports 
-export {AvailableCard}; 
+export {AvailableCard, MarketCard}; 
