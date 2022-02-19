@@ -38,16 +38,17 @@ export default function Header(props) {
 							>
 								<Menu.Items className="absolute origin-top-right divide-gray-300 divide-y mt-2">
 									<div className="px-1 py-1">
-										<Menu.Item disabled>
+										<Menu.Item>
 											{({ active }) => (
 												<a
-													href="#"
+													href="./whitepaper.pdf"
 													className="group flex items-center px-2 py-2 text-sm text-[#909090] hover:text-white"
 												>
-													Helix
+													Whitepaper
 												</a>
 											)}
 										</Menu.Item>
+										{/*
 										<Menu.Item disabled>
 											{({ active }) => (
 												<a
@@ -58,6 +59,7 @@ export default function Header(props) {
 												</a>
 											)}
 										</Menu.Item>
+										*/}
 									</div>
 								</Menu.Items>
 							</Transition>
