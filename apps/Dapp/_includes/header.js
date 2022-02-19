@@ -2,8 +2,9 @@ import Image from "next/image";
 import { useTheme } from 'next-themes';
 import { Fragment, useContext, useEffect, useState } from "react";
 import { ConnectWalletButton } from "@gokiprotocol/walletkit";
-import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
-import { MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
+import { useConnectedWallet, useSolana, useWallet } from "@saberhq/use-solana";
+import { useWalletKit } from "@gokiprotocol/walletkit";
+import { LightningBoltIcon, MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
 import { Popover, Transition } from "@headlessui/react";
 import SideMenu from "@includes/components/sideMenu";
 import { ChartBarIcon, CashIcon, LibraryIcon } from "@heroicons/react/outline";
@@ -21,6 +22,7 @@ export default function Header(props) {
 	const { data, setData } = useContext(ProtocolContext);
 	const {client, setClient} = useContext(HelixContext);
 	const wallet = useConnectedWallet();
+	const goki = useWalletKit();
 	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
 
 	const [ menuOpen, setMenuOpen ] = useState(false);
@@ -137,14 +139,13 @@ export default function Header(props) {
 										)}
 									</Popover>
 								) : (
-									<ConnectWalletButton style={{
-										"fontWeight": "normal",
-										"boxShadow": "none",
-										"background":(theme === "light"?"#C8C7CA":"#3A3D45"),
-										"color":(theme === "light"?"#000000":"#FFFFFF"),
-										"borderRadius": "0.375rem",
-										}}
-									/>
+									<button 
+										className="flex flex-row items-center justify-around text-md font-medium bg-[#C8C7CA] dark:bg-[#353942] px-2 md:px-3 py-1 md:py-2 rounded-md"
+										onClick={() => goki.connect()}
+									>
+										<span>Connect Wallet</span>
+										<LightningBoltIcon className="h-4 w-4 pl-1 md:h-6 md:w-6" />
+									</button>
 								)
 							}
 							<button 
