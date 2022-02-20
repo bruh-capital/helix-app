@@ -338,10 +338,6 @@ export class HelixNetwork {
 					closeBondMarket,
 					this.txsize
 				),
-				// await this.bond_program.account.bondMarket.createInstruction(
-				// 	bondMarketAddress,
-				// 	184
-				// )
 			],
 			signers: [closeBondMarket],
 		});
