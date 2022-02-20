@@ -17,6 +17,7 @@ export default function Bond(props) {
 	const [priceMap, setPriceMap] = useState({});
 
 	const [bondAccount, setBondAccount] = useState();
+	const [tableRows, setTableRows] = useState();
 
 
 	useEffect(async ()=>{
@@ -38,6 +39,25 @@ export default function Bond(props) {
 			}
 		}
 	}
+
+	useEffect(()=>{
+		setTableRows(props.bondItems?.map((bond, index) => {
+			return <tr className="py-4" key={index}>
+				<td className="text-center dark:text-[#D8D8D8]">{bond.asset}</td>
+				<td className="text-center dark:text-[#D8D8D8]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
+				<td className="items-center">
+					{wallet?.connected && bondAccount ? 
+					<BondModalButton 
+						tokenAddress={bond.tokenAddress}
+						tokenName = {bond.asset}
+						network = {props.network}
+						decimals = {bond.decimals}
+						price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
+					/>:<></>}
+				</td>
+			</tr>
+		}))
+	}, [wallet && wallet.connected && bondAccount])
 
 
 	useEffect(checkBondAccount, [!!client])
@@ -93,21 +113,7 @@ export default function Bond(props) {
 							{/* <th>ROI</th> */}
 							<th></th>
 						</tr>
-						{props.bondItems?.map((bond, index) => {
-							return <tr className="py-4" key={index}>
-								<td className="text-center text-[#D8D8D8]">{bond.asset}</td>
-								<td className="text-center text-[#696B70]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
-								<td className="items-center">
-									<BondModalButton 
-										tokenAddress={bond.tokenAddress}
-										tokenName = {bond.asset}
-										network = {props.network}
-										decimals = {bond.decimals}
-										price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
-									/>
-								</td>
-							</tr>
-						})}
+						{tableRows}
 					</table>
 				</div>
 			</div>
