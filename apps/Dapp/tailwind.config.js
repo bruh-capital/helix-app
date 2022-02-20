@@ -17,6 +17,7 @@ module.exports = {
       "card1Bg": "url('/dapp-assets/Card/1/bg.png')",
       "mesh-1-bg": "url('/dapp-assets/Card/1/mesh.png')",
       "mesh-2-bg": "url('/dapp-assets/Card/2/mesh.png')",
+      "mesh-3-bg": "url('/dapp-assets/Card/3/mesh.png')",
     },
   },
   variants: {}
