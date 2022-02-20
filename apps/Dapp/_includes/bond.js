@@ -1,9 +1,11 @@
 import Graph from "@includes/components/graph";
+import Image from "next/image";
 import BondModalButton from "@includes/components/bondModal";
 import helixContext from "@context/helixContext";
 import {useContext, useEffect, useState} from 'react';
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import { useConnectedWallet } from "@saberhq/use-solana";
+import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 
 // create delete dynamic
 // create if no account
@@ -15,6 +17,7 @@ export default function Bond(props) {
 	const {client} = useContext(helixContext);
 
 	const [priceMap, setPriceMap] = useState({});
+	const [tokenMap, setTokenMap] = useState(new Map());
 
 	const [bondAccount, setBondAccount] = useState();
 	const [tableRows, setTableRows] = useState();
@@ -40,22 +43,45 @@ export default function Bond(props) {
 		}
 	}
 
+	// Updates token map we use for images
+	useEffect(() => {
+		new TokenListProvider().resolve().then(tokens => {
+			const tokenList = tokens.getList();
+
+			setTokenMap(tokenList.reduce((map, item) => {
+				map.set(item.address, item);
+				return map;
+			}, new Map()));
+		});
+	}, [setTokenMap])
+
 	useEffect(()=>{
 		setTableRows(props.bondItems?.map((bond, index) => {
-			return <tr className="py-4" key={index}>
-				<td className="text-center dark:text-[#D8D8D8]">{bond.asset}</td>
-				<td className="text-center dark:text-[#D8D8D8]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
-				<td className="items-center">
-					{wallet?.connected && bondAccount ? 
-					<BondModalButton 
-						tokenAddress={bond.tokenAddress}
-						tokenName = {bond.asset}
-						network = {props.network}
-						decimals = {bond.decimals}
-						price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
-					/>:<></>}
-				</td>
-			</tr>
+			return (
+				<tr className="py-4" key={index}>
+					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
+						<Image
+							src={tokenMap?.get(bond.tokenAddress)?.logoURI || "/3d/4k_3D_white.png"}
+							height={50}
+							width={50}
+							layout="fixed"
+							loading="eager"
+						/>
+						<span className="my-auto mx-2">{bond.asset}</span>
+					</td>
+					<td className="text-center dark:text-[#D8D8D8]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
+					<td className="items-center">
+						{wallet?.connected && bondAccount ? 
+						<BondModalButton 
+							tokenAddress={bond.tokenAddress}
+							tokenName = {bond.asset}
+							network = {props.network}
+							decimals = {bond.decimals}
+							price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
+						/>:<></>}
+					</td>
+				</tr>
+			);
 		}))
 	}, [wallet && wallet.connected && bondAccount])
 
