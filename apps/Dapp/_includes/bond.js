@@ -1,9 +1,11 @@
 import Graph from "@includes/components/graph";
+import Image from "next/image";
 import BondModalButton from "@includes/components/bondModal";
 import helixContext from "@context/helixContext";
 import {useContext, useEffect, useState} from 'react';
 import { useWalletKit } from "@gokiprotocol/walletkit";
-import { useConnectedWallet } from "@saberhq/use-solana";
+import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
+import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 
 // create delete dynamic
 // create if no account
@@ -13,8 +15,10 @@ export default function Bond(props) {
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
 	const {client} = useContext(helixContext);
+	const { network } = useSolana();
 
 	const [priceMap, setPriceMap] = useState({});
+	const [tokenMap, setTokenMap] = useState(new Map());
 
 	const [bondAccount, setBondAccount] = useState();
 	const [tableRows, setTableRows] = useState();
@@ -23,7 +27,7 @@ export default function Bond(props) {
 
 
 	useEffect(async ()=>{
-		console.log("setting");
+		console.log(network);
 		let pricemap = {};
 		if(client && client.getTokenPrice){
 			for(let bond of props.bondItems){
@@ -42,22 +46,49 @@ export default function Bond(props) {
 		}
 	}
 
+	// Image thingy		
+	// TODO(Milly):
+	// Some weird bug happens where the images only load after wallet is connected plz fix
+	useEffect(() => {
+		new TokenListProvider().resolve().then(tokens => {
+			const tokenList = tokens.getList();
+
+			setTokenMap(tokenList.reduce((map, item) => {
+				map.set(item.address, item);
+				return map;
+			}, new Map()));
+		});
+	}, [setTokenMap]);	
+
 	useEffect(()=>{
 		setTableRows(props.bondItems?.map((bond, index) => {
-			return <tr className="py-4" key={index}>
-				<td className="text-center dark:text-[#D8D8D8]">{bond.asset}</td>
-				<td className="text-center dark:text-[#D8D8D8]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
-				<td className="items-center">
-					{wallet?.connected && bondAccount ? 
-					<BondModalButton 
-						tokenAddress={bond.tokenAddress}
-						tokenName = {bond.asset}
-						network = {props.network}
-						decimals = {bond.decimals}
-						price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
-					/>:<></>}
-				</td>
-			</tr>
+			return (
+				<tr className="py-4" key={index}>
+					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
+						<div className="rounded-full overflow-hidden">
+							<Image
+								src={tokenMap?.get(bond.mainnetTokenAddress)?.logoURI || "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"}
+								height={35}
+								width={35}
+								layout="fixed"
+								loading="eager"
+							/>
+						</div>
+						<span className="my-auto mx-2">{bond.asset}</span>
+					</td>
+					<td className="text-center dark:text-[#D8D8D8]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
+					<td className="content-center text-center">
+						{wallet?.connected && bondAccount ? 
+						<BondModalButton 
+							tokenAddress={network === "mainnet" ? bond.mainnetTokenAddress : bond.devnetTokenAddress}
+							tokenName = {bond.asset}
+							network = {props.network}
+							decimals = {bond.decimals}
+							price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
+						/>:<></>}
+					</td>
+				</tr>
+			);
 		}))
 	}, [wallet && wallet.connected, bondAccount])
 
@@ -73,19 +104,6 @@ export default function Bond(props) {
 
 
 	useEffect(checkBondAccount, [!!client])
-
-	// FIXME(milly): this is temp make sure to include this on
-	let bondItems = [{
-			asset: "SOL",
-			roi: "69%",
-			price: "69.69"
-		},
-		{
-			asset: "LOS",
-			roi: "69%",
-			price: "69.69"
-		}
-	]
 
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">
@@ -112,8 +130,8 @@ export default function Bond(props) {
 						</div>
 					</div>
 					<table className="w-5/6 self-center mb-5">
-						<tr className="border-b py-8 border-[#52555A]">
-							<th>Accepted Asset</th>
+						<tr className="border-b py-8 mx-4 border-[#52555A]">
+							<th className="text-left">Accepted Asset</th>
 							<th>Price</th>
 							{/* <th>ROI</th> */}
 							<th></th>
@@ -132,21 +150,30 @@ Bond.defaultProps = {
 	// testnet token addresses. we have mainnet ones cba to dig up a grave rn though
 	bondItems:[
 		{
-			asset:"USDC",
-			tokenAddress:"yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz",
+			asset: "USDC",
+			mainnetTokenAddress: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+			devnetTokenAddress: "yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz",
 			decimals: 9,
 			// live net is 6
 			// decimals: 6,
 		},
 		{
-			asset:"SOL",
-			tokenAddress:"11111111111111111111111111111111",
-			decimals:9,
+			asset: "SOL",
+			mainnetTokenAddress: "11111111111111111111111111111111",
+			devnetTokenAddress: "11111111111111111111111111111111",
+			decimals: 9,
 		},
 		{
-			asset:"wUST",
-			tokenAddress:"AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE",
-			decimals:9,
-		}
+			asset: "wUST",
+			mainnetTokenAddress: "CXLBjMMcwkc17GfJtBos6rQCo1ypeH6eDbB82Kby4MRm",
+			devnetTokenAddress: "AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE",
+			decimals: 9,
+		},
+		{
+			asset: "UXD",
+			mainnetTokenAddress: "7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT",
+			devnetTokenAddress: "7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT", // this is filler please find the dnet real one
+			decimals: 6,
+		},
 	]
 }
