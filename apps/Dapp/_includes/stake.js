@@ -59,7 +59,7 @@ export default function Stake(props) {
 						<button
 							className={
 								"rounded-lg px-4 py-2 " + (uiFunction === "stake" ?
-									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70] hover:text-gray-300")
+									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70] hover:text-[#343A45] dark:hover:text-gray-300")
 							}
 							onClick={() => setUiFunction("stake")}
 						>
@@ -68,7 +68,7 @@ export default function Stake(props) {
 						<button
 							className={
 								"rounded-lg px-2 md:px-4 py-1 md:py-2 " + (uiFunction === "unstake" ?
-									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70] dark:hover: hover:text-gray-300")
+									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70] hover:text-[#343A45] dark:hover:text-gray-300")
 							}
 							onClick={() => setUiFunction("unstake")}
 						>Unstake</button>
