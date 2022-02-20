@@ -43,7 +43,7 @@ export default function Bond(props) {
 		}
 	}
 
-	// Updates token map we use for images
+	// Image thingy		
 	useEffect(() => {
 		new TokenListProvider().resolve().then(tokens => {
 			const tokenList = tokens.getList();
@@ -53,7 +53,7 @@ export default function Bond(props) {
 				return map;
 			}, new Map()));
 		});
-	}, [setTokenMap])
+	}, [setTokenMap]);	
 
 	useEffect(()=>{
 		setTableRows(props.bondItems?.map((bond, index) => {
@@ -87,19 +87,6 @@ export default function Bond(props) {
 
 
 	useEffect(checkBondAccount, [!!client])
-
-	// FIXME(milly): this is temp make sure to include this on
-	let bondItems = [{
-			asset: "SOL",
-			roi: "69%",
-			price: "69.69"
-		},
-		{
-			asset: "LOS",
-			roi: "69%",
-			price: "69.69"
-		}
-	]
 
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">
