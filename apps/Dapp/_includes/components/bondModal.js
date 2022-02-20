@@ -44,7 +44,7 @@ export default function BondModalButton(props) {
 			<button
 				type="button"
 				onClick={openModal}
-				className="px-4 py-2 text-sm font-medium bg-[#40444F] dark:bg-[#3A3D45] rounded-md dark:hover:bg-zinc-600"
+				className="px-4 py-2 text-sm font-medium bg-[#696B70] text-zinc-300 dark:bg-[#3A3D45] rounded-md hover:bg-zinc-600 dark:hover:bg-zinc-600"
 			>
 				Bond
 			</button>
