@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "name": "bond_market",
   "instructions": [
     {
@@ -57,6 +57,27 @@
         {
           "name": "bondAccount",
           "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeBondMarket",
+      "accounts": [
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "bondMarket",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bondMint",
+          "isMut": false,
           "isSigner": false
         }
       ],

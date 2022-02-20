@@ -34,6 +34,12 @@ export default function dashboardUi(props) {
 						onClick = {() =>{client.createBondMarket(bondMarketMint)}}
 					>Create Bond Market</button>
 				</div>
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4">
+					<button
+						className="btn btn-primary mx-2"
+						onClick = {() =>{client.closeBondMarket(bondMarketMint)}}
+					>Close Bond Market</button>
+				</div>
 
 			</div>
 		

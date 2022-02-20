@@ -124,6 +124,9 @@ export default function HelixWrapper(wallet) {
 	const createBondMarket = async (mint) =>{
 		helixClient.CreateBondMarket(mint);
 	}
+	const closeBondMarket = async (mint) =>{
+		helixClient.CloseBondMarket(mint);
+	}
 	const createHelixMint = async() =>{
 		helixClient.CreateHelixMint();
 	}
@@ -176,6 +179,7 @@ export default function HelixWrapper(wallet) {
 		castVote,
 		createGovernemnt,
 		createBondMarket,
+		closeBondMarket,
 		createHelixMint,
 		governmentOwnedTokenAccount,
 		multisigOwnedTokenAccount,
