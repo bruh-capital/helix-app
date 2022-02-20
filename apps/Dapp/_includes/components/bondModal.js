@@ -14,20 +14,12 @@ export default function BondModalButton(props) {
 	const [ bondAmount, setBondAmount ] = useState(null);
 	const [ expiration, setExpiration] = useState(0);
 	const {client} = useContext(helixContext);
-	const [market, setMarket] = useState();
 	const [amountDue, setAmountDue] = useState(0);
 
-	useEffect(async ()=>{
-		if(client && client.getBondMarketInfo){
-			let bond_market = await client.getBondMarketInfo(props.tokenAddress);
-			console.log(bond_market);
-			setMarket(bond_market);
-		}
-	}, [!!client]);
 
 	useEffect(()=>{
-		if(market != undefined){
-			setAmountDue(bondAmount / Math.pow(1 + (market.interestRate.toNumber()/ 1000), expiration));
+		if(props.market != undefined){
+			setAmountDue(bondAmount / Math.pow(1 + (props.market.interestRate.toNumber()/ 1000), expiration));
 		}
 	}, [bondAmount, expiration])
 

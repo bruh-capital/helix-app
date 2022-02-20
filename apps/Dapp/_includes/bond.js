@@ -27,7 +27,6 @@ export default function Bond(props) {
 
 
 	useEffect(async ()=>{
-		console.log(network);
 		let pricemap = {};
 		if(client && client.getTokenPrice){
 			for(let bond of props.bondItems){
@@ -60,8 +59,13 @@ export default function Bond(props) {
 		});
 	}, [setTokenMap]);	
 
-	useEffect(()=>{
+	useEffect(async ()=>{
+		let markets = {};
+		for(let bond of props.bondItems){
+			markets[bond.asset] = props.network == "mainnet" ? await client.getBondMarketInfo(bond.mainnetTokenAddress) : await client.getBondMarketInfo(bond.devnetTokenAddress);
+		};
 		setTableRows(props.bondItems?.map((bond, index) => {
+			
 			return (
 				<tr className="py-4" key={index}>
 					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
@@ -77,6 +81,7 @@ export default function Bond(props) {
 						<span className="my-auto mx-2">{bond.asset}</span>
 					</td>
 					<td className="text-center dark:text-[#D8D8D8]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
+					<td className="text-center dark:text-[#D8D8D8]">{markets[bond.asset].couponRates[1].toNumber()/10}%</td>
 					<td className="content-center text-center">
 						{wallet?.connected && bondAccount ? 
 						<BondModalButton 
@@ -84,6 +89,7 @@ export default function Bond(props) {
 							tokenName = {bond.asset}
 							network = {props.network}
 							decimals = {bond.decimals}
+							market = {markets[bond.asset]}
 							price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
 						/>:<></>}
 					</td>
@@ -133,7 +139,7 @@ export default function Bond(props) {
 						<tr className="border-b py-8 mx-4 border-[#52555A]">
 							<th className="text-left">Accepted Asset</th>
 							<th>Price</th>
-							{/* <th>ROI</th> */}
+							<th>Minimum ROI</th>
 							<th></th>
 						</tr>
 						{tableRows}
@@ -169,11 +175,11 @@ Bond.defaultProps = {
 			devnetTokenAddress: "AZ2taR7C7LrGuCXApgCcyxfLsDM7HJH8aDyRHFCRY2WE",
 			decimals: 9,
 		},
-		{
-			asset: "UXD",
-			mainnetTokenAddress: "7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT",
-			devnetTokenAddress: "UXPhBoR3qG4UCiGNJfV7MqhHyFqKN68g45GoYvAeL2M", // this is filler please find the dnet real one
-			decimals: 6,
-		},
+		// {
+		// 	asset: "UXD",
+		// 	mainnetTokenAddress: "7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT",
+		// 	devnetTokenAddress: "UXPhBoR3qG4UCiGNJfV7MqhHyFqKN68g45GoYvAeL2M", // this is filler please find the dnet real one
+		// 	decimals: 6,
+		// },
 	]
 }
