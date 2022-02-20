@@ -551,7 +551,6 @@ export class HelixNetwork {
 			let signed_tx = await this.wallet.signTransaction(tx);
 			await this.connection.sendRawTransaction(signed_tx.serialize());
 		};
-		// console.log("created token account");
 	}
 
 	// stake amount is in twst
@@ -620,7 +619,6 @@ export class HelixNetwork {
 	}
 
 	FetchProtocolData = async() =>{
-		console.log("FetchProtocolData", this.protocolDataAccount.toString());
 		return await this.helix_program.account.protocolDataAccount.fetch(this.protocolDataAccount);
 	}
 
@@ -689,7 +687,6 @@ export class HelixNetwork {
 		  	this.governance_program.programId
 		  );
 
-		  console.log(govAddress.toString());
 
 		await this.governance_program.rpc.createGovernment(
 			new PublicKey(governed_program),
@@ -1299,7 +1296,6 @@ export class HelixNetwork {
 		let address = this.pyth_map[connection][name];
 		let priceAccount = await this.connection.getAccountInfo(address);
 		let priceData = pyth_utils.parsePriceData(priceAccount.data);
-		console.log("priceData", priceData);
 		return priceData;
 	}
 }
