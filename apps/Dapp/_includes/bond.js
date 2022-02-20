@@ -19,6 +19,8 @@ export default function Bond(props) {
 	const [bondAccount, setBondAccount] = useState();
 	const [tableRows, setTableRows] = useState();
 
+	const [actionButton, setActionButton] = useState();
+
 
 	useEffect(async ()=>{
 		console.log("setting");
@@ -57,7 +59,17 @@ export default function Bond(props) {
 				</td>
 			</tr>
 		}))
-	}, [wallet && wallet.connected && bondAccount])
+	}, [wallet && wallet.connected, bondAccount])
+
+	useEffect(()=>{
+	 	setActionButton(<button
+			className="rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
+			onClick={() => {wallet?.connected && client ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : goki.connect() && checkBondAccount()}}
+		>
+			{ wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
+		</button>
+)
+	}, [wallet && wallet.connected, bondAccount])
 
 
 	useEffect(checkBondAccount, [!!client])
@@ -96,14 +108,7 @@ export default function Bond(props) {
 							Bonds
 						</div>
 						<div className="flex flex-row-reverse w-full">
-							<button
-								className={
-									"rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
-								}
-								onClick={() => {wallet?.connected && client ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : goki.connect() && checkBondAccount()}}
-							>
-								{ wallet?.connected && client && client.getBondAccount ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
-							</button>
+							{actionButton}
 						</div>
 					</div>
 					<table className="w-5/6 self-center mb-5">
