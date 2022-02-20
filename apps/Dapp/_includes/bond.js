@@ -17,24 +17,12 @@ export default function Bond(props) {
 	const {client} = useContext(helixContext);
 	const { network } = useSolana();
 
-	const [priceMap, setPriceMap] = useState({});
 	const [tokenMap, setTokenMap] = useState(new Map());
 
 	const [bondAccount, setBondAccount] = useState();
 	const [tableRows, setTableRows] = useState();
 
 	const [actionButton, setActionButton] = useState();
-
-
-	useEffect(async ()=>{
-		let pricemap = {};
-		if(client && client.getTokenPrice){
-			for(let bond of props.bondItems){
-				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
-			}
-			setPriceMap(pricemap);
-		}
-	},[!!client]);
 
 	async function checkBondAccount(){
 		if(client && client.getBondAccount){
@@ -61,8 +49,10 @@ export default function Bond(props) {
 
 	useEffect(async ()=>{
 		let markets = {};
+		let pricemap = {};
 		for(let bond of props.bondItems){
 			markets[bond.asset] = props.network == "mainnet" ? await client.getBondMarketInfo(bond.mainnetTokenAddress) : await client.getBondMarketInfo(bond.devnetTokenAddress);
+			pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
 		};
 		setTableRows(props.bondItems?.map((bond, index) => {
 			
@@ -80,8 +70,8 @@ export default function Bond(props) {
 						</div>
 						<span className="my-auto mx-2">{bond.asset}</span>
 					</td>
-					<td className="text-center dark:text-[#D8D8D8]">{priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "N/A" }</td>
-					<td className="text-center dark:text-[#D8D8D8]">{markets[bond.asset].couponRates[1].toNumber()/10}%</td>
+					<td className="text-center dark:text-[#D8D8D8]">{pricemap && pricemap[bond.asset] ? pricemap[bond.asset].aggregate.price : "N/A" }</td>
+					<td className="text-center dark:text-[#D8D8D8]">{markets && markets[bond.asset] ? markets[bond.asset].couponRates[1].toNumber()/10 : 0}%</td>
 					<td className="content-center text-center">
 						{wallet?.connected && bondAccount ? 
 						<BondModalButton 
@@ -90,7 +80,7 @@ export default function Bond(props) {
 							network = {props.network}
 							decimals = {bond.decimals}
 							market = {markets[bond.asset]}
-							price = {priceMap && priceMap[bond.asset] ? priceMap[bond.asset].aggregate.price : "none"}
+							price = {pricemap && pricemap[bond.asset] ? pricemap[bond.asset].aggregate.price : "none"}
 						/>:<></>}
 					</td>
 				</tr>
