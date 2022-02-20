@@ -18,7 +18,7 @@
     "@pythnetwork/client": "^2.5.1",
     "@saberhq/use-solana": "^1.12.40",
     "@solana/spl-token": "^0.1.8",
-    "@solana/spl-token-registry": "^0.2.1154",
+    "@solana/spl-token-registry": "^0.2.2392",
     "@solana/wallet-adapter-base": "^0.7.0",
     "@solana/wallet-adapter-react": "^0.13.1",
     "@solana/wallet-adapter-react-ui": "^0.6.1",
