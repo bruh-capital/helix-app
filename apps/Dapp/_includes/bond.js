@@ -172,7 +172,7 @@ Bond.defaultProps = {
 		{
 			asset: "UXD",
 			mainnetTokenAddress: "7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT",
-			devnetTokenAddress: "7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT", // this is filler please find the dnet real one
+			devnetTokenAddress: "UXPhBoR3qG4UCiGNJfV7MqhHyFqKN68g45GoYvAeL2M", // this is filler please find the dnet real one
 			decimals: 6,
 		},
 	]

@@ -220,13 +220,12 @@ export class HelixNetwork {
 
 	//todo
 	CreateBondMarket = async(mint) =>{
-
 		const [bondMarketAddress, bondMarketAddressBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondmarket"),
 			  new PublicKey(mint).toBuffer(),
 			],
-			bond_program.programId
+			this.bond_program.programId
 		);
 
 		const createBondMarket = anchor.web3.Keypair.generate();
@@ -237,7 +236,7 @@ export class HelixNetwork {
 			isSigner: false,
 			isWritable: true,
 			},{
-			pubkey: this.helixMintAddress,
+			pubkey: new PublicKey(mint),
 			isSigner: false,
 			isWritable: false
 			},{
@@ -251,10 +250,10 @@ export class HelixNetwork {
 			}];
 
 		const data = this.bond_program.coder.instruction.encode("init_bond_market", {
-			marketSpace: new anchor.BN(184),
+			marketAccSpace: new anchor.BN(184),
 			// default [0%, 1%, 1%, 2%, 3%]
 			couponRates: [new anchor.BN(0), new anchor.BN(10), new anchor.BN(10), new anchor.BN(20), new anchor.BN(30)],
-			interestRate: new anchor.BN(300),
+			interestRate: new anchor.BN(30),
 		});
 
 		await this.multisig_program.rpc.createTransaction(
@@ -274,6 +273,10 @@ export class HelixNetwork {
 					createBondMarket,
 					this.txsize
 				),
+				// await this.bond_program.account.bondMarket.createInstruction(
+				// 	bondMarketAddress,
+				// 	184
+				// )
 			],
 			signers: [createBondMarket],
 		});
@@ -286,6 +289,71 @@ export class HelixNetwork {
 			},
 			remainingAccounts:
 			createBondMarketAccounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.bond_program.programId}),
+		});
+
+	}
+
+	CloseBondMarket = async(mint) =>{
+		const [bondMarketAddress, bondMarketAddressBump] = await PublicKey.findProgramAddress(
+			[
+			  Buffer.from("bondmarket"),
+			  new PublicKey(mint).toBuffer(),
+			],
+			this.bond_program.programId
+		);
+
+		const closeBondMarket = anchor.web3.Keypair.generate();
+
+		const closeBondMarketAccounts = [
+			{
+			pubkey: this.multisigSigner,
+			isSigner: false,
+			isWritable: true,
+			},{
+			pubkey: bondMarketAddress,
+			isSigner: false,
+			isWritable: true
+			},{
+			pubkey: new PublicKey(mint),
+			isSigner: false,
+			isWritable: false
+			}];
+
+		const data = this.bond_program.coder.instruction.encode("close_bond_market", {});
+
+		await this.multisig_program.rpc.createTransaction(
+			this.bond_program.programId,
+			closeBondMarketAccounts, 
+			data, {
+			accounts: {
+				multisig: this.multisig,
+				transaction: closeBondMarket.publicKey,
+				// i am indian eros :3
+				proposer: this.wallet.publicKey,
+				rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+			},
+			instructions: [
+				// creates transaction account clientside
+				await this.multisig_program.account.transaction.createInstruction(
+					closeBondMarket,
+					this.txsize
+				),
+				// await this.bond_program.account.bondMarket.createInstruction(
+				// 	bondMarketAddress,
+				// 	184
+				// )
+			],
+			signers: [closeBondMarket],
+		});
+
+		await this.multisig_program.rpc.executeTransaction({
+			accounts: {
+				multisig: this.multisig,
+				multisigSigner: this.multisigSigner,
+				transaction: closeBondMarket.publicKey,
+			},
+			remainingAccounts:
+			closeBondMarketAccounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.bond_program.programId}),
 		});
 
 	}
@@ -1174,10 +1242,10 @@ export class HelixNetwork {
 			isWritable: false
 		  }];
 	  
-		  const data = bond_program.coder.instruction.encode("create_signer", {});
+		  const data = this.bond_program.coder.instruction.encode("create_signer", {});
 	  
 		  await this.multisig_program.rpc.createTransaction(
-		    bond_program.programId,
+		    this.bond_program.programId,
 		    createBondSignerAccoounts, 
 		    data, {
 		    accounts: {
