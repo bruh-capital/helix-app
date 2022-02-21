@@ -4,6 +4,7 @@ import Hero from "@includes/hero";
 import Feature from "@includes/feature";
 import Footer from "@includes/footer";
 import Info from "@includes/info";
+import TimeLine from "@includes/timeline";
 
 export default function LandingLayout(props) {
 	return(
@@ -12,6 +13,7 @@ export default function LandingLayout(props) {
 			<Header />
 			<Hero />
 			<Feature />
+			<TimeLine />
 			<Info />
 			<Footer />
 		</main>

@@ -37,7 +37,7 @@ export default function Footer(props) {
 					<a href="https://github.com/bruh-capital">
 						<Image src="/landingassets/landingpage/icons/Vector.png" height={25} width={25} />
 					</a>
-					<a>
+					<a href="https://discord.gg/rR6M38QT3n">
 						<Image src="/landingassets/landingpage/icons/Frame 1.png" height={32} width={32} />
 					</a>
 					<a>
