@@ -6,15 +6,16 @@ import { ChevronDownIcon, ExternalLinkIcon, MenuIcon } from "@heroicons/react/so
 export default function Header(props) {
 	return(
 		<div className="static bg-transparant z-50">
-			<div className="mx-auto md:mx-10 px-4 sm:px-6">
-				<div className="flex justify-around items-center py-4">
-					<div className="flex flex-auto justify-start basis-1/4">
+			<div className="mx-auto lg:mx-10 px-4 sm:px-6">
+				<div className="flex justify-around items-center">
+					<div className="flex flex-auto justify-start align-middle basis-1/4">
 						<Image
-							src="/landingassets/3dlogos/4K_3D_icon.png"
-							height={72}
-							width={72}
+							src="/landingassets/3dlogos/4k_3D_white.png"
+							height={120}
+							width={120}
+							layout="fixed"
 						/>
-						<div className="text-3xl mt-5 ml-1 md:ml-3 text-white font-[Junegull] align-center text-center">HELIX</div>
+						<div className="text-3xl md:text-4xl lg:text-5xl my-auto -ml-5 md:ml-3 text-white font-[Junegull] align-center text-center leading-loose align-center">HELIX</div>
 					</div>
 					<div className="hidden md:flex flex-grow justify-center space-x-8">
 						<button className="text-[#909090] hover:text-white">Staking</button>
@@ -90,7 +91,7 @@ export default function Header(props) {
 										<Menu.Item>
 											{({ active }) => (
 												<a
-													href="#"
+													href="app.helixdao.org/"
 													className="group flex items-center px-2 py-2 text-md"
 												>
 													Staking
@@ -100,7 +101,7 @@ export default function Header(props) {
 										<Menu.Item>
 											{({ active }) => (
 												<a
-													href="#"
+													href="https://app.helixdao.org/"
 													className="group flex items-center px-2 py-2 text-md"
 												>
 													Bonding
