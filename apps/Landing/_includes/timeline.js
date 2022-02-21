@@ -21,9 +21,7 @@ export default function TimeLine(props) {
 								href="./Litepaper.pdf"
 							>
 								<div className="rounded-lg mx-auto w-3/4 lg:w-1/3 -mt-6 flex flex-col items-center justify-center border md:border-2 border-[#C95DF1] bg-black shadow-pink-glow-md hover:shadow-pink-glow-lg hover:ease-in duration-75 text-white text-s font-semibold py-4">
-									
-										Devnet Launch
-									
+									Litepaper
 								</div>
 							</a>
 					</div>

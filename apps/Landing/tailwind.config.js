@@ -24,6 +24,7 @@ module.exports = {
         }
       },
       backgroundImage: {
+        "noblurtokenfallingpreview": "url('/landingassets/banners/unfilteredfallingpreview.png')",
         "tokenfallingpreview": "url('/landingassets/banners/fallingpreview.png')",
         "tokenfalling": "url('/landingassets/banners/tokenfalling.gif')",
       },

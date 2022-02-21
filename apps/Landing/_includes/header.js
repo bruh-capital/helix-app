@@ -15,7 +15,7 @@ export default function Header(props) {
 							width={120}
 							layout="fixed"
 						/>
-						<div className="text-3xl md:text-4xl lg:text-5xl my-auto -ml-5 md:ml-3 text-white font-[Junegull] align-center text-center leading-loose align-center">HELIX</div>
+					<div className="text-3xl md:text-4xl lg:text-5xl my-auto -ml-6 text-white font-[Junegull] align-center text-center leading-loose align-center">HELIX</div>
 					</div>
 					<div className="hidden md:flex flex-grow justify-center space-x-8">
 						<button className="text-[#909090] hover:text-white">Staking</button>
