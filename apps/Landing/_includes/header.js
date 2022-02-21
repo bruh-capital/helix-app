@@ -10,7 +10,7 @@ export default function Header(props) {
 				<div className="flex justify-around items-center">
 					<div className="flex flex-auto justify-start align-middle basis-1/4">
 						<Image
-							src="/landingassets/3dlogos/4k_3D_white.png"
+							src="/landingassets/3dlogos/4K_3D_white.png"
 							height={120}
 							width={120}
 							layout="fixed"
