@@ -10,7 +10,7 @@ export default function Socials(props) {
 				</div>
 				<div className="flex font-semibold text-xs md:text-xl text-[#7E8083] text-left">Join the community and stay up to date on what's happening in Helix</div>
 			</div>
-            <div className="flex flex-col justify-center items-center basis-1/2 gap-y-3 w-full">
+            <div className="flex flex-col justify-center place-items-center justify-items-center my-auto items-center basis-1/2 gap-y-3 w-full h-1/3">
                 <SocialsCard
                     title="Twitter"
                     description="Stay up to date on latest news, releases, and updates."
@@ -31,8 +31,8 @@ export default function Socials(props) {
                     image={
                         <Image
                             src="/icons/bigdiscord.png" 
-                            height={57}
-                            width={80}
+                            height={45}
+                            width={60}
                             layout="fixed"
                         />
                     }
@@ -57,8 +57,8 @@ export default function Socials(props) {
                     image={
                         <Image
                             src="/icons/bigmedium.png"
-                            width={79}
-                            height={79}
+                            width={60}
+                            height={60}
                             layout="fixed"
                         />
                     }
