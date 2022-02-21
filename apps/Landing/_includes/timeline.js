@@ -17,11 +17,15 @@ export default function TimeLine(props) {
 			<div className="flex flex-row bg-gradient-to-tr from-[#FB60FF] to-[#00A3FF] justify-around w-full h-px md:h-[3px] overflow-visible mb-12 text-center">
 				<div className="flex flex-row w-11/12">
 					<div className="relative basis-1/3 mx-auto text-center">
-						
-						<div className="rounded-lg mx-auto w-3/4 lg:w-1/3 -mt-6 flex flex-col items-center justify-center border md:border-2 border-[#C95DF1] bg-black shadow-pink-glow-md hover:shadow-pink-glow-lg hover:ease-in duration-75 text-white text-xs font-semibold py-4">
-						
-							Devnet Launch
-						</div>
+							<a
+								href="./LitePaper.pdf"
+							>
+								<div className="rounded-lg mx-auto w-3/4 lg:w-1/3 -mt-6 flex flex-col items-center justify-center border md:border-2 border-[#C95DF1] bg-black shadow-pink-glow-md hover:shadow-pink-glow-lg hover:ease-in duration-75 text-white text-xs font-semibold py-4">
+									
+										Devnet Launch
+									
+								</div>
+							</a>
 					</div>
 					<div className="relative basis-1/3 flex">
 						<div className="rounded-lg mx-auto -mt-1 md:-mt-2 flex flex-col items-center justify-center bg-white shadow-pink-glow-md hover:shadow-pink-glow-lg text-white text-xs p-1 md:p-2"/>
