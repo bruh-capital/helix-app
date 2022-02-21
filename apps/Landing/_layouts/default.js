@@ -5,6 +5,7 @@ import Feature from "@includes/feature";
 import Footer from "@includes/footer";
 import Info from "@includes/info";
 import TimeLine from "@includes/timeline";
+import Socials from "@includes/socials";
 
 export default function LandingLayout(props) {
 	return(
