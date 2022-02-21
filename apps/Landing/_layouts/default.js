@@ -15,7 +15,7 @@ export default function LandingLayout(props) {
 			<Hero />
 			<Feature />
 			<TimeLine />
-			{/* <Socials /> */}
+			<Socials />
 			<Info />
 			<Footer />
 		</main>
