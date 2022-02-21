@@ -6,8 +6,6 @@ import { useConnectedWallet, useSolana, useWallet } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import { LightningBoltIcon, MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
 import { Popover, Transition } from "@headlessui/react";
-import SideMenu from "@includes/components/sideMenu";
-import { ChartBarIcon, CashIcon, LibraryIcon } from "@heroicons/react/outline";
 
 // Contexts
 import HelixContext from "@context/helixContext";
@@ -47,12 +45,9 @@ export default function Header(props) {
 							priority={true}
 						/>
 						<div className="hidden sm:flex sm:text-2xl md:text-4xl my-auto -ml-3 text-[#3E3E3E] dark:text-white font-[Junegull] align-center text-center">HELIX</div>
-						<div className="hidden flex-row my-6 ml-16 space-x-6 lg:flex lg:space-x-10">
-						</div>
 					</div>
 					<div className="flex justify-self-end">
 						<div className="flex flex-row items-center align-middle m-auto md:m-6 gap-x-4 md:gap-x-10">
-							
 							{
 								wallet ? 
 								(
@@ -118,7 +113,6 @@ export default function Header(props) {
 							>
 								<MenuIcon className="text-black dark:text-white h-4 w-4 md:h-6 md:w-6" />
 							</button>
-							<SideMenu open={menuOpen} setOpen={setMenuOpen} />
 						</div>
 					</div>
 				</div>
