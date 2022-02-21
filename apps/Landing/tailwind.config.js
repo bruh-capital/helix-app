@@ -8,6 +8,21 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        'gradient-slide': 'slidex 1s ease infinite',
+      },
+      keyframes: {
+        'slide-x': {
+          '0%, 100%': {
+              'background-size':'200% 200%',
+              'background-position': 'left center'
+          },
+          '50%': {
+              'background-size':'200% 200%',
+              'background-position': 'right center'
+          }
+        }
+      },
       backgroundImage: {
         "tokenfallingpreview": "url('/landingassets/banners/fallingpreview.png')",
         "tokenfalling": "url('/landingassets/banners/tokenfalling.gif')",

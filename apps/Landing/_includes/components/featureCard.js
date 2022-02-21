@@ -7,7 +7,7 @@ export default function FeatureCard(props) {
 				{props.image}
 			</div>
 			<div className="font-bold text-xl md:text-2xl text-white m-1">{props.title}</div>
-			<div className="text-xs leading-none text-[#ABABAB] m-1">{props.paragraph}</div>
+			<div className="text-xs md:text-base leading-none text-[#ABABAB] m-1">{props.paragraph}</div>
 		</div>
 	);
 }
