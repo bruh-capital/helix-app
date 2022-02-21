@@ -42,7 +42,7 @@ export default function Header(props) {
 										<Menu.Item>
 											{({ active }) => (
 												<a
-													href="./whitepaper.pdf"
+													href="./Litepaper.pdf"
 													className="group flex items-center px-2 py-2 text-sm text-[#909090] hover:text-white"
 												>
 													Whitepaper
