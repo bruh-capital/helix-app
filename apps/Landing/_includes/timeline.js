@@ -14,16 +14,14 @@ export default function TimeLine(props) {
 					<div className="basis-1/3 font-semibold text-[#646464]">Upcoming</div>
 				</div>
 			</div>
-			<div className="flex flex-row bg-gradient-to-tr from-[#FB60FF] to-[#00A3FF] justify-around w-full h-px md:h-[3px] overflow-visible mb-12 text-center">
+			<div className="flex flex-row bg-gradient-to-r from-[#FB60FF] to-[#00A3FF] justify-around w-full h-px md:h-[3px] overflow-visible mb-12 text-center">
 				<div className="flex flex-row w-11/12">
 					<div className="relative basis-1/3 mx-auto text-center">
 							<a
-								href="./LitePaper.pdf"
+								href="./Litepaper.pdf"
 							>
 								<div className="rounded-lg mx-auto w-3/4 lg:w-1/3 -mt-6 flex flex-col items-center justify-center border md:border-2 border-[#C95DF1] bg-black shadow-pink-glow-md hover:shadow-pink-glow-lg hover:ease-in duration-75 text-white text-s font-semibold py-4">
-									
-										Devnet Launch
-									
+									Litepaper
 								</div>
 							</a>
 					</div>
@@ -37,16 +35,16 @@ export default function TimeLine(props) {
 			</div>
 			<div className="flex flex-row w-full justify-around mb-10 text-center">
 				<div className="flex flex-row w-11/12 items-center text-center">
-					<div className="flex flex-col basis-1/3 font-semibold text-white text-left text-xs md:text-base">
-						<span className="mx-auto">• Launch Devnet</span>
-						<span className="mx-auto">• Open Landing</span>
+					<div className="flex flex-col gap-y-2 basis-1/3 font-semibold text-white text-left text-xs md:text-base">
+						<span className="m-auto">• Launch Devnet</span>
+						<span className="m-auto">• Open Landing</span>
 					</div>	
-					<div className="flex flex-col basis-1/3 font-semibold text-white text-left text-xs md:text-base">
-						<span className="mx-auto">• Release Mainnet</span>
-						<span className="mx-auto">• Seed IDO Event</span>
-						<span className="mx-auto">• Open Source</span>
+					<div className="flex flex-col gap-y-2 basis-1/3 font-semibold text-white text-left text-xs md:text-base">
+						<span className="m-auto">• Release Mainnet</span>
+						<span className="m-auto">• Seed IDO Event</span>
+						<span className="m-auto">• Open Source</span>
 					</div>
-					<div className="flex flex-col basis-1/3 font-semibold text-white text-left text-xs md:text-base">
+					<div className="flex flex-col gap-y-2 basis-1/3 font-semibold text-white text-left text-xs md:text-base">
 						<span className="mx-auto">• Open Marketplace</span>
 					</div>
 				</div>
