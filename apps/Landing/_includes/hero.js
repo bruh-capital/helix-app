@@ -3,14 +3,16 @@ import Ticker from 'react-ticker';
 export default function Hero(props) {
 	return(
 		<>
-			<div className="flex h-screen -mt-44 text-center bg-noblurtokenfallingpreview bg-cover">
+			<div className="flex h-screen -mt-44 text-center bg-noblurtokenfallingpreview bg-opacity-50 bg-cover">
 				{/*
 				<video className="z-20 -translate-y-32" autoPlay loop>
 					<source src="/landingassets/landingpage/bg/k.mp4" type="video/mp4"/>
 				</video>
 				*/}
 				<div className="m-auto flex flex-col">
-					<span className="text-4xl md:text-7xl mb-2 px-6 md:px-0 py-2 font-bold transition-all text-transparent bg-clip-text bg-gradient-to-br from-[#FB60FF] to-[#5E5FFF] gradient-slide">
+					<span
+						className="text-4xl shadow md:text-7xl mb-2 px-6 md:px-0 py-2 font-bold transition-all text-transparent bg-clip-text bg-gradient-to-br from-[#FB60FF] to-[#5E5FFF] gradient-slide"
+					>
 						Get more out of your tokens
 					</span>
 					<span className="text-md md:text-2xl px-10 md:px-0 font-semibold text-white mb-10">HelixDAO develops platforms that give back to users</span>
