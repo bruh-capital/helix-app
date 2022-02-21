@@ -32,6 +32,8 @@ module.exports = {
         'pink-glow-lg': '0px 0px 60px #E66EE9',
         'blue-glow-md': '0px 0px 30px #59A6F4',
         'blue-glow-lg': '0px 0px 60px #59A6F4',
+        'gray-glow-md': '0px 0px 30px #6c7278',
+        'gray-glow-lg': '0px 0px 60px #6c7278',
       },
     },
   },

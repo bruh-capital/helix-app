@@ -10,15 +10,15 @@ export default function Socials(props) {
 				<div className="flex font-semibold text-xs md:text-xl text-[#7E8083] text-left">Join the community and stay up to date on what's happening in Helix</div>
 			</div>
 			
-            <div className="flex flex-col justify-center items-center basis-1/2 gap-y-3">
+            <div className="flex flex-col justify-center items-center basis-1/2 gap-y-3 font-mono w-full">
 				
                 <a href="https://twitter.com/Helix_DAO" target="_blank" className="w-full">
-                    <div className="flex flex-row px-2 w-3/4 rounded-lg text-white bg-[#101010] py-5 px-5">
-                        <div className="flex flex-row h-9 w-9 mt-2">
-                            <Image src="/landingassets/landingpage/icons/twitter.png" height={25} width={30} className="h-32"/>
+                    <div className="flex flex-row px-2 w-full rounded-lg text-white bg-[#101010] py-5 px-5  hover:shadow-gray-glow-md hover:ease-in duration-100">
+                        <div className="flex flex-row h-10 w-12 mt-2">
+                            <Image src="/landingassets/landingpage/icons/twitter.png" height={35} width={35} className="h-32"/>
                         </div>
-                        <div className="flex flex-col justify-center items-center text-center px-4">
-                            <div className="flex flex-col justify-center items-center">
+                        <div className="flex flex-col justify-center text-left">
+                            <div className="flex flex-col mx-6">
                                 <div className="font-md font-mono font-family:ui-monospace text-s">
                                     Twitter
                                 </div>
@@ -31,12 +31,12 @@ export default function Socials(props) {
                 </a>
 				
                 <a className="w-full" target="_blank" href="https://discord.com/invite/rR6M38QT3n">
-                    <div className="flex flex-row px-2 w-3/4 rounded-lg text-white bg-[#101010] py-5 px-5">
-                        <div className="flex flex-row h-10 w-10">
-                            <Image src="/landingassets/landingpage/icons/Frame 1.png" height={20} width={38} />
+                    <div className="flex flex-row px-2 w-full rounded-lg text-white bg-[#101010] py-5 px-5  hover:shadow-gray-glow-md hover:ease-in duration-100">
+                        <div className="flex flex-row h-8 w-12 mt-2">
+                            <Image src="/landingassets/landingpage/icons/discord_socials.png" height={35} width={35} />
                         </div>
-                        <div className="flex flex-col justify-center items-center w-full text-center ">
-                            <div className="flex flex-col justify-center items-center">
+                        <div className="flex flex-col justify-center w-full text-left ">
+                            <div className="flex flex-col  mx-6">
                                 <div className="font-md font-mono font-family:ui-monospace text-s">
                                     Discord
                                 </div>
@@ -49,12 +49,12 @@ export default function Socials(props) {
                 </a>
 				
                 <a className="w-full" target="_blank" href="https://github.com/bruh-capital">
-                    <div className="flex flex-row px-2 w-3/4 rounded-lg text-white bg-[#101010] py-5 px-5">
-                        <div className="flex flex-row h-9 w-9 mt-2">
-                            <Image src="/landingassets/landingpage/icons/Vector.png" height={20} width={35} />
+                    <div className="flex flex-row px-2 w-full rounded-lg text-white bg-[#101010] py-5 px-5  hover:shadow-gray-glow-md hover:ease-in duration-100">
+                        <div className="flex flex-row h-10 w-12 mt-2">
+                            <Image src="/landingassets/landingpage/icons/Vector.png" height={35} width={35} />
                         </div>
-                        <div className="flex flex-col justify-center items-center w-full text-center">
-                            <div className="flex flex-col justify-center items-center mx-6">
+                        <div className="flex flex-col justify-center w-full text-left">
+                            <div className="flex flex-col mx-6">
                                 <div className="font-md font-mono font-family:ui-monospace text-s">
                                     Github
                                 </div>
@@ -67,12 +67,12 @@ export default function Socials(props) {
                 </a>
 				
                 <a href="https://helixdao.medium.com/" className="w-full justify-right" target="_blank">
-                    <div className="flex flex-row px-2 w-3/4 rounded-lg text-white bg-[#101010] py-5 px-5">
-                        <div className="flex flex-row">
+                    <div className="flex flex-row px-2 w-full rounded-lg text-white bg-[#101010] py-5 px-5 hover:shadow-gray-glow-md hover:ease-in duration-100">
+                        <div className="flex flex-row h-10 w-12">
                             <Image src="/landingassets/landingpage/icons/image 24.png" height={35} width={35} />
                         </div>
-                        <div className="flex flex-col justify-center items-center w-full text-center">
-                            <div className="flex flex-col justify-center items-center">
+                        <div className="flex flex-col justify-center w-full text-left">
+                            <div className="flex flex-col mx-6">
                                 <div className="font-md font-mono font-family:ui-monospace text-s">
                                     Medium
                                 </div>
