@@ -13,7 +13,7 @@ export default function Feature(props) {
 				</div>
 				{/* Add something here to show details on click for mobile layout */}
 
-				<div className="flex flex-col w-11/12 mx-auto md:flex-row gap-y-4 md:gap-x-8">
+				<div className="flex flex-col w-11/12 md:w-3/5 mx-auto md:flex-row gap-y-4 md:gap-x-8">
 					<FeatureCard 
 						title="Governance"
 						paragraph="Governments and subgovernments allow your voice to be heard accross multiple projects. Submit proposals and fund ventures, we build helix together."
