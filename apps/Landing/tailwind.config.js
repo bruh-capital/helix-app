@@ -8,11 +8,11 @@ module.exports = {
   ],
   theme: {
     extend: {
-      animation: {
-        'gradient-slide': 'slidex 1s ease infinite',
+      'animation': {
+        'gradient-slide': 'gradient-x 2s ease infinite',
       },
-      keyframes: {
-        'slide-x': {
+      'keyframes': {
+        'gradient-x': {
           '0%, 100%': {
               'background-size':'200% 200%',
               'background-position': 'left center'
