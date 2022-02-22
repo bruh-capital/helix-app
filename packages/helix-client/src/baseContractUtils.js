@@ -1289,7 +1289,7 @@ export class HelixNetwork {
 			[
 			  Buffer.from("helixusdc")
 			],
-			this.bond_program.programId
+			this.ido_program.programId
 		  );
 
 		const createIdoAtaAccoounts = [
@@ -1306,27 +1306,23 @@ export class HelixNetwork {
 			isSigner: false,
 			isWritable: true
 		  },{
-			pubkey: this.spl_program_id,
+			pubkey: TOKEN_PROGRAM_ID,
 			isSigner: false,
-			isWritable: true
+			isWritable: false
 		  },{
 			pubkey: SystemProgram.programId,
 			isSigner: false,
 			isWritable: false
-		  },{
-			pubkey: this.multisigSigner,
-			isSigner: false,
-			isWritable: true
 		  },{
 			  pubkey:anchor.web3.SYSVAR_RENT_PUBKEY,
 			  isSigner: false,
 			  isWritable: false
 		  }];
 	  
-		  const data = this.bond_program.coder.instruction.encode("initUsdcAta", {});
+		  const data = this.ido_program.coder.instruction.encode("initUsdcAta", {});
 	  
 		  await this.multisig_program.rpc.createTransaction(
-		    this.bond_program.programId,
+		    this.ido_program.programId,
 		    createIdoAtaAccoounts, 
 		    data, {
 		    accounts: {
@@ -1356,7 +1352,7 @@ export class HelixNetwork {
 		    // confusing, i know. but instruction creation (&ix) needs a data array
 		    // then call needs the same array.
 		    remainingAccounts:
-		    createIdoAtaAccoounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.bond_program.programId}),
+		    createIdoAtaAccoounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.ido_program.programId}),
 		  });
 	  
 	}
