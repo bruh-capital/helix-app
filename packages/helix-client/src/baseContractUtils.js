@@ -661,7 +661,7 @@ export class HelixNetwork {
 			this.spl_program_id
 		))[0];
 
-		await this.ido_program.rpc.idoWithdraw(new anchor.BN(amount),{
+		await this.ido_program.rpc.idoWithdraw(this.idoUSDCAtaBump, new anchor.BN(amount),{
 			accounts:{
 				user: this.wallet.publicKey,
 				userAta: userAta,

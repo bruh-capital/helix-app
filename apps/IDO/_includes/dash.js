@@ -17,6 +17,8 @@ export default function Dash(props) {
 	const [idoAccount, setIdoAccount] = useState();
 	const [idoAta, setIdoAta] = useState();
 
+	const [amount, setAmount] = useState();
+
 	useEffect(async ()=>{
 		console.log("setting accounts");
 		if(client && client.fetchIdoAccount && client.fetchIdoAta){
@@ -59,14 +61,21 @@ export default function Dash(props) {
 						{days} Days {hours} Hours {minutes} Minutes {seconds} Seconds
 					</div>
 			</div>
+			<div className="flex flex-row justify-center w-full">
+				<input
+					type="number"
+					value = {amount}
+					onChange = {(e)=>{setAmount(e.target.value)}}
+				/>
+			</div>
 			<div className="grid grid-cols-2">
 				<button className="md:p-5 w-1/4 rounded-lg text-white bg-[#101010] m-auto content-center hover:shadow-pink-glow-md hover:ease-out duration-300"
-					onClick={()=>{client.idoDeposit()}}
+					onClick={()=>{client.idoDeposit(amount)}}
 				>
 					Deposit
 				</button>
 				<button className="md:p-5 w-1/4 rounded-lg text-white bg-[#101010] m-auto content-center hover:shadow-pink-glow-md hover:ease-out duration-300"
-					onClick={()=>{client.idoWithdraw()}}
+					onClick={()=>{client.idoWithdraw(amount)}}
 				>
 					Withdraw
 				</button >

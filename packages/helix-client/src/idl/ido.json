@@ -125,10 +125,8 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "IDOWithdrawBumps"
-          }
+          "name": "protocolBump",
+          "type": "u8"
         },
         {
           "name": "amount",
@@ -195,17 +193,18 @@
   ],
   "types": [
     {
-      "name": "IDOWithdrawBumps",
+      "name": "ErrorCodes",
       "type": {
-        "kind": "struct",
-        "fields": [
+        "kind": "enum",
+        "variants": [
           {
-            "name": "vaultBump",
-            "type": "u8"
+            "name": "DepositTimeExpired"
           },
           {
-            "name": "protocolBump",
-            "type": "u8"
+            "name": "IDOExpired"
+          },
+          {
+            "name": "DepositAmountError"
           }
         ]
       }
