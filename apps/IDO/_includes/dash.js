@@ -7,13 +7,28 @@ import { useTheme } from "next-themes";
 import HelixContext from "@context/helixContext";
 
 export default function Dash(props) {
-
-	const [client, setClient] = useContext(HelixContext);
+	const {client, setClient} = useContext(HelixContext);
 	const [days, setDays] = useState(0);
 	const [hours, setHours] = useState(0);
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
 	const endDate = new Date(1646110800000);
+
+	const [idoAccount, setIdoAccount] = useState();
+	const [idoAta, setIdoAta] = useState();
+
+	useEffect(async ()=>{
+		console.log("setting accounts");
+		if(client && client.fetchIdoAccount && client.fetchIdoAta){
+			console.log("fetching accounts");
+			const idoacc = await client.fetchIdoAccount();
+			const idoata = await client.fetchIdoAta();
+			console.log(idoacc);
+			console.log(idoata);
+			setIdoAccount();
+			setIdoAta();
+		}
+	},[client && client.fetchIdoAccount && client.fetchIdoAta])
 
 	useEffect(()=>{
 		setInterval(()=>{

@@ -92,7 +92,6 @@ export default function dashboardUi(props) {
 				</div>
 			</div>
 			
-
 			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<div className="grid grid-cols-2 mt-4 mb-4">
 				<input
@@ -120,8 +119,6 @@ export default function dashboardUi(props) {
 				</div>
 			</div>
 			
-			
-			
 			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
 				<input
 					type="number"
@@ -138,9 +135,7 @@ export default function dashboardUi(props) {
 			</div>
 			</div>
 			
-			
 			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
-
 				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-full">
 					<button
 						className="btn btn-primary mx-2"
@@ -162,6 +157,16 @@ export default function dashboardUi(props) {
 					>Create Bond Signer</button>
 				</div>
 			</div>
+
+			<div className="bg-black bg-opacity-70 text-white text-sm md:text-xl px-8 py-4 font-normal border-solid border-2 border-slate rounded-2xl shadow-pink-glow-md hover:shadow-pink-glow-lg hover:scale-105">
+				<div className="grid grid-rows-1 grid-cols-1 my-2 gap-4 w-full">
+					<button
+						className="btn btn-primary mx-2"
+						onClick = {() =>{client.createIdoAta()}}
+					>Create IDO Ata</button>
+				</div>
+			</div>
+
 		</div>
 	)
 }

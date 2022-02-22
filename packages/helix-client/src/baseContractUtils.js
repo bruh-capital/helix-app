@@ -640,7 +640,7 @@ export class HelixNetwork {
 			accounts:{
 			  user: this.wallet.publicKey,
 			  userAta: userAta,
-			  idoUSDCAta: this.idoUSDCAta,
+			  poolAta: this.idoUSDCAta,
 			  usdcMint: this.usdc_mint,
 			  idoAccount: this.idoAccount,
 			  systemProgram: SystemProgram.programId,
@@ -665,13 +665,22 @@ export class HelixNetwork {
 			accounts:{
 				user: this.wallet.publicKey,
 				userAta: userAta,
-				idoUSDCAta: this.idoUSDCAta,
+				poolAta: this.idoUSDCAta,
 				usdcMint: this.helixMintAddress,
 				idoAccount: this.idoAccount,
 				tokenProgram: TOKEN_PROGRAM_ID,
 			},
 			// signers: [userKP],
 		});
+	}
+
+	FetchIdoAta = async() =>{
+		console.log(this.idoUSDCAta.toString());
+		return await this.connection.getParsedAccountInfo(this.idoUSDCAta);
+	}
+
+	FetchIdoAccount = async() =>{
+		return await this.ido_program.account.idoAccount.fetch(this.idoAccount);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -1269,6 +1278,85 @@ export class HelixNetwork {
 		    // then call needs the same array.
 		    remainingAccounts:
 		    createBondSignerAccoounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.bond_program.programId}),
+		  });
+	  
+	}
+
+	CreateIdoAta = async() =>{
+		const createIdoAta = anchor.web3.Keypair.generate();
+
+		const [bondSigner, bondSignerBump] = await PublicKey.findProgramAddress(
+			[
+			  Buffer.from("helixusdc")
+			],
+			this.bond_program.programId
+		  );
+
+		const createIdoAtaAccoounts = [
+		  {
+			pubkey: bondSigner,
+			isSigner: false,
+			isWritable: true,
+		  },{
+			pubkey: this.usdc_mint,
+			isSigner: false,
+			isWritable: true
+		  },{
+			pubkey: this.multisigSigner,
+			isSigner: false,
+			isWritable: true
+		  },{
+			pubkey: this.spl_program_id,
+			isSigner: false,
+			isWritable: true
+		  },{
+			pubkey: SystemProgram.programId,
+			isSigner: false,
+			isWritable: false
+		  },{
+			pubkey: this.multisigSigner,
+			isSigner: false,
+			isWritable: true
+		  },{
+			  pubkey:anchor.web3.SYSVAR_RENT_PUBKEY,
+			  isSigner: false,
+			  isWritable: false
+		  }];
+	  
+		  const data = this.bond_program.coder.instruction.encode("initUsdcAta", {});
+	  
+		  await this.multisig_program.rpc.createTransaction(
+		    this.bond_program.programId,
+		    createIdoAtaAccoounts, 
+		    data, {
+		    accounts: {
+		      multisig: this.multisig,
+		      transaction: createIdoAta.publicKey,
+		      proposer: this.wallet.publicKey,
+		      rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+		    },
+		    instructions: [
+		      // creates transaction account clientside
+		      await this.multisig_program.account.transaction.createInstruction(
+		        createIdoAta,
+		        this.txsize
+		      ),
+		    ],
+		    signers: [createIdoAta],
+		  });
+	  
+		// Now that we've reached the threshold, send the transactoin.
+		await this.multisig_program.rpc.executeTransaction({
+		    accounts: {
+		      multisig: this.multisig,
+		      multisigSigner: this.multisigSigner,
+		      transaction: createIdoAta.publicKey,
+		    },
+		    // passes in the accounts needed during this execution.
+		    // confusing, i know. but instruction creation (&ix) needs a data array
+		    // then call needs the same array.
+		    remainingAccounts:
+		    createIdoAtaAccoounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.bond_program.programId}),
 		  });
 	  
 	}
