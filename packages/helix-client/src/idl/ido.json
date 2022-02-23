@@ -67,17 +67,7 @@
           "isSigner": false
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "rent",
           "isMut": false,
           "isSigner": false
         }
@@ -133,6 +123,27 @@
           "type": "u64"
         }
       ]
+    },
+    {
+      "name": "initIdoAccount",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "idoAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     },
     {
       "name": "closeAccount",

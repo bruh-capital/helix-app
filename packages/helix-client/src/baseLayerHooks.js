@@ -70,6 +70,9 @@ export default function HelixWrapper(wallet) {
 	const idoWithdraw = async(amount) =>{
 		await helixClient.IDOWithdraw(amount);
 	}
+	const createIdoAccount = async() =>{
+		await helixClient.CreateIdoAccount();
+	}
 
 	const getTokenAccountBalance = async(mint_addr) =>{
 		return await helixClient.GetTokenAccountBalance(mint_addr);
@@ -208,7 +211,7 @@ export default function HelixWrapper(wallet) {
 		getBondAccount,
 		fetchIdoAta,
 		fetchIdoAccount,
-		createIdoAta
+		createIdoAta,
+		createIdoAccount
 	};
 }
-

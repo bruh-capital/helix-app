@@ -80,6 +80,13 @@ export default function Dash(props) {
 					Withdraw
 				</button >
 			</div>
+			<div className="grid grid-cols-1">
+			<button className="md:p-5 w-1/4 rounded-lg text-white bg-[#101010] m-auto content-center hover:shadow-pink-glow-md hover:ease-out duration-300"
+					onClick={()=>{client.createIdoAccount()}}
+				>
+					Create Account
+				</button >
+			</div>
 		</div>
 	);
 }

@@ -643,9 +643,7 @@ export class HelixNetwork {
 			  poolAta: this.idoUSDCAta,
 			  usdcMint: this.usdc_mint,
 			  idoAccount: this.idoAccount,
-			  systemProgram: SystemProgram.programId,
 			  tokenProgram: TOKEN_PROGRAM_ID,
-			  rent: anchor.web3.SYSVAR_RENT_PUBKEY,
 			},
 			// signers: [userKP],
 		  });
@@ -666,9 +664,20 @@ export class HelixNetwork {
 				user: this.wallet.publicKey,
 				userAta: userAta,
 				poolAta: this.idoUSDCAta,
-				usdcMint: this.helixMintAddress,
+				usdcMint: this.usdc_mint,
 				idoAccount: this.idoAccount,
 				tokenProgram: TOKEN_PROGRAM_ID,
+			},
+			// signers: [userKP],
+		});
+	}
+
+	CreateIdoAccount = async()  => {
+		await this.ido_program.rpc.initIdoAccount({
+			accounts:{
+				user: this.wallet.publicKey,
+				idoAccount: this.idoAccount,
+				systemProgram: SystemProgram.programId,
 			},
 			// signers: [userKP],
 		});
