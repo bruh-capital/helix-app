@@ -25,4 +25,29 @@ export class ArClient{
         console.log("last transaction id: ", transaction);
         return this.transaction;
     }
+
+    async UploadLargeData(data){
+        let transaction = await this.arweave.createTransaction({
+            data: data},
+        key);
+
+        await this.arweave.transactions.sign(transaction, key);
+
+        let uploader = await this.arweave.transactions.getUploader(transaction);
+
+        while (!uploader.isComplete) {
+            await uploader.uploadChunk();
+            console.log(`${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`);
+        }
+    }
+
+    async UploadLSmallData(data){
+        let transaction = await this.arweave.createTransaction({
+            data: data},
+        key);
+
+        await this.arweave.transactions.sign(transaction, key);
+
+        await this.arweave.transactions.post(transaction);
+    }
 }
