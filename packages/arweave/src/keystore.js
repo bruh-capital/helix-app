@@ -16,7 +16,9 @@ export default class KeyStore{
           return key;
         };
 
-        getData.onfailure()
+        getData.onfailure = function(event){
+          throw "key not defined";
+        }
 
       })
     }
