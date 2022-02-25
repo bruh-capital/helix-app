@@ -21,8 +21,8 @@ export default function DappLayout(props) {
 			<PWAPrompt
 				timesToShow={2}
 				permanentlyHideOnDismiss={false}
-				copyTitle="Add Rari to your homescreen!"
-				copyBody="The Rari Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
+				copyTitle="Add Helix to your homescreen!"
+				copyBody="The Helix Portal works best when added to your homescreen. Without doing this, you may have a degraded experience."
 				copyClosePrompt="Close"
 			/>	
 			<MetaTagComponent />

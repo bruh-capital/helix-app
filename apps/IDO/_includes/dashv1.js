@@ -44,37 +44,50 @@ export default function Dash(props) {
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >
-			<div className="flex flex-col items-center w-full h-full space-y-14">
-				<div className="flex flex-col rounded-md bg-[#747474] place-content-center text-5xl text-center h-1/6 w-1/2 font-mono border-[#9F9F9F] border-2 bg-opacity-50">
-					{days} : {hours} : {minutes} : {seconds}
-				</div>
-				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 w-1/2 h-1/2 border-2 border-[#FFFFFF] border-opacity-50">
-					{/* left side */}
-					<div className="grid grid-cols-1 w-2/3">
-						<div className="h-20">
-
-						</div>
-						<div className="h-20">
-							
-						</div>
-						<div className="flex flex-row space-x-32 justify-center place-items-center w-full">
-							<button className="text-black">
-								Deposit
-							</button>
-							
-							<button className="text-black">
-								Withdraw
-							</button>
-						</div>
-					</div>
-					{/* right side */}
-					<div className="w-1/3">
-
-					</div>
-
-				</div>
-			</div>
 			
+			<div className="flex flex-row justify-center w-full pb-20 h-1/2">
+					<Stat
+						statName="Amount Deposited"
+						statValue={0}
+						statChange={0}
+					/>
+					<Stat
+						statName="Total in Reserve"
+						statValue={0}
+						statChange={0}
+					/>
+			</div>
+			<div className="flex flex-row justify-center w-full pb-20 h-1/2">
+					<div>
+						{days} Days {hours} Hours {minutes} Minutes {seconds} Seconds
+					</div>
+			</div>
+			<div className="flex flex-row justify-center w-full">
+				<input
+					type="number"
+					value = {amount}
+					onChange = {(e)=>{setAmount(e.target.value)}}
+				/>
+			</div>
+			<div className="grid grid-cols-2">
+				<button className="md:p-5 w-1/4 rounded-lg text-white bg-[#101010] m-auto content-center hover:shadow-pink-glow-md hover:ease-out duration-300"
+					onClick={()=>{client.idoDeposit(amount)}}
+				>
+					Deposit
+				</button>
+				<button className="md:p-5 w-1/4 rounded-lg text-white bg-[#101010] m-auto content-center hover:shadow-pink-glow-md hover:ease-out duration-300"
+					onClick={()=>{client.idoWithdraw(amount)}}
+				>
+					Withdraw
+				</button >
+			</div>
+			<div className="grid grid-cols-1">
+			<button className="md:p-5 w-1/4 rounded-lg text-white bg-[#101010] m-auto content-center hover:shadow-pink-glow-md hover:ease-out duration-300"
+					onClick={()=>{client.createIdoAccount()}}
+				>
+					Create Account
+				</button >
+			</div>
 		</div>
 	);
 }

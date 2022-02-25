@@ -28,7 +28,7 @@ export default function Header(props) {
 	}, [!!wallet]);
 
 	return(
-		<div className="static bg-[#E1E1E1] dark:bg-[#191B1F] z-50 w-full duration-300">
+		<div className="static z-50 w-full duration-300">
 			<div className="mx-auto">
 				<div className="flex flex-row justify-around">
 					<div className="flex items-center flex-auto">
@@ -51,7 +51,7 @@ export default function Header(props) {
 							{
 								wallet ? 
 								(
-									<Popover className="relative">
+									<Popover className="relative pr-10">
 										{({ open }) => (
 											<>
 												<Popover.Button
@@ -98,15 +98,7 @@ export default function Header(props) {
 									</button>
 								)
 							}
-							<button 
-								className="rounded-md p-2 md:py-2 md:px-4 text-black bg-[#C8C7CA] dark:text-white dark:bg-[#3A3D45]" 
-								onClick={() => setTheme(theme === "light"?"dark":"light")}
-							>
-								{theme == "light"?
-									(<MoonIcon className="h-4 w-4 md:h-6 md:w-6"/>):
-									(<SunIcon className="h-4 w-4 md:h-6 md:w-6" />)
-								}
-							</button>
+
 							<button
 								className="mr-6 md:mr-0 rounded-md p-2 lg:hidden bg-[#C8C7CA] dark:bg-[#3A3D45]"
 								onClick={() => setMenuOpen(!menuOpen)}
