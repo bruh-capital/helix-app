@@ -51,7 +51,7 @@ export default function Header(props) {
 							{
 								wallet ? 
 								(
-									<Popover className="relative pr-10">
+									<Popover className="relative">
 										{({ open }) => (
 											<>
 												<Popover.Button

@@ -17,7 +17,7 @@ export default function DappLayout(props) {
 	const { theme, setTheme } = useTheme();
 
 	return(
-		<main className="bg-lightMobileBg sm:bg-lightDesktopBg dark:bg-darkMobileBg dark:sm:bg-darkDesktopBg bg-cover">
+		<main className="h-screen bg-lightMobileBg sm:bg-lightDesktopBg dark:bg-darkMobileBg dark:sm:bg-darkDesktopBg bg-cover">
 			<PWAPrompt
 				timesToShow={2}
 				permanentlyHideOnDismiss={false}

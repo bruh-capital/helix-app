@@ -10,10 +10,8 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     backgroundImage: {
-      "lightDesktopBg": "url('/dapp-assets/backgrounds/lightdesktop.png')",
-      "darkDesktopBg": "url('/dapp-assets/backgrounds/darkdesktop.png')",
-      "lightMobileBg": "url('/dapp-assets/backgrounds/lightmobile.png')",
-      "darkMobileBg": "url('/dapp-assets/backgrounds/darkmobile.png')",
+      "lightDesktopBg": "url('/threejs-bg/tempbg.png')",
+      "lightMobileBg": "url('/threejs-bg/tempbgpng')",
       "card1Bg": "url('/dapp-assets/Card/1/bg.png')",
       "mesh-1-bg": "url('/dapp-assets/Card/1/mesh.png')",
       "mesh-2-bg": "url('/dapp-assets/Card/2/mesh.png')",

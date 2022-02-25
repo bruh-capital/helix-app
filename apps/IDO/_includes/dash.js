@@ -43,12 +43,12 @@ export default function Dash(props) {
 	},[])
 
 	return(
-		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >
-			<div className="flex flex-col items-center w-full h-full space-y-14">
-				<div className="flex flex-col rounded-md bg-[#747474] place-content-center text-5xl text-center h-1/6 w-1/2 font-mono border-[#9F9F9F] border-2 bg-opacity-50">
+		<div className="h-80 items-center border-2 border-black" >
+			<div className="flex flex-col items-center h-full w-full space-y-14 border-2 border-black">
+				<div className="flex flex-col rounded-md bg-[#747474] place-content-center text-5xl text-center w-1/2 font-mono border-[#9F9F9F] border-2 bg-opacity-50">
 					{days} : {hours} : {minutes} : {seconds}
 				</div>
-				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 w-1/2 h-1/2 border-2 border-[#FFFFFF] border-opacity-50">
+				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 w-1/2 border-2 border-[#FFFFFF] border-opacity-50">
 					{/* left side */}
 					<div className="grid grid-cols-1 w-2/3">
 						<div className="h-20">
