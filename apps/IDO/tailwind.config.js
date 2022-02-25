@@ -8,14 +8,14 @@ module.exports = {
     "./_context/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    backgroundImage: {
-      "lightDesktopBg": "url('/threejs-bg/tempbg.png')",
-      "lightMobileBg": "url('/threejs-bg/tempbgpng')",
-      "card1Bg": "url('/dapp-assets/Card/1/bg.png')",
-      "mesh-1-bg": "url('/dapp-assets/Card/1/mesh.png')",
-      "mesh-2-bg": "url('/dapp-assets/Card/2/mesh.png')",
-      "mesh-3-bg": "url('/dapp-assets/Card/3/mesh.png')",
-    },
+    // backgroundImage: {
+    //   "lightDesktopBg": "url('/threejs-bg/tempbg.png')",
+    //   "lightMobileBg": "url('/threejs-bg/tempbgpng')",
+    //   "card1Bg": "url('/dapp-assets/Card/1/bg.png')",
+    //   "mesh-1-bg": "url('/dapp-assets/Card/1/mesh.png')",
+    //   "mesh-2-bg": "url('/dapp-assets/Card/2/mesh.png')",
+    //   "mesh-3-bg": "url('/dapp-assets/Card/3/mesh.png')",
+    // },
     boxShadow: {
       'pink-glow-md': '0px 0px 30px #E66EE9',
       'pink-glow-lg': '0px 0px 60px #E66EE9',
