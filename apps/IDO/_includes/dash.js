@@ -45,14 +45,14 @@ export default function Dash(props) {
 	return(
 		<div className="items-center pb-16" >
 			<div className="flex flex-col items-center h-full w-full space-y-10 ">
-				<div className="flex flex-col rounded-md bg-[#747474] place-content-center text-5xl text-center h-24 w-1/2 font-mono border-[#9F9F9F] border-2 bg-opacity-50">
+				<div className="flex flex-col rounded-md bg-[#747474] place-content-center text-5xl text-center h-24 w-1/2 font-mono border-[#9F9F9F] border-2 bg-opacity-50 text-white">
 					{days} : {hours} : {minutes} : {seconds}
 				</div>
 				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 w-1/2 border-2 h-80 border-[#FFFFFF] border-opacity-50 pl-4">
 					{/* left side */}
 					<div className="grid grid-cols-1 w-3/4 pt-4">
 						<div className="grid grid-cols-1 h-10 w-full place-items-center">
-							<div className="text-white w-3/4 h-full bg-opacity-50 text-center pt-4 text-2xl">
+							<div className="text-[#45008c] w-3/4 h-full bg-opacity-50 text-center pt-4 text-2xl font-bold font-mono">
 								Your Contributions: {200} USDC
 							</div>
 						</div>
@@ -65,21 +65,23 @@ export default function Dash(props) {
 							/>
 						</div>
 						<div className="flex flex-row space-x-32 justify-center place-items-center w-full">
-							<button className="text-white border-2 border-white w-1/3 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25">
+							<button 
+								className="text-white border-2 border-white w-1/3 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25">
 								Deposit
 							</button>
 							
-							<button className="text-white border-2 border-white w-1/3 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25">
+							<button 
+								className="text-white border-2 border-white w-1/3 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25">
 								Withdraw
 							</button>
 						</div>
 					</div>
 					{/* right side */}
-					<div className="grid grid-cols-1 place-items-center w-1/3  text-[#f5f5f5]">
+					<div className="grid grid-cols-1 place-items-center w-1/3 text-[#45008c] pr-2">
 						<div className="text-6xl pt-16">
 							{20}
 						</div>
-						<div className="text-xl">
+						<div className="text-xl font-mono font-bold">
 							Total USDC Deposited
 						</div>
 					</div>
