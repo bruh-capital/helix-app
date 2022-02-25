@@ -7,7 +7,6 @@ module.exports = {
     "./_layouts/**/*.{js,ts,jsx,tsx}",
     "./_context/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class', // or 'media' or 'class'
   theme: {
     backgroundImage: {
       "lightDesktopBg": "url('/threejs-bg/tempbg.png')",

@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function Footer(props) {
 	return(
-		<div className="flex justify-around pt-12">
-			<div className="flex items-center pt-5 pb-7 mb-10">
+		<div className="flex justify-around pt-5">
+			<div className="flex items-center pt-5 mb-10">
 				<Image
 					className="mb-2"
 					src="/landingassets/2d_logos/2d_logo2.png"
