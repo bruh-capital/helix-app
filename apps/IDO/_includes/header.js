@@ -28,7 +28,7 @@ export default function Header(props) {
 	}, [!!wallet]);
 
 	return(
-		<div className="static z-50 w-full duration-300">
+		<div className="static z-50 w-full duration-300 absolute top-0 transparent">
 			<div className="mx-auto">
 				<div className="flex flex-row justify-around">
 					<div className="flex items-center flex-auto">

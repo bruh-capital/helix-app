@@ -2,6 +2,7 @@ import 'styles/globals.css';
 import { useState } from 'react';
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import Image from 'next/image';
+import {Canvas} from '@react-three/fiber';
 
 import helixClient from 'helix-client';
 
@@ -23,13 +24,14 @@ function MyApp({ Component, pageProps }) {
   );
 
   return(
-    <WalletKitProvider
-      defaultNetwork='devnet'
-      app={{
-        name: 'Helix',
-        icon:  icon,
-      }}
-    >
+    
+      <WalletKitProvider
+        defaultNetwork='devnet'
+        app={{
+          name: 'Helix',
+          icon:  icon,
+        }}
+      >
       <ThemeProvider attribute='class'>
           <HelixContext.Provider value={{client, setClient}}>
           <Component {...pageProps} />

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Footer(props) {
 	return(
-		<div className="flex justify-around pt-5">
+		<div className="flex justify-around pt-5 absolute bottom-0 transparent w-full">
 			<div className="flex items-center pt-5 mb-10">
 				<Image
 					className="mb-2"
@@ -16,16 +16,16 @@ export default function Footer(props) {
 			<div className="hidden md:flex flex-col text center">
 				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Products</h2>
 				<ul className="space-y-3">
-					<li className="text-[#b8b8b8] text-sm text-center">Staking</li>
-					<li className="text-[#b8b8b8] text-sm text-center">Marketplace</li>
-					<li className="text-[#b8b8b8] text-sm text-center">Bonding</li>
+					<li className="text-[#8A8A8A] text-sm text-center">Staking</li>
+					<li className="text-[#8A8A8A] text-sm text-center">Marketplace</li>
+					<li className="text-[#8A8A8A] text-sm text-center">Bonding</li>
 				</ul>
 			</div>
 			<div className="hidden md:flex flex-col text center">
 				<h2 className="text-[#B1B1B1] text-2xl font-bold text-center mb-2">Learn</h2>
 				<ul className="space-y-3">
-					<li className="text-[#b8b8b8] text-sm text-center">Governance</li>
-					<li className="text-[#b8b8b8] text-sm text-center">Docs</li>
+					<li className="text-[#8A8A8A] text-sm text-center">Governance</li>
+					<li className="text-[#8A8A8A] text-sm text-center">Docs</li>
 				</ul>
 			</div>
 			<div className="flex md:mt-0 mt-10 flex-col text center">

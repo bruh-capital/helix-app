@@ -43,7 +43,7 @@ export default function Dash(props) {
 	},[])
 
 	return(
-		<div className="items-center pb-16" >
+		<div className="items-center pb-16 absolute top-24 transparent w-full" >
 			<div className="flex flex-col items-center h-full w-full space-y-10 ">
 				<div className="flex flex-col rounded-md bg-[#747474] place-content-center text-5xl text-center h-24 w-1/2 font-mono border-[#9F9F9F] border-2 bg-opacity-50 text-white">
 					{days} : {hours} : {minutes} : {seconds}
