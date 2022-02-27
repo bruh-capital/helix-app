@@ -614,7 +614,6 @@ export class HelixNetwork {
 	}
 
 	FetchUserVault = async() =>{
-		
 		return await this.helix_program.account.userVault.fetch(this.userVault);
 	}
 

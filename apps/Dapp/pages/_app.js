@@ -1,5 +1,5 @@
 import 'styles/globals.css';
-import { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import Image from 'next/image';
 
@@ -12,14 +12,28 @@ import ProtocolContext from '@context/protocolDataContext';
 import HelixContext from '@context/helixContext';
 import UserDataContext from '@context/userDataContext';
 
-
 function MyApp({ Component, pageProps }) {
   const [ layout, setLayout ] = useState("dashboard");
-  const [ data, setData ] = useState({
-    hlxPrice: 0,
+  const [ protocolData, setProtocolData ] = useState({
+    helixPrice: 0,
   }); 
   const [userVault, setUserVault] = useState();
   const [client, setClient] = useState(new helixClient());
+
+	useEffect(async () => {
+		if(client && client?.getUserVault){
+			let userVault = await client.getUserVault();
+			if(userVault){
+				setUserVault(userVault);
+				setStakedBalance(userVault.stakeBalance.toNumber())	
+			}
+		}
+
+		if(client && client?.getProtocolData){
+			let protocData = await client.getProtocolData();
+			setProtocolData(protocData);
+		}
+	}, [client]);
 
   const icon = (
     <Image
@@ -27,6 +41,7 @@ function MyApp({ Component, pageProps }) {
       src="/3d/4k_3D_circleicon.png"
       width={48}
       height={48}
+      loading='eager'
     />
   );
 
@@ -38,10 +53,10 @@ function MyApp({ Component, pageProps }) {
         icon:  icon,
       }}
     >
-      <ProtocolContext.Provider value={{ data, setData }}>
+      <ProtocolContext.Provider value={{ protocolData, setProtocolData }}>
         <ThemeProvider attribute='class'>
-          <HelixContext.Provider value={{client, setClient}}>
-            <UserDataContext.Provider value ={{userVault, setUserVault}}>
+          <HelixContext.Provider value={{ client, setClient }}>
+            <UserDataContext.Provider value ={{ userVault, setUserVault }}>
               <LayoutContext.Provider value={{ layout, setLayout }}>
                 <Component {...pageProps} />
               </LayoutContext.Provider>
