@@ -164,7 +164,7 @@ export default function ThreeBackground(){
         []
       )
 
-    return <mesh ref={ref} position={[-200, 270, -280]} scale={4} rotation={[0,0,0.1]}>
+    return <mesh ref={ref} position={[-200, 270, -280]} scale={4} rotation={[0,0,0.1]} >
         <planeGeometry attach='geometry' args={[window.innerWidth / 2, 400, 100, 100]}/>
         <shaderMaterial attach='material' {...data}/>
     </mesh>

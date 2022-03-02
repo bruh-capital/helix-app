@@ -3,10 +3,10 @@ import Image from "next/image";
 export default function Footer(props) {
 	return(
 		<div className="flex justify-around pt-5 absolute bottom-0 transparent w-full">
-			<div className="flex items-center pt-5 mb-10">
+			<div className="flex items-center pt-5 mb-6">
 				<Image
 					className="mb-2"
-					src="/landingassets/2d_logos/2d_logo2.png"
+					src="/idoassets/2d_logo2.png"
 					layout="fixed"
 					height={100}
 					width={65}
@@ -32,16 +32,16 @@ export default function Footer(props) {
 				<h2 className="text-[#B1B1B1] text-lg md:text-2xl font-bold text-center mb-1 md:mb-2">Community</h2>
 				<div className="flex flex-row justify-around">
 					<a href="https://twitter.com/Helix_DAO">
-						<Image src="/landingassets/landingpage/icons/twitter.png" height={29} width={29} />
+						<Image src="/idoassets/icons/twitter.png" height={29} width={29} />
 					</a>
 					<a href="https://github.com/bruh-capital">
-						<Image src="/landingassets/landingpage/icons/Vector.png" height={25} width={25} />
+						<Image src="/idoassets/icons/Vector.png" height={25} width={25} />
 					</a>
 					<a href="https://discord.gg/rR6M38QT3n">
-						<Image src="/landingassets/landingpage/icons/Frame 1.png" height={32} width={32} />
+						<Image src="/idoassets/icons/Frame 1.png" height={32} width={32} />
 					</a>
-					<a>
-						<Image src="/landingassets/landingpage/icons/image 24.png" height={29} width={29} />
+					<a href="https://medium.com/@helixdao">
+						<Image src="/idoassets/icons/m.png" height={32} width={32} />
 					</a>
 				</div>
 			</div>

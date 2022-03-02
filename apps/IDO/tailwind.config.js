@@ -23,6 +23,8 @@ module.exports = {
       'blue-glow-lg': '0px 0px 60px #59A6F4',
       'gray-glow-md': '0px 0px 30px #6c7278',
       'gray-glow-lg': '0px 0px 60px #6c7278',
+      'purple-glow-md': '0px 0px 30px #38156b',
+      'purple-glow-lg': '0px 0px 60px #38156b',
     },
   },
   variants: {},

@@ -22,12 +22,11 @@ export default function DappLayout(props) {
 	return(
 		<main className="h-screen static">
 			<Canvas camera={{position:[0,0,5]}}>
-					<ThreeBackground />
-
-				</Canvas>
-				<Header />
-				<Dash />
-				<Footer />
+				<ThreeBackground />
+			</Canvas>
+			<Header />
+			<Dash />
+			<Footer />
 		</main>
 	)
 }

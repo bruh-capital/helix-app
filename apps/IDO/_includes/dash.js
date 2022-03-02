@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import Stat from "@includes/components/stat";
+import { useConnectedWallet, useSolana, useWallet } from "@saberhq/use-solana";
+import { useWalletKit } from "@gokiprotocol/walletkit";
 
-import { useTheme } from "next-themes";
-
+import { LightningBoltIcon} from "@heroicons/react/outline"
 import HelixContext from "@context/helixContext";
+import helixClient from 'helix-client';
 
 export default function Dash(props) {
-	const {client, setClient} = useContext(HelixContext);
 	const [days, setDays] = useState(0);
 	const [hours, setHours] = useState(0);
 	const [minutes, setMinutes] = useState(0);
@@ -18,6 +19,17 @@ export default function Dash(props) {
 	const [idoAta, setIdoAta] = useState();
 
 	const [amount, setAmount] = useState();
+
+	const {client, setClient} = useContext(HelixContext);
+	const wallet = useConnectedWallet();
+	const goki = useWalletKit();
+	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
+
+	useEffect(()=>{
+		if(wallet){
+			setClient(new helixClient(wallet));
+		}
+	}, [!!wallet]);
 
 	useEffect(async ()=>{
 		console.log("setting accounts");
@@ -43,50 +55,84 @@ export default function Dash(props) {
 	},[])
 
 	return(
-		<div className="items-center pb-16 absolute top-24 transparent w-full" >
-			<div className="flex flex-col items-center h-full w-full space-y-10 ">
-				<div className="flex flex-col rounded-md bg-[#747474] place-content-center text-5xl text-center h-24 w-1/2 font-mono border-[#9F9F9F] border-2 bg-opacity-50 text-white">
+		<div className="grid grid-cols-1 place-items-center pb-16 absolute top-10 transparent w-full" >
+			<div className="flex flex-col items-center h-full w-3/4 space-y-10 ">
+				<div className="flex flex-col rounded-md bg-[#747474] bg-opacity-50 place-content-center text-5xl text-center h-24 w-1/2 font-mono text-white">
 					{days} : {hours} : {minutes} : {seconds}
 				</div>
-				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 w-1/2 border-2 h-80 border-[#FFFFFF] border-opacity-50 pl-4">
-					{/* left side */}
-					<div className="grid grid-cols-1 w-3/4 pt-4">
-						<div className="grid grid-cols-1 h-10 w-full place-items-center">
-							<div className="text-[#45008c] w-3/4 h-full bg-opacity-50 text-center pt-4 text-2xl font-bold font-mono">
-								Your Contributions: {200} USDC
-							</div>
+				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 h-24 pt-4 place-items-center w-3/4 px-24 py-4 ">
+					<div className="grid grid-cols-1 w-3/4">
+						<div>
+							Read more about the token distribution in our Whitepaper
 						</div>
-						<div className="grid grid-cols-1 w-full place-items-center">
-							<input
-								type="number"
-								className="rounded-md bg-[#ababab] border-2 border-[#FFFFFF] bg-opacity-75 text-right w-2/3 text-xl outline-none h-10 text-opacity-50"
-								value={amount || ""}
-								onChange ={(e)=>{setAmount(e.target.value)}}
+					</div>
+					<div className="mt-2 absolute right-5">
+						<Image
+								src = {"/idoassets/distributionpie.png"}
+								height = {240}
+								width = {600}
+								layout="fixed"
+								priority={true}
+						/>
+					</div>
+				</div>
+				<div className="rounded-md grid grid-cols-1 bg-[#F9F4F4] bg-opacity-50 h-80 pt-4 place-items-center w-3/4 px-24 py-4">
+						<div className="flex flex-row h-10 justify-center ">
+							<Stat
+								statName="Amount Deposited"
+								statValue={20}
+							/>
+							<Stat
+								statName="Total Amount Deposited"
+								statValue={200000}
 							/>
 						</div>
-						<div className="flex flex-row space-x-32 justify-center place-items-center w-full">
+						<div className="flex flex-row rounded-md w-3/4 h-16 bg-[#F9F4F4] bg-opacity-50 px-6 place-items-center">
+							{wallet?.connected && (
+								<>
+								<div className="flex flex-row rounded-lg h-10 w-24 place-items-center">
+								<div className="ml-2 mt-2">
+											<Image
+													src = {"/2d/2d_logo4.png"}
+													height = {26}
+													width = {16}
+													layout="fixed"
+													priority={true}
+											/>
+										</div>
+										<span className="font-bold text-sm text-white pl-2 leading-relaxed">HLX</span>
+								</div>
+								<input
+									className="border-0 bg-transparent font-normal text-lg w-full outline-none text-right text-black font-bold font-family-mono"
+									type="number"
+									placeholder={"Enter Amount"}
+									value={amount || ""}
+									onChange={(e) => setAmount(e.target.value)}
+								/> 
+								</>
+							)}
+						</div>
+						{wallet?.connected?
+							<div className="flex flex-row space-x-32 justify-center place-items-center w-3/4">
+								<button 
+									className="text-[#3b3b3b] border-2 border-[#8C8C8C] w-1/2 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25 py-4 hover:bg-[#5015a3] hover:border-[#5015a3] hover:bg-opacity-50 hover:text-white">
+									Deposit
+								</button>
+								
+								<button 
+									className="text-[#3b3b3b] border-2 border-[#8C8C8C] w-1/2 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25 py-4 hover:bg-[#5015a3] hover:border-[#5015a3] hover:bg-opacity-50 hover:text-white">
+									Withdraw
+								</button>
+							</div>:
 							<button 
-								className="text-white border-2 border-white w-1/3 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25">
-								Deposit
-							</button>
-							
-							<button 
-								className="text-white border-2 border-white w-1/3 h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25">
-								Withdraw
-							</button>
-						</div>
+									className="flex flex-row items-center justify-around text-md font-medium bg-[#C8C7CA] px-2 md:px-3 py-1 md:py-2 rounded-md"
+									onClick={() => goki.connect()}
+								>
+									<span>Connect Wallet</span>
+									<LightningBoltIcon className="h-4 w-4 pl-1 md:h-6 md:w-6" />
+								</button>
+							}
 					</div>
-					{/* right side */}
-					<div className="grid grid-cols-1 place-items-center w-1/3 text-[#45008c] pr-2">
-						<div className="text-6xl pt-16">
-							{20}
-						</div>
-						<div className="text-xl font-mono font-bold">
-							Total USDC Deposited
-						</div>
-					</div>
-
-				</div>
 			</div>
 			
 		</div>
