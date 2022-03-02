@@ -58,19 +58,22 @@ export default function Dash(props) {
 		<div className="grid grid-cols-1 place-items-center pb-16 absolute top-10 transparent w-full" >
 			<div className="flex flex-col items-center h-full w-3/4 space-y-10 ">
 				<div className="flex flex-col rounded-md bg-[#747474] bg-opacity-50 place-content-center text-5xl text-center h-24 w-1/2 font-mono text-white">
-					{days} : {hours} : {minutes} : {seconds}
+					{days}:{hours}:{minutes}:{seconds}
 				</div>
-				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 h-24 pt-4 place-items-center w-3/4 px-24 py-4 ">
-					<div className="grid grid-cols-1 w-3/4">
-						<div>
+				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 h-24 pt-4 place-items-right w-3/4 px-10 py-4 ">
+					<div className="flex flex-col text-white w-3/4 place-items-center mt-1 ">
+						<div className=" w-full text-center">
 							Read more about the token distribution in our Whitepaper
 						</div>
+						<a href="https://helixdao.org/Litepaper.pdf" target="_blank" className="bg-[#8C8C8C] px-2 mt-2 py-1 rounded-md">
+							Learn More
+						</a>
 					</div>
-					<div className="mt-2 absolute right-5">
+					<div className="-mt-16 -mr-24">
 						<Image
 								src = {"/idoassets/distributionpie.png"}
-								height = {240}
-								width = {600}
+								height = {200}
+								width = {340}
 								layout="fixed"
 								priority={true}
 						/>
