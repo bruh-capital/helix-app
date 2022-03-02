@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import {useRef,  useMemo } from 'react';
-import {useFrame} from '@react-three/fiber';
+import {useFrame, Canvas} from '@react-three/fiber';
+import { Scene } from 'three';
 
-export default function ThreeBackground(){    
+function MeshBg(){    
     const ref = useRef();
     let vCheck = false;
 
@@ -167,6 +168,12 @@ export default function ThreeBackground(){
     return <mesh ref={ref} position={[-200, 270, -280]} scale={4} rotation={[0,0,0.1]} >
         <planeGeometry attach='geometry' args={[window.innerWidth / 2, 400, 100, 100]}/>
         <shaderMaterial attach='material' {...data}/>
-    </mesh>
+        </mesh>
 
+}
+
+export default function CanvasBg(){
+    return <Canvas camera={{position:[0,0,5]}} globalCompositeO>
+        <MeshBg/>
+    </Canvas>
 }

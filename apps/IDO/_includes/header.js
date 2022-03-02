@@ -4,7 +4,7 @@ import { Popover, Transition } from "@headlessui/react";
 
 export default function Header(props) {
 	return(
-		<div className="static z-50 w-full duration-300 absolute top-0 transparent">
+		<div className="static z-50 w-full duration-300 transparent">
 			<div className="mx-auto">
 				<div className="flex flex-row justify-around">
 					<div className="flex items-center flex-auto">

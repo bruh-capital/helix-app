@@ -55,7 +55,7 @@ export default function Dash(props) {
 	},[])
 
 	return(
-		<div className="grid grid-cols-1 place-items-center pb-16 absolute top-10 transparent w-full" >
+		<div className="grid grid-cols-1 place-items-center pb-16 transparent w-full" >
 			<div className="flex flex-col items-center h-full w-3/4 space-y-10 ">
 				<div className="flex flex-col rounded-md bg-[#747474] bg-opacity-50 place-content-center text-5xl text-center h-24 w-1/2 font-mono text-white">
 					{days}:{hours}:{minutes}:{seconds}

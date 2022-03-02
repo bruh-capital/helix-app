@@ -26,6 +26,10 @@ module.exports = {
       'purple-glow-md': '0px 0px 30px #38156b',
       'purple-glow-lg': '0px 0px 60px #38156b',
     },
+    height:{
+      "screen-5/4":"125vh",
+      "screen-2":"200vh"
+    }
   },
   variants: {},
   

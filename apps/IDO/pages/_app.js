@@ -2,7 +2,6 @@ import 'styles/globals.css';
 import { useState } from 'react';
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import Image from 'next/image';
-import {Canvas} from '@react-three/fiber';
 
 import helixClient from 'helix-client';
 
