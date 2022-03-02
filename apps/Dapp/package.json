@@ -37,7 +37,8 @@
     "react-ios-pwa-prompt": "^1.8.4",
     "reapop": "^4.0.3",
     "recharts": "^2.1.9",
-    "rerousel": "^0.1.9"
+    "rerousel": "^0.1.9",
+    "swr": "^1.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.0",

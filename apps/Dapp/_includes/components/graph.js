@@ -18,6 +18,7 @@ import {
  * @param {string} props.currentGraphValue
  * @param {} props.graphChange
  * @param {} props.graphData
+ * @param {string} props.dataFormat
  */
 export default function Graph(props) {
 	return(
@@ -44,13 +45,37 @@ export default function Graph(props) {
 				</div>
 			</div>
 				{
-					props.graphData ? (
-						<div className="flex flex-grow bg-[#C0C0C0] animate-pulse"/>
+					!props.graphData ? (
+						<div className="flex flex-grow bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72 xl:h-96"/>
 					) : (
-						<div className="rounded-md flex bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72 xl:h-96">
-							<AreaChart>
-								<XAxis dataKey="time" />
-								<YAxis dataKey={props.graphName} />
+						<div className="rounded-md flex bg-[#C0C0C0]">
+							<AreaChart data={props?.graphData}>
+								<XAxis
+									dataKey="timestamp"
+									interval={30}
+									axisLine={false}
+									tickLine={false}
+									tickFormatter={str => format(new Date(str * 1000), "MMM dd")}
+									reversed={true}
+									padding={{ right: 20 }}
+								/>
+								<YAxis 
+									dataKey={props.graphName}
+									tickCount={3}
+									axisLine={false}
+									tickLine={false}
+									width={props?.dataFormat === "percent" ? 33 : 55}
+									tickFormatter={number =>
+										number !== 0
+										? props?.dataFormat !== "percent"
+											? `${formatCurrency(parseFloat(number) / 1000000)}M`
+											: `${trim(parseFloat(number), 2)}%`
+										: ""
+									}
+									domain={[0, "auto"]}
+									dx={3}
+									allowDataOverflow={false}
+								/>
 							</AreaChart>
 						</div>
 					)

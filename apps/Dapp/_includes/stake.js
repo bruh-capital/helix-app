@@ -2,38 +2,28 @@ import { useContext, useEffect, useState } from "react";
 import { useTheme } from 'next-themes';
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
-import UserDataContext from "@context/userDataContext";
 import { useConnectedWallet } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
+
 import helixContext from "@context/helixContext";
+import UserDataContext from "@context/userDataContext";
+import ProtocolContext from "@context/protocolDataContext";
 
 export default function Stake(props) {
-	const { theme, setTheme } = useTheme();
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
+
+	// state
 	const [ uiFunction, setUiFunction ] = useState("stake");	
 	const [ amount, setAmount ] = useState(null);
 	const [ lockupPeriod, setLockupPeriod] = useState(0);
-	const { userData, setUserVault } = useContext(UserDataContext);
 	const [stakedBalance, setStakedBalance] = useState();
+
+	// context
 	const {client} = useContext(helixContext);
-
-	const [protocolData, setProtocolData] = useState();
-
-	useEffect(async ()=>{
-		if(client && client?.getUserVault){
-			let userVault = await client.getUserVault();
-			if(userVault){
-				setUserVault(userVault);
-				setStakedBalance(userVault.stakeBalance.toNumber())	
-			}
-		}
-
-		if(client && client?.getProtocolData){
-			let protocData = await client.getProtocolData();
-			setProtocolData(protocData);
-		}
-	}, [client]);
+	const { theme, setTheme } = useTheme();
+	const { userData, setUserVault } = useContext(UserDataContext);
+	const { protocolData, setProtocolData } = useContext(ProtocolContext);
 
 	return(
 		<div className="-mt-24 h-screen content-center items-center pt-32 md:pt-36 pb-24">

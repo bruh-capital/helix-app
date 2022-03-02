@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useContext } from "react";
 import Stat from "@includes/components/stat";
 import Graph from "@includes/components/graph";
+import useSWR from "swr";
 
 import { useTheme } from "next-themes";
 import ProtocolContext from "@context/protocolDataContext";
@@ -9,6 +10,9 @@ import CardCarousel from "@includes/components/cardCarousel";
 
 export default function Dash(props) {
 	const { data, setData } = useContext(ProtocolContext);
+
+	const fetcher = (...args) => fetch(...args).then(res => res.json());
+	const { stakeGraphData } = useSWR("/api/v0/stakeData", fetcher);
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >
@@ -40,6 +44,7 @@ export default function Dash(props) {
 				<div className="flex flex-col row-start-5 lg:row-start-2 col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Graph
 						graphName="TVL"
+						graphData={stakeGraphData}
 					/>
 				</div>
 			</div>
