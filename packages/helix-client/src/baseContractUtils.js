@@ -685,7 +685,7 @@ export class HelixNetwork {
 	}
 
 	FetchIdoAccount = async() =>{
-		return await this.ido_program.account.idoAccount.fetch(this.idoAccount);
+		return await this.ido_program.account.userIdoAccount.fetch(this.idoAccount);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
