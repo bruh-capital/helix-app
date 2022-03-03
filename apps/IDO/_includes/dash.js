@@ -13,7 +13,7 @@ export default function Dash(props) {
 	const [hours, setHours] = useState(0);
 	const [minutes, setMinutes] = useState(0);
 	const [seconds, setSeconds] = useState(0);
-	const endDate = new Date(1646110800000);
+	const endDate = new Date(1648785600000);
 
 	const [idoAccount, setIdoAccount] = useState();
 	const [idoAta, setIdoAta] = useState();
@@ -26,6 +26,7 @@ export default function Dash(props) {
 	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
 
 	const [displayButton, setDisplayButton] = useState();
+	const [timeFunc, setTimeFunc] = useState();
 
 	useEffect(()=>{
 		if(wallet){
@@ -41,6 +42,19 @@ export default function Dash(props) {
 			console.log("ido ata", idoata);
 			setIdoAccount(idoacc);
 			setIdoAta(idoata);
+		}
+	};
+
+	const intervalFunc = ()=>{
+		const today = new Date();
+		const diff = endDate - today;
+		setDays(parseInt( diff/ (86400000)));
+		setHours(parseInt(diff / (14400000) % 24));
+		setMinutes(parseInt(diff / (60000) % 60));
+		setSeconds(parseInt(diff / (1000) % 60)) ;
+		if((diff) < 0){
+			clearInterval(timeFunc);
+			setTimeFunc();
 		}
 	};
 
@@ -65,17 +79,12 @@ export default function Dash(props) {
 			</div>:
 			<div>
 				<button
-					onClick={client.createIdoAccount}
-					className="border-2"
+					onClick={()=>{client.createIdoAccount; setIdoAccount({})}}
+					className="text-white hover:shadow-silver-glow-sm w-full h-1/2 rounded-md bg-[#FFFFFF] bg-opacity-25 py-4 px-4"
 				>
-					Create IDO Account
+					Create Account
 				</button>
-				<button
-					onClick={client.mintAndCloseIdoAccount}
-					className="border-2"
-				>
-					Mint and Close Ido Account
-				</button>
+				
 			</div>
 		):
 		<button 
@@ -85,23 +94,21 @@ export default function Dash(props) {
 			<span>Connect Wallet</span>
 			<LightningBoltIcon className="h-4 w-4 pl-1 md:h-6 md:w-6" />
 		</button>)
-	},[!!client, client.createIdoAccount, wallet, idoAccount]);
+	},[!!client, client.createIdoAccount, wallet && wallet.connected, idoAccount]);
+
+	
 
 	useEffect(()=>{
-		setInterval(()=>{
-			const today = new Date();
-			setDays(parseInt((endDate - today) / (86400000)));
-			setHours(parseInt(Math.abs(endDate - today) / (14400000) % 24));
-			setMinutes(parseInt(Math.abs(endDate.getTime() - today.getTime()) / (60000) % 60));
-			setSeconds(parseInt(Math.abs(endDate.getTime() - today.getTime()) / (1000) % 60)) ;
-		}, 1000);
+		if((endDate - new Date()) > 0 ){
+			setTimeFunc(setInterval(intervalFunc, 1000));
+		}
 	},[])
 
 	return(
 		<div className="flex flex-col place-items-center transparent w-full h-screen">
 			<div className="flex flex-col items-center w-3/4 space-y-10 ">
 				<div className="flex flex-col rounded-md bg-[#747474] bg-opacity-50 place-content-center text-5xl text-center h-20 w-1/2 font-mono text-white">
-					{days}:{hours}:{minutes}:{seconds}
+					{timeFunc ? days + ":" + hours + ":" + minutes + ":" + seconds : "Token Sale Live!"}
 				</div>
 				<div className="rounded-md flex flex-row bg-[#F9F4F4] bg-opacity-50 h-24 pt-4 place-items-right w-3/4 px-10 py-4 h-36">
 					<div className="flex flex-col text-white w-3/4 place-items-center mt-1 h-full justify-center">

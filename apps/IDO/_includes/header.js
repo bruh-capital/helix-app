@@ -7,7 +7,7 @@ import { useWalletKit } from "@gokiprotocol/walletkit";
 export default function Header(props) {
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
-	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
+	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();	
 
 	return(
 		<div className="static z-50 w-full duration-300 transparent">
@@ -27,43 +27,45 @@ export default function Header(props) {
 					</div>
 					<div className="flex justify-self-end">
 						<div className="flex flex-row items-center align-middle m-auto md:m-6 gap-x-4 md:gap-x-10">
+							{wallet?.connected?
 							<Popover className="relative">
-								{({ open }) => (
-									<>
-										<Popover.Button
-											className="px-2 md:px-3 py-1 md:py-2 rounded-md text-black bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white text-ellipsis font-sm md:font-normal"
-										>
-										<span>Wallet</span>
-										</Popover.Button>
-										<Transition
-											as={Fragment}
-											enter="transition ease-out duration-400"
-											enterFrom="opacity-0 translate-y-2"
-											enterTo="opacity-100 translate-y-0"
-											leave="transition ease-in duration-300"
-											leaveFrom="opacity-100 translate-y-0"
-											leaveTo="opacity-0 translate-y-2"
-										>
-											<Popover.Panel className="absolute z-50 w-screen max-w-sm mt-3 transform left-0 -translate-x-1/2 md:left-auto md:-translate-x-0 md:right-0 sm:px-0">
-												<div className="overflow-hidden bg-opacity-100 rounded-md shadow-md bg-[#C0C0C0] dark:bg-black dark:bg-opacity-75">
-													<div className="relative grid p-4 grid-cols-1 space-y-3">
-														<button
-															className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-105 duration-300"
-															onClick={() => {
-																setNetwork("devnet")
-															}}
-														>Change to Devnet</button>
-														<button
-															className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-x-105 duration-300"
-															onClick={()=>{}}//disconnect
-														>Disconnect</button>
-													</div>
+							{({ open }) => (
+								<>
+									<Popover.Button
+										className="px-2 md:px-3 py-1 md:py-2 rounded-md text-black bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white text-ellipsis font-sm md:font-normal"
+									>
+									<span>Wallet</span>
+									</Popover.Button>
+									<Transition
+										as={Fragment}
+										enter="transition ease-out duration-400"
+										enterFrom="opacity-0 translate-y-2"
+										enterTo="opacity-100 translate-y-0"
+										leave="transition ease-in duration-300"
+										leaveFrom="opacity-100 translate-y-0"
+										leaveTo="opacity-0 translate-y-2"
+									>
+										<Popover.Panel className="absolute z-50 w-screen max-w-sm mt-3 transform left-0 -translate-x-1/2 md:left-auto md:-translate-x-0 md:right-0 sm:px-0">
+											<div className="overflow-hidden bg-opacity-100 rounded-md shadow-md bg-[#C0C0C0] dark:bg-black dark:bg-opacity-75">
+												<div className="relative grid p-4 grid-cols-1 space-y-3">
+													<button
+														className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-105 duration-300"
+														onClick={() => {
+															setNetwork("devnet")
+														}}
+													>Change to Devnet</button>
+													<button
+														className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-x-105 duration-300"
+														onClick={disconnect}//disconnect
+													>Disconnect</button>
 												</div>
-											</Popover.Panel>
-										</Transition>
-									</>
-								)}
-							</Popover>
+											</div>
+										</Popover.Panel>
+									</Transition>
+								</>
+							)}
+						</Popover>:
+						<></>}
 
 						</div>
 					</div>
