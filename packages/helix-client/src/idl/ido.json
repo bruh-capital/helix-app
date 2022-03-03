@@ -190,7 +190,7 @@
   ],
   "accounts": [
     {
-      "name": "IDOAccount",
+      "name": "UserIdoAccount",
       "type": {
         "kind": "struct",
         "fields": [

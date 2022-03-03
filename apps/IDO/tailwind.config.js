@@ -21,14 +21,20 @@ module.exports = {
       'pink-glow-lg': '0px 0px 60px #E66EE9',
       'blue-glow-md': '0px 0px 30px #59A6F4',
       'blue-glow-lg': '0px 0px 60px #59A6F4',
+      'silver-glow-sm': '0px 0px 15px #bababa',
+      'silver-glow-md': '0px 0px 30px #bababa',
       'gray-glow-md': '0px 0px 30px #6c7278',
       'gray-glow-lg': '0px 0px 60px #6c7278',
       'purple-glow-md': '0px 0px 30px #38156b',
       'purple-glow-lg': '0px 0px 60px #38156b',
     },
-    height:{
-      "screen-5/4":"125vh",
-      "screen-2":"200vh"
+    extend:{
+      height:{
+        "screen-1/2":"50vh",
+        "screen-3/4":"75vh",
+        "screen-5/4":"125vh",
+        "screen-2":"200vh"
+      }
     }
   },
   variants: {},

@@ -15,7 +15,6 @@ let pyth_mapping = require("./pythMapping.json");
 
 export class HelixNetwork {
 	constructor(wallet){
-		console.log("created wallet");
 		this.pyth_map = pyth_mapping;
 		[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
 			// for each name, price address in address map object
@@ -155,7 +154,7 @@ export class HelixNetwork {
 			this.ido_program.programId
 		);
 
-		const [idoAccount, idoAcocuntBump] = await PublicKey.findProgramAddress(
+		const [idoAccount, idoAccountBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("idoaccount"),
 			  this.wallet.publicKey.toBuffer()
@@ -181,7 +180,7 @@ export class HelixNetwork {
 		this.bondSignerBump = bondSignerBump;
 
 		this.idoAccount = idoAccount;
-		this.idoAcocuntBump = idoAcocuntBump;
+		this.idoAccountBump = idoAccountBump;
 
 		this.idoUSDCAta = idoUSDCAta;
 		this.idoUSDCAtaBump = idoUSDCAtaBump;
@@ -431,7 +430,6 @@ export class HelixNetwork {
 		);
 
 		const pyth_spl_price_address = this.pyth_map[connection][asset]; // sol pubkey address for that connection
-		console.log(pyth_spl_price_address);
 
 		await this.bond_program.rpc.depositAssetPrintBondSpl(
 			new anchor.BN(bond_price),
@@ -683,7 +681,6 @@ export class HelixNetwork {
 	}
 
 	FetchIdoAta = async() =>{
-		console.log(this.idoUSDCAta.toString());
 		return await this.connection.getParsedAccountInfo(this.idoUSDCAta);
 	}
 

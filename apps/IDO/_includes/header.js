@@ -1,8 +1,14 @@
 import Image from "next/image";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
+import { useConnectedWallet, useSolana, useWallet } from "@saberhq/use-solana";
+import { useWalletKit } from "@gokiprotocol/walletkit";
 
 export default function Header(props) {
+	const wallet = useConnectedWallet();
+	const goki = useWalletKit();
+	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
+
 	return(
 		<div className="static z-50 w-full duration-300 transparent">
 			<div className="mx-auto">

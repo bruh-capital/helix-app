@@ -164,6 +164,7 @@ export default function HelixWrapper(wallet) {
 		try{
 			return await helixClient.FetchIdoAccount();
 		}catch(e){
+			console.log(e);
 			return undefined;
 		}
 	}

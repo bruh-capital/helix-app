@@ -8,7 +8,7 @@
   "author": "bruh capital",
   "dependencies": {
     "react": "^17.0.2",
-    "@project-serum/anchor": "^0.19.0",
+    "@project-serum/anchor": "^0.22.0",
     "@solana/spl-token": "^0.1.8",
     "@solana/spl-token-registry": "^0.2.7",
     "@solana/wallet-adapter-base": "^0.7.0",

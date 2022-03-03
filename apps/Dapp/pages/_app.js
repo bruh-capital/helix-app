@@ -22,10 +22,9 @@ function MyApp({ Component, pageProps }) {
 
 	useEffect(async () => {
 		if(client && client?.getUserVault){
-			let userVault = await client.getUserVault();
-			if(userVault){
+			let uv = await client.getUserVault();
+			if(uv != undefined){
 				setUserVault(userVault);
-				setStakedBalance(userVault.stakeBalance.toNumber())	
 			}
 		}
 
