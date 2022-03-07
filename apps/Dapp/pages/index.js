@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { useContext } from "react";
 
 import LayoutContext from "@context/layoutContext";
-import ProtocolContext from "@context/protocolDataContext";
 import Dash from "@includes/dash";
 import Bond from "@includes/bond";
 import Stake from "@includes/stake";

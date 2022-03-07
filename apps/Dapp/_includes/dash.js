@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import Stat from "@includes/components/stat";
 import Graph from "@includes/components/graph";
-import useSWR from "swr";
 
 import { useTheme } from "next-themes";
 import ProtocolContext from "@context/protocolDataContext";
@@ -10,12 +8,23 @@ import CardCarousel from "@includes/components/cardCarousel";
 
 export default function Dash(props) {
 	const { data, setData } = useContext(ProtocolContext);
+
+	const [ tvlData, setTvlData ] = useState(null);
 	const [ stakeData, setStakeData ] = useState(null);
 
+	// Load all dashboard data from API
 	useEffect(async () => {
-		let stakeDataRes = await fetch("/api/v0/stakeData").then(async (res) => await res.json());
-		
+		// TVL data
+		let tvlDataRes = await fetch("/api/v0/tvlData")
+			.then(async (res) => await res.json());
+		setTvlData(tvlDataRes);
+
+		// Staked tokens data
+		let stakeDataRes = await fetch("/api/v0/stakeData")
+			.then(async (res) => await res.json());
 		setStakeData(stakeDataRes);
+
+
 	});
 
 	return(
@@ -49,8 +58,8 @@ export default function Dash(props) {
 					<Graph
 						graphName="TVL"
 						graphYAxis="tvl"
-						graphData={stakeData}
-						currentValue={(stakeData != null || undefined) ? ("$" + stakeData[0].tvl.toLocaleString()) : undefined}
+						graphData={tvlData}
+						currentValue={(tvlData != null || undefined) ? ("$" + tvlData[0].tvl.toLocaleString()) : undefined}
 					/>
 				</div>
 			</div>
