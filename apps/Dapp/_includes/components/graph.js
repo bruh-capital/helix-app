@@ -50,7 +50,7 @@ export default function Graph(props) {
 					!props.graphData ? (
 						<div className="flex flex-grow bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72 xl:h-96"/>
 					) : (
-						<div className="flex justify-around rounded-md w-full h-full m-auto">
+						<ResponsiveContainer width="100%" height={500}>
 							<AreaChart width={500} height={325} data={props?.graphData}>
 								<defs>
 									<linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">
@@ -87,7 +87,7 @@ export default function Graph(props) {
 								<Tooltip />
 								<Area type="monotone" dataKey={props.graphYAxis} stroke="#7879F1" fillOpacity={1} fill="url(#chartColor)" />
 							</AreaChart>
-						</div>
+						</ResponsiveContainer>
 					)
 				}
 		</div>
