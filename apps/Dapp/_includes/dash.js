@@ -9,24 +9,6 @@ import CardCarousel from "@includes/components/cardCarousel";
 export default function Dash(props) {
 	const { data, setData } = useContext(ProtocolContext);
 
-	const [ tvlData, setTvlData ] = useState(null);
-	const [ stakeData, setStakeData ] = useState(null);
-
-	// Load all dashboard data from API
-	useEffect(async () => {
-		// TVL data
-		let tvlDataRes = await fetch("/api/v0/tvlData")
-			.then(async (res) => await res.json());
-		setTvlData(tvlDataRes);
-
-		// Staked tokens data
-		let stakeDataRes = await fetch("/api/v0/stakeData")
-			.then(async (res) => await res.json());
-		setStakeData(stakeDataRes);
-
-
-	});
-
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >
 			<div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-8 lg:grid-rows-4 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full gap-2 sm:gap-4 lg:gap-8">
@@ -58,8 +40,8 @@ export default function Dash(props) {
 					<Graph
 						graphName="TVL"
 						graphYAxis="tvl"
-						graphData={tvlData}
-						currentValue={(tvlData != null || undefined) ? ("$" + tvlData[0].tvl.toLocaleString()) : undefined}
+						graphData={data?.tvlData}
+						currentValue={undefined}
 					/>
 				</div>
 			</div>
