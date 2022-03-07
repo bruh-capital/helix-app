@@ -16,20 +16,20 @@ export default function Dash(props) {
 	const stakeGraphData = [
 		{
 			"timestamp": "1646684126091",
-			"tvl": 500535344,
-		},
-		{
-			"timestamp": "1646684226091",
-			"tvl": 501498917,
+			"tvl": 506189124.61,
 		},
 		{
 			"timestamp": "1646684326091",
-			"tvl": 491098123,
+			"tvl": 481098123.34,
+		},
+		{
+			"timestamp": "1646684226091",
+			"tvl": 422498917.83,
 		},
 		{
 			"timestamp": "1646684126091",
-			"tvl": 503189124,
-		}
+			"tvl": 380535344.14,
+		},
 	];
 
 	return(
@@ -64,6 +64,7 @@ export default function Dash(props) {
 						graphName="TVL"
 						graphYAxis="tvl"
 						graphData={stakeGraphData}
+						currentValue={"$"+stakeGraphData[0]?.tvl.toLocaleString()}
 					/>
 				</div>
 			</div>

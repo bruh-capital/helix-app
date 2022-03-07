@@ -2,11 +2,6 @@ import { ArrowSmUpIcon, ArrowSmDownIcon } from "@heroicons/react/outline"
 import {
 	Area,
 	AreaChart,
-	Bar,
-	BarChart,
-	CartesianGrid,
-	Line,
-	LineChart,
 	ResponsiveContainer,
 	Tooltip,
 	XAxis,
@@ -16,19 +11,18 @@ import { format } from "date-fns";
 
 /**
  * @param {string} props.graphName
- * @param {string} props.currentGraphValue
+ * @param {string} props.currentValue	
  * @param {} props.graphChange
  * @param {} props.graphData
  * @param {string} props.dataFormat
  */
 export default function Graph(props) {
-	let graphCurrentValue = props.graphData[props.graphData.length - 1][props.currentGraphValue];
 	return(
 		<div className="flex flex-col justify-start my-auto mx-8 md:mx-16 overflow-hidden">
 			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] md:mb-2">{props.graphName}</h2>
 			<div className="flex flex-row items-center justify-between mb-4">
 				<span className="text-[#474747] dark:text-white font-bold text-xl md:text-3xl">
-					{graphCurrentValue || "N/A"}	
+					{props.currentValue || "N/A"}	
 				</span>
 				<div>
 					{
@@ -60,16 +54,14 @@ export default function Graph(props) {
 								</defs>
 								<XAxis
 									dataKey="timestamp"
-									interval={30}
 									axisLine={false}
 									tickLine={false}
 									tickFormatter={str => format(new Date(str * 1000), "MMM dd")}
+									padding={{ left: 5 }}
 									reversed={true}
-									padding={{ right: 20 }}
 								/>
 								<YAxis 
 									dataKey={props.graphYAxis}
-									tickCount={3}
 									axisLine={false}
 									tickLine={false}
 									width={props?.dataFormat === "percent" ? 33 : 55}
@@ -81,10 +73,9 @@ export default function Graph(props) {
 										: ""
 									}
 									domain={[0, "auto"]}
-									dx={3}
+									dx={2}
 									allowDataOverflow={false}
 								/>
-								<Tooltip />
 								<Area type="monotone" dataKey={props.graphYAxis} stroke="#7879F1" fillOpacity={1} fill="url(#chartColor)" />
 							</AreaChart>
 						</ResponsiveContainer>
