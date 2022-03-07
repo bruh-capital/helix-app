@@ -12,6 +12,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
+import { format } from "date-fns";
 
 /**
  * @param {string} props.graphName
@@ -21,12 +22,13 @@ import {
  * @param {string} props.dataFormat
  */
 export default function Graph(props) {
+	let graphCurrentValue = props.graphData[props.graphData.length - 1][props.currentGraphValue];
 	return(
 		<div className="flex flex-col justify-start my-auto mx-8 md:mx-16 overflow-hidden">
 			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] md:mb-2">{props.graphName}</h2>
 			<div className="flex flex-row items-center justify-between mb-4">
 				<span className="text-[#474747] dark:text-white font-bold text-xl md:text-3xl">
-					{props.graphCurrentValue || "N/A"}	
+					{graphCurrentValue || "N/A"}	
 				</span>
 				<div>
 					{
@@ -48,8 +50,8 @@ export default function Graph(props) {
 					!props.graphData ? (
 						<div className="flex flex-grow bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72 xl:h-96"/>
 					) : (
-						<div className="rounded-md flex bg-[#C0C0C0]">
-							<AreaChart data={props?.graphData}>
+						<div className="flex justify-around rounded-md w-full h-full m-auto">
+							<AreaChart width={500} height={325} data={props?.graphData}>
 								<defs>
 									<linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">
 										<stop offset="5%" stopColor="#6D96FF" stopOpacity={0.8}/>
@@ -74,7 +76,7 @@ export default function Graph(props) {
 									tickFormatter={number =>
 										number !== 0
 										? props?.dataFormat !== "percent"
-											? `${formatCurrency(parseFloat(number) / 1000000)}M`
+											? `${parseFloat(number) / 1000000}M`
 											: `${trim(parseFloat(number), 2)}%`
 										: ""
 									}
@@ -83,7 +85,7 @@ export default function Graph(props) {
 									allowDataOverflow={false}
 								/>
 								<Tooltip />
-								<Area type="monotone" dataKey={props.graphName} stroke="#7879F1" fillOpacity={1} fill="url(#chartColor)" />
+								<Area type="monotone" dataKey={props.graphYAxis} stroke="#7879F1" fillOpacity={1} fill="url(#chartColor)" />
 							</AreaChart>
 						</div>
 					)

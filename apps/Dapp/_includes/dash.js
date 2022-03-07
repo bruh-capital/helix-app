@@ -11,7 +11,26 @@ import CardCarousel from "@includes/components/cardCarousel";
 export default function Dash(props) {
 	const { data, setData } = useContext(ProtocolContext);
 	const fetcher = url => fetch(url).then(r => r.json());
-	const { stakeGraphData } = useSWR("/api/v0/stakeData", fetcher);
+	//const { stakeGraphData } = useSWR("/api/v0/stakeData", fetcher);
+
+	const stakeGraphData = [
+		{
+			"timestamp": "1646684126091",
+			"tvl": 500535344,
+		},
+		{
+			"timestamp": "1646684226091",
+			"tvl": 501498917,
+		},
+		{
+			"timestamp": "1646684326091",
+			"tvl": 491098123,
+		},
+		{
+			"timestamp": "1646684126091",
+			"tvl": 503189124,
+		}
+	];
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >
@@ -43,7 +62,7 @@ export default function Dash(props) {
 				<div className="flex flex-col row-start-5 lg:row-start-2 col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Graph
 						graphName="TVL"
-						graphYAxis="stakePercent"
+						graphYAxis="tvl"
 						graphData={stakeGraphData}
 					/>
 				</div>
