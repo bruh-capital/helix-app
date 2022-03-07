@@ -50,6 +50,12 @@ export default function Graph(props) {
 					) : (
 						<div className="rounded-md flex bg-[#C0C0C0]">
 							<AreaChart data={props?.graphData}>
+								<defs>
+									<linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="5%" stopColor="#6D96FF" stopOpacity={0.8}/>
+										<stop offset="95%" stopColor="#F948FD" stopOpacity={0.69}/>
+									</linearGradient>
+								</defs>
 								<XAxis
 									dataKey="timestamp"
 									interval={30}
@@ -76,6 +82,8 @@ export default function Graph(props) {
 									dx={3}
 									allowDataOverflow={false}
 								/>
+								<Tooltip />
+								<Area type="monotone" dataKey={props.graphName} stroke="#7879F1" fillOpacity={1} fill="url(#chartColor)" />
 							</AreaChart>
 						</div>
 					)
