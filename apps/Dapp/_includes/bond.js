@@ -51,7 +51,9 @@ export default function Bond(props) {
 		let markets = {};
 		let pricemap = {};
 		for(let bond of props.bondItems){
-			markets[bond.asset] = props.network == "mainnet" ? await client.getBondMarketInfo(bond.mainnetTokenAddress) : await client.getBondMarketInfo(bond.devnetTokenAddress);
+			markets[bond.asset] = props.network == "mainnet" ?
+				await client.getBondMarketInfo(bond.mainnetTokenAddress):
+				await client.getBondMarketInfo(bond.devnetTokenAddress);
 			pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
 		};
 		setTableRows(props.bondItems?.map((bond, index) => {

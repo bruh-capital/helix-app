@@ -66,7 +66,7 @@ export default function Graph(props) {
 									padding={{ right: 20 }}
 								/>
 								<YAxis 
-									dataKey={props.graphName}
+									dataKey={props.graphYAxis}
 									tickCount={3}
 									axisLine={false}
 									tickLine={false}
