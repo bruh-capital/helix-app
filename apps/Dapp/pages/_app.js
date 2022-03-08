@@ -21,10 +21,10 @@ function MyApp({ Component, pageProps }) {
   // Data that is pretty much used on UI
   const [ detailData, setDetailData ] = useState({
     hlxPrice: 0,
-    stakeData: null, // []
-    revenueData: [],
-    tvlData: null,
-    priceData: [],
+    stakeData: undefined, // []
+    revenueData: undefined,
+    tvlData: undefined,
+    priceData: undefined,
   }); 
 
   // On chain (from program) data
