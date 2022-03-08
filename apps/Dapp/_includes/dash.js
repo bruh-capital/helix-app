@@ -37,7 +37,7 @@ export default function Dash(props) {
 				<div className="flex flex-col row-start-4 col-start-1 col-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="Staking APY (%)"
-						statValue={JSON.stringify(protocolData?.rewardRate}
+						statValue={protocolData?.rewardRate}
 						statChange={protocolData?.stakingApyChange}
 					/>
 				</div>
