@@ -15,7 +15,7 @@ import UserDataContext from '@context/userDataContext';
 function MyApp({ Component, pageProps }) {
   const [ layout, setLayout ] = useState("dashboard");
   const [ protocolData, setProtocolData ] = useState({
-    hlxPrice: 0,
+    "hlxPrice": 0,
   }); 
   const [userVault, setUserVault] = useState();
   const [client, setClient] = useState(new helixClient());

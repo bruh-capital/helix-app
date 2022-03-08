@@ -42,7 +42,7 @@ export default function Graph(props) {
 			</div>
 				{
 					!props.graphData ? (
-						<div className="flex flex-grow bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72 xl:h-96"/>
+						<div className="flex flex-grow rounded-lg bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full h-72 xl:h-96"/>
 					) : (
 						<ResponsiveContainer width="100%" height={500}>
 							<AreaChart width={500} height={325} data={props?.graphData}>
