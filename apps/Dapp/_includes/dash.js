@@ -12,7 +12,8 @@ export default function Dash(props) {
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
 	const { detailData, setDetailData } = useContext(DetailDataContext);
 
-	console.log(JSON.stringify(protocolData));
+	// console.log(JSON.stringify(protocolData));
+	// console.log(detailData);
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >
@@ -37,8 +38,8 @@ export default function Dash(props) {
 				<div className="flex flex-col row-start-4 col-start-1 col-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="Staking APY (%)"
-						statValue={protocolData?.rewardRate}
-						statChange={protocolData?.stakingApyChange}
+						statValue={protocolData?.rewardRate?.toNumber()}
+						statChange={protocolData?.stakingApyChange?.toNumber()}
 					/>
 				</div>
 				<div className="flex flex-col row-start-5 lg:row-start-2 col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
