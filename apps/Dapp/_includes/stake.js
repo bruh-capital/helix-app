@@ -17,7 +17,7 @@ export default function Stake(props) {
 	const [ uiFunction, setUiFunction ] = useState("stake");	
 	const [ amount, setAmount ] = useState(null);
 	const [ lockupPeriod, setLockupPeriod] = useState(0);
-	const [stakedBalance, setStakedBalance] = useState();
+	const [ stakedBalance, setStakedBalance ] = useState();
 
 	// context
 	const {client} = useContext(helixContext);

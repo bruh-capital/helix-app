@@ -59,7 +59,7 @@ export default function Bond(props) {
 		setTableRows(props.bondItems?.map((bond, index) => {
 			
 			return (
-				<tr className="py-4" key={index}>
+				<tr className="py-6" key={index}>
 					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
 						<div className="rounded-full overflow-hidden">
 							<Image
@@ -72,7 +72,13 @@ export default function Bond(props) {
 						</div>
 						<span className="my-auto mx-2">{bond.asset}</span>
 					</td>
-					<td className="text-center dark:text-[#D8D8D8]">{pricemap && pricemap[bond.asset] ? pricemap[bond.asset].aggregate.price : "N/A" }</td>
+					<td className="text-center dark:text-[#D8D8D8]">
+					{
+						pricemap && pricemap[bond.asset] ?
+							pricemap[bond.asset].aggregate.price.toLocaleString(undefined, { maximumFractionDigits: 2 })
+							: "N/A" 
+					}
+					</td>
 					<td className="text-center dark:text-[#D8D8D8]">{markets && markets[bond.asset] ? markets[bond.asset].couponRates[1].toNumber()/10 : 0}%</td>
 					<td className="content-center text-center">
 						{wallet?.connected && bondAccount ? 
@@ -92,7 +98,7 @@ export default function Bond(props) {
 
 	useEffect(()=>{
 	 	setActionButton(<button
-			className="rounded-lg px-4 py-2 text-sm text-zinc-500 font-medium m-4 dark:hover:text-zinc-200"
+			className="rounded-lg pt-10 mb-6 text-sm text-[#696B70] font-medium dark:hover:text-zinc-200"
 			onClick={() => {wallet?.connected && client ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : goki.connect() && checkBondAccount()}}
 		>
 			{ wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
@@ -119,8 +125,8 @@ export default function Bond(props) {
 			</div>
 			<div className="flex flex-col  md:px-24 xl:px-32 2xl:px-64">
 				<div className="flex flex-col rounded-xl mx-8 md:mx-0 border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F] items-start">
-					<div className="flex flex-row w-full">
-						<div className="font-bold mb-6 text-2xl md:text-3xl text-[#272629] dark:text-white pl-10 md:pl-16 pt-10 mx-6 md:mx-16">
+					<div className="flex flex-row w-5/6 self-center justify-between">
+						<div className="font-bold mb-6 text-2xl md:text-3xl text-[#272629] dark:text-white pt-10">
 							Bonds
 						</div>
 						<div className="flex flex-row-reverse w-full">
