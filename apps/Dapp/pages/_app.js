@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import Image from 'next/image';
 
-import NotificationsSystem, {
+import {
   setUpNotifications,
   atalhoTheme,
-  useNotifications,
   NotificationsProvider
 } from "reapop";
 
@@ -46,7 +45,6 @@ function MyApp({ Component, pageProps }) {
   const [ protocolData, setProtocolData ] = useState();
 
   // reapop notifications
-  const { notifications, dismissNotification } = useNotifications();
 
   // useEffect to get user account data from on chain
 	useEffect(async () => {
@@ -87,12 +85,7 @@ function MyApp({ Component, pageProps }) {
             <ThemeProvider attribute='class'>
               <HelixContext.Provider value={{ client, setClient }}>
                 <UserDataContext.Provider value ={{ userVault, setUserVault }}>
-                  <LayoutContext.Provider value={{ layout, setLayout }}>
-                    <NotificationsSystem
-                      notifications={notifications}
-                      dismissNotification={dismissNotification}
-                      theme={atalhoTheme}
-                    />
+                  <LayoutContext.Provider value={{ layout, setLayout }}> 
                     <Component {...pageProps} />
                   </LayoutContext.Provider>
                 </UserDataContext.Provider>
