@@ -8,6 +8,7 @@ import { LightningBoltIcon, MenuIcon, MoonIcon, SunIcon } from "@heroicons/react
 import { Popover, Transition } from "@headlessui/react";
 import SideMenu from "@includes/components/sideMenu";
 import { ChartBarIcon, CashIcon, LibraryIcon } from "@heroicons/react/outline";
+import { useNotifications } from "reapop";
 
 // Contexts
 import LayoutContext from "@context/layoutContext";
@@ -26,12 +27,13 @@ export default function Header(props) {
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
 	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
+	const {notify} = useNotifications();
 
 	const [ menuOpen, setMenuOpen ] = useState(false);
 
 	useEffect(()=>{
 		if(wallet){
-			setClient(new helixClient(wallet));
+			setClient(new helixClient(wallet, notify));
 		}
 	}, [!!wallet]);
 

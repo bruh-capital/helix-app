@@ -23,7 +23,9 @@ import DetailDataContext from '@context/detailDataContext';
 setUpNotifications({
   defaultProps: {
       position: 'top-right',
-      dismissible: true
+      dismissible: true,
+      dismissAfter: 5000,
+      showDismissButton: true,
   } 
 });
 

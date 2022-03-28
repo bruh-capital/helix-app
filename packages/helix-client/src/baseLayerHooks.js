@@ -2,11 +2,15 @@ import { useState } from "react";
 import { useNotifications } from "reapop";
 import { HelixNetwork } from "./baseContractUtils";
 
+// TODO(millionz): change the base utils to return a transaction hash for ops
+
 /**
  * Function that returns functions to use for helix
+ * @param {wallet} wallet - wallet to use for interactions
+ * @param {notify} notify - function to use for notifications
  * @returns {{bigass tuple of functions}}
  */
-export default function HelixWrapper(wallet) {
+export default function HelixWrapper(wallet, notify) {
 	if (!wallet || !wallet.publicKey) {
 		return;
 	}
@@ -14,60 +18,133 @@ export default function HelixWrapper(wallet) {
 	// Constructs a new helix client for this wrapper
 	const helixClient = new HelixNetwork(wallet);
 
-	// Notifications 
-	const { notify } = useNotifications();
-
+	// if you have a vault, stake HLX in the protocol
 	const stakeToken = async (amount) => {
 		try {
 			await helixClient.Stake(amount);
-			notify('Successfully Staked!', 'success');
+			notify('add txn link here', 'success', { title: 'Staked ' + amount + ' HLX' });
 		} catch(e) {
-			notify(e.message, 'error');
+			notify(e.message, 'error', {title: 'Stake Failed'});
+			console.log(e);
 		}
 	}
 	
+	// withdraw HLX from the protocol (vault)
 	const unstakeToken = async (amount) => {
-		await helixClient.Unstake(amount);
+		try {
+			await helixClient.Unstake(amount);
+			notify('add txn link here', 'success', { title: 'Unstaked ' + amount + ' HLX' });
+		} catch(e) {
+			notify(e.message, 'error', { title: 'Unstake Failed' });
+			console.log(e);
+		}
 	}
 
+	// create a user token account for HLX
+	// I don't think we need to be made aware of this not throwing an error
 	const createUserAta = async () => {
-		await helixClient.CreateUserATA();
+		try {
+			await helixClient.CreateUserATA();
+		} catch(e) {
+			notify(e.message, 'error', { title: 'Create HLX ATA Failed' });
+			console.log(e);
+		}
 	}
 
+	// create a user stake vault
 	const createVault = async () => {
-		await helixClient.InitializeUserVault();
+		try {
+			await helixClient.InitializeUserVault();
+			notify('add txn link here', 'success', { title: 'Created User Vault' });
+		} catch (e) {
+			notify(e.message, 'error', {title: 'Create User Vault Failed'});
+			console.log(e);
+		}
 	}
+
+	// close a user stake vault
 	const closeVault = async () => {
-		await helixClient.DeleteUserVault();
+		try {
+			await helixClient.DeleteUserVault();
+		} catch (e) {
+			notify(e.message, 'error', { title: 'Close User Vault Failed' });
+			console.log(e);
+		}
 	}
 
+	// open a user bond account
 	const createBondAccount = async() =>{
-		await helixClient.InitBondAccount();
+		try{
+			// FIXME: for some reason you need to make the account manually regardeless
+			// of one exists or not
+			await helixClient.InitBondAccount();
+			notify('add txn link here', 'success', { title: 'Created Bond Account' });
+		} catch (e) {
+			notify(e.message, 'error', { title: 'Create Bond Account Failed' });
+			console.log(e);
+		}
 	}
 
+	// close a user bond account
 	const closeBondAccount = async() =>{
-		await helixClient.CloseBondAccount();
+		try{
+			await helixClient.CloseBondAccount();
+			notify('add txn link here', 'success', { title: 'Closed Bond Account' });
+		} catch(e) {
+			notify(e.message, 'error', { title: 'Close Bond Account Failed' });
+			console.log(e);
+		}
 	}
 
+	// mint SOL bonds
 	const solBond = async(bond_price, maturity, connection) =>{
-		await helixClient.SolBond(bond_price, maturity, connection);
+		try {
+			await helixClient.SolBond(bond_price, maturity, connection);
+			notify('add txn link here', 'success', { title: 'Minted SOL Bond' });
+		} catch(e) {
+			notify(e.message, 'error', { title: 'Mint SOL Bond Failed' });
+			console.log(e);
+		}
 	}
 
+	// mint SPL token bonds
 	const splBond = async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
-		await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
+		try{
+			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
+			notify('add txn link here', 'success', { title: 'Minted SPL Bond' });
+		} catch (e) {
+			notify(e.message, 'error', { title: 'Mint SPL Bond Failed' });
+			console.log(e);
+		}
 	}
 
+	// redeem all bonds
 	const redeemBonds = async() =>{
-		await helixClient.RedeemBonds();
+		try {
+			await helixClient.RedeemBonds();
+			notify('add txn link here', 'success', { title: 'Redeemed Bonds' });
+		} catch(e) {
+			notify(e.message, 'error', { title: 'Redeem Bonds Failed' });
+		}
 	}
 
 	const collectCoupon = async() =>{
 		await helixClient.CollectCoupon();
 	}
 
+	// change the lockup period of the stake vault
 	const changeLockupPeriod = async(duration) =>{
-		await helixClient.ChangeLockup(duration);
+		try{
+			await helixClient.ChangeLockup(duration);
+			notify('add txn link here', 'success', { title: 'Lockup Changed' });
+		} catch(e) {
+			notify(e.message, 'error', { title: 'Change Lockup Failed' });
+			console.log(e);
+		}
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	// IDO contract functions
 
 	const mintAndCloseIdoAccount = async() =>{
 		await helixClient.MintAndCloseIDO();
