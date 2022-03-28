@@ -189,8 +189,34 @@
             "type": "bool"
           },
           {
+            "name": "duration",
+            "type": "i64"
+          },
+          {
             "name": "government",
             "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ErrorCodes",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "StakeAmount"
+          },
+          {
+            "name": "ProposalExpired"
+          },
+          {
+            "name": "DuplicateVote"
+          },
+          {
+            "name": "MinLockupDuration"
           }
         ]
       }

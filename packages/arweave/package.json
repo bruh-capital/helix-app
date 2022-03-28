@@ -1,0 +1,14 @@
+{
+  "name": "arweave",
+  "private": true,
+  "version": "1.0.0",
+  "description": "bruh client for interacting with helix programs",
+  "main": "src/client.js",
+  "types": "src/client.js",
+  "author": "bruh capital",
+  "dependencies": {
+    "react": "^17.0.2",
+    "arweave": "^1.10.23",
+    "reapop": "^4.0.3"
+  }
+}

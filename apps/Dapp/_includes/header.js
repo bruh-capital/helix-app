@@ -12,6 +12,7 @@ import { ChartBarIcon, CashIcon, LibraryIcon } from "@heroicons/react/outline";
 // Contexts
 import LayoutContext from "@context/layoutContext";
 import ProtocolContext from "@context/protocolDataContext";
+import DetailDataContext from "@context/detailDataContext";
 import HelixContext from "@context/helixContext";
 
 import helixClient from 'helix-client';
@@ -19,7 +20,8 @@ import helixClient from 'helix-client';
 export default function Header(props) {
 	const { theme, setTheme } = useTheme();
 	const { layout, setLayout } = useContext(LayoutContext);
-	const { data, setData } = useContext(ProtocolContext);
+	const { protocolData, setProtocolData } = useContext(ProtocolContext);
+	const { detailData, setDetailData } = useContext(DetailDataContext);
 	const {client, setClient} = useContext(HelixContext);
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
@@ -96,7 +98,7 @@ export default function Header(props) {
 					<div className="flex justify-self-end">
 						<div className="flex flex-row items-center align-middle m-auto md:m-6 gap-x-4 md:gap-x-10">
 							<div className="text-black font-sm sm:font-normal rounded-md py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45] dark:text-white hidden md:flex">
-								<span className="font-medium">{"$HLX:\u00A0"}</span><span className={data?.lastHlxPrice > data?.hlxPrice ? "text-red-500 font-semibold" : "text-green-500 font-medium"}>{"$" + data?.hlxPrice}</span>
+								<span className="font-medium">{"$HLX:\u00A0"}</span><span className={detailData?.lastHlxPrice > detailData?.hlxPrice ? "text-red-500 font-semibold" : "text-green-500 font-medium"}>{"$" + detailData?.hlxPrice}</span>
 							</div>
 							{
 								wallet ? 

@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "name": "ido",
   "instructions": [
     {
@@ -36,12 +36,7 @@
           "isSigner": false
         }
       ],
-      "args": [
-        {
-          "name": "usdcAtaBump",
-          "type": "u8"
-        }
-      ]
+      "args": []
     },
     {
       "name": "idoDeposit",
@@ -72,17 +67,7 @@
           "isSigner": false
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "rent",
           "isMut": false,
           "isSigner": false
         }
@@ -130,16 +115,35 @@
       ],
       "args": [
         {
-          "name": "bumps",
-          "type": {
-            "defined": "IDOWithdrawBumps"
-          }
+          "name": "protocolBump",
+          "type": "u8"
         },
         {
           "name": "amount",
           "type": "u64"
         }
       ]
+    },
+    {
+      "name": "initIdoAccount",
+      "accounts": [
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "idoAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     },
     {
       "name": "closeAccount",
@@ -186,7 +190,7 @@
   ],
   "accounts": [
     {
-      "name": "IDOAccount",
+      "name": "UserIdoAccount",
       "type": {
         "kind": "struct",
         "fields": [
@@ -200,17 +204,18 @@
   ],
   "types": [
     {
-      "name": "IDOWithdrawBumps",
+      "name": "ErrorCodes",
       "type": {
-        "kind": "struct",
-        "fields": [
+        "kind": "enum",
+        "variants": [
           {
-            "name": "vaultBump",
-            "type": "u8"
+            "name": "DepositTimeExpired"
           },
           {
-            "name": "protocolBump",
-            "type": "u8"
+            "name": "IDOExpired"
+          },
+          {
+            "name": "DepositAmountError"
           }
         ]
       }

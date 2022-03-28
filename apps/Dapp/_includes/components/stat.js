@@ -12,7 +12,7 @@ export default function Stat(props) {
 			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] md:mb-2">{props.statName}</h2>
 			<div className="flex flex-row justify-between items-center">
 				<span className="text-[#474747] dark:text-white font-bold text-xl md:text-3xl">
-					{props.statValue || "N/A"}	
+					{props.statValue || "N/A"}
 				</span>
 				{
 						(props?.statChange && props.statChange >= 0)  ? (

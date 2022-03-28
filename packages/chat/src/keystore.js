@@ -31,7 +31,7 @@ export default class KeyStore{
     // i think this returns a promise
     loadSharedKey(name){
       this.accessDB(function (store) {
-        var getData = store.get("self");
+        var getData = store.get(name);
         getData.onsuccess = function(event) {
             console.log("fetched shared key for: ", name);
             return event.target.result.keys.shared;

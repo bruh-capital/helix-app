@@ -1,6 +1,6 @@
 import keystore from "./keystore";
 
-export default class WsClient {
+export default class ChatClient {
     // lowkey, name should be the str representation of the shit
     constructor(name){
       // should be anchor pubkey

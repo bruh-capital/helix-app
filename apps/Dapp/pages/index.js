@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import { useContext } from "react";
 
 import LayoutContext from "@context/layoutContext";

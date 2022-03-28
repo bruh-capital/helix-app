@@ -15,9 +15,11 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import LayoutContext from '@context/layoutContext';
 import ProtocolContext from '@context/protocolDataContext';
+import DetailDataContext from '@context/detailDataContext';
 
 export default function DappSideMenu(props) {
-	const { data, setData } = useContext(ProtocolContext);
+	const { protocolData, setProtocolData } = useContext(ProtocolContext);
+	const { detailData, setDetailData } = useContext(DetailDataContext);
 	const { theme, setTheme } = useTheme();
 	const { layout, setLayout } = useContext(LayoutContext);
 
@@ -153,7 +155,7 @@ export default function DappSideMenu(props) {
 													</a>
 												</div>
 												<div className="flex font-semibold rounded-md my-auto py-2 px-4 bg-[#C8C7CA] dark:bg-[#3A3D45]">
-													$HLX:<span className={data?.lastHlxPrice > data?.hlxPrice ? "text-red-500" : "text-green-500"}>{"$" + data?.hlxPrice}</span>
+													$HLX:<span className={detailData?.lastHlxPrice > detailData?.hlxPrice ? "text-red-500" : "text-green-500"}>{"$" + detailData?.hlxPrice}</span>
 												</div>
 											</div>
 										</div>

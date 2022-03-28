@@ -70,6 +70,9 @@ export default function HelixWrapper(wallet) {
 	const idoWithdraw = async(amount) =>{
 		await helixClient.IDOWithdraw(amount);
 	}
+	const createIdoAccount = async() =>{
+		await helixClient.CreateIdoAccount();
+	}
 
 	const getTokenAccountBalance = async(mint_addr) =>{
 		return await helixClient.GetTokenAccountBalance(mint_addr);
@@ -117,7 +120,6 @@ export default function HelixWrapper(wallet) {
 		return await helixClient.CastVote(proposal, choice);
 	}
 	
-	
 	const createGovernemnt = async(governed_program_id) =>{
 		helixClient.CreateGovernment(governed_program_id);
 	}
@@ -150,6 +152,25 @@ export default function HelixWrapper(wallet) {
 	}
 	const getTokenPrice = async(assetName, network) =>{
 		return await helixClient.GetTokenPrice(assetName, network);
+	}
+	const fetchIdoAta = async() => {
+		try{
+			return await helixClient.FetchIdoAta();
+		}catch(e){
+			return undefined;
+		}
+	}
+	const fetchIdoAccount = async() => {
+		try{
+			return await helixClient.FetchIdoAccount();
+		}catch(e){
+			console.log(e);
+			return undefined;
+		}
+	}
+
+	const createIdoAta = async() =>{
+		await helixClient.CreateIdoAta();
 	}
 
 	return { 
@@ -189,6 +210,9 @@ export default function HelixWrapper(wallet) {
 		createBondSigner,
 		getTokenPrice,
 		getBondAccount,
+		fetchIdoAta,
+		fetchIdoAccount,
+		createIdoAta,
+		createIdoAccount
 	};
 }
-

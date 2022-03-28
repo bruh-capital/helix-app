@@ -1,14 +1,19 @@
-import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Stat from "@includes/components/stat";
 import Graph from "@includes/components/graph";
+import CardCarousel from "@includes/components/cardCarousel";
 
 import { useTheme } from "next-themes";
 import ProtocolContext from "@context/protocolDataContext";
-import CardCarousel from "@includes/components/cardCarousel";
+import DetailDataContext from "@context/detailDataContext";
+
 
 export default function Dash(props) {
-	const { data, setData } = useContext(ProtocolContext);
+	const { protocolData, setProtocolData } = useContext(ProtocolContext);
+	const { detailData, setDetailData } = useContext(DetailDataContext);
+
+	// console.log(JSON.stringify(protocolData));
+	// console.log(detailData);
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >
@@ -19,27 +24,30 @@ export default function Dash(props) {
 				<div className="flex flex-col row-start-2 col-start-1 col-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat
 						statName="Revenue (24HR)"
-						statValue={data?.revenue}
-						statChange={data?.revenueChange}
+						statValue={detailData?.revenue}
+						statChange={detailData?.revenueChange}
 					/>
 				</div>
 				<div className="flex flex-col row-start-3 col-start-1 col-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="HLX Staked (USDC)"
-						statValue={data?.stakedHlx}
-						statChange={data?.stakedHlxChange}
+						statValue={detailData?.stakedHlx}
+						statChange={detailData?.stakedHlxChange}
 					/>
 				</div>
 				<div className="flex flex-col row-start-4 col-start-1 col-span-1 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Stat 
 						statName="Staking APY (%)"
-						statValue={data?.stakingApy}
-						statChange={data?.stakingApyChange}
+						statValue={protocolData?.rewardRate?.toNumber()}
+						statChange={protocolData?.stakingApyChange?.toNumber()}
 					/>
 				</div>
 				<div className="flex flex-col row-start-5 lg:row-start-2 col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Graph
 						graphName="TVL"
+						graphYAxis="tvl"
+						graphData={detailData?.tvlData}
+						currentValue={undefined}
 					/>
 				</div>
 			</div>

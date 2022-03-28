@@ -15,7 +15,6 @@ let pyth_mapping = require("./pythMapping.json");
 
 export class HelixNetwork {
 	constructor(wallet){
-		console.log("created wallet");
 		this.pyth_map = pyth_mapping;
 		[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
 			// for each name, price address in address map object
@@ -155,7 +154,7 @@ export class HelixNetwork {
 			this.ido_program.programId
 		);
 
-		const [idoAccount, idoAcocuntBump] = await PublicKey.findProgramAddress(
+		const [idoAccount, idoAccountBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("idoaccount"),
 			  this.wallet.publicKey.toBuffer()
@@ -181,7 +180,7 @@ export class HelixNetwork {
 		this.bondSignerBump = bondSignerBump;
 
 		this.idoAccount = idoAccount;
-		this.idoAcocuntBump = idoAcocuntBump;
+		this.idoAccountBump = idoAccountBump;
 
 		this.idoUSDCAta = idoUSDCAta;
 		this.idoUSDCAtaBump = idoUSDCAtaBump;
@@ -431,7 +430,6 @@ export class HelixNetwork {
 		);
 
 		const pyth_spl_price_address = this.pyth_map[connection][asset]; // sol pubkey address for that connection
-		console.log(pyth_spl_price_address);
 
 		await this.bond_program.rpc.depositAssetPrintBondSpl(
 			new anchor.BN(bond_price),
@@ -614,7 +612,6 @@ export class HelixNetwork {
 	}
 
 	FetchUserVault = async() =>{
-		
 		return await this.helix_program.account.userVault.fetch(this.userVault);
 	}
 
@@ -640,12 +637,10 @@ export class HelixNetwork {
 			accounts:{
 			  user: this.wallet.publicKey,
 			  userAta: userAta,
-			  idoUSDCAta: this.idoUSDCAta,
+			  poolAta: this.idoUSDCAta,
 			  usdcMint: this.usdc_mint,
 			  idoAccount: this.idoAccount,
-			  systemProgram: SystemProgram.programId,
 			  tokenProgram: TOKEN_PROGRAM_ID,
-			  rent: anchor.web3.SYSVAR_RENT_PUBKEY,
 			},
 			// signers: [userKP],
 		  });
@@ -661,17 +656,36 @@ export class HelixNetwork {
 			this.spl_program_id
 		))[0];
 
-		await this.ido_program.rpc.idoWithdraw(new anchor.BN(amount),{
+		await this.ido_program.rpc.idoWithdraw(this.idoUSDCAtaBump, new anchor.BN(amount),{
 			accounts:{
 				user: this.wallet.publicKey,
 				userAta: userAta,
-				idoUSDCAta: this.idoUSDCAta,
-				usdcMint: this.helixMintAddress,
+				poolAta: this.idoUSDCAta,
+				usdcMint: this.usdc_mint,
 				idoAccount: this.idoAccount,
 				tokenProgram: TOKEN_PROGRAM_ID,
 			},
 			// signers: [userKP],
 		});
+	}
+
+	CreateIdoAccount = async()  => {
+		await this.ido_program.rpc.initIdoAccount({
+			accounts:{
+				user: this.wallet.publicKey,
+				idoAccount: this.idoAccount,
+				systemProgram: SystemProgram.programId,
+			},
+			// signers: [userKP],
+		});
+	}
+
+	FetchIdoAta = async() =>{
+		return await this.connection.getParsedAccountInfo(this.idoUSDCAta);
+	}
+
+	FetchIdoAccount = async() =>{
+		return await this.ido_program.account.userIdoAccount.fetch(this.idoAccount);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -1269,6 +1283,81 @@ export class HelixNetwork {
 		    // then call needs the same array.
 		    remainingAccounts:
 		    createBondSignerAccoounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.bond_program.programId}),
+		  });
+	  
+	}
+
+	CreateIdoAta = async() =>{
+		const createIdoAta = anchor.web3.Keypair.generate();
+
+		const [bondSigner, bondSignerBump] = await PublicKey.findProgramAddress(
+			[
+			  Buffer.from("helixusdc")
+			],
+			this.ido_program.programId
+		  );
+
+		const createIdoAtaAccoounts = [
+		  {
+			pubkey: bondSigner,
+			isSigner: false,
+			isWritable: true,
+		  },{
+			pubkey: this.usdc_mint,
+			isSigner: false,
+			isWritable: true
+		  },{
+			pubkey: this.multisigSigner,
+			isSigner: false,
+			isWritable: true
+		  },{
+			pubkey: TOKEN_PROGRAM_ID,
+			isSigner: false,
+			isWritable: false
+		  },{
+			pubkey: SystemProgram.programId,
+			isSigner: false,
+			isWritable: false
+		  },{
+			  pubkey:anchor.web3.SYSVAR_RENT_PUBKEY,
+			  isSigner: false,
+			  isWritable: false
+		  }];
+	  
+		  const data = this.ido_program.coder.instruction.encode("initUsdcAta", {});
+	  
+		  await this.multisig_program.rpc.createTransaction(
+		    this.ido_program.programId,
+		    createIdoAtaAccoounts, 
+		    data, {
+		    accounts: {
+		      multisig: this.multisig,
+		      transaction: createIdoAta.publicKey,
+		      proposer: this.wallet.publicKey,
+		      rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+		    },
+		    instructions: [
+		      // creates transaction account clientside
+		      await this.multisig_program.account.transaction.createInstruction(
+		        createIdoAta,
+		        this.txsize
+		      ),
+		    ],
+		    signers: [createIdoAta],
+		  });
+	  
+		// Now that we've reached the threshold, send the transactoin.
+		await this.multisig_program.rpc.executeTransaction({
+		    accounts: {
+		      multisig: this.multisig,
+		      multisigSigner: this.multisigSigner,
+		      transaction: createIdoAta.publicKey,
+		    },
+		    // passes in the accounts needed during this execution.
+		    // confusing, i know. but instruction creation (&ix) needs a data array
+		    // then call needs the same array.
+		    remainingAccounts:
+		    createIdoAtaAccoounts.map((meta) => meta.isSigner? {...meta, isSigner:false}:meta).concat({pubkey: this.ido_program.programId}),
 		  });
 	  
 	}
