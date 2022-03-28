@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNotifications } from "reapop";
 import { HelixNetwork } from "./baseContractUtils";
 
 /**
@@ -9,11 +10,20 @@ export default function HelixWrapper(wallet) {
 	if (!wallet || !wallet.publicKey) {
 		return;
 	}
+
+	// Constructs a new helix client for this wrapper
 	const helixClient = new HelixNetwork(wallet);
-	// console.log(helixClient);
+
+	// Notifications 
+	const { notify } = useNotifications();
 
 	const stakeToken = async (amount) => {
-		await helixClient.Stake(amount);
+		try {
+			await helixClient.Stake(amount);
+			notify('Successfully Staked!', 'success');
+		} catch(e) {
+			notify(e.message, 'error');
+		}
 	}
 	
 	const unstakeToken = async (amount) => {
