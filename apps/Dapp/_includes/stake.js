@@ -38,8 +38,6 @@ export default function Stake(props) {
 						Note: The "Create Vault" transaction is only needed when interacting for the first time.
 					</div>
 				</div>
-
-
 				<div className="flex flex-col rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838]" >
 					<div className="flex flex-row mb-6 justify-around">
 						<div>
@@ -82,8 +80,8 @@ export default function Stake(props) {
 					<div className={"flex flex-row rounded-lg mx-8 md:mx-16 p-3 mb-4 bg-[#C0C0C0] dark:bg-[#212429] " + (!wallet?.connected && " animate-pulse h-12")}>
 						{wallet?.connected && (
 							<>
-							<div className="flex flex-col">
-								<div className="flex bg-[#333A45] rounded-lg m-auto p-2 justify-between">
+							<div className="flex flex-col justify-items-start justify-start flex-none">
+								<div className="flex bg-[#333A45] rounded-lg flex-none p-2 mr-auto justify-start">
 									<Image
 										src = {"/2d/2d_logo4.png"}
 										height = {26}

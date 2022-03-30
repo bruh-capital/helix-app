@@ -50,14 +50,16 @@ export default function Bond(props) {
 	useEffect(async ()=>{
 		let markets = {};
 		let pricemap = {};
-		for(let bond of props.bondItems){
-			markets[bond.asset] = props.network == "mainnet" ?
-				await client.getBondMarketInfo(bond.mainnetTokenAddress):
-				await client.getBondMarketInfo(bond.devnetTokenAddress);
-			pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
-		};
+		if (client && client.getMarkets) {
+			for(let bond of props.bondItems){
+				markets[bond.asset] = props.network == "mainnet" ?
+					await client.getBondMarketInfo(bond.mainnetTokenAddress):
+					await client.getBondMarketInfo(bond.devnetTokenAddress);
+				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
+			}
+		}
+
 		setTableRows(props.bondItems?.map((bond, index) => {
-			
 			return (
 				<tr className="py-10" key={index}>
 					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
