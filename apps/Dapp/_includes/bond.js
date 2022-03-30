@@ -20,7 +20,13 @@ export default function Bond(props) {
 	const [tokenMap, setTokenMap] = useState(new Map());
 
 	const [bondAccount, setBondAccount] = useState();
-	const [tableRows, setTableRows] = useState();
+	const [tableRows, setTableRows] = useState(
+		<>
+			<tr className="bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full"/>
+			<tr className="bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full"/>
+			<tr className="bg-[#C0C0C0] dark:bg-[#3D3A45] animate-pulse w-full"/>
+		</>
+	);
 
 	const [actionButton, setActionButton] = useState();
 
@@ -33,10 +39,10 @@ export default function Bond(props) {
 		}
 	}
 
-	// Image thingy		
-	// TODO(Milly):
-	// Some weird bug happens where the images only load after wallet is connected plz fix
-	useEffect(() => {
+	let markets = {};
+	let pricemap = {};
+
+	useEffect(()=>{
 		new TokenListProvider().resolve().then(tokens => {
 			const tokenList = tokens.getList();
 
@@ -45,65 +51,37 @@ export default function Bond(props) {
 				return map;
 			}, new Map()));
 		});
-	}, [setTokenMap]);	
+	}, [tokenMap]);
 
+	// This useEffect is a bit of a mess because it's doing images and TRs but whatever
 	useEffect(async ()=>{
-		let markets = {};
-		let pricemap = {};
-		for(let bond of props.bondItems){
-			markets[bond.asset] = props.network == "mainnet" ?
-				await client.getBondMarketInfo(bond.mainnetTokenAddress):
-				await client.getBondMarketInfo(bond.devnetTokenAddress);
-			pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
-		};
-		setTableRows(props.bondItems?.map((bond, index) => {
-			
-			return (
-				<tr className="py-10" key={index}>
-					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
-						<div className="rounded-full overflow-hidden">
-							<Image
-								src={tokenMap?.get(bond.mainnetTokenAddress)?.logoURI || "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"}
-								height={35}
-								width={35}
-								layout="fixed"
-								loading="eager"
-							/>
-						</div>
-						<span className="my-auto mx-2">{bond.asset}</span>
-					</td>
-					<td className="text-center dark:text-[#D8D8D8]">
-					{
-						pricemap && pricemap[bond.asset] ?
-							pricemap[bond.asset].aggregate.price.toLocaleString(undefined, { maximumFractionDigits: 2 })
-							: "N/A" 
-					}
-					</td>
-					<td className="text-center dark:text-[#D8D8D8]">{markets && markets[bond.asset] ? markets[bond.asset].couponRates[1].toNumber()/10 : 0}%</td>
-					<td className="content-center text-center">
-						{wallet?.connected && bondAccount ? 
-						<BondModalButton 
-							tokenAddress={network === "mainnet" ? bond.mainnetTokenAddress : bond.devnetTokenAddress}
-							tokenName = {bond.asset}
-							network = {props.network}
-							decimals = {bond.decimals}
-							market = {markets[bond.asset]}
-							price = {pricemap && pricemap[bond.asset] ? pricemap[bond.asset].aggregate.price : "none"}
-						/>:<></>}
-					</td>
-				</tr>
-			);
-		}))
-	}, [wallet && wallet.connected, bondAccount])
+		if(client.getBondMarketInfo) {
+			for(let bond of props.bondItems){
+				markets[bond.asset] = props.network == "mainnet" ?
+					await client.getBondMarketInfo(bond.mainnetTokenAddress):
+					await client.getBondMarketInfo(bond.devnetTokenAddress);
+
+				// This starts to spam RPC plz fix
+				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
+			}
+		}
+	}, [wallet && wallet.connected, bondAccount, pricemap, markets])
 
 	useEffect(()=>{
-	 	setActionButton(<button
-			className="rounded-lg pt-10 mb-6 text-sm text-[#696B70] font-medium dark:hover:text-zinc-200"
-			onClick={() => {wallet?.connected && client ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : goki.connect() && checkBondAccount()}}
-		>
-			{ wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
-		</button>
-)
+	 	setActionButton(
+			<button
+				className="rounded-lg pt-10 mb-6 text-sm text-[#696B70] font-medium dark:hover:text-zinc-200"
+				onClick={() => {
+					wallet?.connected && client ?
+						bondAccount ?
+							client.closeBondAccount() && setBondAccount() :
+							client.createBondAccount() && setBondAccount("created")
+					: goki.connect() && checkBondAccount();
+				}}
+			>
+				{ wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
+			</button>
+		)
 	}, [wallet && wallet.connected, bondAccount])
 
 
@@ -140,7 +118,47 @@ export default function Bond(props) {
 							<th>Minimum ROI</th>
 							<th></th>
 						</tr>
-						{tableRows}
+						{
+							/** changing this to conditional rendering */
+							props.bondItems?.map((bond, index) => {
+								return (
+									<tr className="py-10" key={index}>
+										<td className="flex flex-row text-center dark:text-[#D8D8D8]">
+											<div className="rounded-full overflow-hidden">
+												<Image
+													src={tokenMap?.get(bond.mainnetTokenAddress)?.logoURI || "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"}
+													height={35}
+													width={35}
+													layout="fixed"
+													loading="eager"
+												/>
+											</div>
+											<span className="my-auto mx-2">{bond.asset}</span>
+										</td>
+										<td className="text-center dark:text-[#D8D8D8]">
+										{
+											pricemap && pricemap[bond.asset] ?
+												pricemap[bond.asset].aggregate.price.toLocaleString(undefined, { maximumFractionDigits: 2 })
+												: "N/A" 
+										}
+										</td>
+										<td className="text-center dark:text-[#D8D8D8]">{markets && markets[bond.asset] ? markets[bond.asset].couponRates[1].toNumber()/10 : 0}%</td>
+										<td className="content-center text-center">
+											{wallet?.connected && bondAccount ? 
+											<BondModalButton 
+												tokenAddress={network === "mainnet" ? bond.mainnetTokenAddress : bond.devnetTokenAddress}
+												tokenName = {bond.asset}
+												network = {props.network}
+												decimals = {bond.decimals}
+												market = {markets[bond.asset]}
+												price = {pricemap && pricemap[bond.asset] ? pricemap[bond.asset].aggregate.price : "none"}
+											/>:<></>}
+										</td>
+									</tr>
+								);
+							})
+							//tableRows
+						}
 					</table>
 				</div>
 			</div>
