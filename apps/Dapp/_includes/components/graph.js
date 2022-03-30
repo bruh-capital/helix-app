@@ -19,7 +19,7 @@ import { format } from "date-fns";
 export default function Graph(props) {
 	return(
 		<div className="flex flex-col justify-start my-auto mx-8 md:mx-16 overflow-hidden">
-			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E] md:mb-2">{props.graphName}</h2>
+			<h2 className="text-[#8C8C8C] dark:text-[#9E9E9E]">{props.graphName}</h2>
 			<div className="flex flex-row items-center justify-between mb-4">
 				<span className="text-[#474747] dark:text-white font-bold text-xl md:text-3xl">
 					{props.currentValue || "N/A"}	
