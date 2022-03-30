@@ -8,6 +8,7 @@ import { useWalletKit } from "@gokiprotocol/walletkit";
 import helixContext from "@context/helixContext";
 import UserDataContext from "@context/userDataContext";
 import ProtocolContext from "@context/protocolDataContext";
+import DetailDataContext from "@context/detailDataContext";
 
 export default function Stake(props) {
 	const wallet = useConnectedWallet();
@@ -24,6 +25,7 @@ export default function Stake(props) {
 	const { theme, setTheme } = useTheme();
 	const { userData, setUserVault } = useContext(UserDataContext);
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
+	const { detailData, setDetailData } = useContext(DetailDataContext);
 
 	return(
 		<div className="-mt-24 h-screen content-center items-center pt-32 md:pt-36 pb-24">
