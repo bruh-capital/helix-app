@@ -31,6 +31,15 @@ export default function Header(props) {
 
 	const [ menuOpen, setMenuOpen ] = useState(false);
 
+	const handleDisconnect = () => {
+		try {
+			disconnect();
+			notify("", "info", { title: "Disconnected!", position: "top-center" });
+		} catch(e) {
+			notify("", "error", { title: "Error disconnecting!", position: "top-center" });
+		}
+	}
+
 	useEffect(()=>{
 		if(wallet){
 			setClient(new helixClient(wallet, notify));
@@ -133,7 +142,7 @@ export default function Header(props) {
 																>Change to Devnet</button>
 																<button
 																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-x-105 duration-300"
-																	onClick={disconnect}
+																	onClick={handleDisconnect}
 																>Disconnect</button>
 															</div>
 														</div>
