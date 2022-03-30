@@ -44,7 +44,7 @@ export default function Stake(props) {
 					<div className="flex flex-row mb-6 justify-around">
 						<div>
 							<div className="flex font-medium pt-10 px-10 md:px-16 text-[#435178] dark:text-[#7C849A]">
-								Your Staked HLX
+								Staking APY
 							</div>
 							<div className="flex font-bold text-[#272629] dark:text-white px-10 md:px-16 text-3xl md:text-6xl">
 								{typeof detailData?.rewardRate?.toNumber() == "number" ? protocolData?.stake_apy.toLocaleString(undefined, {maximumFractionDigits: 2}) + "%" : "N/A"}
@@ -75,7 +75,9 @@ export default function Stake(props) {
 									"bg-[#343A45] text-white" : "bg-transparent text-[#696B70] hover:text-[#343A45] dark:hover:text-gray-300")
 							}
 							onClick={() => setUiFunction("unstake")}
-						>Unstake</button>
+						>
+							Unstake
+						</button>
 					</div>
 					<div className={"flex flex-row rounded-lg mx-8 md:mx-16 p-3 mb-4 bg-[#C0C0C0] dark:bg-[#212429] " + (!wallet?.connected && " animate-pulse h-12")}>
 						{wallet?.connected && (

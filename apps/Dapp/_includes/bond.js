@@ -59,7 +59,7 @@ export default function Bond(props) {
 		setTableRows(props.bondItems?.map((bond, index) => {
 			
 			return (
-				<tr className="py-6" key={index}>
+				<tr className="py-10" key={index}>
 					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
 						<div className="rounded-full overflow-hidden">
 							<Image
