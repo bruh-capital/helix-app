@@ -113,7 +113,7 @@ export default function Bond(props) {
 
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">
-			<div className="grid gap-x-12 gap-y-6 mb-6 md:mb-16 grid-cols-1 md:grid-cols-2 grid-rows-6 lg:grid-rows-3 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full justify-around">
+			<div className="grid gap-x-12 gap-y-6 mb-6 md:mb-16 grid-cols-1 md:grid-cols-2 grid-rows-6 md:grid-rows-3 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full justify-around">
 				<div className="flex col-start-1 py-6 row-start-1 flex-col col-span-1 lg:col-span-1 row-span-3 rounded-xl border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F]">
 					<Graph 
 						graphName="Total Value Deposited"
@@ -125,7 +125,7 @@ export default function Bond(props) {
 					/>
 				</div>
 			</div>
-			<div className="flex flex-col  md:px-24 xl:px-32 2xl:px-64">
+			<div className="flex flex-col md:px-24 xl:px-32 2xl:px-64">
 				<div className="flex flex-col rounded-xl mx-8 md:mx-0 border-2 border-[#A5A5A5] dark:border-[#383838] bg-[#D9D8E2] dark:bg-[#191B1F] items-start">
 					<div className="flex flex-row w-5/6 self-center justify-between">
 						<div className="font-bold mb-6 text-2xl md:text-3xl text-[#272629] dark:text-white pt-10">
