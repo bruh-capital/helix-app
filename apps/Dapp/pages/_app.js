@@ -70,6 +70,7 @@ function MyApp({ Component, pageProps }) {
       width={48}
       height={48}
       loading='eager'
+      priority={true}
     />
   );
 
