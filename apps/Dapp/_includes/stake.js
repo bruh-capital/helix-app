@@ -39,11 +39,23 @@ export default function Stake(props) {
 
 
 				<div className="flex flex-col rounded-xl bg-[#D9D8E2] dark:bg-[#191B1F] border-2 border-[#BABABA] dark:border-[#383838]" >
-					<div className="flex font-medium pt-10 px-10 md:px-16 text-[#435178] dark:text-[#7C849A]">
-						Your Staked HLX
-					</div>
-					<div className="flex font-bold text-[#272629] dark:text-white px-10 md:px-16 text-3xl md:text-6xl">
-						{typeof stakedBalance == "number" ? stakedBalance : "N/A"}
+					<div className="flex flex-row mb-6 justify-around">
+						<div>
+							<div className="flex font-medium pt-10 px-10 md:px-16 text-[#435178] dark:text-[#7C849A]">
+								Your Staked HLX
+							</div>
+							<div className="flex font-bold text-[#272629] dark:text-white px-10 md:px-16 text-3xl md:text-6xl">
+								{typeof detailData?.rewardRate?.toNumber() == "number" ? protocolData?.stake_apy.toLocaleString(undefined, {maximumFractionDigits: 2}) + "%" : "N/A"}
+							</div>
+						</div>
+						<div>
+							<div className="flex font-medium pt-10 px-10 md:px-16 text-[#435178] dark:text-[#7C849A]">
+								Your Staked HLX
+							</div>
+							<div className="flex font-bold text-[#272629] dark:text-white px-10 md:px-16 text-3xl md:text-6xl">
+								{typeof stakedBalance == "number" ? stakedBalance : "N/A"}
+							</div>
+						</div>
 					</div>
 					<div className="flex flex-row self-center justify-around font-bold text-lg md:text-xl my-4 gap-x-8 md:gap-x-16">
 						<button
