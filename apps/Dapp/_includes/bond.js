@@ -61,11 +61,14 @@ export default function Bond(props) {
 
 		setTableRows(props.bondItems?.map((bond, index) => {
 			return (
-				<tr className="py-10" key={index}>
-					<td className="flex flex-row text-center dark:text-[#D8D8D8]">
+				<tr key={index}>
+					<td className="flex flex-row text-center dark:text-[#D8D8D8] py-2">
 						<div className="rounded-full overflow-hidden">
 							<Image
-								src={tokenMap?.get(bond.mainnetTokenAddress)?.logoURI || "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"}
+								src={
+										tokenMap?.get(bond.mainnetTokenAddress)?.logoURI ||
+										"https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"
+									}
 								height={35}
 								width={35}
 								layout="fixed"
@@ -74,15 +77,17 @@ export default function Bond(props) {
 						</div>
 						<span className="my-auto mx-2">{bond.asset}</span>
 					</td>
-					<td className="text-center dark:text-[#D8D8D8]">
+					<td className="text-center dark:text-[#D8D8D8] py-2">
 					{
 						pricemap && pricemap[bond.asset] ?
 							pricemap[bond.asset].aggregate.price.toLocaleString(undefined, { maximumFractionDigits: 2 })
 							: "N/A" 
 					}
 					</td>
-					<td className="text-center dark:text-[#D8D8D8]">{markets && markets[bond.asset] ? markets[bond.asset].couponRates[1].toNumber()/10 : 0}%</td>
-					<td className="content-center text-center">
+					<td className="text-center dark:text-[#D8D8D8] py-2">
+						{markets && markets[bond.asset] ? markets[bond.asset].couponRates[1].toNumber()/10 : 0}%
+					</td>
+					<td className="content-center text-center py-2">
 						{wallet?.connected && bondAccount ? 
 						<BondModalButton 
 							tokenAddress={network === "mainnet" ? bond.mainnetTokenAddress : bond.devnetTokenAddress}
@@ -137,10 +142,10 @@ export default function Bond(props) {
 					</div>
 					<table className="w-5/6 self-center mb-5">
 						<tr className="border-b py-8 mx-4 border-[#52555A]">
-							<th className="text-left">Accepted Asset</th>
-							<th>Price</th>
-							<th>Minimum ROI</th>
-							<th></th>
+							<th className="text-left mb-10">Accepted Asset</th>
+							<th className="mb-10">Price</th>
+							<th className="mb-10">Minimum ROI</th>
+							<th className="mb-10"></th>
 						</tr>
 						{tableRows}
 					</table>
