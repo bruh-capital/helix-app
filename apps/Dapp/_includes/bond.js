@@ -102,7 +102,7 @@ export default function Bond(props) {
 				</tr>
 			);
 		}))
-	}, [wallet && wallet.connected, bondAccount])
+	}, [wallet && wallet.connected, bondAccount, tokenMap])
 
 	useEffect(()=>{
 	 	setActionButton(
