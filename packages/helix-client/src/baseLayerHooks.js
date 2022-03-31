@@ -25,7 +25,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Staked ' + amount + ' HLX' });
 		} catch(e) {
 			notify(e.message, 'error', {title: 'Stake Failed'});
-			console.log(e);
+			throw e;
 		}
 	}
 	
@@ -36,7 +36,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Unstaked ' + amount + ' HLX' });
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Unstake Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -47,7 +47,7 @@ export default function HelixWrapper(wallet, notify) {
 			await helixClient.CreateUserATA();
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Create HLX ATA Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -58,7 +58,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Created User Vault' });
 		} catch (e) {
 			notify(e.message, 'error', {title: 'Create User Vault Failed'});
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -68,7 +68,7 @@ export default function HelixWrapper(wallet, notify) {
 			await helixClient.DeleteUserVault();
 		} catch (e) {
 			notify(e.message, 'error', { title: 'Close User Vault Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -81,7 +81,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Created Bond Account' });
 		} catch (e) {
 			notify(e.message, 'error', { title: 'Create Bond Account Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -92,7 +92,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Closed Bond Account' });
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Close Bond Account Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -103,7 +103,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Minted SOL Bond' });
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Mint SOL Bond Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -114,7 +114,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Minted SPL Bond' });
 		} catch (e) {
 			notify(e.message, 'error', { title: 'Mint SPL Bond Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
@@ -125,6 +125,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Redeemed Bonds' });
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Redeem Bonds Failed' });
+			throw e;
 		}
 	}
 
@@ -139,7 +140,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify('add txn link here', 'success', { title: 'Lockup Changed' });
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Change Lockup Failed' });
-			console.log(e);
+			throw e;
 		}
 	}
 
