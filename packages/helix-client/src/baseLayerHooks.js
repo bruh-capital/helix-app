@@ -75,8 +75,6 @@ export default function HelixWrapper(wallet, notify) {
 	// open a user bond account
 	const createBondAccount = async() =>{
 		try{
-			// FIXME: for some reason you need to make the account manually regardeless
-			// of one exists or not
 			await helixClient.InitBondAccount();
 			notify('add txn link here', 'success', { title: 'Created Bond Account' });
 		} catch (e) {

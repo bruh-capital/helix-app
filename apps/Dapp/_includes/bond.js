@@ -50,6 +50,7 @@ export default function Bond(props) {
 	useEffect(async ()=>{
 		let markets = {};
 		let pricemap = {};
+
 		if (client && client.getMarkets) {
 			for(let bond of props.bondItems){
 				markets[bond.asset] = props.network == "mainnet" ?
@@ -104,13 +105,33 @@ export default function Bond(props) {
 	}, [wallet && wallet.connected, bondAccount])
 
 	useEffect(()=>{
-	 	setActionButton(<button
-			className="rounded-lg pt-10 mb-6 text-sm text-[#696B70] font-medium dark:hover:text-zinc-200"
-			onClick={() => {wallet?.connected && client ? (bondAccount ? client.closeBondAccount() && setBondAccount() : client.createBondAccount() && setBondAccount("created")) : goki.connect() && checkBondAccount()}}
-		>
-			{ wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
-		</button>
-)
+	 	setActionButton(
+			<button
+				className="rounded-lg pt-10 mb-6 text-sm text-[#696B70] font-medium dark:hover:text-zinc-200"
+				onClick={async () => {
+					if(wallet?.connected && client) {
+						checkBondAccount();
+						if(bondAccount) {
+							try {
+								await client.closeBondAccount();
+								setBondAccount();
+							} catch(e) {}
+						} else {
+							try {
+								await client.createBondAccount();
+								setBondAccount("created");
+							} catch(e) {}
+						}
+					} else {
+						console.log("fuck")
+						await goki.connect();
+						checkBondAccount();
+					}
+				}}
+			>
+				{wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
+			</button>
+		)
 	}, [wallet && wallet.connected, bondAccount])
 
 
