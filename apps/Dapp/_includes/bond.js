@@ -14,7 +14,7 @@ import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 export default function Bond(props) {
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
-	const {client} = useContext(helixContext);
+	const { client } = useContext(helixContext);
 	const { network } = useSolana();
 
 	const [tokenMap, setTokenMap] = useState(new Map());
@@ -51,7 +51,8 @@ export default function Bond(props) {
 		let markets = {};
 		let pricemap = {};
 
-		if (client && client.getMarkets) {
+		if (client && client.getBondMarketInfo) {
+			console.log("getting markets");
 			for(let bond of props.bondItems){
 				markets[bond.asset] = props.network == "mainnet" ?
 					await client.getBondMarketInfo(bond.mainnetTokenAddress):
@@ -102,7 +103,7 @@ export default function Bond(props) {
 				</tr>
 			);
 		}))
-	}, [wallet && wallet.connected, bondAccount, tokenMap])
+	}, [wallet && wallet.connected, bondAccount, tokenMap, client])
 
 	useEffect(()=>{
 	 	setActionButton(
@@ -125,14 +126,14 @@ export default function Bond(props) {
 					} else {
 						console.log("fuck")
 						await goki.connect();
-						checkBondAccount();
+						await checkBondAccount();
 					}
 				}}
 			>
 				{wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
 			</button>
 		)
-	}, [wallet && wallet.connected, bondAccount])
+	}, [wallet && wallet.connected, bondAccount, client])
 
 
 	useEffect(checkBondAccount, [!!client])

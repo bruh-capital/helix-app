@@ -6,7 +6,8 @@ import Image from 'next/image';
 import {
   setUpNotifications,
   atalhoTheme,
-  NotificationsProvider
+  NotificationsProvider,
+  notify
 } from "reapop";
 
 import helixClient from 'helix-client';
@@ -32,7 +33,7 @@ setUpNotifications({
 function MyApp({ Component, pageProps }) {
   const [ layout, setLayout ] = useState("dashboard");
   const [userVault, setUserVault] = useState();
-  const [client, setClient] = useState(new helixClient());
+  const [client, setClient] = useState(new helixClient(null, notify));
 
   // Data that is pretty much used on UI
   const [ detailData, setDetailData ] = useState({

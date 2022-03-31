@@ -11,15 +11,12 @@ import { HelixNetwork } from "./baseContractUtils";
  * @returns {{bigass tuple of functions}}
  */
 export default function HelixWrapper(wallet, notify) {
-	if (!wallet || !wallet.publicKey) {
-		return;
-	}
 
 	// Constructs a new helix client for this wrapper
 	const helixClient = new HelixNetwork(wallet);
 
 	// if you have a vault, stake HLX in the protocol
-	const stakeToken = async (amount) => {
+	const stakeToken = wallet && wallet.pubkey ? async (amount) => {
 		try {
 			await helixClient.Stake(amount);
 			notify('add txn link here', 'success', { title: 'Staked ' + amount + ' HLX' });
@@ -27,10 +24,10 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', {title: 'Stake Failed'});
 			throw e;
 		}
-	}
+	} : undefined;
 	
 	// withdraw HLX from the protocol (vault)
-	const unstakeToken = async (amount) => {
+	const unstakeToken = wallet && wallet.pubkey ? async (amount) => {
 		try {
 			await helixClient.Unstake(amount);
 			notify('add txn link here', 'success', { title: 'Unstaked ' + amount + ' HLX' });
@@ -38,21 +35,21 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', { title: 'Unstake Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// create a user token account for HLX
 	// I don't think we need to be made aware of this not throwing an error
-	const createUserAta = async () => {
+	const createUserAta = wallet && wallet.pubkey ? async () => {
 		try {
 			await helixClient.CreateUserATA();
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Create HLX ATA Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// create a user stake vault
-	const createVault = async () => {
+	const createVault = wallet && wallet.pubkey ? async () => {
 		try {
 			await helixClient.InitializeUserVault();
 			notify('add txn link here', 'success', { title: 'Created User Vault' });
@@ -60,20 +57,20 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', {title: 'Create User Vault Failed'});
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// close a user stake vault
-	const closeVault = async () => {
+	const closeVault = wallet && wallet.pubkey ? async () => {
 		try {
 			await helixClient.DeleteUserVault();
 		} catch (e) {
 			notify(e.message, 'error', { title: 'Close User Vault Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// open a user bond account
-	const createBondAccount = async() =>{
+	const createBondAccount = wallet && wallet.pubkey ? async() =>{
 		try{
 			await helixClient.InitBondAccount();
 			notify('add txn link here', 'success', { title: 'Created Bond Account' });
@@ -81,10 +78,10 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', { title: 'Create Bond Account Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// close a user bond account
-	const closeBondAccount = async() =>{
+	const closeBondAccount = wallet && wallet.pubkey ? async() =>{
 		try{
 			await helixClient.CloseBondAccount();
 			notify('add txn link here', 'success', { title: 'Closed Bond Account' });
@@ -92,10 +89,10 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', { title: 'Close Bond Account Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// mint SOL bonds
-	const solBond = async(bond_price, maturity, connection) =>{
+	const solBond = wallet && wallet.pubkey ? async(bond_price, maturity, connection) =>{
 		try {
 			await helixClient.SolBond(bond_price, maturity, connection);
 			notify('add txn link here', 'success', { title: 'Minted SOL Bond' });
@@ -103,10 +100,10 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', { title: 'Mint SOL Bond Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// mint SPL token bonds
-	const splBond = async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
+	const splBond = wallet && wallet.pubkey ? async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
 		try{
 			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
 			notify('add txn link here', 'success', { title: 'Minted SPL Bond' });
@@ -114,10 +111,10 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', { title: 'Mint SPL Bond Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	// redeem all bonds
-	const redeemBonds = async() =>{
+	const redeemBonds = wallet && wallet.pubkey ? async() =>{
 		try {
 			await helixClient.RedeemBonds();
 			notify('add txn link here', 'success', { title: 'Redeemed Bonds' });
@@ -125,14 +122,14 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', { title: 'Redeem Bonds Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
-	const collectCoupon = async() =>{
+	const collectCoupon = wallet && wallet.pubkey ? async() =>{
 		await helixClient.CollectCoupon();
-	}
+	} : undefined;
 
 	// change the lockup period of the stake vault
-	const changeLockupPeriod = async(duration) =>{
+	const changeLockupPeriod = wallet && wallet.pubkey ? async(duration) =>{
 		try{
 			await helixClient.ChangeLockup(duration);
 			notify('add txn link here', 'success', { title: 'Lockup Changed' });
@@ -140,7 +137,7 @@ export default function HelixWrapper(wallet, notify) {
 			notify(e.message, 'error', { title: 'Change Lockup Failed' });
 			throw e;
 		}
-	}
+	} : undefined;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// IDO contract functions

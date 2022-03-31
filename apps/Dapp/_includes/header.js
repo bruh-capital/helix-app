@@ -41,9 +41,8 @@ export default function Header(props) {
 	}
 
 	useEffect(()=>{
-		if(wallet){
-			setClient(new helixClient(wallet, notify));
-		}
+		setClient(new helixClient(wallet || undefined, notify));
+		console.log("bruh");
 	}, [!!wallet]);
 
 	return(
