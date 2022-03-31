@@ -16,7 +16,7 @@ export default function HelixWrapper(wallet, notify) {
 	const helixClient = new HelixNetwork(wallet);
 
 	// if you have a vault, stake HLX in the protocol
-	const stakeToken = wallet && wallet.pubkey ? async (amount) => {
+	const stakeToken = wallet && wallet.publicKey ? async (amount) => {
 		try {
 			await helixClient.Stake(amount);
 			notify('add txn link here', 'success', { title: 'Staked ' + amount + ' HLX' });
@@ -27,7 +27,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 	
 	// withdraw HLX from the protocol (vault)
-	const unstakeToken = wallet && wallet.pubkey ? async (amount) => {
+	const unstakeToken = wallet && wallet.publicKey ? async (amount) => {
 		try {
 			await helixClient.Unstake(amount);
 			notify('add txn link here', 'success', { title: 'Unstaked ' + amount + ' HLX' });
@@ -39,7 +39,7 @@ export default function HelixWrapper(wallet, notify) {
 
 	// create a user token account for HLX
 	// I don't think we need to be made aware of this not throwing an error
-	const createUserAta = wallet && wallet.pubkey ? async () => {
+	const createUserAta = wallet && wallet.publicKey ? async () => {
 		try {
 			await helixClient.CreateUserATA();
 		} catch(e) {
@@ -49,7 +49,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 
 	// create a user stake vault
-	const createVault = wallet && wallet.pubkey ? async () => {
+	const createVault = wallet && wallet.publicKey ? async () => {
 		try {
 			await helixClient.InitializeUserVault();
 			notify('add txn link here', 'success', { title: 'Created User Vault' });
@@ -60,7 +60,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 
 	// close a user stake vault
-	const closeVault = wallet && wallet.pubkey ? async () => {
+	const closeVault = wallet && wallet.publicKey ? async () => {
 		try {
 			await helixClient.DeleteUserVault();
 		} catch (e) {
@@ -70,7 +70,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 
 	// open a user bond account
-	const createBondAccount = wallet && wallet.pubkey ? async() =>{
+	const createBondAccount = wallet && wallet.publicKey ? async() =>{
 		try{
 			await helixClient.InitBondAccount();
 			notify('add txn link here', 'success', { title: 'Created Bond Account' });
@@ -81,7 +81,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 
 	// close a user bond account
-	const closeBondAccount = wallet && wallet.pubkey ? async() =>{
+	const closeBondAccount = wallet && wallet.publicKey ? async() =>{
 		try{
 			await helixClient.CloseBondAccount();
 			notify('add txn link here', 'success', { title: 'Closed Bond Account' });
@@ -92,7 +92,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 
 	// mint SOL bonds
-	const solBond = wallet && wallet.pubkey ? async(bond_price, maturity, connection) =>{
+	const solBond = wallet && wallet.publicKey ? async(bond_price, maturity, connection) =>{
 		try {
 			await helixClient.SolBond(bond_price, maturity, connection);
 			notify('add txn link here', 'success', { title: 'Minted SOL Bond' });
@@ -103,7 +103,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 
 	// mint SPL token bonds
-	const splBond = wallet && wallet.pubkey ? async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
+	const splBond = wallet && wallet.publicKey ? async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
 		try{
 			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
 			notify('add txn link here', 'success', { title: 'Minted SPL Bond' });
@@ -114,7 +114,7 @@ export default function HelixWrapper(wallet, notify) {
 	} : undefined;
 
 	// redeem all bonds
-	const redeemBonds = wallet && wallet.pubkey ? async() =>{
+	const redeemBonds = wallet && wallet.publicKey ? async() =>{
 		try {
 			await helixClient.RedeemBonds();
 			notify('add txn link here', 'success', { title: 'Redeemed Bonds' });
@@ -124,12 +124,12 @@ export default function HelixWrapper(wallet, notify) {
 		}
 	} : undefined;
 
-	const collectCoupon = wallet && wallet.pubkey ? async() =>{
+	const collectCoupon = wallet && wallet.publicKey ? async() =>{
 		await helixClient.CollectCoupon();
 	} : undefined;
 
 	// change the lockup period of the stake vault
-	const changeLockupPeriod = wallet && wallet.pubkey ? async(duration) =>{
+	const changeLockupPeriod = wallet && wallet.publicKey ? async(duration) =>{
 		try{
 			await helixClient.ChangeLockup(duration);
 			notify('add txn link here', 'success', { title: 'Lockup Changed' });
