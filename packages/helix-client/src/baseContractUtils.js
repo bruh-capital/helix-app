@@ -48,138 +48,6 @@ export class HelixNetwork {
 		this.InitConsts();
 	}
 
-	InitNoWalletConsts = async() => {
-		// on mainnet
-		// this.usdc_mint = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
-
-		// on devnet
-		this.usdc_mint = new PublicKey("yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz");
-
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		/// helix accounts
-		const [helixMintAddress, helixMintBump] = await PublicKey.findProgramAddress(
-			[
-				Buffer.from("helixmintaccount")
-			],
-			this.helix_program.programId
-		);
-
-		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
-			[Buffer.from("protocoldataaccount")],
-			this.helix_program.programId
-		);
-
-		const [protocolHelixAta,protocolHelixAtaBump] = await PublicKey.findProgramAddress(
-			[
-				this.multisigSigner.toBuffer(),
-				TOKEN_PROGRAM_ID.toBuffer(),
-				helixMintAddress.toBuffer(),
-			],
-			this.spl_program_id
-		);
-
-		const [protocolATAOwner, protocolATAOwnerBump] = await PublicKey.findProgramAddress(
-			[
-				this.multisigSigner.toBuffer(), 
-			  	TOKEN_PROGRAM_ID.toBuffer(), 
-			  	helixMintAddress.toBuffer()
-			],
-			this.helix_program.programId
-		  );
-
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		/// bond accounts
-
-		const [bondMarketHelix, bondMarketHelixBump] = await PublicKey.findProgramAddress(
-			[
-			  Buffer.from("bondmarket"),
-			  helixMintAddress.toBuffer(),
-			],
-			this.bond_program.programId
-		);
-
-		const [bondMarketUSDC, bondMarketUSDCBump] = await PublicKey.findProgramAddress(
-			[
-				Buffer.from("bondmarket"),
-				this.usdc_mint.toBuffer(),
-			],
-			this.bond_program.programId
-		);
-	
-		const [bondMarketSOL, bondMarketSOLBump] = await PublicKey.findProgramAddress(
-			[
-				Buffer.from("bondmarket"),
-				SystemProgram.programId.toBuffer(),
-			],
-			this.bond_program.programId
-		);
-		
-		const [bondSigner, bondSignerBump] = await PublicKey.findProgramAddress(
-			[
-			  Buffer.from("bondprogram")
-			],
-			this.bond_program.programId
-		  );
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		/// ido accounts
-
-		const [idoUSDCAta, idoUSDCAtaBump] = await PublicKey.findProgramAddress(
-			[
-			  Buffer.from("helixusdc"),
-			],
-			this.ido_program.programId
-		);
-		
-		// alphabetical
-		
-		this.bondAccount = bondAccount;
-		this.bondAccountBump = bondAccountBump;
-
-		this.bondMarketHelix = bondMarketHelix;
-		this.bondMarketHelixBump = bondMarketHelixBump;
-		
-		this.bondMarketSOL = bondMarketSOL;
-		this.bondMarketSOLBump = bondMarketSOLBump;
-
-		this.bondMarketUSDC = bondMarketUSDC;
-		this.bondMarketUSDCBump = bondMarketUSDCBump;
-
-		this.bondSigner = bondSigner;
-		this.bondSignerBump = bondSignerBump;
-
-		this.idoAccount = idoAccount;
-		this.idoAccountBump = idoAccountBump;
-
-		this.idoUSDCAta = idoUSDCAta;
-		this.idoUSDCAtaBump = idoUSDCAtaBump;
-		
-		this.helixMintAddress = helixMintAddress;
-		this.helixMintBump = helixMintBump;
-
-		this.protocolHelixAuth = protocolATAOwner;
-		
-		this.protocolDataAccount = protocolDataAccount;
-		this.protocolDataBump = protocolDataBump;
-
-		this.protocolHelixAta = protocolHelixAta;
-		this.protocolHelixAtaBump = protocolHelixAtaBump;
-
-		this.userHelixAta = userHelixAta;
-		this.userHelixAtaBump = userHelixAtaBump;
-
-		this.userVault = userVault;
-		this.userVaultBump = userVaultBump;
-
-		this.protocolHelixAuth = protocolATAOwner;
-
-		this.protocolDataAccount = protocolDataAccount;
-		this.protocolDataBump = protocolDataBump;
-
-		this.protocolHelixAta = protocolHelixAta;
-		this.protocolHelixAtaBump = protocolHelixAtaBump;
-	}
-
 	InitConsts = async () => {
 		// on mainnet
 		// this.usdc_mint = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
@@ -196,21 +64,22 @@ export class HelixNetwork {
 			this.helix_program.programId
 		);
 
-		const [userHelixAta, userHelixAtaBump] = await PublicKey.findProgramAddress(
+		const [userHelixAta, userHelixAtaBump] = this.wallet?.publicKey ? await PublicKey.findProgramAddress(
 			[
 				this.wallet.publicKey.toBuffer(),
 				TOKEN_PROGRAM_ID.toBuffer(),
 				helixMintAddress.toBuffer(),
 			],
 			this.spl_program_id
-		);
-		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
+		) : [undefined, undefined];
+
+		const [userVault, userVaultBump] = this.wallet?.publicKey ? await PublicKey.findProgramAddress(
 			[
 				Buffer.from("uservault"), 
 				this.wallet.publicKey.toBuffer()
 			],
 			this.helix_program.programId
-		);
+		) : [undefined, undefined];
 
 		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("protocoldataaccount")],
@@ -235,17 +104,17 @@ export class HelixNetwork {
 			this.helix_program.programId
 		);
 
-
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		/// bond accounts
 
-		const [bondAccount, bondAccountBump] = await anchor.web3.PublicKey.findProgramAddress(
+		const [bondAccount, bondAccountBump] = this.wallet?.publicKey ? await anchor.web3.PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondaccount"),
 			  this.wallet.publicKey.toBuffer()
 			],
 			this.bond_program.programId
-		);
+		) : [undefined, undefined];
+
 		const [bondMarketHelix, bondMarketHelixBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondmarket"),
@@ -275,7 +144,7 @@ export class HelixNetwork {
 			  Buffer.from("bondprogram")
 			],
 			this.bond_program.programId
-		  );
+		);
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		/// ido accounts
@@ -287,16 +156,15 @@ export class HelixNetwork {
 			this.ido_program.programId
 		);
 
-		const [idoAccount, idoAccountBump] = await PublicKey.findProgramAddress(
+		const [idoAccount, idoAccountBump] = this.wallet?.publicKey ? await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("idoaccount"),
 			  this.wallet.publicKey.toBuffer()
 			],
 			this.ido_program.programId
-		);
+		) : [undefined, undefined];
 		
 		// alphabetical
-		
 		this.bondAccount = bondAccount;
 		this.bondAccountBump = bondAccountBump;
 
@@ -336,9 +204,6 @@ export class HelixNetwork {
 		this.userVaultBump = userVaultBump;
 
 		this.protocolHelixAuth = protocolATAOwner;
-
-		this.protocolDataAccount = protocolDataAccount;
-		this.protocolDataBump = protocolDataBump;
 
 		this.protocolHelixAta = protocolHelixAta;
 		this.protocolHelixAtaBump = protocolHelixAtaBump;
@@ -744,11 +609,13 @@ export class HelixNetwork {
 		})
 	}
 
-	FetchUserVault = async() =>{
+	FetchUserVault = async() => {
 		return await this.helix_program.account.userVault.fetch(this.userVault);
 	}
 
-	FetchProtocolData = async() =>{
+	// this errors on initial load and then is fine...
+	// not super urgent so just gonna leave it for now
+	FetchProtocolData = async() => {
 		return await this.helix_program.account.protocolDataAccount.fetch(this.protocolDataAccount);
 	}
 
