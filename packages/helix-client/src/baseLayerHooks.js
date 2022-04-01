@@ -72,8 +72,12 @@ export default function HelixWrapper(wallet, notify) {
 	// open a user bond account
 	const createBondAccount = wallet && wallet.publicKey ? async() =>{
 		try{
-			await helixClient.InitBondAccount();
-			notify('add txn link here', 'success', { title: 'Created Bond Account' });
+			const txRes = await helixClient.InitBondAccount();
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Created Bond Account' }
+			);
 		} catch (e) {
 			notify(e.message, 'error', { title: 'Create Bond Account Failed' });
 			throw e;
@@ -83,8 +87,8 @@ export default function HelixWrapper(wallet, notify) {
 	// close a user bond account
 	const closeBondAccount = wallet && wallet.publicKey ? async() =>{
 		try{
-			await helixClient.CloseBondAccount();
-			notify('add txn link here', 'success', { title: 'Closed Bond Account' });
+			const txres = await helixClient.CloseBondAccount();
+			notify('bruh', 'success', { title: 'Closed Bond Account' });
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Close Bond Account Failed' });
 			throw e;

@@ -352,24 +352,24 @@ export class HelixNetwork {
 	}
 
 	InitBondAccount = async() => {
-		await this.bond_program.rpc.initBondAccount(new anchor.BN(1208),{
+		return await this.bond_program.rpc.initBondAccount(new anchor.BN(1208),{
 			accounts:{
 				bondAccount: this.bondAccount,
 				payer: this.wallet.publicKey,
 				systemProgram: SystemProgram.programId,
 			},
 			// signers: [this.wallet],
-			});
+		});
 	}
 
 	CloseBondAccount = async() =>{
-		await this.bond_program.rpc.closeAccount({
+		return await this.bond_program.rpc.closeAccount({
 			accounts:{
 				owner: this.wallet.publicKey,
 				bondAccount: this.bondAccount,
 			},
 			// signers: [this.wallet],
-			});
+		});
 	}
 
 	SolBond = async (bond_price, maturity, connection) => {
@@ -390,7 +390,6 @@ export class HelixNetwork {
 				// signers: [this.wallet]
 			}
 		);
-
 	}
 
 	FetchBondAccount = async() => {
@@ -497,7 +496,7 @@ export class HelixNetwork {
 	/// twst
 	
 	InitializeUserVault = async () => {
-		await this.helix_program.rpc.initUserVault(
+		return await this.helix_program.rpc.initUserVault(
 			{
 				accounts:{
 					userAccount: this.userVault,
@@ -510,7 +509,7 @@ export class HelixNetwork {
 	}
 
 	DeleteUserVault = async() =>{
-		await this.helix_program.rpc.closeUserVault({
+		return await this.helix_program.rpc.closeUserVault({
 			accounts:{
 				owner: this.wallet.publicKey,
 				userVault: this.userVault,

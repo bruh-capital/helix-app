@@ -27,6 +27,7 @@ setUpNotifications({
       dismissible: true,
       dismissAfter: 5000,
       showDismissButton: true,
+      allowHTML: true,
   } 
 });
 
