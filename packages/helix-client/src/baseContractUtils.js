@@ -12,7 +12,6 @@ let pyth_mapping = require("./pythMapping.json");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
-
 export class HelixNetwork {
 	constructor(wallet){
 		this.pyth_map = pyth_mapping;
@@ -612,8 +611,6 @@ export class HelixNetwork {
 		return await this.helix_program.account.userVault.fetch(this.userVault);
 	}
 
-	// this errors on initial load and then is fine...
-	// not super urgent so just gonna leave it for now
 	FetchProtocolData = async() => {
 		return await this.helix_program.account.protocolDataAccount.fetch(this.protocolDataAccount);
 	}

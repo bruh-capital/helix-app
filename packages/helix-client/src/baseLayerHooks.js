@@ -20,7 +20,7 @@ export default function HelixWrapper(wallet, notify) {
 		try {
 			const txres = await helixClient.Stake(amount);
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Staked ' + amount + ' HLX' }
 			);
@@ -35,7 +35,7 @@ export default function HelixWrapper(wallet, notify) {
 		try {
 			const txres = await helixClient.Unstake(amount);
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Unstaked ' + amount + ' HLX' }
 			);
@@ -61,7 +61,7 @@ export default function HelixWrapper(wallet, notify) {
 		try {
 			const txres = await helixClient.InitializeUserVault();
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Created User Vault' }
 			);
@@ -76,7 +76,7 @@ export default function HelixWrapper(wallet, notify) {
 		try {
 			const txres = await helixClient.DeleteUserVault();
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Closed User Vault' }
 			)
@@ -91,7 +91,7 @@ export default function HelixWrapper(wallet, notify) {
 		try{
 			const txres = await helixClient.InitBondAccount();
 			notify(
-				<a href="bruj" >See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Created Bond Account' }
 			);
@@ -106,7 +106,7 @@ export default function HelixWrapper(wallet, notify) {
 		try{
 			const txres = await helixClient.CloseBondAccount();
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Closed Bond Account' }
 			);
@@ -121,7 +121,7 @@ export default function HelixWrapper(wallet, notify) {
 		try {
 			const txres = helixClient.SolBond(bond_price, maturity, connection);
 			notify(
-				(<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>),
+				txres,
 				'success',
 				{ title: 'Minted SOL Bond' }
 			);
@@ -136,7 +136,7 @@ export default function HelixWrapper(wallet, notify) {
 		try{
 			const txres = await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Minted SPL Bond' }
 			);
@@ -151,7 +151,7 @@ export default function HelixWrapper(wallet, notify) {
 		try {
 			const txres = await helixClient.RedeemBonds();
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Redeemed Bonds' }
 			);
@@ -171,7 +171,7 @@ export default function HelixWrapper(wallet, notify) {
 		try{
 			const txres = await helixClient.ChangeLockup(duration);
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				txres,
 				'success',
 				{ title: 'Lockup Changed' }
 			);
@@ -227,7 +227,7 @@ export default function HelixWrapper(wallet, notify) {
 		}
 	}
 
-	const getProtocolData = async() =>{
+	const getProtocolData = async() => {
 		return await helixClient.FetchProtocolData();
 	}
 
