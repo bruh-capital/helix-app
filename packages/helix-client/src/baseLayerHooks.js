@@ -91,7 +91,7 @@ export default function HelixWrapper(wallet, notify) {
 		try{
 			const txres = await helixClient.InitBondAccount();
 			notify(
-				<a href=uu >See Transaction</a>,
+				<a href="bruj" >See Transaction</a>,
 				'success',
 				{ title: 'Created Bond Account' }
 			);
