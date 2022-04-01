@@ -18,8 +18,12 @@ export default function HelixWrapper(wallet, notify) {
 	// if you have a vault, stake HLX in the protocol
 	const stakeToken = wallet && wallet.publicKey ? async (amount) => {
 		try {
-			await helixClient.Stake(amount);
-			notify('add txn link here', 'success', { title: 'Staked ' + amount + ' HLX' });
+			const txres = await helixClient.Stake(amount);
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Staked ' + amount + ' HLX' }
+			);
 		} catch(e) {
 			notify(e.message, 'error', {title: 'Stake Failed'});
 			throw e;
@@ -29,8 +33,12 @@ export default function HelixWrapper(wallet, notify) {
 	// withdraw HLX from the protocol (vault)
 	const unstakeToken = wallet && wallet.publicKey ? async (amount) => {
 		try {
-			await helixClient.Unstake(amount);
-			notify('add txn link here', 'success', { title: 'Unstaked ' + amount + ' HLX' });
+			const txres = await helixClient.Unstake(amount);
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Unstaked ' + amount + ' HLX' }
+			);
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Unstake Failed' });
 			throw e;
@@ -51,8 +59,12 @@ export default function HelixWrapper(wallet, notify) {
 	// create a user stake vault
 	const createVault = wallet && wallet.publicKey ? async () => {
 		try {
-			await helixClient.InitializeUserVault();
-			notify('add txn link here', 'success', { title: 'Created User Vault' });
+			const txres = await helixClient.InitializeUserVault();
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Created User Vault' }
+			);
 		} catch (e) {
 			notify(e.message, 'error', {title: 'Create User Vault Failed'});
 			throw e;
@@ -62,7 +74,12 @@ export default function HelixWrapper(wallet, notify) {
 	// close a user stake vault
 	const closeVault = wallet && wallet.publicKey ? async () => {
 		try {
-			await helixClient.DeleteUserVault();
+			const txres = await helixClient.DeleteUserVault();
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Closed User Vault' }
+			)
 		} catch (e) {
 			notify(e.message, 'error', { title: 'Close User Vault Failed' });
 			throw e;
@@ -72,9 +89,9 @@ export default function HelixWrapper(wallet, notify) {
 	// open a user bond account
 	const createBondAccount = wallet && wallet.publicKey ? async() =>{
 		try{
-			const txRes = await helixClient.InitBondAccount();
+			const txres = await helixClient.InitBondAccount();
 			notify(
-				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				<a href=uu >See Transaction</a>,
 				'success',
 				{ title: 'Created Bond Account' }
 			);
@@ -88,7 +105,11 @@ export default function HelixWrapper(wallet, notify) {
 	const closeBondAccount = wallet && wallet.publicKey ? async() =>{
 		try{
 			const txres = await helixClient.CloseBondAccount();
-			notify('bruh', 'success', { title: 'Closed Bond Account' });
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Closed Bond Account' }
+			);
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Close Bond Account Failed' });
 			throw e;
@@ -98,8 +119,12 @@ export default function HelixWrapper(wallet, notify) {
 	// mint SOL bonds
 	const solBond = wallet && wallet.publicKey ? async(bond_price, maturity, connection) =>{
 		try {
-			await helixClient.SolBond(bond_price, maturity, connection);
-			notify('add txn link here', 'success', { title: 'Minted SOL Bond' });
+			const txres = helixClient.SolBond(bond_price, maturity, connection);
+			notify(
+				(<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>),
+				'success',
+				{ title: 'Minted SOL Bond' }
+			);
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Mint SOL Bond Failed' });
 			throw e;
@@ -109,8 +134,12 @@ export default function HelixWrapper(wallet, notify) {
 	// mint SPL token bonds
 	const splBond = wallet && wallet.publicKey ? async(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals) =>{
 		try{
-			await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
-			notify('add txn link here', 'success', { title: 'Minted SPL Bond' });
+			const txres = await helixClient.SPLBond(bond_price, bond_maturity, tokenMintAddress, asset, connection, decimals);
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Minted SPL Bond' }
+			);
 		} catch (e) {
 			notify(e.message, 'error', { title: 'Mint SPL Bond Failed' });
 			throw e;
@@ -120,14 +149,19 @@ export default function HelixWrapper(wallet, notify) {
 	// redeem all bonds
 	const redeemBonds = wallet && wallet.publicKey ? async() =>{
 		try {
-			await helixClient.RedeemBonds();
-			notify('add txn link here', 'success', { title: 'Redeemed Bonds' });
+			const txres = await helixClient.RedeemBonds();
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Redeemed Bonds' }
+			);
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Redeem Bonds Failed' });
 			throw e;
 		}
 	} : undefined;
 
+	// I don't know what this does please check codebase again when u have time
 	const collectCoupon = wallet && wallet.publicKey ? async() =>{
 		await helixClient.CollectCoupon();
 	} : undefined;
@@ -135,8 +169,12 @@ export default function HelixWrapper(wallet, notify) {
 	// change the lockup period of the stake vault
 	const changeLockupPeriod = wallet && wallet.publicKey ? async(duration) =>{
 		try{
-			await helixClient.ChangeLockup(duration);
-			notify('add txn link here', 'success', { title: 'Lockup Changed' });
+			const txres = await helixClient.ChangeLockup(duration);
+			notify(
+				<a href={"https://solscan.io/tx/" + txres /*+ "?cluster=" + wallet.network*/}>See Transaction</a>,
+				'success',
+				{ title: 'Lockup Changed' }
+			);
 		} catch(e) {
 			notify(e.message, 'error', { title: 'Change Lockup Failed' });
 			throw e;
