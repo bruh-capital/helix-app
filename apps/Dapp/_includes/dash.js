@@ -3,17 +3,30 @@ import Stat from "@includes/components/stat";
 import Graph from "@includes/components/graph";
 import CardCarousel from "@includes/components/cardCarousel";
 
-import { useTheme } from "next-themes";
+// Contexts
 import ProtocolContext from "@context/protocolDataContext";
 import DetailDataContext from "@context/detailDataContext";
-
+import HelixContext from "@context/helixContext";
 
 export default function Dash(props) {
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
+	const { client, setClient } = useContext(HelixContext);
 	const { detailData, setDetailData } = useContext(DetailDataContext);
 
-	// console.log(JSON.stringify(protocolData));
-	// console.log(detailData);
+	useEffect(async () => {
+		console.log("dash useEffect called");
+		if(client && client?.getUserVault){
+			let uv = await client.getUserVault();
+			if(uv != undefined){
+				setUserVault(userVault);
+			}
+		}
+
+		if(client && client?.getProtocolData){
+			let newData = await client.getProtocolData();
+			setProtocolData(newData);
+		}
+	}, []);
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >

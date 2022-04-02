@@ -4,7 +4,6 @@ import LayoutContext from "@context/layoutContext";
 import Dash from "@includes/dash";
 import Bond from "@includes/bond";
 import Stake from "@includes/stake";
-
 import DappLayout from "@layouts/default";
 
 export default function AppPage() {

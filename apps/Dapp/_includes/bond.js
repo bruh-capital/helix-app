@@ -52,7 +52,6 @@ export default function Bond(props) {
 		let pricemap = {};
 
 		if (client && client.getBondMarketInfo) {
-			console.log("getting markets");
 			for(let bond of props.bondItems){
 				markets[bond.asset] = props.network == "mainnet" ?
 					await client.getBondMarketInfo(bond.mainnetTokenAddress):

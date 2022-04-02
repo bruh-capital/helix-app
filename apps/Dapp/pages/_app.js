@@ -62,7 +62,7 @@ function MyApp({ Component, pageProps }) {
 			let newData = await client.getProtocolData();
 			setProtocolData(newData);
 		}
-	}, [client]);
+	}, []);
 
   const icon = (
     <Image
