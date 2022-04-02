@@ -612,7 +612,6 @@ export class HelixNetwork {
 	}
 
 	FetchProtocolData = async() => {
-		console.log(this.protocolDataAccount);
 		return await this.helix_program.account.protocolDataAccount.fetch(this.protocolDataAccount);
 	}
 

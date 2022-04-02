@@ -47,23 +47,7 @@ function MyApp({ Component, pageProps }) {
   // On chain (from program) data
   const [ protocolData, setProtocolData ] = useState();
 
-  // reapop notifications
-
-  // useEffect to get user account data from on chain
-	useEffect(async () => {
-		if(client && client?.getUserVault){
-			let uv = await client.getUserVault();
-			if(uv != undefined){
-				setUserVault(userVault);
-			}
-		}
-
-		if(client && client?.getProtocolData){
-			let newData = await client.getProtocolData();
-			setProtocolData(newData);
-		}
-	}, []);
-
+  // Image component we use in the goki wallet prompt
   const icon = (
     <Image
       className="rounded-full"

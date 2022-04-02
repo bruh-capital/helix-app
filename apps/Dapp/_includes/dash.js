@@ -13,6 +13,7 @@ export default function Dash(props) {
 	const { client, setClient } = useContext(HelixContext);
 	const { detailData, setDetailData } = useContext(DetailDataContext);
 
+	// This looks terrible lmao I know 
 	useEffect(async () => {
 			await setTimeout(async () =>  {
 				if(client && client?.getUserVault){
