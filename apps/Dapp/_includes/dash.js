@@ -14,18 +14,19 @@ export default function Dash(props) {
 	const { detailData, setDetailData } = useContext(DetailDataContext);
 
 	useEffect(async () => {
-		console.log("dash useEffect called");
-		if(client && client?.getUserVault){
-			let uv = await client.getUserVault();
-			if(uv != undefined){
-				setUserVault(userVault);
-			}
-		}
+			await setTimeout(async () =>  {
+				if(client && client?.getUserVault){
+					let uv = await client.getUserVault();
+					if(uv != undefined){
+						setUserVault(userVault);
+					}
+				}
 
-		if(client && client?.getProtocolData){
-			let newData = await client.getProtocolData();
-			setProtocolData(newData);
-		}
+				if(client && client?.getProtocolData){
+					let newData = await client.getProtocolData();
+					setProtocolData(newData);
+				}
+			}, 2000);
 	}, []);
 
 	return(
