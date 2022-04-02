@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import LayoutContext from "@context/layoutContext";
 import Dash from "@includes/dash";
@@ -8,6 +8,11 @@ import DappLayout from "@layouts/default";
 
 export default function AppPage() {
 	const { layout, setLayout } = useContext(LayoutContext);
+
+	// Finish later I gtg
+	useEffect(async () => {
+		setTimeout(async () => {}, 2000)
+	}, [layout]);
 
 	return(
 		<DappLayout>
