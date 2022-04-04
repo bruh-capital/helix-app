@@ -131,9 +131,6 @@ export default function Bond(props) {
 		)
 	}, [wallet && wallet.connected, bondAccount, client])
 
-
-	useEffect(checkBondAccount, [])
-
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">
 			<div className="grid gap-x-12 gap-y-6 mb-6 md:mb-16 grid-cols-1 md:grid-cols-2 grid-rows-6 md:grid-rows-3 w-full px-8 md:px-24 xl:px-32 2xl:px-64 h-full justify-around">
