@@ -11,7 +11,19 @@ export default function AppPage() {
 
 	// Finish later I gtg
 	useEffect(async () => {
-		setTimeout(async () => {}, 2000)
+		setTimeout(async () => {
+			if(client && client?.getUserVault){
+				let uv = await client.getUserVault();
+				if(uv != undefined){
+					setUserVault(userVault);
+				}
+			}
+	
+			if(client && client?.getProtocolData){
+				let newData = await client.getProtocolData();
+				setProtocolData(newData);
+			}
+		}, 2000)
 	}, [layout]);
 
 	return(
