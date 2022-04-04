@@ -10,25 +10,7 @@ import HelixContext from "@context/helixContext";
 
 export default function Dash(props) {
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
-	const { client, setClient } = useContext(HelixContext);
 	const { detailData, setDetailData } = useContext(DetailDataContext);
-
-	// This looks terrible lmao I know 
-	useEffect(async () => {
-			await setTimeout(async () =>  {
-				if(client && client?.getUserVault){
-					let uv = await client.getUserVault();
-					if(uv != undefined){
-						setUserVault(userVault);
-					}
-				}
-
-				if(client && client?.getProtocolData){
-					let newData = await client.getProtocolData();
-					setProtocolData(newData);
-				}
-			}, 2000);
-	}, []);
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >

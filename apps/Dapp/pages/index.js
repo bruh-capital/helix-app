@@ -9,10 +9,12 @@ import DappLayout from "@layouts/default";
 import LayoutContext from "@context/layoutContext";
 import HelixContext from '@context/helixContext';
 import ProtocolContext from "@context/protocolDataContext";
+import UserDataContext from "@context/userDataContext";
 
 export default function AppPage() {
 	const { layout, setLayout } = useContext(LayoutContext);
 	const { client, setClient } = useContext(HelixContext);
+	const { userVault, setUserVault } = useContext(UserDataContext);
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
 
 	// Loads data for dapp
