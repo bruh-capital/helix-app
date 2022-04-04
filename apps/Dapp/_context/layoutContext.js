@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 const LayoutContext = createContext({
-	layout: "dashboard",
+	layout: undefined, // string
 	setLayout: () => {},
 });
 

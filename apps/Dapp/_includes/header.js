@@ -40,9 +40,10 @@ export default function Header(props) {
 		}
 	}
 
-	useEffect(()=>{
-		setClient(new helixClient(wallet || undefined, notify));
-	}, [!!wallet]);
+	useEffect(async ()=>{
+		await setClient(new helixClient(wallet, notify));
+		console.log(client);
+	}, [wallet]);
 
 	return(
 		<div className="static bg-[#E1E1E1] dark:bg-[#191B1F] z-50 w-full duration-300">

@@ -15,9 +15,10 @@ export default function AppPage() {
 	const { client, setClient } = useContext(HelixContext);
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
 
-	// Finish later I gtg
+	// Loads data for dapp
 	useEffect(async () => {
 		setTimeout(async () => {
+			console.log("Has Client: " + !!client);
 			if(client && client?.getUserVault){
 				let uv = await client.getUserVault();
 				if(uv != undefined){
@@ -29,8 +30,8 @@ export default function AppPage() {
 				let newData = await client.getProtocolData();
 				setProtocolData(newData);
 			}
-		}, 2000)
-	}, [layout]);
+		}, 1000)
+	}, [client]);
 
 	return(
 		<DappLayout>
