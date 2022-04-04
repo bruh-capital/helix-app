@@ -25,7 +25,6 @@ export default function Stake(props) {
 	const { theme, setTheme } = useTheme();
 	const { userData, setUserVault } = useContext(UserDataContext);
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
-	const { detailData, setDetailData } = useContext(DetailDataContext);
 
 	return(
 		<div className="-mt-24 h-screen content-center items-center pt-32 md:pt-36 pb-24">

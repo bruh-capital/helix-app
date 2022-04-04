@@ -42,7 +42,6 @@ export default function Header(props) {
 
 	useEffect(()=>{
 		setClient(new helixClient(wallet || undefined, notify));
-		console.log("bruh");
 	}, [!!wallet]);
 
 	return(
@@ -125,23 +124,18 @@ export default function Header(props) {
 													enter="transition ease-out duration-400"
 													enterFrom="opacity-0 translate-y-2"
 													enterTo="opacity-100 translate-y-0"
-													leave="transition ease-in duration-300"
+													leave="transition ease-in duration-100"
 													leaveFrom="opacity-100 translate-y-0"
 													leaveTo="opacity-0 translate-y-2"
 												>
 													<Popover.Panel className="absolute z-50 w-screen max-w-sm mt-3 transform left-0 -translate-x-1/2 md:left-auto md:-translate-x-0 md:right-0 sm:px-0">
-														<div className="overflow-hidden bg-opacity-100 rounded-md shadow-md bg-[#C0C0C0] dark:bg-black dark:bg-opacity-75">
+														<div className="overflow-hidden rounded-md shadow-md bg-[#D9D8E2] dark:bg-[#212429]">
 															<div className="relative grid p-4 grid-cols-1 space-y-3">
 																<button
-																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-105 duration-300"
-																	onClick={() => {
-																		setNetwork("devnet")
-																	}}
-																>Change to Devnet</button>
-																<button
-																	className="rounded-md font-normal py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white hover:scale-x-105 duration-300"
+																	className="rounded-md font-semibold py-2 px-3 bg-[#C8C7CA] text-black dark:bg-[#3A3D45] dark:text-white"
 																	onClick={handleDisconnect}
 																>Disconnect</button>
+																<div className="text-black dark:text-white font-semibold text-center">{"Network: " + process.env.NEXT_PUBLIC_RPC_URL}</div>
 															</div>
 														</div>
 													</Popover.Panel>

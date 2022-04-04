@@ -23,6 +23,8 @@ export class HelixNetwork {
 		});
 
 		this.connection = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
+		console.log("Connection URL: ", process.env.NEXT_PUBLIC_RPC_URL);
+
 		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions());
 
 		this.helix_program = new anchor.Program(helix_idl, helix_idl.metadata.address, this.provider);
