@@ -25,7 +25,6 @@ export default function Stake(props) {
 	const { theme, setTheme } = useTheme();
 	const { userData, setUserVault } = useContext(UserDataContext);
 	const { protocolData, setProtocolData } = useContext(ProtocolContext);
-	const { detailData, setDetailData } = useContext(DetailDataContext);
 
 	return(
 		<div className="-mt-24 h-screen content-center items-center pt-32 md:pt-36 pb-24">
@@ -45,7 +44,7 @@ export default function Stake(props) {
 								Staking APY
 							</div>
 							<div className="flex font-bold text-[#272629] dark:text-white px-10 md:px-16 text-3xl md:text-6xl text-ellipsis whitespace-nowrap">
-								{typeof detailData?.rewardRate?.toNumber() == "number" ? protocolData?.stake_apy.toLocaleString(undefined, {maximumFractionDigits: 2}) + "%" : "N/A"}
+								{typeof protocolData?.rewardRate?.toNumber() == "number" ? protocolData?.rewardRate.toLocaleString(undefined, {maximumFractionDigits: 2}) + "%" : "N/A"}
 							</div>
 						</div>
 						<div>

@@ -33,9 +33,7 @@ export default function Bond(props) {
 		}
 	}
 
-	// Image thingy		
-	// TODO(Milly):
-	// Some weird bug happens where the images only load after wallet is connected plz fix
+	// Loads Images for the bond table
 	useEffect(() => {
 		new TokenListProvider().resolve().then(tokens => {
 			const tokenList = tokens.getList();
@@ -110,20 +108,19 @@ export default function Bond(props) {
 				className="rounded-lg pt-10 mb-6 text-sm text-[#696B70] font-medium dark:hover:text-zinc-200"
 				onClick={async () => {
 					if(wallet?.connected && client) {
-						checkBondAccount();
+						await checkBondAccount();
 						if(bondAccount) {
 							try {
 								await client.closeBondAccount();
-								setBondAccount();
+								await setBondAccount();
 							} catch(e) {}
 						} else {
 							try {
 								await client.createBondAccount();
-								setBondAccount("created");
+								await setBondAccount("created");
 							} catch(e) {}
 						}
 					} else {
-						console.log("fuck")
 						await goki.connect();
 						await checkBondAccount();
 					}
@@ -133,9 +130,6 @@ export default function Bond(props) {
 			</button>
 		)
 	}, [wallet && wallet.connected, bondAccount, client])
-
-
-	useEffect(checkBondAccount, [!!client])
 
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">

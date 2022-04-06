@@ -10,8 +10,6 @@ import {
   notify
 } from "reapop";
 
-import helixClient from 'helix-client';
-
 // Contexts
 import { ThemeProvider } from "next-themes";
 import LayoutContext from '@context/layoutContext';
@@ -32,8 +30,8 @@ setUpNotifications({
 
 function MyApp({ Component, pageProps }) {
   const [ layout, setLayout ] = useState("dashboard");
-  const [userVault, setUserVault] = useState();
-  const [client, setClient] = useState(new helixClient(null, notify));
+  const [ userVault, setUserVault ] = useState();
+  const [ client, setClient ] = useState();
 
   // Data that is pretty much used on UI
   const [ detailData, setDetailData ] = useState({
