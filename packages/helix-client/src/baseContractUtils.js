@@ -1,26 +1,27 @@
 import * as anchor from "@project-serum/anchor";
 
-import * as pyth_utils from "./pythUtils";
-import {Token, TOKEN_PROGRAM_ID, getOrCreateAssociatedAccountInfo} from '@solana/spl-token';
-import { SystemProgram, PublicKey, Connection, clusterApiUrl} from "@solana/web3.js";
+import * as pyth_utils from "./utils/pythUtils";
+import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
+import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 let ido_idl = require('./idl/ido.json');
 let bond_idl = require('./idl/bond_market.json');
 let helix_idl = require('./idl/twst.json');
 let multisig_idl = require("./idl/serum_multisig.json");
 let governance_idl = require('./idl/government_program.json');
-let pyth_mapping = require("./pythMapping.json");
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
 export class HelixNetwork {
 	constructor(wallet){
-		this.pyth_map = pyth_mapping;
-		[...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
-			// for each name, price address in address map object
-			[...Object.entries(name_price)].forEach(([asset_name, price_addr]) =>{
-				this.pyth_map[network][asset_name] = new PublicKey(price_addr);
-			});
-		});
+
+		this.InitConsts();
+
+		if (!wallet){
+			return
+		}
+		
+		this.pyth_map = pyth_utils.PythMap();
 
 		this.connection = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
 		this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions());
@@ -32,19 +33,26 @@ export class HelixNetwork {
 		this.multisig_program = new anchor.Program(multisig_idl, multisig_idl.metadata.address, this.provider);
 
 		this.multisigSigner = new PublicKey(process.env.NEXT_PUBLIC_MULTISIG_SIGNER_PUBKEY);
-		this.multisig = new PublicKey("4GPNDn6Fm6HmBE1B91wS8SuoZquVNGWLr9Hvh6kdCD65");
+		this.multisig = new PublicKey(process.env.NEXT_PUBLIC_MULTISIG_ADDRESS);
 		this.treasuryWallet = new PublicKey(process.env.NEXT_PUBLIC_TREASURY_PUBKEY);
 		this.spl_program_id = new PublicKey(process.env.NEXT_PUBLIC_SPL_ATA_PROGRAM_ID);
 
-		this.indianeros = new PublicKey("75ev4N83x1nDGhDEgkHiedha8XbPxf33HTJSJj28eze7");
-		this.millionz = new PublicKey("E5EP2qkdXmPwXA9ANzoG69Gmj86Jdqepjw2XrQDGj9sM");
-		this.mazer = new PublicKey("6P3MTfMqidubdgQEaoxPSZJpjuzz7MopVH76fnJK9JM1");
+		const [userHelixAta, userHelixAtaBump] = await PublicKey.findProgramAddress(
+			[
+				this.wallet.publicKey.toBuffer(),
+				TOKEN_PROGRAM_ID.toBuffer(),
+				helixMintAddress.toBuffer(),
+			],
+			this.spl_program_id
+		);
+
+		this.userHelixAta = userHelixAta;
+		this.userHelixAtaBump = userHelixAtaBump;
 
 		this.txsize = 1000;
 
 		this.wallet = wallet;
 		this.token_program = Token;
-		this.InitConsts();
 	}
 
 	InitConsts = async () => {
@@ -53,6 +61,9 @@ export class HelixNetwork {
 
 		// on devnet
 		this.usdc_mint = new PublicKey("yxdMpffjwBqPnokGfZY2AaTJDzth3umWcqiKFn9fGJz");
+		var helix_programid = new PublicKey(helix_idl.metadata.address);
+		var bond_programid = new PublicKey(bond_idl.metadata.address);
+		var ido_programid = new PublicKey(ido_idl.metadata.address);
 
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		/// helix accounts
@@ -60,29 +71,20 @@ export class HelixNetwork {
 			[
 				Buffer.from("helixmintaccount")
 			],
-			this.helix_program.programId
+			helix_programid
 		);
 
-		const [userHelixAta, userHelixAtaBump] = this.wallet?.publicKey ? await PublicKey.findProgramAddress(
-			[
-				this.wallet.publicKey.toBuffer(),
-				TOKEN_PROGRAM_ID.toBuffer(),
-				helixMintAddress.toBuffer(),
-			],
-			this.spl_program_id
-		) : [undefined, undefined];
-
-		const [userVault, userVaultBump] = this.wallet?.publicKey ? await PublicKey.findProgramAddress(
+		const [userVault, userVaultBump] = await PublicKey.findProgramAddress(
 			[
 				Buffer.from("uservault"), 
 				this.wallet.publicKey.toBuffer()
 			],
-			this.helix_program.programId
-		) : [undefined, undefined];
+			helix_programid
+		);
 
 		const [protocolDataAccount, protocolDataBump] = await PublicKey.findProgramAddress(
 			[Buffer.from("protocoldataaccount")],
-			this.helix_program.programId
+			helix_programid
 		);
 		
 		const [protocolHelixAta,protocolHelixAtaBump] = await PublicKey.findProgramAddress(
@@ -100,26 +102,26 @@ export class HelixNetwork {
 			  	TOKEN_PROGRAM_ID.toBuffer(), 
 			  	helixMintAddress.toBuffer()
 			],
-			this.helix_program.programId
+			helix_programid
 		);
 
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		/// bond accounts
 
-		const [bondAccount, bondAccountBump] = this.wallet?.publicKey ? await anchor.web3.PublicKey.findProgramAddress(
+		const [bondAccount, bondAccountBump] = await anchor.web3.PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondaccount"),
 			  this.wallet.publicKey.toBuffer()
 			],
-			this.bond_program.programId
-		) : [undefined, undefined];
+			bond_programid
+		);
 
 		const [bondMarketHelix, bondMarketHelixBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondmarket"),
 			  helixMintAddress.toBuffer(),
 			],
-			this.bond_program.programId
+			bond_programid
 		);
 
 		const [bondMarketUSDC, bondMarketUSDCBump] = await PublicKey.findProgramAddress(
@@ -127,7 +129,7 @@ export class HelixNetwork {
 			Buffer.from("bondmarket"),
 			this.usdc_mint.toBuffer(),
 		],
-		this.bond_program.programId
+		bond_programid
 		);
 	
 		const [bondMarketSOL, bondMarketSOLBump] = await PublicKey.findProgramAddress(
@@ -135,14 +137,14 @@ export class HelixNetwork {
 				Buffer.from("bondmarket"),
 				SystemProgram.programId.toBuffer(),
 			],
-			this.bond_program.programId
+			bond_programid
 		);
 		
 		const [bondSigner, bondSignerBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("bondprogram")
 			],
-			this.bond_program.programId
+			bond_programid
 		);
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,16 +154,16 @@ export class HelixNetwork {
 			[
 			  Buffer.from("helixusdc"),
 			],
-			this.ido_program.programId
+			ido_programid
 		);
 
-		const [idoAccount, idoAccountBump] = this.wallet?.publicKey ? await PublicKey.findProgramAddress(
+		const [idoAccount, idoAccountBump] = await PublicKey.findProgramAddress(
 			[
 			  Buffer.from("idoaccount"),
 			  this.wallet.publicKey.toBuffer()
 			],
-			this.ido_program.programId
-		) : [undefined, undefined];
+			ido_programid
+		);
 		
 		// alphabetical
 		this.bondAccount = bondAccount;
@@ -196,8 +198,7 @@ export class HelixNetwork {
 		this.protocolHelixAta = protocolHelixAta;
 		this.protocolHelixAtaBump = protocolHelixAtaBump;
 
-		this.userHelixAta = userHelixAta;
-		this.userHelixAtaBump = userHelixAtaBump;
+		
 
 		this.userVault = userVault;
 		this.userVaultBump = userVaultBump;

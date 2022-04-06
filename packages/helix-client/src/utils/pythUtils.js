@@ -1,6 +1,7 @@
 //https://github.com/pyth-network/pyth-client-js/blob/3de72323598131d6d14a9dc9f48f5f225b5fbfd2/src/index.ts#L161
 import {PublicKey} from "@solana/web3.js";
-import { readBigInt64LE, readBigUInt64LE } from './readBig'
+import { readBigInt64LE, readBigUInt64LE } from './readBig';
+let pyth_mapping = require("./utils/pythMapping.json");
 
 export const parseProductData = (data) => {
     // pyth magic number
@@ -181,4 +182,16 @@ export const parsePriceData = (data) => {
       price,
       confidence,
     }
-  }
+}
+
+
+export const PythMap = () => {
+  let pyth_map = pyth_mapping;
+  [...Object.entries(pyth_mapping)].forEach(([network, name_price]) =>{
+    // for each name, price address in address map object
+    [...Object.entries(name_price)].forEach(([asset_name, price_addr]) =>{
+      pyth_map[network][asset_name] = new PublicKey(price_addr);
+    });
+  });
+  return pyth_map
+}
