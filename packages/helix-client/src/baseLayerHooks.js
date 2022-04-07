@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNotifications } from "reapop";
-import { HelixNetwork } from "./baseContractUtils";
+import { HelixNetwork } from "./clients/basic_client";
 
 // TODO(millionz): change the base utils to return a transaction hash for ops
 

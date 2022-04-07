@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useContext, useEffect } from 'react';
-import helixContext from '@context/helixContext';
+import HelixClientCtx from '@context/clients/twstClientCtx';
 
 // TODO(Milly):
 // - add extra pretty data to modal dialogue
@@ -11,10 +11,12 @@ import helixContext from '@context/helixContext';
 // - theme appropriate colors
 export default function BondModalButton(props) {
 	const [ isOpen, setIsOpen] = useState(false);
+	
 	const [ bondAmount, setBondAmount ] = useState(null);
 	const [ expiration, setExpiration] = useState(0);
-	const {client} = useContext(helixContext);
 	const [amountDue, setAmountDue] = useState(0);
+
+	const { helixClient } = useContext(HelixClientCtx);
 
 
 	useEffect(()=>{
@@ -106,7 +108,7 @@ export default function BondModalButton(props) {
 									</div>
 									<button
 										className="rounded-lg py-2 mx-10 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]"
-										onClick={() => {props.tokenName == "SOL" ? client.solBond(bondAmount, expiration, props.network) : client.splBond(bondAmount, expiration, props.tokenAddress, props.tokenName, props.network, props.decimals)}}
+										onClick={() => {props.tokenName == "SOL" ? helixClient.SolBond(bondAmount, expiration, props.network) : helixClient.SPLBond(bondAmount, expiration, props.tokenAddress, props.tokenName, props.network, props.decimals)}}
 									>
 										Mint!	
 									</button>

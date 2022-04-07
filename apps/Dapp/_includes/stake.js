@@ -5,14 +5,13 @@ import Image from "next/image";
 import { useConnectedWallet } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 
-import helixContext from "@context/helixContext";
-import UserDataContext from "@context/userDataContext";
-import ProtocolContext from "@context/protocolDataContext";
-import DetailDataContext from "@context/detailDataContext";
+import HelixClientCtx from "@context/clients/twstClientCtx";
 
 export default function Stake(props) {
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
+
+	const { helixClient } = useContext(HelixClientCtx);
 
 	// state
 	const [ uiFunction, setUiFunction ] = useState("stake");	
@@ -20,11 +19,15 @@ export default function Stake(props) {
 	const [ lockupPeriod, setLockupPeriod] = useState(0);
 	const [ stakedBalance, setStakedBalance ] = useState();
 
-	// context
-	const {client} = useContext(helixContext);
-	const { theme, setTheme } = useTheme();
-	const { userData, setUserVault } = useContext(UserDataContext);
-	const { protocolData, setProtocolData } = useContext(ProtocolContext);
+	const [userVault, setUserVault] = useState();
+	useEffect(async ()=>{
+		setUserVault(await helixClient.FetchUserVault());
+	},[wallet, helixClient]);
+
+	const [protocolData, setProtocolData] = useState();
+	useEffect(async ()=>{
+		setProtocolData(await helixClient.FetchProtocolData())
+	},[helixClient])
 
 	return(
 		<div className="-mt-24 h-screen content-center items-center pt-32 md:pt-36 pb-24">
@@ -110,19 +113,19 @@ export default function Stake(props) {
 						className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70] 
 						dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
 						onClick={() => {
-							if (client && client?.stakeToken && client?.unstakeToken && wallet?.connected && userData) {
-								uiFunction == "stake" ? client.stakeToken(amount) : client?.unstakeToken(amount);
-							} else if (client && client?.stakeToken && client?.unstakeToken && !userData && wallet?.connected) {
-								client.createVault();
+							if (wallet?.connected && userVault) {
+								uiFunction == "stake" ? helixClient.Stake(amount) : helixClient.Unstake(amount);
+							} else if (wallet?.connected && !userVault) {
+								helixClient.InitializeUserVault();
 							} else {
 								goki.connect();
 							}
 						}}
 					>
 						{
-							wallet?.connected && userData ?
+							wallet?.connected && userVault ?
 							(uiFunction === "stake" ? "Stake" : "Unstake") :
-							(wallet?.connected && !userData ? "Create Vault" : "Connect Wallet")
+							(wallet?.connected && !userVault ? "Create Vault" : "Connect Wallet")
 						}
 					</button>
 					{
@@ -143,14 +146,14 @@ export default function Stake(props) {
 									className="rounded-lg py-2 mx-8 md:mx-16 p-8 font-bold text-lg mb-10 bg-[#C0C0C0] dark:bg-[#212429] text-[#696B70]
 									dark:hover:text-gray-300 dark:hover:bg-[#343A45] dark:hover:border-[#BABABA]"
 									onClick={() => {
-										if(client && client?.ChangeLockup && wallet?.connected && userData){
-											client.ChangeLockup(lockupPeriod);
-										} else if (client && client?.ChangeLockup && wallet?.connected && !userData) {
-											client.createVault();
+										if(wallet?.connected && userVault){
+											helixClient.ChangeLockup(lockupPeriod);
+										} else if (wallet?.connected && !userVault) {
+											helixClient.InitializeUserVault();
 										}
 									}}
 								>
-									{wallet?.connected && userData ? "Change" : wallet?.connected && !userData ? "Create Vault" : "Connect Wallet"}
+									{wallet?.connected && userVault ? "Change" : wallet?.connected && !userVault ? "Create Vault" : "Connect Wallet"}
 								</button>
 							</>
 						)

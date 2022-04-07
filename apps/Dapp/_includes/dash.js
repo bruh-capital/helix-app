@@ -4,13 +4,18 @@ import Graph from "@includes/components/graph";
 import CardCarousel from "@includes/components/cardCarousel";
 
 // Contexts
-import ProtocolContext from "@context/protocolDataContext";
 import DetailDataContext from "@context/detailDataContext";
-import HelixContext from "@context/helixContext";
+
+import HelixClientCtx from "@context/clients/twstClientCtx";
 
 export default function Dash(props) {
-	const { protocolData, setProtocolData } = useContext(ProtocolContext);
 	const { detailData, setDetailData } = useContext(DetailDataContext);
+	const { helixClient, setHelixClient } = useContext(HelixClientCtx);
+
+	const[protocolData, setProtocolData] = useState();
+	useEffect(async ()=>{
+		setProtocolData(await helixClient.FetchProtocolData())
+	},[helixClient])
 
 	return(
 		<div className="h-screen items-center mt-4 lg:mt-10 lg:pb-36" >

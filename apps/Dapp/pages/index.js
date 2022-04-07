@@ -23,14 +23,13 @@ export default function AppPage() {
 			console.log("Has Client: " + !!client);
 			if(client && client?.getUserVault){
 				let uv = await client.getUserVault();
-				if(uv != undefined){
+				if(uv){
 					setUserVault(userVault);
 				}
 			}
 	
 			if(client && client?.getProtocolData){
-				let newData = await client.getProtocolData();
-				setProtocolData(newData);
+				setProtocolData(await client.getProtocolData());
 			}
 		}, 1000)
 	}, [client]);

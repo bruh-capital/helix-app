@@ -1,11 +1,16 @@
-import Graph from "@includes/components/graph";
 import Image from "next/image";
+
+import Graph from "@includes/components/graph";
 import BondModalButton from "@includes/components/bondModal";
-import helixContext from "@context/helixContext";
-import {useContext, useEffect, useState} from 'react';
+
+import { useContext, useEffect, useState } from 'react';
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
+
+import BondClientCtx from "@context/clients/bondClientCtx";
+import BasicClientCtx from "@context/clients/basicClientCtx";
+import HelixClientCtx from "@context/clients/twstClientCtx";
 
 // create delete dynamic
 // create if no account
@@ -14,20 +19,23 @@ import { TokenListProvider, TokenInfo } from "@solana/spl-token-registry";
 export default function Bond(props) {
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
-	const { client } = useContext(helixContext);
+	
 	const { network } = useSolana();
 
-	const [tokenMap, setTokenMap] = useState(new Map());
+	const { bondClient } = useContext(BondClientCtx);
+	const { basicClient } = useContext(BasicClientCtx);
+	const { helixClient } = useContext(HelixClientCtx);
 
+	const [tokenMap, setTokenMap] = useState(new Map());
 	const [bondAccount, setBondAccount] = useState();
 	const [tableRows, setTableRows] = useState();
 
 	const [actionButton, setActionButton] = useState();
 
 	async function checkBondAccount(){
-		if(client && client.getBondAccount){
-			let bondAcc = await client.getBondAccount();
-			if(bondAcc != undefined){
+		if(wallet){
+			let bondAcc = await bondClient.FetchBondAccount();
+			if(bondAcc){
 				setBondAccount(bondAcc);
 			}
 		}
@@ -49,12 +57,10 @@ export default function Bond(props) {
 		let markets = {};
 		let pricemap = {};
 
-		if (client && client.getBondMarketInfo) {
+		if (bondClient) {
 			for(let bond of props.bondItems){
-				markets[bond.asset] = props.network == "mainnet" ?
-					await client.getBondMarketInfo(bond.mainnetTokenAddress):
-					await client.getBondMarketInfo(bond.devnetTokenAddress);
-				pricemap[bond.asset] = await client.getTokenPrice(bond.asset, props.network);
+				markets[bond.asset] = props.network == "mainnet" ? bondClient.FetchBondMarket(bond.mainnetTokenAddress): bondClient.FetchBondMarket(bond.devnetTokenAddress);
+				pricemap[bond.asset] = await basicClient.GetTokenPrice(bond.asset, props.network);
 			}
 		}
 
@@ -100,36 +106,32 @@ export default function Bond(props) {
 				</tr>
 			);
 		}))
-	}, [wallet && wallet.connected, bondAccount, tokenMap, client])
+	}, [wallet && wallet.connected, tokenMap, bondClient])
 
 	useEffect(()=>{
 	 	setActionButton(
 			<button
 				className="rounded-lg pt-10 mb-6 text-sm text-[#696B70] font-medium dark:hover:text-zinc-200"
 				onClick={async () => {
-					if(wallet?.connected && client) {
+					if(wallet?.connected && helixClient) {
 						await checkBondAccount();
 						if(bondAccount) {
-							try {
-								await client.closeBondAccount();
-								await setBondAccount();
-							} catch(e) {}
+							helixClient.CloseBondAccount();
+							setBondAccount();
 						} else {
-							try {
-								await client.createBondAccount();
-								await setBondAccount("created");
-							} catch(e) {}
+							helixClient.InitBondAccount();
+							setBondAccount("created");
 						}
 					} else {
-						await goki.connect();
-						await checkBondAccount();
+						goki.connect();
+						checkBondAccount();
 					}
 				}}
 			>
-				{wallet?.connected && client ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
+				{wallet?.connected && bondClient ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
 			</button>
 		)
-	}, [wallet && wallet.connected, bondAccount, client])
+	}, [wallet && wallet.connected, bondAccount, bondClient])
 
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">

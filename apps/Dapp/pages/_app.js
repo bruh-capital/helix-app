@@ -13,10 +13,15 @@ import {
 // Contexts
 import { ThemeProvider } from "next-themes";
 import LayoutContext from '@context/layoutContext';
-import ProtocolContext from '@context/protocolDataContext';
-import HelixContext from '@context/helixContext';
-import UserDataContext from '@context/userDataContext';
 import DetailDataContext from '@context/detailDataContext';
+
+// client contexts
+import BasicClientCtx from '@context/clients/basicClientCtx';
+import BondClientCtx from '@context/clients/bondClientCtx';
+import HelixClientCtx from '@context/clients/twstClientCtx';
+
+import ProviderCtx from '@context/solana/providerContext';
+import ConnectionCtx from '@context/solana/connectionContext';
 
 // reaop notifications
 setUpNotifications({
@@ -30,9 +35,6 @@ setUpNotifications({
 
 function MyApp({ Component, pageProps }) {
   const [ layout, setLayout ] = useState("dashboard");
-  const [ userVault, setUserVault ] = useState();
-  const [ client, setClient ] = useState();
-
   // Data that is pretty much used on UI
   const [ detailData, setDetailData ] = useState({
     hlxPrice: 0,
@@ -42,8 +44,14 @@ function MyApp({ Component, pageProps }) {
     priceData: undefined,
   }); 
 
-  // On chain (from program) data
-  const [ protocolData, setProtocolData ] = useState();
+
+  const [ BasicClient, setBasicClient ] = useState();
+  const [ BondClient, setBondClient ] = useState();
+  const [ HelixClient, setHelixClient ] = useState();
+
+  const [ connection, setConnection ] = useState();
+  const [ provider, setProvider ] = useState();
+
 
   // Image component we use in the goki wallet prompt
   const icon = (
@@ -67,17 +75,27 @@ function MyApp({ Component, pageProps }) {
         }}
       >
         <DetailDataContext.Provider value={{ detailData, setDetailData }}>
-          <ProtocolContext.Provider value={{ protocolData, setProtocolData }}>
-            <ThemeProvider attribute='class'>
-              <HelixContext.Provider value={{ client, setClient }}>
-                <UserDataContext.Provider value ={{ userVault, setUserVault }}>
-                  <LayoutContext.Provider value={{ layout, setLayout }}> 
-                    <Component {...pageProps} />
-                  </LayoutContext.Provider>
-                </UserDataContext.Provider>
-              </HelixContext.Provider>
-            </ThemeProvider>
-          </ProtocolContext.Provider>
+          <ThemeProvider attribute='class'>
+
+            <ProviderCtx.Provider value = {{connection, setConnection}}>
+              <ConnectionCtx.Provider value = {{provider, setProvider}}>
+
+                <BasicClientCtx.Provider value={{BasicClient, setBasicClient}}>
+                  <BondClientCtx.Provider value={{BondClient, setBondClient}}>
+                    <HelixClientCtx.Provider value={{HelixClient, setHelixClient}}>
+
+                      <LayoutContext.Provider value={{ layout, setLayout }}> 
+                        <Component {...pageProps} />
+                      </LayoutContext.Provider>
+
+                    </HelixClientCtx.Provider>
+                  </BondClientCtx.Provider>
+                </BasicClientCtx.Provider>
+
+              </ConnectionCtx.Provider>
+            </ProviderCtx.Provider>
+              
+          </ThemeProvider>
         </DetailDataContext.Provider>
       </WalletKitProvider>
     </NotificationsProvider>

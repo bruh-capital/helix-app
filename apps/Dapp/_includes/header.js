@@ -1,32 +1,51 @@
 import Image from "next/image";
 import { useTheme } from 'next-themes';
 import { Fragment, useContext, useEffect, useState } from "react";
-import { ConnectWalletButton } from "@gokiprotocol/walletkit";
+
 import { useConnectedWallet, useSolana, useWallet } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
-import { LightningBoltIcon, MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
+
+import { ChartBarIcon, CashIcon, LibraryIcon, LightningBoltIcon, MenuIcon, MoonIcon, SunIcon } from "@heroicons/react/outline"
 import { Popover, Transition } from "@headlessui/react";
-import SideMenu from "@includes/components/sideMenu";
-import { ChartBarIcon, CashIcon, LibraryIcon } from "@heroicons/react/outline";
 import { useNotifications } from "reapop";
+
+import SideMenu from "@includes/components/sideMenu";
+
+import * as anchor from "@project-serum/anchor";
+import { Connection } from "@solana/web3.js";
+
+// this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions());
 
 // Contexts
 import LayoutContext from "@context/layoutContext";
-import ProtocolContext from "@context/protocolDataContext";
 import DetailDataContext from "@context/detailDataContext";
-import HelixContext from "@context/helixContext";
 
-import helixClient from 'helix-client';
+import BasicClientCtx from "@context/clients/basicClientCtx";
+import BondClientCtx from "@context/clients/bondClientCtx";
+import HelixClientCtx from "@context/clients/twstClientCtx";
+
+import ConnectionCtx from "@context/solana/connectionContext";
+import ProviderCtx from "@context/solana/providerContext";
+
+import * as clients from 'bruh-clients';
 
 export default function Header(props) {
 	const { theme, setTheme } = useTheme();
+
 	const { layout, setLayout } = useContext(LayoutContext);
-	const { protocolData, setProtocolData } = useContext(ProtocolContext);
 	const { detailData, setDetailData } = useContext(DetailDataContext);
-	const {client, setClient} = useContext(HelixContext);
+
+	const { basicClient, setBasicClient } = useContext(BasicClientCtx);
+	const { bondClient, setBondClient } = useContext(BondClientCtx);
+	const { helixClient, setHelixClient } = useContext(HelixClientCtx);
+
+	const { connection, setConnection } = useContext(ConnectionCtx);
+	const { provider, setProvider } = useContext(ProviderCtx);
+
 	const wallet = useConnectedWallet();
 	const goki = useWalletKit();
-	const { walletProviderInfo, disconnect, providerMut, network, setNetwork } = useSolana();
+
+	const { disconnect } = useSolana();
 	const {notify} = useNotifications();
 
 	const [ menuOpen, setMenuOpen ] = useState(false);
@@ -41,8 +60,28 @@ export default function Header(props) {
 	}
 
 	useEffect(async ()=>{
-		await setClient(new helixClient(wallet, notify));
-		console.log(client);
+
+		if(wallet){
+			let conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
+
+			let provider = new anchor.Provider(
+                conn,
+				wallet,
+				anchor.Provider.defaultOptions()
+			);
+
+			setConnection(conn);
+			setProvider(provider);
+
+			setHelixClient(new clients.HelixClient(wallet, conn, provider));
+			setBondClient(new clients.BondClient(wallet, conn, provider));
+			setBasicClient(new clients.NetworkClient(wallet, conn, provider));
+		}else{
+			setHelixClient(new clients.HelixClient());
+			setBondClient(new clients.BondClient());
+			setBasicClient(new clients.NetworkClient());
+		}
+		
 	}, [wallet]);
 
 	return(
