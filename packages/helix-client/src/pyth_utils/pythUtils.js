@@ -1,7 +1,7 @@
 //https://github.com/pyth-network/pyth-client-js/blob/3de72323598131d6d14a9dc9f48f5f225b5fbfd2/src/index.ts#L161
 import {PublicKey} from "@solana/web3.js";
 import { readBigInt64LE, readBigUInt64LE } from './readBig';
-let pyth_mapping = require("./utils/pythMapping.json");
+let pyth_mapping = require("./pythMapping.json");
 
 export const parseProductData = (data) => {
     // pyth magic number

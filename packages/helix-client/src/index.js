@@ -1,8 +1,13 @@
-import * as HelixClient from "./clients/twst_client";
-import * as BondClient from "./clients/bond_client";
-import * as GovClient from "./clients/gov_client";
-import * as MultisigClient from "./clients/multisig_client";
-import * as IdoClient from "./clients/ido_client";
-import * as NetworkClient from "./clients/basic_client";
+const {HelixClient} = require("./clients/twst_client");
+const {BondClient} = require("./clients/bond_client");
+const {GovClient} = require("./clients/gov_client");
+const {MultisigClient} = require("./clients/multisig_client");
+const {IdoClient} = require("./clients/ido_client");
+const {NetworkClient} = require("./clients/basic_client");
 
-export { HelixClient, BondClient, GovClient, MultisigClient, IdoClient, NetworkClient};
+export { HelixClient,
+    BondClient,
+    GovClient,
+    MultisigClient,
+    IdoClient,
+    NetworkClient};

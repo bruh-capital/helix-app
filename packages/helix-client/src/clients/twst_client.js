@@ -4,7 +4,7 @@ import * as anchor from "@project-serum/anchor";
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 
 
-export class TwstClient{
+export class HelixClient{
     constructor(wallet, connection, provider){
         this.helix_programid = new PublicKey(helix_idl.metadata.address);
 		this.ido_programid = new PublicKey(ido_idl.metadata.address);

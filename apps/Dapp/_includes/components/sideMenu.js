@@ -14,11 +14,9 @@ import Image from 'next/image';
 
 import { useTheme } from 'next-themes';
 import LayoutContext from '@context/layoutContext';
-import ProtocolContext from '@context/protocolDataContext';
 import DetailDataContext from '@context/detailDataContext';
 
 export default function DappSideMenu(props) {
-	const { protocolData, setProtocolData } = useContext(ProtocolContext);
 	const { detailData, setDetailData } = useContext(DetailDataContext);
 	const { theme, setTheme } = useTheme();
 	const { layout, setLayout } = useContext(LayoutContext);

@@ -1,4 +1,4 @@
-let multisig_idl = require("./idl/serum_multisig.json");
+let multisig_idl = require("../idl/serum_multisig.json");
 let helix_idl = require('../idl/twst.json');
 let bond_idl = require('../idl/bond_market.json');
 let ido_idl = require('../idl/ido.json');

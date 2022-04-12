@@ -5,7 +5,7 @@ import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTS
-export class HelixNetwork {
+export class NetworkClient {
 	constructor(wallet, connection, provider){
 		this.pyth_map = pyth_utils.PythMap();
 

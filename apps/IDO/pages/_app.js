@@ -7,7 +7,7 @@ import helixClient from 'helix-client';
 
 // Contexts
 import { ThemeProvider } from "next-themes";
-import HelixContext from '@context/helixContext';
+
 
 
 function MyApp({ Component, pageProps }) {
