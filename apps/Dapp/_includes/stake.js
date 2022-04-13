@@ -21,12 +21,16 @@ export default function Stake(props) {
 
 	const [userVault, setUserVault] = useState();
 	useEffect(async ()=>{
-		setUserVault(await helixClient.FetchUserVault());
+		if(wallet?.connected && helixClient){
+			setUserVault(await helixClient.FetchUserVault());
+		}
 	},[wallet, helixClient]);
 
 	const [protocolData, setProtocolData] = useState();
 	useEffect(async ()=>{
-		setProtocolData(await helixClient.FetchProtocolData())
+		if(helixClient){
+			setProtocolData(await helixClient.FetchProtocolData())
+		}
 	},[helixClient])
 
 	return(

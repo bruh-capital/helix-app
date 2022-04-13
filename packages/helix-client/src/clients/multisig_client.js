@@ -3,6 +3,7 @@ let helix_idl = require('../idl/twst.json');
 let bond_idl = require('../idl/bond_market.json');
 let ido_idl = require('../idl/ido.json');
 let governance_idl = require('../idl/government_program.json');
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import * as anchor from "@project-serum/anchor";
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 

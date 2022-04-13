@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import helixClient from 'helix-client';
+import helixClient from "bruh-clients";
 
 const HelixContext = createContext({
 	client: new helixClient(),

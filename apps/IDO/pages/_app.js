@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import Image from 'next/image';
 
-import helixClient from 'helix-client';
+import helixClient from "bruh-clients";
 
 // Contexts
 import { ThemeProvider } from "next-themes";

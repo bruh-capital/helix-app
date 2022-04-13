@@ -56,7 +56,7 @@ export default function Graph(props) {
 									dataKey="timestamp"
 									axisLine={false}
 									tickLine={false}
-									tickFormatter={str => format(new Date(str * 1000), "MMM dd")}
+									tickFormatter={str => format(new Date(), "MMM dd")}
 									padding={{ left: 5 }}
 									reversed={true}
 								/>

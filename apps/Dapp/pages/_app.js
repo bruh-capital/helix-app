@@ -77,8 +77,8 @@ function MyApp({ Component, pageProps }) {
         <DetailDataContext.Provider value={{ detailData, setDetailData }}>
           <ThemeProvider attribute='class'>
 
-            <ProviderCtx.Provider value = {{connection, setConnection}}>
-              <ConnectionCtx.Provider value = {{provider, setProvider}}>
+            <ProviderCtx.Provider value = {{provider, setProvider}}>
+              <ConnectionCtx.Provider value = {{connection, setConnection}}>
 
                 <BasicClientCtx.Provider value={{BasicClient, setBasicClient}}>
                   <BondClientCtx.Provider value={{BondClient, setBondClient}}>

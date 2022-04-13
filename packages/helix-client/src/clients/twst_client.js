@@ -1,5 +1,6 @@
 let helix_idl = require('../idl/twst.json');
 let ido_idl = require('../idl/ido.json');
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import * as anchor from "@project-serum/anchor";
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 
@@ -9,18 +10,18 @@ export class HelixClient{
         this.helix_programid = new PublicKey(helix_idl.metadata.address);
 		this.ido_programid = new PublicKey(ido_idl.metadata.address);
         this.spl_program_id = new PublicKey(process.env.NEXT_PUBLIC_SPL_ATA_PROGRAM_ID);
-        this.InitConsts();
+        this.InitConsts().then(()=>{
+			if(!wallet){
+				return
+			}
+			this.wallet = wallet;
+			this.PostWalletConsts();
 
-        if(!wallet){
-            return
-        };
-        this.wallet = wallet;
-        this.PostWalletConsts();
+			this.connection = connection;
+			this.provider = provider;
 
-        this.connection = connection;
-        this.provider = provider;
-
-        this.helix_program = new anchor.Program(helix_idl, helix_idl.metadata.address, this.provider);       
+			this.helix_program = new anchor.Program(helix_idl, helix_idl.metadata.address, this.provider);       
+		});
     }
 
     InitConsts = async () => {
@@ -69,8 +70,6 @@ export class HelixClient{
 		this.protocolHelixAta = protocolHelixAta;
 		this.protocolHelixAtaBump = protocolHelixAtaBump;
 
-        this.protocolHelixAta = protocolHelixAta;
-		this.protocolHelixAtaBump = protocolHelixAtaBump;
     }
 
     PostWalletConsts = async()=>{
@@ -227,7 +226,7 @@ export class HelixClient{
 	}
 
 	FetchProtocolData = async() => {
-        return await (new anchor.Program(
+		let tp = new anchor.Program(
             helix_idl,
             this.helix_programid,
             new anchor.Provider(
@@ -237,6 +236,20 @@ export class HelixClient{
                 )
             ),
             anchor.Provider.defaultOptions()
-        )).account.protocolDataAccount.fetch(this.protocolDataAccount)
+        );
+        let protocdata = await new anchor.Program(
+            helix_idl,
+            this.helix_programid,
+            new anchor.Provider(
+                this.connection,
+                new anchor.Wallet(
+                    new anchor.web3.Keypair()
+                )
+            ),
+            anchor.Provider.defaultOptions()
+        ).account.protocolDataAccount.fetch(this.protocolDataAccount);
+
+		console.log(protocdata);
+		return protocdata;
 	}
 }

@@ -1,4 +1,5 @@
 let ido_idl = require('../idl/ido.json');
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { SystemProgram, PublicKey} from "@solana/web3.js";
 
 export class IdoClient{
@@ -6,17 +7,18 @@ export class IdoClient{
         this.ido_programid = new PublicKey(ido_idl.metadata.address);
         this.spl_program_id = new PublicKey(process.env.NEXT_PUBLIC_SPL_ATA_PROGRAM_ID);
 
-        this.InitConsts();
-        if(!wallet){
-            return
-        }
-        this.wallet = wallet;
-        this.PostWalletConsts();
-
-        this.connection = connection;
-        this.provider = provider;
-
-        this.ido_program = new anchor.Program(ido_idl, ido_idl.metadata.address, this.provider);
+        this.InitConsts().then(()=>{
+			if(!wallet){
+				return
+			}
+			this.wallet = wallet;
+			this.PostWalletConsts();
+	
+			this.connection = connection;
+			this.provider = provider;
+	
+			this.ido_program = new anchor.Program(ido_idl, ido_idl.metadata.address, this.provider);
+		});        
         
     }
 

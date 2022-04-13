@@ -6,6 +6,7 @@
 **/.pnp
 **/.pnp.js
 **/yarn.lock
+**/legacy
 
 # testing
 **/coverage

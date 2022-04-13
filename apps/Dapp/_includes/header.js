@@ -71,7 +71,10 @@ export default function Header(props) {
 			);
 
 			setConnection(conn);
+
 			setProvider(provider);
+
+
 
 			setHelixClient(new clients.HelixClient(wallet, conn, provider));
 			setBondClient(new clients.BondClient(wallet, conn, provider));

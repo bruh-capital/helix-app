@@ -6,7 +6,7 @@ import { useWalletKit } from "@gokiprotocol/walletkit";
 
 import { LightningBoltIcon} from "@heroicons/react/outline"
 import HelixContext from "@context/helixContext";
-import helixClient from 'helix-client';
+import helixClient from "bruh-clients";
 
 export default function Dash(props) {
 	const [days, setDays] = useState(0);

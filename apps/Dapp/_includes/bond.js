@@ -33,7 +33,7 @@ export default function Bond(props) {
 	const [actionButton, setActionButton] = useState();
 
 	async function checkBondAccount(){
-		if(wallet){
+		if(wallet?.connected && bondClient){
 			let bondAcc = await bondClient.FetchBondAccount();
 			if(bondAcc){
 				setBondAccount(bondAcc);

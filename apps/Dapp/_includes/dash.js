@@ -14,7 +14,9 @@ export default function Dash(props) {
 
 	const[protocolData, setProtocolData] = useState();
 	useEffect(async ()=>{
-		setProtocolData(await helixClient.FetchProtocolData())
+		if(helixClient){
+			setProtocolData(await helixClient.FetchProtocolData());
+		}
 	},[helixClient])
 
 	return(

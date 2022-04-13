@@ -1,4 +1,6 @@
 let bond_idl = require('../idl/bond_market.json');
+let helix_idl = require("../idl/twst.json");
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
 import * as pyth_utils from  "../pyth_utils/pythUtils";
@@ -10,18 +12,17 @@ export class BondClient{
         this.spl_program_id = new PublicKey(process.env.NEXT_PUBLIC_SPL_ATA_PROGRAM_ID);
         
         this.pyth_map = pyth_utils.PythMap();
-        this.InitConsts();
-        
-        if(!wallet){
-            return
-        }
-        this.wallet = wallet;
-        this.PostWalletConsts();
-        this.connection = connection;
-        this.provider = provider;
-
-        this.bond_program = new anchor.Program(bond_idl, bond_idl.metadata.address, this.provider);
-        
+        this.InitConsts().then(()=>{
+			if(!wallet){
+				return
+			}
+			this.wallet = wallet;
+			this.PostWalletConsts();
+			this.connection = connection;
+			this.provider = provider;
+	
+			this.bond_program = new anchor.Program(bond_idl, bond_idl.metadata.address, this.provider);
+		});
     }
 
     InitConsts = async () =>{
@@ -89,7 +90,7 @@ export class BondClient{
 			  Buffer.from("bondaccount"),
 			  this.wallet.publicKey.toBuffer()
 			],
-			this.this.bond_programid
+			this.bond_programid
 		);
         this.bondAccount = bondAccount;
         this.bondAccountBump = bondAccountBump;
@@ -238,7 +239,7 @@ export class BondClient{
 			this.bond_programid
 		);
 
-        return await (new anchor.Program(
+        return await new anchor.Program(
             bond_idl,
             this.bond_programid,
             new anchor.Provider(
@@ -248,6 +249,6 @@ export class BondClient{
                 )
             ),
             anchor.Provider.defaultOptions()
-        )).account.bondMarket.fetch(bond_market_address)
+        ).account.bondMarket.fetch(bond_market_address)
 	}
 }

@@ -5,7 +5,7 @@ import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 export class GovClient{
     constructor(wallet, connection, provider){
         this.governance_programid = new PublicKey(governance_idl.metadata.address);
-        this.connection = connection;
+        
         if(!wallet){
             return
         };
@@ -87,7 +87,7 @@ export class GovClient{
 			this.governance_programid,
 		);
 
-        return await (new anchor.Program(
+        return await new anchor.Program(
             governance_idl,
             this.governance_programid,
             new anchor.Provider(
@@ -97,7 +97,7 @@ export class GovClient{
                 )
             ),
             anchor.Provider.defaultOptions()
-        )).account.government.fetch(new PublicKey(govId))
+        ).account.government.fetch(new PublicKey(govId))
 		
 	}
 }
