@@ -28,7 +28,7 @@ export default function Stake(props) {
 
 	const [protocolData, setProtocolData] = useState();
 	useEffect(async ()=>{
-		if(helixClient){
+		if(helixClient && helixClient.protocolDataAccount){
 			setProtocolData(await helixClient.FetchProtocolData())
 		}
 	},[helixClient])

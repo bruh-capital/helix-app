@@ -45,9 +45,9 @@ function MyApp({ Component, pageProps }) {
   }); 
 
 
-  const [ BasicClient, setBasicClient ] = useState();
-  const [ BondClient, setBondClient ] = useState();
-  const [ HelixClient, setHelixClient ] = useState();
+  const [ basicClient, setBasicClient ] = useState();
+  const [ bondClient, setBondClient ] = useState();
+  const [ helixClient, setHelixClient ] = useState();
 
   const [ connection, setConnection ] = useState();
   const [ provider, setProvider ] = useState();
@@ -80,9 +80,9 @@ function MyApp({ Component, pageProps }) {
             <ProviderCtx.Provider value = {{provider, setProvider}}>
               <ConnectionCtx.Provider value = {{connection, setConnection}}>
 
-                <BasicClientCtx.Provider value={{BasicClient, setBasicClient}}>
-                  <BondClientCtx.Provider value={{BondClient, setBondClient}}>
-                    <HelixClientCtx.Provider value={{HelixClient, setHelixClient}}>
+                <BasicClientCtx.Provider value={{basicClient, setBasicClient}}>
+                  <BondClientCtx.Provider value={{bondClient, setBondClient}}>
+                    <HelixClientCtx.Provider value={{helixClient, setHelixClient}}>
 
                       <LayoutContext.Provider value={{ layout, setLayout }}> 
                         <Component {...pageProps} />

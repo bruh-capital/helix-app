@@ -59,7 +59,7 @@ export default function Bond(props) {
 
 		if (bondClient) {
 			for(let bond of props.bondItems){
-				markets[bond.asset] = props.network == "mainnet" ? bondClient.FetchBondMarket(bond.mainnetTokenAddress): bondClient.FetchBondMarket(bond.devnetTokenAddress);
+				markets[bond.asset] = props.network == "mainnet" ? await bondClient.FetchBondMarket(bond.mainnetTokenAddress): await bondClient.FetchBondMarket(bond.devnetTokenAddress);
 				pricemap[bond.asset] = await basicClient.GetTokenPrice(bond.asset, props.network);
 			}
 		}
@@ -131,7 +131,7 @@ export default function Bond(props) {
 				{wallet?.connected && bondClient ? (bondAccount ? "Close Account" : "Open Account") : "Connect Wallet"}
 			</button>
 		)
-	}, [wallet && wallet.connected, bondAccount, bondClient])
+	}, [wallet, bondAccount, bondClient])
 
 	return(
 		<div className="-mt-24 content-center items-center pt-32 md:pt-36 pb-24">

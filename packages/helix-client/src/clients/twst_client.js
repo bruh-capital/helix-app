@@ -2,6 +2,7 @@ let helix_idl = require('../idl/twst.json');
 let ido_idl = require('../idl/ido.json');
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import * as anchor from "@project-serum/anchor";
+const {NodeWallet} = require("@project-serum/anchor");
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 
 
@@ -226,30 +227,15 @@ export class HelixClient{
 	}
 
 	FetchProtocolData = async() => {
-		let tp = new anchor.Program(
+		let prog = new anchor.Program(
             helix_idl,
             this.helix_programid,
             new anchor.Provider(
                 this.connection,
-                new anchor.Wallet(
-                    new anchor.web3.Keypair()
-                )
-            ),
-            anchor.Provider.defaultOptions()
+                {}
+            )
         );
-        let protocdata = await new anchor.Program(
-            helix_idl,
-            this.helix_programid,
-            new anchor.Provider(
-                this.connection,
-                new anchor.Wallet(
-                    new anchor.web3.Keypair()
-                )
-            ),
-            anchor.Provider.defaultOptions()
-        ).account.protocolDataAccount.fetch(this.protocolDataAccount);
-
-		console.log(protocdata);
-		return protocdata;
+		
+        return await prog.account.protocolDataAccount.fetch(this.protocolDataAccount);
 	}
 }

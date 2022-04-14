@@ -5,6 +5,8 @@ import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
 import * as pyth_utils from  "../pyth_utils/pythUtils";
 
+const {FooWallet} = require("../utils/wallet");
+
 export class BondClient{
     constructor(wallet, connection, provider){
         this.bond_programid = new PublicKey(bond_idl.metadata.address);
@@ -243,12 +245,9 @@ export class BondClient{
             bond_idl,
             this.bond_programid,
             new anchor.Provider(
-                this.connection,
-                new anchor.Wallet(
-                    new anchor.web3.Keypair()
-                )
-            ),
-            anchor.Provider.defaultOptions()
+				this.connection,
+				{}
+			)
         ).account.bondMarket.fetch(bond_market_address)
 	}
 }

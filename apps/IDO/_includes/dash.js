@@ -36,12 +36,8 @@ export default function Dash(props) {
 
 	async function setAccounts(){
 		if(client && client.fetchIdoAccount && client.fetchIdoAta){
-			const idoacc = await client.fetchIdoAccount();
-			const idoata = await client.fetchIdoAta();
-			console.log("ido account", idoacc);
-			console.log("ido ata", idoata);
-			setIdoAccount(idoacc);
-			setIdoAta(idoata);
+			setIdoAccount(await client.fetchIdoAccount());
+			setIdoAta(await client.fetchIdoAta());
 		}
 	};
 

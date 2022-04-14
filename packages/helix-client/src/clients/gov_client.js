@@ -1,5 +1,6 @@
 let governance_idl = require('../idl/government_program.json');
 import * as anchor from "@project-serum/anchor";
+const {NodeWallet} = require("@project-serum/anchor");
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 
 export class GovClient{
@@ -92,11 +93,8 @@ export class GovClient{
             this.governance_programid,
             new anchor.Provider(
                 this.connection,
-                new anchor.Wallet(
-                    new anchor.web3.Keypair()
-                )
-            ),
-            anchor.Provider.defaultOptions()
+                {}
+            )
         ).account.government.fetch(new PublicKey(govId))
 		
 	}
