@@ -1,0 +1,12 @@
+{
+	"name": "helix-chat-client",
+	"private": true,
+	"version": "1.0.0",
+	"description": "Client to interact with the private chat service",
+	"main": "src/index.js",
+	"types": "src/index.js",
+	"author": "bruh capital",
+	"dependencies": {
+		"kafkajs": "^1.16.0"
+	}
+}
