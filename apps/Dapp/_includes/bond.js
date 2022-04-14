@@ -116,10 +116,10 @@ export default function Bond(props) {
 					if(wallet?.connected && helixClient) {
 						await checkBondAccount();
 						if(bondAccount) {
-							helixClient.CloseBondAccount();
+							bondClient.CloseBondAccount();
 							setBondAccount();
 						} else {
-							helixClient.InitBondAccount();
+							bondClient.InitBondAccount();
 							setBondAccount("created");
 						}
 					} else {
