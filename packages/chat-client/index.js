@@ -13,7 +13,7 @@ const { Kafka } = require('kafkajs');
 //
 // All messages are exchanged through the kafka service...
 
-export class ChatClient {
+export default class ChatClient {
 
 	constructor(wallet) {
 		this.wallet = wallet;
@@ -34,13 +34,13 @@ export class ChatClient {
 	}
 	
 	// send a message to a counterparty (a solana wallet)
-	sendMessage = async (counterpartyPk, isSeller) => {
+	sendMessage = async (message, counterpartyPk, isSeller) => {
 		let topicName = isSeller 
 			? `${wallet.publicKey}:${counterpartyPk}`
 			: `${counterpartyPk}:${wallet.publicKey}`;
 
 		// here we sign the message
-		let signedMessage = await wallet.signMessage(message);
+		//let signedMessage = await wallet.signMessage(message);
 
 		// encrypt message
 		// something something here
@@ -49,7 +49,7 @@ export class ChatClient {
 			topic: topicName,
 			messages: [
 				{ 
-					value: signedMessage
+					value: message
 				},
 			]
 		})
