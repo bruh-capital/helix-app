@@ -1,3 +1,4 @@
+const { Provider } = require('@project-serum/anchor');
 const { WalletAccountError } = require('@solana/wallet-adapter-base');
 const { Kafka } = require('kafkajs');
 
@@ -12,23 +13,63 @@ const { Kafka } = require('kafkajs');
 //
 // All messages are exchanged through the kafka service...
 
-const startclient = (wallet) => {
-	const kafkaDriver = new Kafka({
-		clientId: 'chat-client',
-		brokers: ['localhost:9092'],
-	});
+export class ChatClient {
+
+	constructor(wallet) {
+		this.wallet = wallet;
+
+		// can this client id overlap?
+		this.kafkaDriver = new Kafka({
+			clientId: 'chat-client',
+			brokers: ['localhost:9092'],
+		});
+
+		this.kafkaProducer = this.kafkaDriver.producer();
+		this.kafkaConsumer = this.kafkaDriver.consumer({ groupId: 'chat-client' });
+
+		await this.kafkaProducer.connect();
+		await this.kafkaConsumer.connect();
+
+		// set up encryption consts, load from browser if possible
+	}
 	
-	const kafkaProducer = kafkaDriver.producer();
-	const kafkaConsumer = kafkaDriver.consumer({ groupId: wallet.publicKey }); 
+	// send a message to a counterparty (a solana wallet)
+	sendMessage = async (counterpartyPk, isSeller) => {
+		let topicName = isSeller 
+			? `${wallet.publicKey}:${counterpartyPk}`
+			: `${counterpartyPk}:${wallet.publicKey}`;
 
-	// return our producer and consumer
-	return{ kafkaConsumer, kafkaProducer };
-}
+		// here we sign the message
+		let signedMessage = await wallet.signMessage(message);
 
-// Send a message
-const txMessage = async (producer, message, wallet, counterpartyPk) => {
-}
+		// encrypt message
+		// something something here
 
-// Receive a message 
-const rxMessage = async (consumer, wallet, counterpartyPk) => {
+		await this.kafkaProducer.send({
+			topic: topicName,
+			messages: [
+				{ 
+					value: signedMessage
+				},
+			]
+		})
+	}
+
+	// Receive a message 
+	channelSubscribe = async (counterpartyPk, isSeller) => {
+		let topicName = isSeller 
+			? `${wallet.publicKey}:${counterpartyPk}` 
+			: `${counterpartyPk}:${wallet.publicKey}`;
+
+		await this.kafkaConsumer.subscribe({
+			topic: topicName,
+			fromBeginning: true,
+		});
+
+		await consumer.run({
+			eachMessage: async ({ topic, partition, message }) => {
+				console.log(`${topic} <- ${message.value.toString()}`);
+			}
+		});
+	}
 }
