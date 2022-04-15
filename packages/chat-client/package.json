@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"description": "Client to interact with the private chat service",
 	"main": "src/index.js",
-	"types": "src/index.js",
+	"type": "module",
 	"author": "bruh capital",
 	"scripts": {
 		"test": "mocha"

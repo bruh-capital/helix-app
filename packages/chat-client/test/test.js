@@ -1,15 +1,17 @@
-const ChatClient = require('../index.js');
+import ChatClient from "../index.js";
 
 // make fake wallet lol
 let wallet = { publicKey: "fakepubkey1" };
 
-it('testing', function() {
+it('sender', async () => {
+	let wallet = { publicKey: "fakepubkey1" };
 	const testClient = new ChatClient(wallet);
 
-	try{
-		testClient.sendMessage("hello world" ,"fakepubkey2", true);
+	try {
+		await testClient.sendMessage("hello world" ,"fakepubkey2", true);
+		await testClient.channelSubscribe("fakepubkey2", true);
 	} finally {
-		testClient.kafkaProducer.disconnect();
-		testClient.kafkaConsumer.disconnect();
+		await testClient.kafkaProducer.disconnect();
+		await testClient.kafkaConsumer.disconnect();
 	}
 })

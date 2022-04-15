@@ -1,6 +1,4 @@
-const { Provider } = require('@project-serum/anchor');
-const { WalletAccountError } = require('@solana/wallet-adapter-base');
-const { Kafka } = require('kafkajs');
+import { Kafka } from 'kafkajs';
 
 // just some general knowledge:
 // this reads from a kafka service we plan to decentralize and offer rewards for running
@@ -23,21 +21,20 @@ export default class ChatClient {
 			clientId: 'chat-client',
 			brokers: ['localhost:9092'],
 		});
+		
 
+		this.admin = this.kafkaDriver.admin();
 		this.kafkaProducer = this.kafkaDriver.producer();
 		this.kafkaConsumer = this.kafkaDriver.consumer({ groupId: 'chat-client' });
-
-		await this.kafkaProducer.connect();
-		await this.kafkaConsumer.connect();
-
-		// set up encryption consts, load from browser if possible
 	}
-	
+
 	// send a message to a counterparty (a solana wallet)
 	sendMessage = async (message, counterpartyPk, isSeller) => {
+		await this.kafkaProducer.connect();
+
 		let topicName = isSeller 
-			? `${wallet.publicKey}:${counterpartyPk}`
-			: `${counterpartyPk}:${wallet.publicKey}`;
+			? `${this.wallet.publicKey}${counterpartyPk}`
+			: `${counterpartyPk}${this.wallet.publicKey}`;
 
 		// here we sign the message
 		//let signedMessage = await wallet.signMessage(message);
@@ -57,16 +54,17 @@ export default class ChatClient {
 
 	// Receive a message 
 	channelSubscribe = async (counterpartyPk, isSeller) => {
+		await this.kafkaConsumer.connect();
 		let topicName = isSeller 
-			? `${wallet.publicKey}:${counterpartyPk}` 
-			: `${counterpartyPk}:${wallet.publicKey}`;
+			? `${this.wallet.publicKey}${counterpartyPk}` 
+			: `${counterpartyPk}${this.wallet.publicKey}`;
 
 		await this.kafkaConsumer.subscribe({
 			topic: topicName,
 			fromBeginning: true,
 		});
 
-		await consumer.run({
+		await this.kafkaConsumer.run({
 			eachMessage: async ({ topic, partition, message }) => {
 				console.log(`${topic} <- ${message.value.toString()}`);
 			}
