@@ -447,14 +447,26 @@
       }
     }
   ],
-  "errors": [
+  "types": [
     {
-      "code": 6000,
-      "name": "IncorrectInitAccount",
-      "msg": "failed to create account due to permissions error"
+      "name": "TwstErrors",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "IncorrectInitAccount"
+          },
+          {
+            "name": "LockedFunds"
+          },
+          {
+            "name": "InsufficientAmount"
+          }
+        ]
+      }
     }
   ],
-  "metadata":{
-    "address":"AuUJuBCgjeQJM9h864Bf5aNGkVLu8pYH5gYyKgMWwaGv"
+  "metadata": {
+    "address": "8HW9ab62SmcsVHkHiZYKFtoTXu4T95RdmALML3Fqm3pR"
   }
 }

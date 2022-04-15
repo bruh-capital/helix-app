@@ -109,15 +109,14 @@ export class HelixClient{
     }
 
     InitializeUserVault = async () => {
+		console.log(this.userVault, this.wallet.publicKey, SystemProgram.programId);
 		return await this.helix_program.rpc.initUserVault(
 			{
 				accounts:{
 					userAccount: this.userVault,
 					payer: this.wallet.publicKey,
-					user: this.wallet.publicKey,
 					systemProgram: SystemProgram.programId,
-				},
-			// signers:[this.wallet.Keypair],
+				}
 		});
 	}
 
@@ -222,20 +221,27 @@ export class HelixClient{
 	}
 
 	FetchUserVault = async() => {
-        
-		return await this.helix_program.account.userVault.fetch(this.userVault);
+        try{
+			return await this.helix_program.account.userVault.fetch(this.userVault);
+		}catch(e){
+			return undefined;
+		}
+		
 	}
 
 	FetchProtocolData = async() => {
-		let prog = new anchor.Program(
-            helix_idl,
-            this.helix_programid,
-            new anchor.Provider(
-                this.connection,
-                {}
-            )
-        );
-		
-        return await prog.account.protocolDataAccount.fetch(this.protocolDataAccount);
+		try{
+			return await new anchor.Program(
+				helix_idl,
+				this.helix_programid,
+				new anchor.AnchorProvider(
+					this.connection,
+					{}
+				)
+			).account.protocolDataAccount.fetch(this.protocolDataAccount);
+		}catch(e){
+			return undefined
+		}
+        
 	}
 }
