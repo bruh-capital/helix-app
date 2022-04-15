@@ -91,7 +91,7 @@ export class GovClient{
         return await new anchor.Program(
             governance_idl,
             this.governance_programid,
-            new anchor.Provider(
+            new anchor.AnchorProvider(
                 this.connection,
                 {}
             )

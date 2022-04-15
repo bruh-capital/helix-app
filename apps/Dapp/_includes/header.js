@@ -14,7 +14,7 @@ import SideMenu from "@includes/components/sideMenu";
 import * as anchor from "@project-serum/anchor";
 import { Connection } from "@solana/web3.js";
 
-// this.provider = new anchor.Provider(this.connection, wallet, anchor.Provider.defaultOptions());
+// this.provider = new anchor.AnchorProvider(this.connection, wallet, anchor.AnchorProvider.defaultOptions());
 
 // Contexts
 import LayoutContext from "@context/layoutContext";
@@ -64,10 +64,10 @@ export default function Header(props) {
 		if(wallet){
 			let conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
 
-			let provider = new anchor.Provider(
+			let provider = new anchor.AnchorProvider(
                 conn,
 				wallet,
-				anchor.Provider.defaultOptions()
+				anchor.AnchorProvider.defaultOptions()
 			);
 
 			setConnection(conn);

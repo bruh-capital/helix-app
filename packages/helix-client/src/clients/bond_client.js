@@ -244,7 +244,7 @@ export class BondClient{
         return await new anchor.Program(
             bond_idl,
             this.bond_programid,
-            new anchor.Provider(
+            new anchor.AnchorProvider(
 				this.connection,
 				{}
 			)
