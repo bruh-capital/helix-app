@@ -7,7 +7,7 @@
 	"type": "module",
 	"author": "bruh capital",
 	"scripts": {
-		"test": "mocha"
+		"test": "mocha --timeout 10000"
 	},
 	"dependencies": {
 		"kafkajs": "^1.16.0",
