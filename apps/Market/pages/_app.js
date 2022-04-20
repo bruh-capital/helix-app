@@ -1,5 +1,4 @@
 import 'styles/globals.css';
-import React, { useEffect, useState } from "react";
 import { WalletKitProvider } from '@gokiprotocol/walletkit';
 import Image from 'next/image';
 

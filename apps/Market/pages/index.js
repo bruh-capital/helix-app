@@ -1,11 +1,7 @@
-import { useContext, useEffect } from "react";
+import HomeLayout from "@layouts/homeLayout";
 
 export default function IndexPage() {
-	const { layout, setLayout } = useContext(LayoutContext);
-
 	return(
-    <div>
-      fuck
-    </div>
+    <HomeLayout />
 	);
 }
