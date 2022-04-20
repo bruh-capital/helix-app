@@ -1,6 +1,5 @@
 const withTM = require('next-transpile-modules')([
   '@gokiprotocol/walletkit',
-  '@solana/wallet-adapter-react',
   '@solana/wallet-adapter-base',
   'helix-clients',
 ]);

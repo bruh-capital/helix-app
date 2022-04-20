@@ -1,4 +1,5 @@
 import HomeLayout from "@layouts/homeLayout";
+import {atom} from "recoil"
 
 export default function IndexPage({ recentlyListedItems, topSellers, topBuyers }) {
   const recentlyListedAtom = atom({
