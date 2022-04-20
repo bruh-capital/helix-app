@@ -76,25 +76,19 @@ function MyApp({ Component, pageProps }) {
       >
         <DetailDataContext.Provider value={{ detailData, setDetailData }}>
           <ThemeProvider attribute='class'>
-
             <ProviderCtx.Provider value = {{provider, setProvider}}>
               <ConnectionCtx.Provider value = {{connection, setConnection}}>
-
                 <BasicClientCtx.Provider value={{basicClient, setBasicClient}}>
                   <BondClientCtx.Provider value={{bondClient, setBondClient}}>
                     <HelixClientCtx.Provider value={{helixClient, setHelixClient}}>
-
                       <LayoutContext.Provider value={{ layout, setLayout }}> 
                         <Component {...pageProps} />
                       </LayoutContext.Provider>
-
                     </HelixClientCtx.Provider>
                   </BondClientCtx.Provider>
                 </BasicClientCtx.Provider>
-
               </ConnectionCtx.Provider>
             </ProviderCtx.Provider>
-              
           </ThemeProvider>
         </DetailDataContext.Provider>
       </WalletKitProvider>
