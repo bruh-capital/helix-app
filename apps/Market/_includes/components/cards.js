@@ -6,7 +6,7 @@ import Image from 'next/image';
 // I'm going to try to come back to this once general layout is done
 export function WavesCard(props) {
 	return(
-		<div ref={props.passedRef} className="flex w-full h-full rounded-xl bg-mesh-1-bg bg-cover justify-around content-center items-center">
+		<div ref={props.passedRef} className="flex w-full h-full rounded-xl bg-some-card-image-bg bg-cover justify-around content-center items-center">
 			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto lg:my-auto justify-around">
 				<div className="flex flex-col basis-3/4 h-full items-start align-middle my-auto text-left">
 					<span className="basis-full leading-none md:basis-3/4 text-xl md:text-3xl lg:text-6xl xl:text-6xl max-w-3xl md:my-auto py-2 font-bold text-white">
