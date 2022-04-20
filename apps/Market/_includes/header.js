@@ -1,4 +1,4 @@
-
+import Logo from "@includes/components/logo";
 
 export default function Header(props) {
 	return(
@@ -6,8 +6,8 @@ export default function Header(props) {
 			<div className="flex mx-auto py-1 w-full bg-[#101317] text-white">
 				Upper Header
 			</div>
-			<div className="flex mx-auto py-6 w-full bg-[#262626] text-white">
-				Lower Header
+			<div className="flex mx-auto w-full bg-[#262626] text-white">
+				<Logo/>
 			</div>
 		</header>
 	);

@@ -19,3 +19,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@layer base {
+	@font-face {
+		font-family: 'Junegull';
+		src: url('https://helixdao.org/fonts/junegull/junegull.ttf') format('truetype');
+	}
+}
