@@ -1,8 +1,8 @@
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 
 export default function Logo(props) {
-	// for now we're just going to use dark theme
-	let theme = "dark";
+	let theme = useTheme();
 
 	return(
 		<div className="flex items-center flex-auto">

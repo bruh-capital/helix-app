@@ -43,7 +43,7 @@ function MarketApp({ Component, pageProps }) {
           icon:  icon,
         }}
       >
-        <ThemeProvider attribute='class'>
+        <ThemeProvider attribute='class' defaultTheme='dark'>
           <Component {...pageProps} />
         </ThemeProvider>
       </WalletKitProvider>
