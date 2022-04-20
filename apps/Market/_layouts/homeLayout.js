@@ -1,3 +1,16 @@
-export default function HomeLayout() {
-	return(<body>fuck</body>);
+import Metatags from "@includes/metatags";
+import Header from "@includes/header";
+
+import Head from "next/head";
+
+export default function HomeLayout(props) {
+	return(
+		<main>
+			<Head>
+				<Metatags/>
+			</Head>
+			<Header/>
+			{props.children}
+		</main>
+	);
 }
