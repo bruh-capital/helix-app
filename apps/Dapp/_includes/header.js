@@ -27,7 +27,7 @@ import HelixClientCtx from "@context/clients/twstClientCtx";
 import ConnectionCtx from "@context/solana/connectionContext";
 import ProviderCtx from "@context/solana/providerContext";
 
-import * as clients from 'bruh-clients';
+import * as clients from 'helix-clients';
 
 export default function Header(props) {
 	const { theme, setTheme } = useTheme();
