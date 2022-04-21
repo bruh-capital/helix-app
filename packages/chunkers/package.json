@@ -1,0 +1,12 @@
+{
+    "name": "chunkers",
+    "private": true,
+    "version": "1.0.0",
+    "description": "chunking for files",
+    "main": "src/index.js",
+    "types": "src/index.js",
+    "author": "bruh capital",
+    "dependencies": {
+        "lamejs": "^1.2.1"
+    }
+}
