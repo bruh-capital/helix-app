@@ -1,6 +1,8 @@
-import {atom} from "recoil";
+import HomeCards from "@includes/components/homeCards";
+import {atom, useRecoilValue} from "recoil";
 
 export default function MarketDashBody({ recentlyListedItems, topSellers, topBuyers }) {
+  console.log(recentlyListedItems);
   const recentlyListedAtom = atom({
     key: "recentlyListedItems",
     default: recentlyListedItems,
@@ -16,8 +18,24 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
     default: topBuyers,
   });
 
+  const recentListingsVal = useRecoilValue(recentlyListedAtom);
+  const topSellerVal = useRecoilValue(topSellersAtom);
+  const topBuyersVal = useRecoilValue(topBuyersAtom);
+
 	return(
     <div>
+      <div>
+        <div>
+          Recently Added
+        </div>
+        {/* make this carousel. onhover, stop scrolling */}
+        < HomeCards
+          products = {recentListingsVal}
+        />
+      </div>
+      <div className="grid-cols-2">
+
+      </div>
       {/* {recentlyListedAtom}
       {topSellersAtom}
       {topBuyersAtom} */}

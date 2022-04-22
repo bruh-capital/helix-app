@@ -1,5 +1,5 @@
 {
-  "name": "helix-clients",
+  "name": "marketplace-clients",
   "private": true,
   "version": "1.0.0",
   "description": "bruh client for interacting with helix programs",

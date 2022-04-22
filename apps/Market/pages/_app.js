@@ -52,7 +52,9 @@ function MarketApp({ Component, pageProps }) {
         }}
       >
         <ThemeProvider attribute='class' defaultTheme='dark'>
-          <Component {...pageProps} />
+          <RecoilRoot>
+            <Component {...pageProps} />
+          </RecoilRoot>
         </ThemeProvider>
       </WalletKitProvider>
     </NotificationsProvider>

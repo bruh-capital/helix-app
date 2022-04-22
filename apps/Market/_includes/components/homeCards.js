@@ -2,9 +2,9 @@ import CardCarousel from "@includes/components/cardCarousel";
 
 export default function HomeCards() {
 	return(
-		<div clasName="flex flex-row justify-around mt-12">
+		<div className="flex flex-row justify-around mt-12">
 			<div className="flex basis-3/4 justify-center">
-				<CardCarousel/>
+				{/* <CardCarousel/> */}
 			</div>
 		</div>
 	);

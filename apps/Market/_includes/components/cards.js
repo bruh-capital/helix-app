@@ -4,6 +4,9 @@ import Image from 'next/image';
 // this is something similar to the card elements on the div...
 // you have been warned the asset URLs in here are just temps
 // I'm going to try to come back to this once general layout is done
+
+// todo (addendum from indy :P)
+// 	on hover, make it pop up (increase width. add 1 to z index. add drop shadow + opacity)
 export function WavesCard(props) {
 	return(
 		<div ref={props.passedRef} className="flex w-full h-full rounded-xl bg-some-card-image-bg bg-cover justify-around content-center items-center">
