@@ -2,7 +2,7 @@ import ProductCard from './profileCard';
 import { useRef } from 'react';
 import { Rerousel } from 'rerousel';
 
-export default function ProductCarousel() {
+export default function ProductCarousel(props) {
 	const ref = useRef(null);
 	return(
 		<Rerousel itemRef={ref} interval={7000}>

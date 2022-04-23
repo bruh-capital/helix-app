@@ -1,4 +1,4 @@
-export default function ProfileCard(){
+export default function ProfileCard(props){
     return (
         <div className="flex flex-row">
             <div>
