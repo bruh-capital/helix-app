@@ -1,4 +1,5 @@
 import CardCarousel from "@includes/components/cardCarousel";
+import { WavesCard } from "./cards";
 
 export default function HomeCards() {
 	return(

@@ -24,6 +24,11 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
 
 	return(
     <div>
+      {/* banner */}
+      <div>
+
+      </div>
+
       <div>
         <div>
           Recently Added
@@ -32,13 +37,37 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
         < HomeCards
           products = {recentListingsVal}
         />
+        <div className="w-full opacity-50 place-items-center">
+          Load More
+        </div>
       </div>
-      <div className="grid-cols-2">
+
+
+      <div className="grid grid-cols-2">
+
+        <div>
+          {/* title div */}
+          <div>
+            Top Sellers
+          </div>
+          {/* content */}
+          <div className="grid grid-cols-2 grid-rows-3">
+
+          </div>
+        </div>
+
+        <div>
+          {/* title div */}
+          <div>
+            Top Buyers
+          </div>
+          {/* content */}
+          <div className="grid grid-cols-2 grid-rows-3">
+
+          </div>
+        </div>
 
       </div>
-      {/* {recentlyListedAtom}
-      {topSellersAtom}
-      {topBuyersAtom} */}
     </div>
 	);
 }
