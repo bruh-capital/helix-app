@@ -9,7 +9,7 @@ export default function ProfileCard(){
             </div>
             <div className="grid grid-rows-2">
                 <div>
-                    {props.sellerName}
+                    {props.username}
                 </div>
                 <div>
                     {props.moneyAmount}

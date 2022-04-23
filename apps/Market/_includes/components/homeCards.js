@@ -1,5 +1,5 @@
-import CardCarousel from "@includes/components/cardCarousel";
-import { WavesCard } from "./cards";
+import CardCarousel from "@includes/components/productCarousel";
+import { ProductCard } from "./productCard";
 
 export default function HomeCards() {
 	return(

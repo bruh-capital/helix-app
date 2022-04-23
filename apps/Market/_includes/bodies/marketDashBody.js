@@ -1,4 +1,5 @@
-import HomeCards from "@includes/components/homeCards";
+import ProductCarousel from "@includes/components/productCarousel";
+import ProfileCard from "@includes/components/profileCard";
 import {atom, useRecoilValue} from "recoil";
 
 export default function MarketDashBody({ recentlyListedItems, topSellers, topBuyers }) {
@@ -19,7 +20,7 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
   });
 
   const recentListingsVal = useRecoilValue(recentlyListedAtom);
-  const topSellerVal = useRecoilValue(topSellersAtom);
+  const topSellersVal = useRecoilValue(topSellersAtom);
   const topBuyersVal = useRecoilValue(topBuyersAtom);
 
 	return(
@@ -34,7 +35,7 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
           Recently Added
         </div>
         {/* make this carousel. onhover, stop scrolling */}
-        < HomeCards
+        < ProductCarousel
           products = {recentListingsVal}
         />
         <div className="w-full opacity-50 place-items-center">
@@ -52,7 +53,13 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
           </div>
           {/* content */}
           <div className="grid grid-cols-2 grid-rows-3">
-
+            {topSellersVal.map((seller, i)=>{
+              <ProfileCard
+                cardIndex = {i}
+                username = {seller.username}
+                moneyAmount = {seller.moneyAmount}
+              />
+            })}
           </div>
         </div>
 
@@ -63,7 +70,13 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
           </div>
           {/* content */}
           <div className="grid grid-cols-2 grid-rows-3">
-
+            {topBuyersVal.map((buyer, i)=>{
+              <ProfileCard
+                cardIndex = {i}
+                username = {buyer.username}
+                moneyAmount = {buyer.moneyAmount}
+              />
+            })}
           </div>
         </div>
 
@@ -76,6 +89,7 @@ export async function getStaticProps() {
   // FETCHING MOST RECENTLY LISTED ITEMS
   // do some magic fetching with the solana client later
   // for now we just create a dummy state...
+
   const recentlyListedItems = [
     {
       accountAddress: "0x1",
@@ -96,37 +110,47 @@ export async function getStaticProps() {
 
   const topBuyers = [
     {
-      value: "helloworld1",
+      username: "buyer1",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld2",
+      username: "buyer2",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld3",
+      username: "buyer3",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld4",
+      username: "buyer4",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld5",
+      username: "buyer5",
+      moneyAmount: "100",
     },
   ]
 
   const topSellers = [
     {
-      value: "helloworld1",
+      username: "seller1",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld2",
+      username: "seller2",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld3",
+      username: "seller3",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld4",
+      username: "seller4",
+      moneyAmount: "100",
     },
     {
-      value: "helloworld5",
+      username: "seller5",
+      moneyAmount: "100",
     },
   ];
 
