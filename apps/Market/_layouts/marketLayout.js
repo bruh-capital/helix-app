@@ -7,9 +7,7 @@ export default function MarketLayout() {
   return (
 	<div>
     <GlobalHeader>
-      <MarketDashHeader>
-        
-      </MarketDashHeader>
+      <MarketDashHeader/>
     </GlobalHeader>
     <MarketDashBody/>
     <DashFooter/>

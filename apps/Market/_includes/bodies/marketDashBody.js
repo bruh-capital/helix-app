@@ -1,5 +1,6 @@
 import ProductCarousel from "@includes/components/productCarousel";
 import BestAccountsDisplay from "@includes/components/bestAccountsDisplay";
+import BannerCarousel from "@includes/components/bannerCarousel";
 import {atom, useRecoilValue} from "recoil";
 
 export default function MarketDashBody({ recentlyListedItems, topSellers, topBuyers }) {
@@ -25,22 +26,21 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
 
 	return(
     <div>
-      {/* banner */}
-      <div>
-
-      </div>
+      
+      <BannerCarousel/>
 
       <div>
         <div>
           Recently Added
         </div>
-        {/* make this carousel. onhover, stop scrolling */}
+        
         < ProductCarousel
           products = {recentListingsVal}
         />
-        <div className="w-full opacity-50 place-items-center">
+
+        {/* <div className="w-full opacity-50 place-items-center">
           Load More
-        </div>
+        </div> */}
       </div>
 
 
