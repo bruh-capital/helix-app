@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 export default function Logo(props) {
 	let theme = useTheme();
 
+	// todo: add an onclick take u to dash
 	return(
 		<div className="flex items-center flex-auto">
 			<Image 
