@@ -1,5 +1,4 @@
 import * as anchor from "@project-serum/anchor";
-import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 let accounts_idl = require("../idls/marketplace_accounts.json");
 
