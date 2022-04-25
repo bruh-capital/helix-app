@@ -1,5 +1,5 @@
 import ProductCarousel from "@includes/components/productCarousel";
-import ProfileCard from "@includes/components/profileCard";
+import BestAccountsDisplay from "@includes/components/bestAccountsDisplay";
 import {atom, useRecoilValue} from "recoil";
 
 export default function MarketDashBody({ recentlyListedItems, topSellers, topBuyers }) {
@@ -46,39 +46,16 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
 
       <div className="grid grid-cols-2">
 
-        <div>
-          {/* title div */}
-          <div>
-            Top Sellers
-          </div>
-          {/* content */}
-          <div className="grid grid-cols-2 grid-rows-3">
-            {topSellersVal.map((seller, i)=>{
-              <ProfileCard
-                cardIndex = {i}
-                username = {seller.username}
-                moneyAmount = {seller.moneyAmount}
-              />
-            })}
-          </div>
-        </div>
-
-        <div>
-          {/* title div */}
-          <div>
-            Top Buyers
-          </div>
-          {/* content */}
-          <div className="grid grid-cols-2 grid-rows-3">
-            {topBuyersVal.map((buyer, i)=>{
-              <ProfileCard
-                cardIndex = {i}
-                username = {buyer.username}
-                moneyAmount = {buyer.moneyAmount}
-              />
-            })}
-          </div>
-        </div>
+        <BestAccountsDisplay
+          title="Top Sellers"
+          accounts={topSellersVal}
+        />
+        
+        <BestAccountsDisplay
+          title="Top Buyers"
+          accounts={topBuyersVal}
+        />
+        
 
       </div>
     </div>
