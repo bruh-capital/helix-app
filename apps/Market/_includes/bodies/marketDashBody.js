@@ -85,26 +85,35 @@ export async function getStaticProps() {
     },
   ];
 
+  // username = {account.username}
+  // moneyAmount = {account.moneyAmount}
+  // imageLink = {account.imageLink}
+
   const topBuyers = [
     {
       username: "buyer1",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 25.png"
     },
     {
       username: "buyer2",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 27.png"
     },
     {
       username: "buyer3",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 28.png"
     },
     {
       username: "buyer4",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 29.png"
     },
     {
       username: "buyer5",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 30.png"
     },
   ]
 
@@ -112,22 +121,27 @@ export async function getStaticProps() {
     {
       username: "seller1",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 31.png"
     },
     {
       username: "seller2",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 33.png"
     },
     {
       username: "seller3",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 47.png"
     },
     {
       username: "seller4",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 48.png"
     },
     {
       username: "seller5",
       moneyAmount: "100",
+      imageLink: "/profile_icons/image 50.png"
     },
   ];
 
