@@ -3,21 +3,90 @@ import BestAccountsDisplay from "@includes/components/bestAccountsDisplay";
 import BannerCarousel from "@includes/components/bannerCarousel";
 import {atom, useRecoilValue} from "recoil";
 
-export default function MarketDashBody({ recentlyListedItems, topSellers, topBuyers }) {
-  console.log(recentlyListedItems);
+// import getTopSellers, getTopBuyers, getRecentlyListed
+
+export default function MarketDashBody(props) {
   const recentlyListedAtom = atom({
     key: "recentlyListedItems",
-    default: recentlyListedItems,
+    default: [
+      {
+      accountAddress: "0x1",
+      title: "Item 1",
+      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
+      },
+      {
+      accountAddress: "0x2",
+      title: "Item 2",
+      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
+      },
+      {
+      accountAddress: "0x3",
+      title: "Item 3",
+      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
+      },
+    ],
   });
 
   const topSellersAtom = atom({
     key: "topSellers",
-    default: topSellers,
+    default: [
+      {
+      username: "buyer1",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 25.png"
+      },
+      {
+      username: "buyer2",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 27.png"
+      },
+      {
+      username: "buyer3",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 28.png"
+      },
+      {
+      username: "buyer4",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 29.png"
+      },
+      {
+      username: "buyer5",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 30.png"
+      },
+    ],
   });
 
   const topBuyersAtom = atom({
     key: "topBuyers",
-    default: topBuyers,
+    default: [
+      {
+      username: "seller1",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 31.png"
+      },
+      {
+      username: "seller2",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 33.png"
+      },
+      {
+      username: "seller3",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 47.png"
+      },
+      {
+      username: "seller4",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 48.png"
+      },
+      {
+      username: "seller5",
+      moneyAmount: "100",
+      imageLink: "/profile_icons/image 50.png"
+      },
+    ],
   });
 
   const recentListingsVal = useRecoilValue(recentlyListedAtom);
@@ -60,91 +129,4 @@ export default function MarketDashBody({ recentlyListedItems, topSellers, topBuy
       </div>
     </div>
 	);
-}
-
-export async function getStaticProps() {
-  // FETCHING MOST RECENTLY LISTED ITEMS
-  // do some magic fetching with the solana client later
-  // for now we just create a dummy state...
-
-  const recentlyListedItems = [
-    {
-      accountAddress: "0x1",
-      title: "Item 1",
-      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
-    },
-    {
-      accountAddress: "0x2",
-      title: "Item 2",
-      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
-    },
-    {
-      accountAddress: "0x3",
-      title: "Item 3",
-      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
-    },
-  ];
-
-  // username = {account.username}
-  // moneyAmount = {account.moneyAmount}
-  // imageLink = {account.imageLink}
-
-  const topBuyers = [
-    {
-      username: "buyer1",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 25.png"
-    },
-    {
-      username: "buyer2",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 27.png"
-    },
-    {
-      username: "buyer3",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 28.png"
-    },
-    {
-      username: "buyer4",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 29.png"
-    },
-    {
-      username: "buyer5",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 30.png"
-    },
-  ]
-
-  const topSellers = [
-    {
-      username: "seller1",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 31.png"
-    },
-    {
-      username: "seller2",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 33.png"
-    },
-    {
-      username: "seller3",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 47.png"
-    },
-    {
-      username: "seller4",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 48.png"
-    },
-    {
-      username: "seller5",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 50.png"
-    },
-  ];
-
-
-  return { props: { recentlyListedItems, topBuyers, topSellers, productCategories } };
 }

@@ -11,7 +11,7 @@ export default function IndexPage(props) {
 			</Head>
 			<MarketLayout>
         
-      </MarketLayout>
+			</MarketLayout>
 		</main>
 	);
 }
