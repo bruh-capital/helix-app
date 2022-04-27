@@ -14,14 +14,13 @@ export default function Searchbar(props){
     const [categorySelection, setCategorySelection] = useState(null);
 	const [searchQuery, setSearchQuery] = useState('');
 
-    console.log("search", props.productCategories);
-
-	const categoriesAtom = atom({
-		key:"categories",
-		default: props.productCategories
-	})
-
-	const categoriesList = useRecoilValue(categoriesAtom);
+	const [categoriesList, setCategoriesList] = useState([
+		"all categories",
+		"physical",
+		"image",
+		"audio",
+		"video"
+	]);
 
     return (
         <div>
@@ -58,15 +57,4 @@ export default function Searchbar(props){
             </button>
         </div>
     )
-}
-
-export async function getStaticProps(){
-	const productCategories = [
-		"all categories",
-		"physical",
-		"image",
-		"audio",
-		"video"
-	];
-	return { props: { productCategories } };
 }

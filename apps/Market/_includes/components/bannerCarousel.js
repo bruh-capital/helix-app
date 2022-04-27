@@ -1,12 +1,15 @@
 import { Rerousel } from "rerousel";
-import banners from "@includes/components/banners";
+import { MarketIntroductionBanner } from "@includes/components/banners";
+import { useState } from "react";
+import { useRef } from "react";
 
 export default function BannerCarousel(props){
-    console.log("banners", banners);
+    const [ref, setRef] = useRef(undefined);
 
     return(
-        <Rerousel interval={7000}>
-            {/* {banners && Object.values(banners)} */}
+        // <div></div>
+        <Rerousel itemRef={ref} interval={7000}>
+            <MarketIntroductionBanner passedRef={ref}/>
         </Rerousel>
     )
 }

@@ -145,5 +145,6 @@ export async function getStaticProps() {
     },
   ];
 
-  return { props: { recentlyListedItems, topBuyers, topSellers } };
+
+  return { props: { recentlyListedItems, topBuyers, topSellers, productCategories } };
 }
