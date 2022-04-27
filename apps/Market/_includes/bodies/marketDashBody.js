@@ -25,6 +25,7 @@ export default function MarketDashBody(props) {
         price: "100",
         productType: "nft",
         likes: "10",
+        profileLink:"/profile_icons/image 25.png",
       },
       {
       accountAddress: "0x2",
@@ -36,17 +37,19 @@ export default function MarketDashBody(props) {
       price: "200",
       productType: "digital",
       likes: "5",
+      profileLink:"/profile_icons/image 27.png",
       },
       {
       accountAddress: "0x3",
       productName: "Item 3",
       arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png",
 
-      imageUrl: "/products/image 80.png",
+      imageUrl: "/products/image 91.png",
       username: "seller3",
       price: "300.50",
       productType: "physical",
       likes: "0",
+      profileLink:"/profile_icons/image 28.png",
       },
     ],
   });
@@ -55,9 +58,9 @@ export default function MarketDashBody(props) {
     key: "topSellers",
     default: [
       {
-      username: "buyer1",
-      moneyAmount: "100",
-      imageLink: "/profile_icons/image 25.png"
+        username: "buyer1",
+        moneyAmount: "100",
+        imageLink: "/profile_icons/image 25.png"
       },
       {
       username: "buyer2",
@@ -131,9 +134,6 @@ export default function MarketDashBody(props) {
           products = {recentListingsVal}
         />
 
-        {/* <div className="w-full opacity-50 place-items-center">
-          Load More
-        </div> */}
       </div>
 
 

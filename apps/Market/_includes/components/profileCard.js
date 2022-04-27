@@ -1,7 +1,6 @@
 import Image from "next/image"
 
 export default function ProfileCard(props){
-    console.log(props);
     return (
         <div className="flex flex-row">
             <div>

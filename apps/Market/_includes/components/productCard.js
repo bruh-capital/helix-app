@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 // todo (addendum from indy :P)
 // 	on hover, make it pop up (increase width. add 1 to z index. add drop shadow + opacity)
-export function productCard(props) {
+export function ProductCard(props) {
 	return(
 		<div className="flex flex-col">
 
@@ -23,7 +23,7 @@ export function productCard(props) {
 
 			<div className="flex flex-row justify-center place-content-center">
 				<Image 
-					src="some-image.png"
+					src={props.profileLink}
 					height={75}
 					width={78}
 					layout="fixed"
@@ -44,19 +44,14 @@ export function productCard(props) {
 			</div>
 
 			<div className='flex flex-row justify-content-center place-items-center align-center'>
-				<div>
-					<Image
-						src={`/marketassets/product/${props.productType}.png`}
-						height={150}
-						width={155}
-						layout="fixed"
-					/>
+				<div className='border-2 border-blue-500 rounded-50'>
+					{props.productType}
 				</div>
 				<div>
 					<Image
-						src={`/marketassets/icons/hearticon.png`}
-						height={150}
-						width={155}
+						src={`/market/product/heart.png`}
+						height={30}
+						width={30}
 						layout="fixed"
 					/>
 					{props.likes}
