@@ -1,6 +1,9 @@
 
 import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
+import { Popover, Transition } from "@headlessui/react";
+import { LightningBoltIcon} from "@heroicons/react/outline";
+import { Fragment } from "react";
 
 export default function WalletButton(props){
 

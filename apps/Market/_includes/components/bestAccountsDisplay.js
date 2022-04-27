@@ -9,7 +9,7 @@ export default function BestAccountsDisplay(props){
             </div>
             {/* content */}
             <div className="grid grid-cols-2 grid-rows-3">
-            {props.accounts.map((account, i)=>{
+            {props.accounts?.map((account, i)=>{
                 <ProfileCard
                     cardIndex = {i}
                     username = {account.username}

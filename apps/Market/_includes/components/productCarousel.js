@@ -13,7 +13,7 @@ export default function ProductCarousel(props) {
 			onMouseEnter = {()=>{setCarouselStopped(!carouselStopped)}}
 			onMouseLeave = {()=>{setCarouselStopped(!carouselStopped)}}
 		>
-			{props.products.map((item)=>{
+			{props.products?.map((item)=>{
 				<ProductCard
 					image = {item.image}
 					username = {item.username}

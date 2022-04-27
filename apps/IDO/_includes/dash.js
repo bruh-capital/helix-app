@@ -4,7 +4,7 @@ import Stat from "@includes/components/stat";
 import { useConnectedWallet, useSolana, useWallet } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 
-import { LightningBoltIcon} from "@heroicons/react/outline"
+import { LightningBoltIcon} from "@heroicons/react/outline";
 import HelixContext from "@context/helixContext";
 import helixClient from "helix-clients";
 
