@@ -11,9 +11,9 @@ export default function ProductCarousel(props) {
 		<Rerousel itemRef={ref} interval={7000}>
 			{
 				props.products ? 
-					props.products?.map((item)=>{
-						<ProductCard
-							image = {item.image}
+					props.products.map((item)=>{
+						return <ProductCard
+							imageLink = {item.imageUrl}
 							username = {item.username}
 							productName = {item.productName}
 							price = {item.price}

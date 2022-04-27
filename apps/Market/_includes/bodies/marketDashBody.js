@@ -5,24 +5,48 @@ import {atom, useRecoilValue} from "recoil";
 
 // import getTopSellers, getTopBuyers, getRecentlyListed
 
+// image = {item.image}
+// username = {item.username}
+// productName = {item.productName}
+// price = {item.price}
+// productType = {item.productType}
+// likes = {item.likes}
 export default function MarketDashBody(props) {
   const recentlyListedAtom = atom({
     key: "recentlyListedItems",
     default: [
       {
-      accountAddress: "0x1",
-      title: "Item 1",
-      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
+        accountAddress: "0x1",
+        productName: "Item 1",
+        arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png",
+
+        imageUrl: "/products/image 57.png",
+        username: "seller1",
+        price: "100",
+        productType: "nft",
+        likes: "10",
       },
       {
       accountAddress: "0x2",
-      title: "Item 2",
-      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
+      productName: "Item 2",
+      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png",
+
+      imageUrl: "/products/image 69.png",
+      username: "seller2",
+      price: "200",
+      productType: "digital",
+      likes: "5",
       },
       {
       accountAddress: "0x3",
-      title: "Item 3",
-      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png"
+      productName: "Item 3",
+      arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png",
+
+      imageUrl: "/products/image 80.png",
+      username: "seller3",
+      price: "300.50",
+      productType: "physical",
+      likes: "0",
       },
     ],
   });

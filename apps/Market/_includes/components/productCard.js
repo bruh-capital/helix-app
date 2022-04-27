@@ -14,7 +14,7 @@ export function productCard(props) {
 			<div className="justify-center basis-1/4 align-middle my-auto justify-center place-content-center">
 				<Image 
 				// make file url from downloaded image (u can do this from file browser api. frgt how)
-					src={props.image}
+					src={props.imageLink}
 					height={150}
 					width={155}
 					layout="fixed"
