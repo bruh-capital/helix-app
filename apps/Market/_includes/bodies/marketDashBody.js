@@ -1,6 +1,6 @@
-import ProductCarousel from "@includes/components/productCarousel";
 import BestAccountsDisplay from "@includes/components/bestAccountsDisplay";
 import BannerCarousel from "@includes/components/bannerCarousel";
+import { ProductCard } from "@includes/components/productCard";
 import {atom, useRecoilValue} from "recoil";
 
 // import getTopSellers, getTopBuyers, getRecentlyListed
@@ -20,7 +20,7 @@ export default function MarketDashBody(props) {
         productName: "Item 1",
         arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png",
 
-        imageUrl: "/products/image 57.png",
+        imageLink: "/products/image 57.png",
         username: "seller1",
         price: "100",
         productType: "nft",
@@ -32,7 +32,7 @@ export default function MarketDashBody(props) {
       productName: "Item 2",
       arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png",
 
-      imageUrl: "/products/image 69.png",
+      imageLink: "/products/image 69.png",
       username: "seller2",
       price: "200",
       productType: "digital",
@@ -44,7 +44,7 @@ export default function MarketDashBody(props) {
       productName: "Item 3",
       arweaveImageURl: "https://helixdao.org/landingassets/3dlogos/4K_3D_white.png",
 
-      imageUrl: "/products/image 91.png",
+      imageLink: "/products/image 91.png",
       username: "seller3",
       price: "300.50",
       productType: "physical",
@@ -117,6 +117,7 @@ export default function MarketDashBody(props) {
   });
 
   const recentListingsVal = useRecoilValue(recentlyListedAtom);
+  console.log("recently listed", recentListingsVal);
   const topSellersVal = useRecoilValue(topSellersAtom);
   const topBuyersVal = useRecoilValue(topBuyersAtom);
 
@@ -129,10 +130,23 @@ export default function MarketDashBody(props) {
         <div>
           Recently Added
         </div>
-        
-        < ProductCarousel
-          products = {recentListingsVal}
-        />
+
+        <div className="grid grid-cols-4 grid-rows-2">
+          {
+           recentListingsVal.map((item)=>{
+            return <ProductCard
+              imageLink = {item.imageLink}
+              username = {item.username}
+              productName = {item.productName}
+              price = {item.price}
+              productType = {item.productType}
+              likes = {item.likes}
+              profileLink = {item.profileLink}
+            />
+           }) 
+          }
+        </div>
+
 
       </div>
 

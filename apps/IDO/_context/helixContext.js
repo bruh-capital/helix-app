@@ -1,8 +1,8 @@
 import { createContext } from "react";
-import {helixClient} from "helix-clients";
+import {HelixClient} from "helix-clients";
 
 const HelixContext = createContext({
-	client: new helixClient(),
+	client: new HelixClient(),
 	setClient: () => {},
 });
 
