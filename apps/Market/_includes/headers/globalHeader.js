@@ -16,31 +16,37 @@ export default function GlobalHeader(props) {
 	},[])
 
 	return(
-		<header className="sticky top-0 z-50 flex flex-col w-full">
-			<div className="w-full flex flex-row">
+		<header className="flex flex-col w-full">
+			<div className="w-full flex flex-row place-items-center">
 				{/* analytics */}
-				<div>
-					<div className="rounded-50 bg-gray-500">
-						Network Status:
-						<div className={networkStatus ? 'text-green-500' : 'text-red-500'}>
-							{networkStatus ? `Online` : `Unreachable`}
-						</div>
+				<div className="flex flex-row rounded-md bg-gray-500 place-items-center h-full">
+					Network Status:
+					<div className={ " mr-2 place-items-center text-center " + (networkStatus ? 'text-green-500' : 'text-red-500')}>
+						{networkStatus ? `Online` : `Unreachable`}
 					</div>
 				</div>
 
 				{/* total volume */}
-				<div>
+				<div className="ml-2 flex flex-row place-items-center h-full">
 					Total Volume:
-					<div className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500">
+					<div className=" ml-2 text-transparent text-center bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500">
 						{totalVolume}
 					</div>
 				</div>
+
+				<div className="grow"></div>
 					
 				{/* other links */}
-				<div>
-					<a href="https://helixdao.org/ido" target="_self"> IDO </a>
-					<a href="https://helixdao.org/app" target="_self"> Dapp </a>
-					<a href="https://helixdao.org/" target="_self"> Helix DAO </a>
+				<div className="flex flex-row">
+					<div className="grid grid-row m-2 h-full w-1/8">
+						<a href="https://helixdao.org/ido" target="_self"> IDO </a>
+					</div>
+					<div className="grid grid-row m-2 h-full w-1/8">
+						<a href="https://helixdao.org/app" target="_self"> Dapp </a>
+					</div>
+					<div className="grid grid-row m-2 h-full w-1/8">
+						<a href="https://helixdao.org/" target="_self"> Helix DAO </a>
+					</div>
 				</div>
 			</div>
 			{props.children}

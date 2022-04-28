@@ -9,7 +9,7 @@ function MarketIntroductionBanner(props) {
 		<div ref={props.passedRef} className="flex w-full h-full rounded-xl bg-mesh-1-bg bg-cover justify-around content-center items-center">
 			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto lg:my-auto justify-around">
                 <Image 
-                    src="/market/dash/banners/introBannerPurple.png"
+                    src="/market/dash/banners/introDashBanner.png"
                     height={150}
                     width={155}
                     layout="fixed"

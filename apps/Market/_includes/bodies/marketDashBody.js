@@ -122,16 +122,16 @@ export default function MarketDashBody(props) {
   const topBuyersVal = useRecoilValue(topBuyersAtom);
 
 	return(
-    <div>
+    <div className="static grid grid-cols-1 place-items-center justify-center items-center w-full">
       
       <BannerCarousel/>
 
-      <div>
-        <div>
+      <div className="w-10/12 pt-12">
+        <div className="text-lg ">
           Recently Added
         </div>
 
-        <div className="grid grid-cols-4 grid-rows-2">
+        <div className="grid grid-cols-4 grid-rows-2 gap-x-3 w-full">
           {
            recentListingsVal.map((item)=>{
             return <ProductCard
@@ -151,7 +151,7 @@ export default function MarketDashBody(props) {
       </div>
 
 
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 w-11/12 gap-x-12">
 
         <BestAccountsDisplay
           title="Top Sellers"
