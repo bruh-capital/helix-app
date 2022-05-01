@@ -31,8 +31,19 @@ export class PhysicalMarketplaceClient {
 			this.accounts_programid
 		)
 
+        const [physicalMarketSigner, physicalMarketSignerBump] = new PublicKey.findProgramAddress(
+			[
+				Buffer.from("marketsigner")
+			],
+			this.physical_programid
+		)
+
 		this.marketAccountAddress = marketAccountAddress;
 		this.marketAccountBump = marketAccountBump;
+
+        
+        this.physicalMarketSigner = physicalMarketSigner;
+        this.physicalMarketSignerBump = physicalMarketSignerBump;
 	}
 
     CreatePhysicalProduct = async(price, description, stock, traceless) =>{
@@ -93,7 +104,7 @@ export class PhysicalMarketplaceClient {
         let [holdingAcc, holdingBump] = this.holdingPda(transaction_pk);
         let [disputeAcc, disputebump] = this.disputePda(transaction_pk);
 
-        await this.physical_market_program.rpc.claimDispute(holdingBump, {
+        await this.physical_market_program.rpc.claimDispute(holdingBump, this.physicalMarketSignerBump, {
             accounts:{
                 transaction: transaction_pk,
                 dispute: disputeAcc,
@@ -101,6 +112,10 @@ export class PhysicalMarketplaceClient {
                 buyerWallet: transaction.buyerWallet,
                 sellerWallet: transaction.sellerWallet,
                 walletAddress: this.wallet.PublicKey,
+                buyer: transaction.buyer,
+                seller: transaction.seller,
+                physicalMarketplaceSigner: this.physicalMarketSigner,
+                accountsProgram: this.accounts_programid,
             }
         })
 
@@ -177,12 +192,16 @@ export class PhysicalMarketplaceClient {
         let transaction = await this.physical_market_program.account.physicalTransaction.fetch(transaction_pk);
 
         let [holdingAcc, holdingBump] = this.holdingPda(transaction_pk);
-        await this.physical_market_program.rpc.closeOrder(holdingBump,{
+        await this.physical_market_program.rpc.closeOrder(holdingBump, this.physicalMarketSigner, {
             accounts:{
                 transaction: transaction_pk,
                 sellerWallet: transaction.sellerWallet,
                 holdingAccount: holdingAcc,
                 user: this.wallet.PublicKey,
+                buyer: transaction.buyer,
+                seller: transaction.seller,
+                physicalMarketplaceSigner: this.physicalMarketplaceSigner,
+                accountsProgram: this.accounts_programid,
             }
         })
     }
@@ -245,6 +264,15 @@ export class PhysicalMarketplaceClient {
                 buyerWallet: this.wallet.publicKey,
             }
         });
+    }
+    CreatePhysicalSigner = async()=>{
+        await this.physical_market_program.rpc.createMarketSigner({
+            accounts:{
+                physicalMarketSigner: this.physicalMarketSigner,
+                funder: this.wallet.publicKey,
+                systemProgram: SystemProgram.programId,
+            }
+        })
     }
 
     // UTILS FUNCTIONS

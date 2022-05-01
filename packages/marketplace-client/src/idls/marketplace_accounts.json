@@ -111,6 +111,22 @@
           "type": "publicKey"
         }
       ]
+    },
+    {
+      "name": "updateLastTransaction",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "invoker",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -144,6 +160,10 @@
           {
             "name": "chatPubkey",
             "type": "string"
+          },
+          {
+            "name": "lastTransaction",
+            "type": "i64"
           }
         ]
       }

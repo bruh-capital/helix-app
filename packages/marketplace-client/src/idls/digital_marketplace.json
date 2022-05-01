@@ -43,7 +43,7 @@
         },
         {
           "name": "seller",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -58,18 +58,32 @@
         },
         {
           "name": "buyer",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
           "name": "walletAddress",
           "isMut": true,
           "isSigner": true
+        },
+        {
+          "name": "digitalMarketSigner",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "accountsProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
       "args": [
         {
           "name": "hb",
+          "type": "u8"
+        },
+        {
+          "name": "sb",
           "type": "u8"
         }
       ]
@@ -125,6 +139,11 @@
         },
         {
           "name": "seller",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sellerWallet",
           "isMut": false,
           "isSigner": false
         },
@@ -291,6 +310,27 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "createMarketSigner",
+      "accounts": [
+        {
+          "name": "digitalMarketSigner",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "funder",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -339,6 +379,14 @@
           },
           {
             "name": "seller",
+            "type": "publicKey"
+          },
+          {
+            "name": "sellerWallet",
+            "type": "publicKey"
+          },
+          {
+            "name": "buyerWallet",
             "type": "publicKey"
           },
           {
@@ -444,8 +492,5 @@
         ]
       }
     }
-  ],
-  "metadata": {
-    "address": "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii"
-  }
+  ]
 }

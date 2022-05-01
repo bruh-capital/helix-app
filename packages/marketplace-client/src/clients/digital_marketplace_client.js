@@ -28,10 +28,20 @@ export class DigitalMarketplaceClient {
 				this.wallet.PublicKey.toBuffer()
 			],
 			this.accounts_programid
+		);
+
+        const [digitalMarketSigner, digitalMarketSignerBump] = new PublicKey.findProgramAddress(
+			[
+				Buffer.from("marketsigner")
+			],
+			this.digital_programid
 		)
 
 		this.marketAccountAddress = marketAccountAddress;
 		this.marketAccountBump = marketAccountBump;
+
+        this.digitalMarketSigner = digitalMarketSigner;
+        this.digitalMarketSignerBump = digitalMarketSignerBump;
 	}
 
     BuyerCancelOrder = async(transaction_key) =>{
@@ -46,13 +56,14 @@ export class DigitalMarketplaceClient {
             }
         })
     }
+
     BuyerCloseOrder = async(transaction_key) =>{
         let transaction_pk = new PublicKey(transaction_key);
         let transaction = await this.digital_market_program.account.digitalTransaction.fetch(transaction_pk);
 
         let [holdingAcc, holdingBump] = this.holdingPda(transaction_pk);
 
-        await this.digital_market_program.rpc.buyerCloseOrder(holdingBump, {
+        await this.digital_market_program.rpc.buyerCloseOrder(holdingBump, this.digitalMarketSignerBump, {
             accounts:{
                 transaction: transaction_pk,
                 seller: this.marketAccountAddress,
@@ -60,9 +71,12 @@ export class DigitalMarketplaceClient {
                 holdingAccount: holdingAcc,
                 buyer: transaction.buyer,
                 walletAddress: this.wallet.PublicKey,
+                digitalMarketSigner: this.digitalMarketSigner,
+                accountsProgram: this.accounts_programid,
             }
         })
     }
+
     CommitPrivkeys = async(transaction_key)=>{
         let transaction_pk = new PublicKey(transaction_key);
         await this.digital_market_program.rpc.commitPrivkeys({
@@ -73,7 +87,7 @@ export class DigitalMarketplaceClient {
             }
         })
     }
-    CreateOrder = async(product, traceless) =>{
+    CreateOrder = async(product, traceless, seller_wallet) =>{
         let transaction_kp = anchor.web3.Keypair.generate();
         let [holdingAcc, holdingBump] = this.holdingPda(transaction_kp);
 
@@ -89,6 +103,7 @@ export class DigitalMarketplaceClient {
                 walletAddress: this.wallet.PublicKey,
                 product: product_pk,
                 seller: product.seller,
+                sellerWallet: new PublicKey(seller_wallet),
                 systemProgram: SystemProgram.programId,
             },
             signers:[transaction_kp]
@@ -154,6 +169,16 @@ export class DigitalMarketplaceClient {
                 transaction: transaction_pk,
                 seller: this.marketAccountAddress,
                 walletAddress: this.wallet.publicKey
+            }
+        })
+    }
+
+    CreateDigitalSigner = async()=>{
+        await this.digital_market_program.rpc.createMarketSigner({
+            accounts:{
+                digitalMarketSigner: this.digitalMarketSigner,
+                funder: this.wallet.publicKey,
+                systemProgram: SystemProgram.programId,
             }
         })
     }

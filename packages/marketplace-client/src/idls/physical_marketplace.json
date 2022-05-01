@@ -134,11 +134,35 @@
           "name": "walletAddress",
           "isMut": false,
           "isSigner": true
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "physicalMarketSigner",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "accountsProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
       "args": [
         {
           "name": "holdingBump",
+          "type": "u8"
+        },
+        {
+          "name": "signingBump",
           "type": "u8"
         }
       ]
@@ -420,9 +444,24 @@
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
+        },
+        {
+          "name": "physicalMarketSigner",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "accountsProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "sb",
+          "type": "u8"
+        }
+      ]
     },
     {
       "name": "markAsReceived",
@@ -436,6 +475,27 @@
           "name": "buyerWallet",
           "isMut": false,
           "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createMarketSigner",
+      "accounts": [
+        {
+          "name": "digitalMarketSigner",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "funder",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
       "args": []
@@ -594,6 +654,9 @@
           },
           {
             "name": "InvalidEscrowAccountDetails"
+          },
+          {
+            "name": "OrderNotUseEscrow"
           }
         ]
       }
