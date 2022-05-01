@@ -328,11 +328,35 @@
           "name": "user",
           "isMut": true,
           "isSigner": true
+        },
+        {
+          "name": "buyer",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "physicalMarketplaceSigner",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "accountsProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
       "args": [
         {
           "name": "holdingBump",
+          "type": "u8"
+        },
+        {
+          "name": "sb",
           "type": "u8"
         }
       ]
@@ -483,7 +507,7 @@
       "name": "createMarketSigner",
       "accounts": [
         {
-          "name": "digitalMarketSigner",
+          "name": "physicalMarketSigner",
           "isMut": true,
           "isSigner": false
         },
@@ -538,6 +562,14 @@
           {
             "name": "price",
             "type": "u64"
+          },
+          {
+            "name": "buyer",
+            "type": "publicKey"
+          },
+          {
+            "name": "seller",
+            "type": "publicKey"
           },
           {
             "name": "holdingAccount",
