@@ -37,6 +37,10 @@
           "type": "u64"
         },
         {
+          "name": "name",
+          "type": "string"
+        },
+        {
           "name": "description",
           "type": "string"
         },
@@ -534,6 +538,10 @@
           {
             "name": "seller",
             "type": "publicKey"
+          },
+          {
+            "name": "productName",
+            "type": "string"
           },
           {
             "name": "pricePerUnit",

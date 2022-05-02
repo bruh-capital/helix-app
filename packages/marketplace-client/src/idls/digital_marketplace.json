@@ -265,6 +265,10 @@
       ],
       "args": [
         {
+          "name": "name",
+          "type": "string"
+        },
+        {
           "name": "isService",
           "type": "bool"
         },
@@ -344,7 +348,7 @@
             "type": "publicKey"
           },
           {
-            "name": "description",
+            "name": "productName",
             "type": "string"
           },
           {
@@ -356,6 +360,10 @@
             "type": {
               "defined": "DigitalProductTypes"
             }
+          },
+          {
+            "name": "description",
+            "type": "string"
           }
         ]
       }
