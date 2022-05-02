@@ -11,7 +11,7 @@ var digitalProductSchema = new Map([[DigitalProduct,{
     kind: 'struct',
     fields:[
         ["seller", ['u8', 32]],
-        ["product_name", 'string'],
+        ["productName", 'string'],
         ["isService", "u8"],
         ["productType", "u8"],
         ["description", "string"]
@@ -38,6 +38,7 @@ var physicalProductSchema = new Map([[PhysicalProduct,{
 
 
 async function GetProducts(keywords, categories, seller, connection, id){
+    keywords = keywords.toLowerCase();
 
     var retarr = [];
 
@@ -80,6 +81,7 @@ async function GetProducts(keywords, categories, seller, connection, id){
             }
     );
 
+    // two diff product types. self explanatory. if its digital, use digital schema, else its a physical product
     if(id == "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii"){
         retarr = accounts.map((account, index)=>{
             return deserialize(digitalProductSchema, DigitalProduct, account.account.data);
@@ -90,9 +92,25 @@ async function GetProducts(keywords, categories, seller, connection, id){
         });
     };
 
+    //normalize the product names (to lower case)
+    retarr.forEach((acc) => {
+        acc.productName = acc.productName.toLowerCase();
+    });
+
+    // filter by seller
     if(seller){
         retarr.filter((acc)=>{
             return acc.seller == seller;
         });
     };
+
+    // filter by keyword (check the keywords the users want is in the title)
+    if(keywords){
+        retarr.filter((acc)=>{
+            return keywords.every(keyword => acc.productName.includes(keyword));
+        });
+    };
+
+    // return array of products
+    return retarr;
 };
