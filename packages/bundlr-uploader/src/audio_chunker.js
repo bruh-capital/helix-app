@@ -1,8 +1,8 @@
 var lamejs = require("lamejs");
 
-export default async function AudioChunker(event, uploadFuncCallback){
-    var audioBuffer = await new AudioContext().decodeAudioData(event.target.result);
-    var totalLength = event.target.result.length;
+export default async function AudioChunker(audioArrayBuffer, uploadFuncCallback){
+    var audioBuffer = await new AudioContext().decodeAudioData(audioArrayBuffer);
+    var totalLength = audioArrayBuffer.length;
     for(var i = 0; i < totalLength; i++){
         let computedStart = totalLength * i / audioBuffer.duration;
 		let computedEnd = totalLength * i+1 / audioBuffer.duration;

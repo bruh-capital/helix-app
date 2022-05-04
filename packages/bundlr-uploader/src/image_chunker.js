@@ -1,4 +1,4 @@
-export default function ImageChunker(event, uploadFuncCallback, exportType){
+export default function ImageChunker(imageUrl, uploadFuncCallback, exportType){
     var image = new Image();
     image.onload = function(){
         let totalChunks = (image.width/50) * (image.height/50);
@@ -24,12 +24,12 @@ export default function ImageChunker(event, uploadFuncCallback, exportType){
                 var fileReader = new FileReader()
 
                 fileReader.onload  = function(){
-                    uploadFuncCallback(fileReader.result, (++currChunk) == totalChunks);
+                    uploadFuncCallback(fileReader.result, currChunk++ == totalChunks-1);
                 }
 
                 canvas.toBlob(fileReader.readAsArrayBuffer.bind(fileReader), exportType)
             }
         }
     };
-    image.src = event.target.result;
+    image.src = imageUrl;
 }
