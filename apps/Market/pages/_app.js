@@ -17,8 +17,14 @@ import {
   useRecoilValue,
 } from "recoil";
 
+import AccountsClientCtx from '@contexts/accountsClientCtx';
+import BundlrClientCtx from "@contexts/bundlrClientCtx";
+import DigitalMarketClientCtx from "@contexts/digitalMarketClientCtx";
+import PhysicalMarketClientCtx from "@contexts/PhysicalMarketClientCtx";
+
 // Contexts
 import { ThemeProvider } from "next-themes";
+import { useState } from 'react';
 
 // reaop notifications
 setUpNotifications({
@@ -31,6 +37,12 @@ setUpNotifications({
 });
 
 function MarketApp({ Component, pageProps }) {
+  const [accountsClient, setAccountsClient] = useState();
+  const [digitalMarketClient, setDigitalMarketClient] = useState();
+  const [physicalMarketClient, setPhysicalMarketClient] = useState();
+  const [bundlrClient, setBundlrClient] = useState();
+
+
   // Image component we use in the goki wallet prompt
   const icon = (
     <Image
@@ -44,16 +56,23 @@ function MarketApp({ Component, pageProps }) {
 
   return(
     <NotificationsProvider>
-      <WalletKitProvider
-        defaultNetwork='devnet'
-        app={{
-          name: 'Helix',
-          icon:  icon,
-        }}
-      >
+      <WalletKitProvider>
         <ThemeProvider attribute='class' defaultTheme='dark'>
           <RecoilRoot>
-            <Component {...pageProps} />
+
+
+            <AccountsClientCtx.Provider value={{accountsClient, setAccountsClient}}>
+              <BundlrClientCtx.Provider value={{bundlrClient, setBundlrClient}}>
+                <DigitalMarketClientCtx.Provider value={{digitalMarketClient, setDigitalMarketClient}}>
+                  <PhysicalMarketClientCtx.Provider value={{physicalMarketClient, setPhysicalMarketClient}}>
+
+                    <Component {...pageProps} />
+
+                  </PhysicalMarketClientCtx.Provider>
+                </DigitalMarketClientCtx.Provider>
+              </BundlrClientCtx.Provider>
+            </AccountsClientCtx.Provider>
+            
           </RecoilRoot>
         </ThemeProvider>
       </WalletKitProvider>

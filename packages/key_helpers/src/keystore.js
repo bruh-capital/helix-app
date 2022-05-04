@@ -18,7 +18,7 @@ export default class KeyStore{
         getData.onerror = function (event){
           console.log("your keys have not been made yet :(");
           console.log("generating...");
-          this.genSellerKeyPair();
+          this.genChatKp();
         };
 
       })
@@ -152,7 +152,7 @@ export default class KeyStore{
       const binaryDer = str2ab(binaryDerString);
   
       return window.crypto.subtle.importKey(
-        "spki",
+        "pkcs8",
         binaryDer,
         {
           name: "RSA-OAEP",
@@ -163,7 +163,7 @@ export default class KeyStore{
       );
     }
 
-    async exportRsakp(key) {
+    async exportRsaPrivKey(key) {
       const exported = await window.crypto.subtle.exportKey(
         "pkcs8",
         key
@@ -173,7 +173,7 @@ export default class KeyStore{
       return `-----BEGIN PRIVATE KEY-----\n${exportedAsBase64}\n-----END PRIVATE KEY-----`;
     }
 
-    importRsakp(pem) {
+    importRsaPrivKey(pem) {
       // fetch the part of the PEM string between header and footer
       const pemHeader = "-----BEGIN PRIVATE KEY-----";
       const pemFooter = "-----END PRIVATE KEY-----";
@@ -191,7 +191,7 @@ export default class KeyStore{
           hash: "SHA-256",
         },
         true,
-        ["sign"]
+        ["decrypt"]
       );
     }
 
@@ -203,7 +203,8 @@ export default class KeyStore{
       let kp = await window.crypto.subtle.generateKey(
         {
           name: "RSA-OAEP",
-          modulusLength: 4096,
+          // should be 4096 but i kinda wanna try something
+          modulusLength: 2048,
           publicExponent: new Uint8Array([1, 0, 1]),
           hash: "SHA-256"
         },
@@ -214,7 +215,7 @@ export default class KeyStore{
       return [kp.publicKey, kp.privateKey]
     }
 
-    async genSellerKeyPair(){
+    async genChatKp(){
       let [rsapk, rsask] = await this.genRsaKp();
 
       this.accessDB(function (store) {

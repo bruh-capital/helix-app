@@ -1,11 +1,24 @@
 import { PublicKey, Struct } from "@solana/web3.js";
 import { deserialize }  from 'borsh';
+const accounts_programid = new PublicKey(require("./src/idls/marketplace_accounts.json").metadata.address);
+
+////////////////////////////////////////////
+// struct definitions 
 
 class DigitalProduct extends Struct{
     constructor(props){
         super(props);
     }
 }
+
+class PhysicalProduct extends Struct{
+    constructor(props){
+        super(props);
+    }
+}
+
+////////////////////////////////////////
+// schema definitions
 
 var digitalProductSchema = new Map([[DigitalProduct,{
     kind: 'struct',
@@ -17,12 +30,6 @@ var digitalProductSchema = new Map([[DigitalProduct,{
         ["description", "string"]
     ]
 }]]);
-
-class PhysicalProduct extends Struct{
-    constructor(props){
-        super(props)
-    }
-}
 
 var physicalProductSchema = new Map([[PhysicalProduct,{
     kind: 'struct',
@@ -36,8 +43,18 @@ var physicalProductSchema = new Map([[PhysicalProduct,{
     ]
 }]]);
 
+/////////////////////////////////////////
+// basic deserialization funcs
 
-async function GetProducts(keywords, categories, seller, connection, id){
+function deserializeDigitalProduct(data){
+    return deserialize(digitalProductSchema, DigitalProduct, data);
+}
+
+function deserializePhysicalProduct(data){
+    return deserialize(physicalProductSchema, PhysicalProduct, data);
+}
+
+async function GetProductsByKeywords(keywords, categories, connection, id){
     keywords = keywords.toLowerCase();
 
     var retarr = [];
@@ -83,12 +100,12 @@ async function GetProducts(keywords, categories, seller, connection, id){
 
     // two diff product types. self explanatory. if its digital, use digital schema, else its a physical product
     if(id == "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii"){
-        retarr = accounts.map((account, index)=>{
-            return deserialize(digitalProductSchema, DigitalProduct, account.account.data);
+        retarr = accounts.map((account)=>{
+            return deserializeDigitalProduct(account.account.data);
         });
     }else{
-        retarr = accounts.map((account, index)=>{
-            return deserialize(physicalProductSchema, PhysicalProduct, account.account.data);
+        retarr = accounts.map((account)=>{
+            return deserializePhysicalProduct(account.account.data);
         });
     };
 
@@ -96,13 +113,6 @@ async function GetProducts(keywords, categories, seller, connection, id){
     retarr.forEach((acc) => {
         acc.productName = acc.productName.toLowerCase();
     });
-
-    // filter by seller
-    if(seller){
-        retarr.filter((acc)=>{
-            return acc.seller == seller;
-        });
-    };
 
     // filter by keyword (check the keywords the users want is in the title)
     if(keywords){
@@ -114,3 +124,5 @@ async function GetProducts(keywords, categories, seller, connection, id){
     // return array of products
     return retarr;
 };
+
+export {GetProductsByKeywords}

@@ -3,7 +3,19 @@ import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import { Popover, Transition } from "@headlessui/react";
 import { LightningBoltIcon} from "@heroicons/react/outline";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+
+import {MarketplaceAccountsClient} from 'marketplace-clients';
+import {PhysicalMarketplaceClient} from 'marketplace-clients';
+import {DigitalMarketplaceClient} from 'marketplace-clients';
+import {BundlrClient} from 'bundlr-uploader';
+
+import AccountsClientCtx from "@contexts";
+import PhysicalMarketClientCtx from "@contexts";
+import DigitalMarketClientCtx from "@contexts";
+import BundlrClientCtx from "@contexts";
+
+import { useContext } from "react";
 
 export default function WalletButton(props){
 
@@ -20,6 +32,23 @@ export default function WalletButton(props){
 			notify("", "error", { title: "Error disconnecting!", position: "top-center" });
 		}
 	}
+
+    const {accountsClient, setAccountsClient} = useContext(AccountsClientCtx);
+    const {physicalMarketClient, setPhysicalMarketClient} = useContext(PhysicalMarketClientCtx);
+    const {digitalMarketClient, setDigitalMarketClient} = useContext(DigitalMarketClientCtx);
+    const {bundlrClient, setBundlrClient} = useContext(BundlrClientCtx);
+
+    useEffect(()=>{
+        
+        if(!wallet){
+            return
+        };
+
+        setAccountsClient(new MarketplaceAccountsClient(wallet));
+        setPhysicalMarketClient(new PhysicalMarketplaceClient(wallet));
+        setDigitalMarketClient(new DigitalMarketplaceClient(wallet));
+        setBundlrClient(new BundlrClient(wallet));
+    }, [wallet])
     
     return (<div>
         {

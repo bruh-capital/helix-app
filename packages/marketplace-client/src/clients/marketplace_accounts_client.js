@@ -1,5 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
+import {deserializeDigitalProduct, deserializePhysicalProduct} from "../../helpers";
 let accounts_idl = require("../idls/marketplace_accounts.json");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,11 +62,24 @@ export class MarketplaceAccountsClient {
 	}
 
 	// todo
-	GetProducts = async() =>{
+	GetProductsByAccount = async(account) =>{
+		let acc = this.GetAccount(account);
+		let products =  await this.connection.getMultipleAccountsInfo(acc.products);
+		products.map((prod)=>{
+			switch(prod.data.length){
+				// digital
+				case 500:
+					return deserializeDigitalProduct(prod.data);
 
+				// physical
+				case 1200:
+					return deserializePhysicalProduct(prod.data);
+			}
+		});
+		return products;
 	}
 
-	GetAccount = async(account_address) =>{
+	static GetAccount = async(account_address) =>{
 		let marketaccount_pk = new PublicKey(account_address);
 		return await this.accounts_program.account.MarketAccount(marketaccount_pk);
 	}

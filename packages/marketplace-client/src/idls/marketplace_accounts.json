@@ -158,12 +158,8 @@
             "type": "string"
           },
           {
-            "name": "chatPubkey",
-            "type": "string"
-          },
-          {
             "name": "lastTransaction",
-            "type": "i64"
+            "type": "u64"
           }
         ]
       }
