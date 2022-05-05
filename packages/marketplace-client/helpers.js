@@ -54,7 +54,7 @@ function deserializePhysicalProduct(data){
     return deserialize(physicalProductSchema, PhysicalProduct, data);
 }
 
-async function GetProductsByKeywords(keywords, categories, connection, id){
+async function GetProductsByKeywords(keywords, connection, id, categories){
     keywords = keywords.toLowerCase();
 
     var retarr = [];
@@ -87,7 +87,7 @@ async function GetProductsByKeywords(keywords, categories, connection, id){
                 // // think about in shower
                 // NormalText,
                 // Code
-                id == "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii" ? 
+                id == "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii" && categories != undefined ? 
                 {
                 memcmp: {
                     offset: 33, // number of bytes

@@ -1,4 +1,5 @@
-
+import { Connection } from "@solana/web3.js";
+import * as anchor from "@project-serum/anchor";
 import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import { Popover, Transition } from "@headlessui/react";
@@ -14,6 +15,8 @@ import AccountsClientCtx from "@contexts";
 import PhysicalMarketClientCtx from "@contexts";
 import DigitalMarketClientCtx from "@contexts";
 import BundlrClientCtx from "@contexts";
+import ConnectionCtx from "@contexts";
+import ProviderCtx from "@contexts";
 
 import { useContext } from "react";
 
@@ -38,6 +41,9 @@ export default function WalletButton(props){
     const {digitalMarketClient, setDigitalMarketClient} = useContext(DigitalMarketClientCtx);
     const {bundlrClient, setBundlrClient} = useContext(BundlrClientCtx);
 
+    const {connection, setConnection} = useContext(ConnectionCtx);
+    const {provider, setProvider} = useContext(ProviderCtx);
+
     useEffect(()=>{
         
         if(!wallet){
@@ -48,6 +54,17 @@ export default function WalletButton(props){
         setPhysicalMarketClient(new PhysicalMarketplaceClient(wallet));
         setDigitalMarketClient(new DigitalMarketplaceClient(wallet));
         setBundlrClient(new BundlrClient(wallet));
+
+        let conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
+
+        let provider = new anchor.AnchorProvider(
+            conn,
+            wallet,
+            anchor.AnchorProvider.defaultOptions()
+        );
+
+        setConnection(conn);
+        setProvider(provider);
     }, [wallet])
     
     return (<div>

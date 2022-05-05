@@ -1,23 +1,20 @@
 import { CheckIcon, SearchIcon } from '@heroicons/react/solid'
 import { Listbox } from "@headlessui/react";
-import { useState } from "react";
+import { useState, useContext} from "react";
+import {Helpers} from 'marketplace-clients';
 
-
-// import {searchProducts}
-
-function searchProducts(){
-
-}
+import ConnectionCtx from '@contexts';
 
 export default function Searchbar(props){
 	const [searchQuery, setSearchQuery] = useState('');
+    const {connection, setConnection} = useContext(ConnectionCtx);
 
 	const [categoriesList, setCategoriesList] = useState([
-		"all categories",
 		"physical",
-		"image",
-		"audio",
-		"video"
+        "digital",
+        "audio", // 0
+        "video", // 1
+		"image", // 2
 	]);
 
     const [categorySelection, setCategorySelection] = useState(categoriesList[0]);
@@ -59,7 +56,26 @@ export default function Searchbar(props){
                 </div>
                 
                 <button
-                    onClick = {()=>{searchProducts(searchQuery, categorySelection)}}
+                    onClick = {()=>{
+                            switch(categories){
+                                case "physical":
+                                    searchProducts(searchQuery, connection, "8mbKcSgQGHhsns3W4DkXpES2S3iRWh3FXphQdFZvfiLJ");
+                                    break;
+                                case "digital":
+                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii");
+                                    break;
+                                case "audio":
+                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 0);
+                                    break;
+                                case "video":
+                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 1);
+                                    break;
+                                case "image":
+                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 2);
+                                    break;
+                            }
+                        }
+                    }
                     className = 'flex flex-row rounded-25 place-items-center text-xs gap-x-2'
                 >
                     SEARCH

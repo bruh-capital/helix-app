@@ -17,10 +17,12 @@ import {
   useRecoilValue,
 } from "recoil";
 
-import AccountsClientCtx from '@contexts/accountsClientCtx';
-import BundlrClientCtx from "@contexts/bundlrClientCtx";
-import DigitalMarketClientCtx from "@contexts/digitalMarketClientCtx";
-import PhysicalMarketClientCtx from "@contexts/PhysicalMarketClientCtx";
+import AccountsClientCtx from '@contexts';
+import BundlrClientCtx from "@contexts";
+import DigitalMarketClientCtx from "@contexts";
+import PhysicalMarketClientCtx from "@contexts";
+import ConnectionCtx from '@contexts';
+import ProviderCtx from '@contexts';
 
 // Contexts
 import { ThemeProvider } from "next-themes";
@@ -42,6 +44,9 @@ function MarketApp({ Component, pageProps }) {
   const [physicalMarketClient, setPhysicalMarketClient] = useState();
   const [bundlrClient, setBundlrClient] = useState();
 
+  const [connection, setConnection] = useState();
+  const [provider, setProvider] = useState();
+
 
   // Image component we use in the goki wallet prompt
   const icon = (
@@ -60,19 +65,24 @@ function MarketApp({ Component, pageProps }) {
         <ThemeProvider attribute='class' defaultTheme='dark'>
           <RecoilRoot>
 
+            <ConnectionCtx.Provider value={{connection, setConnection}}>
+              <ProviderCtx.Provider value={{provider, setProvider}}>
 
-            <AccountsClientCtx.Provider value={{accountsClient, setAccountsClient}}>
-              <BundlrClientCtx.Provider value={{bundlrClient, setBundlrClient}}>
-                <DigitalMarketClientCtx.Provider value={{digitalMarketClient, setDigitalMarketClient}}>
-                  <PhysicalMarketClientCtx.Provider value={{physicalMarketClient, setPhysicalMarketClient}}>
+                <AccountsClientCtx.Provider value={{accountsClient, setAccountsClient}}>
+                  <BundlrClientCtx.Provider value={{bundlrClient, setBundlrClient}}>
+                    <DigitalMarketClientCtx.Provider value={{digitalMarketClient, setDigitalMarketClient}}>
+                      <PhysicalMarketClientCtx.Provider value={{physicalMarketClient, setPhysicalMarketClient}}>
 
-                    <Component {...pageProps} />
+                        <Component {...pageProps} />
 
-                  </PhysicalMarketClientCtx.Provider>
-                </DigitalMarketClientCtx.Provider>
-              </BundlrClientCtx.Provider>
-            </AccountsClientCtx.Provider>
-            
+                      </PhysicalMarketClientCtx.Provider>
+                    </DigitalMarketClientCtx.Provider>
+                  </BundlrClientCtx.Provider>
+                </AccountsClientCtx.Provider>
+
+              </ProviderCtx.Provider>
+            </ConnectionCtx.Provider>
+
           </RecoilRoot>
         </ThemeProvider>
       </WalletKitProvider>
