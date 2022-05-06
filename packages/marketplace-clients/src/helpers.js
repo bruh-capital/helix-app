@@ -1,6 +1,6 @@
 import { PublicKey, Struct } from "@solana/web3.js";
 import { deserialize }  from 'borsh';
-const accounts_programid = new PublicKey(require("./src/idls/marketplace_accounts.json").metadata.address);
+const accounts_programid = new PublicKey(require("./idls/marketplace_accounts.json").metadata.address);
 
 ////////////////////////////////////////////
 // struct definitions 

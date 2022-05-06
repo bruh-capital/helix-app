@@ -22,8 +22,7 @@ export class BundlrClient{
     async sendToBundlr(arrayBuffers, solTxAddr){
         let skArr = [];
         let chunkArr = [];
-
-        arrayBuffers.forEach((ab) => {
+        for(let ab of arrayBuffers){
             let [pk, sk] = await this.keystore.genRsaKp();
             let buffStr = this.keystore.encData(this.keystore.ab2str(ab), pk);
 
@@ -32,7 +31,7 @@ export class BundlrClient{
 
             chunkArr.push(pkStr + "endchunkkey" + buffStr + "endchunkbuffer");
             skArr.push(skStr);
-        });
+        };
 
         let res = await this.bundlr.uploader.upload(file, [{ name: "helix-digital-tx", value: solTxAddr }]);
         this.keystore.setKeyVal(solTxAddr, skArr);

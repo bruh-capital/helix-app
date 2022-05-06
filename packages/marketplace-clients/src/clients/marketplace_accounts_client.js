@@ -1,6 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
-import {deserializeDigitalProduct, deserializePhysicalProduct} from "../../helpers";
+import {deserializeDigitalProduct, deserializePhysicalProduct} from "../helpers";
 let accounts_idl = require("../idls/marketplace_accounts.json");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

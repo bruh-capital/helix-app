@@ -11,12 +11,12 @@ import {PhysicalMarketplaceClient} from 'marketplace-clients';
 import {DigitalMarketplaceClient} from 'marketplace-clients';
 import {BundlrClient} from 'bundlr-uploader';
 
-import AccountsClientCtx from "@contexts";
-import PhysicalMarketClientCtx from "@contexts";
-import DigitalMarketClientCtx from "@contexts";
-import BundlrClientCtx from "@contexts";
-import ConnectionCtx from "@contexts";
-import ProviderCtx from "@contexts";
+import AccountsClientCtx from "@contexts/accountsClientCtx";
+import PhysicalMarketClientCtx from "@contexts/physicalMarketClientCtx";
+import DigitalMarketClientCtx from "@contexts/DigitalMarketClientCtx";
+import BundlrClientCtx from "@contexts/BundlrClientCtx";
+import ConnectionCtx from "@contexts/connectionCtx";
+import ProviderCtx from "@contexts/providerContext";
 
 import { useContext } from "react";
 
@@ -110,7 +110,7 @@ export default function WalletButton(props){
                     className="flex flex-row items-center justify-around text-md font-medium bg-[#C8C7CA] dark:bg-[#353942] px-2 md:px-3 py-1 md:py-2 rounded-md"
                     onClick={() => goki.connect()}
                 >
-                    <span>Connect Wallet</span>
+                    <span className=" whitespace-nowrap ">Connect</span>
                     <LightningBoltIcon className="h-4 w-4 pl-1 md:h-6 md:w-6" />
                 </button>
             )

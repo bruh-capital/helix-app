@@ -10,6 +10,6 @@
         "@bundlr-network/client": "^0.7.3",
         "keystore": "file:../key_helpers",
         "lamejs": "^1.2.1",
-        "marketplace-clients": "file:../marketplace-client"
+        "marketplace-clients": "file:../marketplace-clients"
     }
 }

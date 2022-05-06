@@ -1,9 +1,9 @@
-import { CheckIcon, SearchIcon } from '@heroicons/react/solid'
+import { CheckIcon, SearchIcon, ChevronDownIcon } from '@heroicons/react/solid'
 import { Listbox } from "@headlessui/react";
 import { useState, useContext} from "react";
-import {Helpers} from 'marketplace-clients';
+import MarketHelpers from 'marketplace-clients';
 
-import ConnectionCtx from '@contexts';
+import ConnectionCtx from '@contexts/connectionCtx';
 
 export default function Searchbar(props){
 	const [searchQuery, setSearchQuery] = useState('');
@@ -25,6 +25,25 @@ export default function Searchbar(props){
                 type="text"
                 placeholder="search in marketplace"
                 className='bg-transparent focus:outline-none m-2 grow'
+                onKeyPress={(e)=>{if(e.key=="Enter"){
+                    switch(categories){
+                        case "physical":
+                            MarketHelpers.searchProducts(searchQuery, connection, "8mbKcSgQGHhsns3W4DkXpES2S3iRWh3FXphQdFZvfiLJ");
+                            break;
+                        case "digital":
+                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii");
+                            break;
+                        case "audio":
+                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 0);
+                            break;
+                        case "video":
+                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 1);
+                            break;
+                        case "image":
+                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 2);
+                            break;
+                    }
+                }}}
                 value = {searchQuery}
                 onChange = {(e)=>{setSearchQuery(e.target.value)}}
             />
@@ -54,37 +73,6 @@ export default function Searchbar(props){
                         </Listbox.Options>
                     </Listbox>
                 </div>
-                
-                <button
-                    onClick = {()=>{
-                            switch(categories){
-                                case "physical":
-                                    searchProducts(searchQuery, connection, "8mbKcSgQGHhsns3W4DkXpES2S3iRWh3FXphQdFZvfiLJ");
-                                    break;
-                                case "digital":
-                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii");
-                                    break;
-                                case "audio":
-                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 0);
-                                    break;
-                                case "video":
-                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 1);
-                                    break;
-                                case "image":
-                                    searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 2);
-                                    break;
-                            }
-                        }
-                    }
-                    className = 'flex flex-row rounded-25 place-items-center text-xs gap-x-2'
-                >
-                    SEARCH
-
-                    <SearchIcon
-                        width={16}
-                        height={16}
-                    />
-                </button>
             </div>
         </div>
     )

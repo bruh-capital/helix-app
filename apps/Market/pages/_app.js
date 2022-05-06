@@ -17,12 +17,12 @@ import {
   useRecoilValue,
 } from "recoil";
 
-import AccountsClientCtx from '@contexts';
-import BundlrClientCtx from "@contexts";
-import DigitalMarketClientCtx from "@contexts";
-import PhysicalMarketClientCtx from "@contexts";
-import ConnectionCtx from '@contexts';
-import ProviderCtx from '@contexts';
+import AccountsClientCtx from "@contexts/accountsClientCtx";
+import PhysicalMarketClientCtx from "@contexts/physicalMarketClientCtx";
+import DigitalMarketClientCtx from "@contexts/DigitalMarketClientCtx";
+import BundlrClientCtx from "@contexts/BundlrClientCtx";
+import ConnectionCtx from "@contexts/connectionCtx";
+import ProviderCtx from "@contexts/providerContext";
 
 // Contexts
 import { ThemeProvider } from "next-themes";
@@ -61,7 +61,13 @@ function MarketApp({ Component, pageProps }) {
 
   return(
     <NotificationsProvider>
-      <WalletKitProvider>
+      <WalletKitProvider
+        defaultNetwork='devnet'
+        app={{
+          name: 'Helix',
+          icon:  icon,
+        }}
+      >
         <ThemeProvider attribute='class' defaultTheme='dark'>
           <RecoilRoot>
 

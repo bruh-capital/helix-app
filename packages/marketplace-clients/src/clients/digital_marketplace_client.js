@@ -1,5 +1,4 @@
 import * as anchor from "@project-serum/anchor";
-import {Token, TOKEN_PROGRAM_ID} from '@solana/spl-token';
 import { SystemProgram, PublicKey, Connection} from "@solana/web3.js";
 let digital_idl = require("../idls/digital_marketplace.json");
 
@@ -87,11 +86,11 @@ export class DigitalMarketplaceClient {
             }
         })
     }
-    CreateOrder = async(product, traceless, seller_wallet) =>{
+    CreateOrder = async(product_key, traceless, seller_wallet) =>{
         let transaction_kp = anchor.web3.Keypair.generate();
         let [holdingAcc, holdingBump] = this.holdingPda(transaction_kp);
 
-        let product_pk = new PublicKey(product);
+        let product_pk = new PublicKey(product_key);
 
         let product = this.digital_market_program.account.digitalProduct(product_pk);
 
