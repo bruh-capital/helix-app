@@ -14,11 +14,11 @@ export default function Logo(props) {
 					"4K_3D_black.png":
 					"4k_3D_white.png")
 				}
-				height={90}
-				width={90}
+				height={60}
+				width={60}
 				layout="fixed"
 			/>
-			<div className="hidden sm:flex sm:text-2xl md:text-4xl my-auto -ml-3 text-[#3E3E3E] dark:text-white font-[Junegull] align-center text-center">
+			<div className="hidden sm:flex sm:text-2xl md:text-3xl my-auto -ml-3 text-[#3E3E3E] dark:text-white font-[Junegull] align-center text-center">
 				HELIX
 			</div>
 		</div>

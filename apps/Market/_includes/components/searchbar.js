@@ -1,7 +1,7 @@
-import { CheckIcon, SearchIcon, ChevronDownIcon } from '@heroicons/react/solid'
-import { Listbox } from "@headlessui/react";
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid'
+import { Listbox, Transition} from "@headlessui/react";
 import { useState, useContext} from "react";
-import MarketHelpers from 'marketplace-clients';
+import {MarketHelpers} from 'marketplace-clients';
 
 import ConnectionCtx from '@contexts/connectionCtx';
 
@@ -20,27 +20,27 @@ export default function Searchbar(props){
     const [categorySelection, setCategorySelection] = useState(categoriesList[0]);
 
     return (
-        <div className='flex flex-row justify-evenly w-1/2 z-10 border-2 m-4 border-gray-200 rounded-xl min-h-max max-h-10'>
+        <div className='flex flex-row justify-evenly w-1/2 z-10 border-2 m-4 border-gray-200 rounded-xl min-h-max max-h-10 sm:w-5/6'>
             <input
                 type="text"
-                placeholder="search in marketplace"
+                placeholder="search"
                 className='bg-transparent focus:outline-none m-2 grow'
                 onKeyPress={(e)=>{if(e.key=="Enter"){
-                    switch(categories){
+                    switch(categorySelection){
                         case "physical":
-                            MarketHelpers.searchProducts(searchQuery, connection, "8mbKcSgQGHhsns3W4DkXpES2S3iRWh3FXphQdFZvfiLJ");
+                            MarketHelpers.GetProductsByKeywords(searchQuery, connection, "8mbKcSgQGHhsns3W4DkXpES2S3iRWh3FXphQdFZvfiLJ");
                             break;
                         case "digital":
-                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii");
+                            MarketHelpers.GetProductsByKeywords(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii");
                             break;
                         case "audio":
-                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 0);
+                            MarketHelpers.GetProductsByKeywords(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 0);
                             break;
                         case "video":
-                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 1);
+                            MarketHelpers.GetProductsByKeywords(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 1);
                             break;
                         case "image":
-                            MarketHelpers.searchProducts(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 2);
+                            MarketHelpers.GetProductsByKeywords(searchQuery, connection, "51SD4jGExq2GrtGZykE1RLfeUC16RiLEjJpHxpa7Qsii", 2);
                             break;
                     }
                 }}}
@@ -48,23 +48,26 @@ export default function Searchbar(props){
                 onChange = {(e)=>{setSearchQuery(e.target.value)}}
             />
             
-            <div className='flex flex-row justify-evenly w-2/5'>
-                <div className='max-w-xs w-full h-full flex'>
+            <div className='flex flex-row justify-evenly w-1/5 sm:w-1/4'>
+                <div className='w-2/3 h-full flex'>
                     <Listbox
                         as="div"
                         value={categorySelection}
                         onChange={setCategorySelection}
-                        className="space-y-2 grid grid-cols-1 static w-full h-full justify-center"
+                        className="grid grid-cols-1 static h-full justify-center w-full"
                     >
-                        <Listbox.Button>
+                        <Listbox.Button className="flex flex-row place-items-center relative pb-2 pt-1 w-24">
                             {categorySelection}
+                            <ChevronDownIcon
+                                width={20}
+                                height={20}
+                            />
                         </Listbox.Button>
-                        <Listbox.Options>
+                        <Listbox.Options className="flex flex-col gap-y-1 pt-4 rounded-md w-24">
                         {categoriesList?.map((cat)=>{
                             return <Listbox.Option key={cat} value={cat}>
                                 {({ active, selected }) => (
-                                    <li className={"flex flex-row justify-center place-items-center gap-x-2 " + (active ? 'bg-gray-800 text-white' : 'bg-gray-500 text-white')} >
-                                        {selected && <CheckIcon width={10} height={10}/>}
+                                    <li className={"flex flex-row justify-center place-items-center rounded-md p-1 " + (active ? 'bg-gray-700 text-white' : 'bg-gray-500 text-white')} >
                                         {cat}
                                     </li>
                                 )}

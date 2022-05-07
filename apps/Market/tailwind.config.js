@@ -9,6 +9,20 @@ module.exports = {
   theme: {
     extend: {
     },
+    screens: {
+      'sm': '650px',
+      // => @media (min-width: 650px) { ... }
+
+      'md': '1450px',
+      // => @media (min-width: 1450px) { ... }
+
+      'lg': '2100px',
+      // => @media (min-width: 2050px) { ... }
+
+      'xl': '2800px',
+      // => @media (min-width: 2650px) { ... }
+      
+    }
   },
   plugins: [],
 }

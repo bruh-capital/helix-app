@@ -124,14 +124,16 @@ export default function MarketDashBody(props) {
 	return(
     <div className="static grid grid-cols-1 place-items-center justify-center items-center w-full">
       
-      <BannerCarousel/>
+      <div className="p-8">
+        <BannerCarousel/>
+      </div>
 
       <div className="w-10/12 pt-12">
-        <div className="text-lg ">
+        <div className="font-bold py-8 text-4xl">
           Recently Added
         </div>
 
-        <div className="grid grid-cols-4 grid-rows-2 gap-x-3 w-full">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 grid-rows-2 gap-x-3 w-full">
           {
            recentListingsVal.map((item)=>{
             return <ProductCard

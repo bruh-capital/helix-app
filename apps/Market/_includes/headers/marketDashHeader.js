@@ -13,7 +13,7 @@ export default function MarketDashHeader(props) {
 			<Searchbar/>
 			</div>
 			
-			<div className="flex flex-row gap-x-4 m-2">
+			<div className="flex flex-row gap-x-4 m-2 h-full">
 				<button 
 					className="opacity-80 text-gray-500 hover:text-white ease-in-out ease-500 hover:opacity-100"
 				>
