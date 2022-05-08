@@ -1,6 +1,6 @@
 import BestAccountsDisplay from "@includes/components/bestAccountsDisplay";
 import BannerCarousel from "@includes/components/bannerCarousel";
-import { ProductCard } from "@includes/components/productCard";
+import { ProductCardSmall } from "@includes/components/productCardSmall";
 import {atom, useRecoilValue} from "recoil";
 
 // import getTopSellers, getTopBuyers, getRecentlyListed
@@ -136,7 +136,7 @@ export default function MarketDashBody(props) {
         <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 grid-rows-2 gap-x-3 w-full">
           {
            recentListingsVal.map((item)=>{
-            return <ProductCard
+            return <ProductCardSmall
               imageLink = {item.imageLink}
               username = {item.username}
               productName = {item.productName}

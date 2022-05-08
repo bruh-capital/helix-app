@@ -3,7 +3,6 @@ import * as anchor from "@project-serum/anchor";
 import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import { Popover, Transition } from "@headlessui/react";
-import { LightningBoltIcon} from "@heroicons/react/outline";
 import { Fragment, useEffect } from "react";
 
 import {MarketplaceAccountsClient} from 'marketplace-clients';
@@ -67,7 +66,7 @@ export default function WalletButton(props){
         setProvider(provider);
     }, [wallet])
     
-    return (<div>
+    return (<div className="pr-2">
         {
             wallet ? 
             (
@@ -106,13 +105,14 @@ export default function WalletButton(props){
                     )}
                 </Popover>
             ) : (
-                <button 
-                    className="flex flex-row items-center justify-around text-md font-medium bg-[#C8C7CA] dark:bg-[#353942] px-2 md:px-3 py-1 md:py-2 rounded-md"
-                    onClick={() => goki.connect()}
-                >
-                    <span className=" whitespace-nowrap ">Connect</span>
-                    <LightningBoltIcon className="h-4 w-4 pl-1 md:h-6 md:w-6" />
-                </button>
+                <div className="rounded-3xl bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 p-[1.5px]">
+                    <button 
+                        className="flex flex-row justify-center text-md font-medium px-2 md:px-3 py-1 md:py-2 bg-[#262626] rounded-3xl"
+                        onClick={() => goki.connect()}
+                    >
+                        <span className="whitespace-nowrap px-2 text-sm">Connect</span>
+                    </button>
+                </div>
             )
         }
     </div>)

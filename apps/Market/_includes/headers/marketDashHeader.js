@@ -6,11 +6,11 @@ import { useState } from "react";
 export default function MarketDashHeader(props) {
 	const [focused, setFocus] = useState("")
 	return(
-		<div className="flex mx-auto w-full bg-[#262626] text-white place-items-center">
+		<div className="flex mx-auto w-full text-white place-items-center bg-[#262626] bg-opacity-70">
 			<Logo/>
 
 			<div className="grow w-full justify-center flex">
-			<Searchbar/>
+				<Searchbar/>
 			</div>
 			
 			<div className="flex flex-row gap-x-4 m-2 h-full">

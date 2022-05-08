@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 // todo (addendum from indy :P)
 // 	on hover, make it pop up (increase width. add 1 to z index. add drop shadow + opacity)
-export function ProductCard(props) {
+export function ProductCardSmall(props) {
 	return(
 		<div className="flex flex-col rounded-2xl ring-2 ring-inset ring-gray-800 w-[300px] h-[420px] relative overflow-hidden">
 			<div className="flex flex-row justify-center relative top-0">
@@ -22,7 +22,7 @@ export function ProductCard(props) {
 
 			<div className="w-full absolute bottom-0 h-[120px]">
 
-				<div className='flex flex-row content-center w-full bg-[#323232] h-[70px]'>
+				<div className='flex flex-row content-center w-full bg-[#323232] h-[70px] bg-opacity-70'>
 					<div className='flex flex-col h-full justify-center pl-4 '>
 						<Image 
 							src={props.profileLink}

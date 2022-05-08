@@ -6,10 +6,10 @@ import Image from "next/image";
  */
 function MarketIntroductionBanner(props) {
 	return(
-		<div ref={props.passedRef} className="flex w-full h-full rounded-xl bg-mesh-1-bg bg-cover justify-around">
+		<div ref={props.passedRef} className="flex w-full h-full rounded-xl justify-around">
 			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto lg:my-auto justify-center relative h-full font-sans">
 				
-				<div className="absolute w-10/12 sm:w-full h-5/6 bottom-0 rounded-xl bg-[#262626]">
+				<div className="absolute w-10/12 sm:w-full h-5/6 bottom-0 rounded-xl bg-[#262626] bg-opacity-80">
 
 				</div>
 
