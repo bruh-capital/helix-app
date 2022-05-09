@@ -6,26 +6,27 @@ import Image from "next/image";
  */
 function MarketIntroductionBanner(props) {
 	return(
-		<div ref={props.passedRef} className="flex w-full h-full rounded-xl justify-around">
-			<div className="flex flex-row px-4 xl:px-14 py-auto my-auto lg:my-auto justify-center relative h-full font-sans">
+		<div ref={props.passedRef} className="flex w-full h-full rounded-xl justify-center">
+			<div className="flex flex-row justify-center relative h-full font-sans w-full place-items-center">
 				
-				<div className="absolute w-10/12 sm:w-full h-5/6 bottom-0 rounded-xl bg-[#262626] bg-opacity-80">
+				<div className="absolute full w-10/12 h-5/6 bottom-0 rounded-xl bg-[#262626] bg-opacity-80">
 
 				</div>
-
-				<Image 
-					src="/market/dash/banners/purpleDashBanner.png"
-					height={150}
-					width={175}
-					layout="fixed"
-				/>
 				
-				<div className="flex flex-col basis-3/4 h-full my-auto relative justify-center pl-8">
-					<div className="static text-left pt-4">
-						<span className="basis-full leading-none text-lg md:text-xl lg:text-2xl xl:text-3xl md:my-auto py-2 font-bold text-white">
+				{/* TODO: add dynamic image sizing */}
+				<div className="relative sm:w-[175px] sm:h-[175px]">
+					<Image 
+						src="/market/dash/banners/purpleDashBanner.png"
+						layout="fill"
+					/>
+				</div>
+				
+				<div className="flex flex-col h-full relative justify-center pl-8">
+					<div className="text-left pt-4">
+						<span className="leading-none text-lg md:text-2xl xl:text-3xl md:my-auto py-2 font-bold text-white">
 							Prepare to enter the first Blockchain Marketplace
 						</span>
-						<span className="flex font-bold basis-1/4 text-xs -mt-1 md:text-md lg:text-lg xl:font-xl text-white opacity-75 leading-none ">
+						<span className="flex font-bold text-xs -mt-1 md:text-lg xl:font-xl text-white opacity-75 leading-none ">
 							Physical, Digital, NFTs, and community marketplace all in one place
 						</span>	
 					</div>

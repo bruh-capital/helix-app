@@ -124,7 +124,7 @@ export default function MarketDashBody(props) {
 	return(
     <div className="static grid grid-cols-1 place-items-center justify-center items-center w-full">
       
-      <div className="p-8">
+      <div className="p-8 w-full">
         <BannerCarousel/>
       </div>
 
