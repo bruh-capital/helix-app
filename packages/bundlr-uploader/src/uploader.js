@@ -24,6 +24,8 @@ export class BundlrClient{
         let chunkArr = [];
         for(let ab of arrayBuffers){
             let [pk, sk] = await this.keystore.genRsaKp();
+
+            //rsa encrypted key : iv : str
             let buffStr = this.keystore.encData(this.keystore.ab2str(ab), pk);
 
             let pkStr = await this.keystore.exportRsaPubKey(pk);
@@ -33,7 +35,7 @@ export class BundlrClient{
             skArr.push(skStr);
         };
 
-        let res = await this.bundlr.uploader.upload(file, [{ name: "helix-digital-tx", value: solTxAddr }]);
+        let res = await this.bundlr.uploader.upload(chunkArr.join("-eb-"), [{ name: "helix-digital-tx", value: solTxAddr }]);
         this.keystore.setKeyVal(solTxAddr, skArr);
 
         return res.data.id;
