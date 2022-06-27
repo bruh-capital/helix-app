@@ -8,7 +8,9 @@ import { Fragment, useEffect } from "react";
 import {MarketplaceAccountsClient} from 'marketplace-clients';
 import {PhysicalMarketplaceClient} from 'marketplace-clients';
 import {DigitalMarketplaceClient} from 'marketplace-clients';
-import {BundlrClient} from 'bundlr-uploader';
+
+// this breaks everything why???
+//import {BundlrClient} from 'bundlr-uploader';
 
 import AccountsClientCtx from "@contexts/accountsClientCtx";
 import PhysicalMarketClientCtx from "@contexts/physicalMarketClientCtx";
@@ -20,7 +22,6 @@ import ProviderCtx from "@contexts/providerContext";
 import { useContext } from "react";
 
 export default function WalletButton(props){
-
     const wallet = useConnectedWallet();
 	const goki = useWalletKit();
 

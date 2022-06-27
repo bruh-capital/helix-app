@@ -11,7 +11,6 @@ export default function MarketLayout(props) {
     </GlobalHeader>
     <MarketDashBody/>
     <DashFooter/>
-      
   </div>
   )
 }

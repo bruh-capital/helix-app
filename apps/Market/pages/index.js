@@ -9,9 +9,7 @@ export default function IndexPage(props) {
 			<Head>
 				<Metatags/>
 			</Head>
-			<MarketLayout>
-        
-			</MarketLayout>
+			<MarketLayout/>
 		</main>
 	);
 }
