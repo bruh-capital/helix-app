@@ -9,6 +9,7 @@ import {MarketplaceAccountsClient} from 'marketplace-clients';
 import {PhysicalMarketplaceClient} from 'marketplace-clients';
 import {DigitalMarketplaceClient} from 'marketplace-clients';
 import {BundlrClient} from 'bundlr-uploader';
+import {Swapper} from 'jupiter-wrapper';
 
 import AccountsClientCtx from "@contexts/accountsClientCtx";
 import PhysicalMarketClientCtx from "@contexts/physicalMarketClientCtx";
@@ -16,6 +17,7 @@ import DigitalMarketClientCtx from "@contexts/DigitalMarketClientCtx";
 import BundlrClientCtx from "@contexts/BundlrClientCtx";
 import ConnectionCtx from "@contexts/connectionCtx";
 import ProviderCtx from "@contexts/providerContext";
+import JupiterClientCtx from "@contexts/jupiterClientCtx";
 
 import { useContext } from "react";
 
@@ -39,6 +41,7 @@ export default function WalletButton(props){
     const {physicalMarketClient, setPhysicalMarketClient} = useContext(PhysicalMarketClientCtx);
     const {digitalMarketClient, setDigitalMarketClient} = useContext(DigitalMarketClientCtx);
     const {bundlrClient, setBundlrClient} = useContext(BundlrClientCtx);
+    const {jupiterClient, setJupiterClient} = useContext(JupiterClientCtx);
 
     const {connection, setConnection} = useContext(ConnectionCtx);
     const {provider, setProvider} = useContext(ProviderCtx);
@@ -53,6 +56,7 @@ export default function WalletButton(props){
         setPhysicalMarketClient(new PhysicalMarketplaceClient(wallet));
         setDigitalMarketClient(new DigitalMarketplaceClient(wallet));
         setBundlrClient(new BundlrClient(wallet));
+        setJupiterClient(new Swapper(wallet));
 
         let conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
 

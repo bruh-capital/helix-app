@@ -23,7 +23,7 @@ import DigitalMarketClientCtx from "@contexts/DigitalMarketClientCtx";
 import BundlrClientCtx from "@contexts/BundlrClientCtx";
 import ConnectionCtx from "@contexts/connectionCtx";
 import ProviderCtx from "@contexts/providerContext";
-
+import JupiterClientCtx from '@contexts/jupiterClientCtx';
 // Contexts
 import { ThemeProvider } from "next-themes";
 import { useState } from 'react';
@@ -43,6 +43,7 @@ function MarketApp({ Component, pageProps }) {
   const [digitalMarketClient, setDigitalMarketClient] = useState();
   const [physicalMarketClient, setPhysicalMarketClient] = useState();
   const [bundlrClient, setBundlrClient] = useState();
+  const [jupiterClient, setJupiterClient] = useState();
 
   const [connection, setConnection] = useState();
   const [provider, setProvider] = useState();
@@ -73,18 +74,20 @@ function MarketApp({ Component, pageProps }) {
 
             <ConnectionCtx.Provider value={{connection, setConnection}}>
               <ProviderCtx.Provider value={{provider, setProvider}}>
+                
+                <JupiterClientCtx.Provider value = {{jupiterClient, setJupiterClient}}>
+                  <AccountsClientCtx.Provider value={{accountsClient, setAccountsClient}}>
+                    <BundlrClientCtx.Provider value={{bundlrClient, setBundlrClient}}>
+                      <DigitalMarketClientCtx.Provider value={{digitalMarketClient, setDigitalMarketClient}}>
+                        <PhysicalMarketClientCtx.Provider value={{physicalMarketClient, setPhysicalMarketClient}}>
 
-                <AccountsClientCtx.Provider value={{accountsClient, setAccountsClient}}>
-                  <BundlrClientCtx.Provider value={{bundlrClient, setBundlrClient}}>
-                    <DigitalMarketClientCtx.Provider value={{digitalMarketClient, setDigitalMarketClient}}>
-                      <PhysicalMarketClientCtx.Provider value={{physicalMarketClient, setPhysicalMarketClient}}>
+                          <Component {...pageProps} />
 
-                        <Component {...pageProps} />
-
-                      </PhysicalMarketClientCtx.Provider>
-                    </DigitalMarketClientCtx.Provider>
-                  </BundlrClientCtx.Provider>
-                </AccountsClientCtx.Provider>
+                        </PhysicalMarketClientCtx.Provider>
+                      </DigitalMarketClientCtx.Provider>
+                    </BundlrClientCtx.Provider>
+                  </AccountsClientCtx.Provider>
+                </JupiterClientCtx.Provider>
 
               </ProviderCtx.Provider>
             </ConnectionCtx.Provider>
