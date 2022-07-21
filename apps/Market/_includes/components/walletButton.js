@@ -22,7 +22,6 @@ import JupiterClientCtx from "@contexts/jupiterClientCtx";
 import { useContext } from "react";
 
 export default function WalletButton(props){
-
     const wallet = useConnectedWallet();
 	const goki = useWalletKit();
 
