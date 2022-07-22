@@ -31,7 +31,7 @@ export class Swapper{
         const routes = await this.jupiter.computeRoutes({
             inputMint: new PublicKey(inputTokenMint), // Mint address of the input token
             outputMint: new PublicKey(outputTokenMint), // Mint address of the output token
-            amount: JSBI.BigInt(amount * decimals), // amount of tokens * decimals. USDC has 6. we can just hardcode this i cba to add another network call
+            amount: JSBI.BigInt(amount * mintDecimals[inputTokenMint]), // amount of tokens * decimals. USDC has 6. we can just hardcode this i cba to add another network call
             slippage, // The slippage in % terms
             forceFetch: false // false is the default value => will use cache if not older than routeCacheDuration
             // there's a deeBps field i have no idea what it does
