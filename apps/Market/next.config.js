@@ -2,9 +2,7 @@ const withTM = require('next-transpile-modules')([
   '@gokiprotocol/walletkit',
   '@solana/wallet-adapter-base',
   'helix-clients',
-  'marketplace-clients',
-  'helix-chat',
-  'bundlr-uploader'
+  'marketplace-clients'
 ]);
 
 const withPWA = require('next-pwa');

@@ -17,13 +17,8 @@ import {
   useRecoilValue,
 } from "recoil";
 
-import AccountsClientCtx from "@contexts/accountsClientCtx";
-import PhysicalMarketClientCtx from "@contexts/physicalMarketClientCtx";
-import DigitalMarketClientCtx from "@contexts/DigitalMarketClientCtx";
-import BundlrClientCtx from "@contexts/BundlrClientCtx";
 import ConnectionCtx from "@contexts/connectionCtx";
 import ProviderCtx from "@contexts/providerContext";
-import JupiterClientCtx from '@contexts/jupiterClientCtx';
 // Contexts
 import { ThemeProvider } from "next-themes";
 import { useState } from 'react';
@@ -39,11 +34,6 @@ setUpNotifications({
 });
 
 function MarketApp({ Component, pageProps }) {
-  const [accountsClient, setAccountsClient] = useState();
-  const [digitalMarketClient, setDigitalMarketClient] = useState();
-  const [physicalMarketClient, setPhysicalMarketClient] = useState();
-  const [bundlrClient, setBundlrClient] = useState();
-  const [jupiterClient, setJupiterClient] = useState();
 
   const [connection, setConnection] = useState();
   const [provider, setProvider] = useState();
@@ -74,20 +64,9 @@ function MarketApp({ Component, pageProps }) {
 
             <ConnectionCtx.Provider value={{connection, setConnection}}>
               <ProviderCtx.Provider value={{provider, setProvider}}>
-                
-                <JupiterClientCtx.Provider value = {{jupiterClient, setJupiterClient}}>
-                  <AccountsClientCtx.Provider value={{accountsClient, setAccountsClient}}>
-                    <BundlrClientCtx.Provider value={{bundlrClient, setBundlrClient}}>
-                      <DigitalMarketClientCtx.Provider value={{digitalMarketClient, setDigitalMarketClient}}>
-                        <PhysicalMarketClientCtx.Provider value={{physicalMarketClient, setPhysicalMarketClient}}>
+              
 
                           <Component {...pageProps} />
-
-                        </PhysicalMarketClientCtx.Provider>
-                      </DigitalMarketClientCtx.Provider>
-                    </BundlrClientCtx.Provider>
-                  </AccountsClientCtx.Provider>
-                </JupiterClientCtx.Provider>
 
               </ProviderCtx.Provider>
             </ConnectionCtx.Provider>

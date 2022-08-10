@@ -10,15 +10,15 @@ export class Swapper{
         
         // rpc endpoint
         // "https://api.devnet.solana.com" : "https://ssc-dao.genesysgo.net", etc. rpc endpoints
-        const connection = new Connection('https://solana-api.projectserum.com');
+        // const connection = new Connection('https://solana-api.projectserum.com');
 
-        this.jupiter = await Jupiter.load({
-            connection,
-            cluster: "devnet",// "devnet" | "testnet" | "mainnet-beta"
-            user: this.wallet.publicKey, // or public key
-            // platformFeeAndAccounts:  NO_PLATFORM_FEE,
-            routeCacheDuration: 5_000, // Will not refetch data on computeRoutes for up to 5 seconds
-        });
+        // this.jupiter = await Jupiter.load({
+        //     connection,
+        //     cluster: "devnet",// "devnet" | "testnet" | "mainnet-beta"
+        //     user: this.wallet.publicKey, // or public key
+        //     // platformFeeAndAccounts:  NO_PLATFORM_FEE,
+        //     routeCacheDuration: 5_000, // Will not refetch data on computeRoutes for up to 5 seconds
+        // });
           
     }
 

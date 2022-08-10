@@ -1,23 +1,19 @@
-import { Connection } from "@solana/web3.js";
-import * as anchor from "@project-serum/anchor";
+// import { Connection } from "@solana/web3.js";
+// import * as anchor from "@project-serum/anchor";
 import { useConnectedWallet, useSolana } from "@saberhq/use-solana";
 import { useWalletKit } from "@gokiprotocol/walletkit";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";
 
-import {MarketplaceAccountsClient} from 'marketplace-clients';
-import {PhysicalMarketplaceClient} from 'marketplace-clients';
-import {DigitalMarketplaceClient} from 'marketplace-clients';
-import {BundlrClient} from 'bundlr-uploader';
-import {Swapper} from 'jupiter-wrapper';
+// import {MarketplaceAccountsClient} from 'marketplace-clients';
+// import {PhysicalMarketplaceClient} from 'marketplace-clients';
+// import {DigitalMarketplaceClient} from 'marketplace-clients';
 
-import AccountsClientCtx from "@contexts/accountsClientCtx";
-import PhysicalMarketClientCtx from "@contexts/physicalMarketClientCtx";
-import DigitalMarketClientCtx from "@contexts/DigitalMarketClientCtx";
-import BundlrClientCtx from "@contexts/BundlrClientCtx";
-import ConnectionCtx from "@contexts/connectionCtx";
-import ProviderCtx from "@contexts/providerContext";
-import JupiterClientCtx from "@contexts/jupiterClientCtx";
+// import AccountsClientCtx from "@contexts/accountsClientCtx";
+// import PhysicalMarketClientCtx from "@contexts/physicalMarketClientCtx";
+// import DigitalMarketClientCtx from "@contexts/DigitalMarketClientCtx";
+// import ConnectionCtx from "@contexts/connectionCtx";
+// import ProviderCtx from "@contexts/providerContext";
 
 import { useContext } from "react";
 
@@ -36,38 +32,35 @@ export default function WalletButton(props){
 		}
 	}
 
-    const {accountsClient, setAccountsClient} = useContext(AccountsClientCtx);
-    const {physicalMarketClient, setPhysicalMarketClient} = useContext(PhysicalMarketClientCtx);
-    const {digitalMarketClient, setDigitalMarketClient} = useContext(DigitalMarketClientCtx);
-    const {bundlrClient, setBundlrClient} = useContext(BundlrClientCtx);
-    const {jupiterClient, setJupiterClient} = useContext(JupiterClientCtx);
+    // const {accountsClient, setAccountsClient} = useContext(AccountsClientCtx);
+    // const {physicalMarketClient, setPhysicalMarketClient} = useContext(PhysicalMarketClientCtx);
+    // const {digitalMarketClient, setDigitalMarketClient} = useContext(DigitalMarketClientCtx);
 
-    const {connection, setConnection} = useContext(ConnectionCtx);
-    const {provider, setProvider} = useContext(ProviderCtx);
+    // const {connection, setConnection} = useContext(ConnectionCtx);
+    // const {provider, setProvider} = useContext(ProviderCtx);
 
-    useEffect(()=>{
+    // useEffect(()=>{
         
-        if(!wallet){
-            return
-        };
+    //     if(!wallet){
+    //         return
+    //     };
+        
 
-        setAccountsClient(new MarketplaceAccountsClient(wallet));
-        setPhysicalMarketClient(new PhysicalMarketplaceClient(wallet));
-        setDigitalMarketClient(new DigitalMarketplaceClient(wallet));
-        setBundlrClient(new BundlrClient(wallet));
-        setJupiterClient(new Swapper(wallet));
+    //     let conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL ? process.env.NEXT_PUBLIC_RPC_URL : "https://api.devnet.solana.com");
 
-        let conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL);
+    //     let provider = new anchor.AnchorProvider(
+    //         conn,
+    //         wallet,
+    //         anchor.AnchorProvider.defaultOptions()
+    //     );
 
-        let provider = new anchor.AnchorProvider(
-            conn,
-            wallet,
-            anchor.AnchorProvider.defaultOptions()
-        );
+    //     setAccountsClient(new MarketplaceAccountsClient(wallet, conn, provider));
+    //     setPhysicalMarketClient(new PhysicalMarketplaceClient(wallet, conn, provider));
+    //     setDigitalMarketClient(new DigitalMarketplaceClient(wallet, conn, provider));
 
-        setConnection(conn);
-        setProvider(provider);
-    }, [wallet])
+    //     setConnection(conn);
+    //     setProvider(provider);
+    // }, [wallet])
     
     return (<div className="pr-2">
         {
